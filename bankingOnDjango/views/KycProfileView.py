@@ -36,7 +36,7 @@ def create(request):
 	asJson = serializers.serialize("json", responseData)
 	return HttpResponse(asJson, content_type="application/json");
 
-def save(request):
+def update(request):
 	kycProfile = json.loads(request.body)
 	delegate = KycProfileDelegate()
 	responseData = delegate.save( kycProfile )

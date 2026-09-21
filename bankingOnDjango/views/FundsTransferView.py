@@ -36,7 +36,7 @@ def create(request):
 	asJson = serializers.serialize("json", responseData)
 	return HttpResponse(asJson, content_type="application/json");
 
-def save(request):
+def update(request):
 	fundsTransfer = json.loads(request.body)
 	delegate = FundsTransferDelegate()
 	responseData = delegate.save( fundsTransfer )
