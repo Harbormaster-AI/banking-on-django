@@ -4,24 +4,30 @@ from django.db import models
 #======================================================================
 # Class ExternalAccount Declaration
 #======================================================================
-#getDjangoClassDecl( $class $suffixToAdd )
+class ExternalAccount (models.Model):
 
 #======================================================================
 # attribute declarations
 #======================================================================
-	#getDjangoAttributeDeclaration( $attribute $class $prefix )
-	#getDjangoAttributeDeclaration( $attribute $class $prefix )
-	#getDjangoAttributeDeclaration( $attribute $class $prefix )
-	#getDjangoAttributeDeclaration( $attribute $class $prefix )
-	#getDjangoAttributeDeclaration( $attribute $class $prefix )
-	#getDjangoAttributeDeclaration( $attribute $class $prefix )
-	#getDjangoAttributeDeclaration( $attribute $class $prefix )
-	#getDjangoAttributeDeclaration( $attribute $class $prefix )
+		$prefixName = models.CharField(max_length=200, null=True)
+			ibanValue = models.CharField(max_length=200, null=True)
+	ibanValue = models.CharField(max_length=200, null=True)
+			accountNumberValue = models.CharField(max_length=200, null=True)
+	accountNumberValue = models.CharField(max_length=200, null=True)
+			bicValue = models.CharField(max_length=200, null=True)
+	bicValue = models.CharField(max_length=200, null=True)
+		$prefixBankName = models.CharField(max_length=200, null=True)
+		$prefixCountry = models.CharField(max_length=200, null=True)
+		$prefixCustomer = models.ForeignKey('Customer', on_delete=models.CASCADE, null=True, blank=True, related_name='+')
+		$prefixTransactions = models.ManyToManyField('Transaction',  blank=True, related_name='+')
 
 #======================================================================
 # function declarations
 #======================================================================
-#getDjangoToString( $class false )
+	def toString(self):
+		str = ""
+		str = str + self.value
+		return str;
     
 	def __str__(self):
 		return self.toString();

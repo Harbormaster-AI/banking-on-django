@@ -5,22 +5,36 @@ from bankingOnDjango.models.CollateralType import CollateralType
 #======================================================================
 # Class Collateral Declaration
 #======================================================================
-#getDjangoClassDecl( $class $suffixToAdd )
+class Collateral (models.Model):
 
 #======================================================================
 # attribute declarations
 #======================================================================
-	#getDjangoAttributeDeclaration( $attribute $class $prefix )
-	#getDjangoAttributeDeclaration( $attribute $class $prefix )
-	#getDjangoAttributeDeclaration( $attribute $class $prefix )
-	#getDjangoAttributeDeclaration( $attribute $class $prefix )
-	#getDjangoAttributeDeclaration( $attribute $class $prefix )
-	#getDjangoAttributeDeclaration( $attribute $class $prefix )
+		$prefixCollateralIdentifier = models.CharField(max_length=200, null=True)
+			appraisedValueAmount = models.CharField(max_length=64, null=True)
+		appraisedValueCurrency = models.CharField(max_length=200, null=True)
+	appraisedValueCurrency = models.CharField(max_length=200, null=True)
+		$prefixDescription = models.CharField(max_length=200, null=True)
+			locationStreet = models.CharField(max_length=200, null=True)
+		locationCity = models.CharField(max_length=200, null=True)
+		locationState = models.CharField(max_length=200, null=True)
+		locationPostalCode = models.CharField(max_length=200, null=True)
+		locationCountry = models.CharField(max_length=200, null=True)
+	locationCountry = models.CharField(max_length=200, null=True)
+		$prefixLoanAccount = models.ForeignKey('LoanAccount', on_delete=models.CASCADE, null=True, blank=True, related_name='+')
+		$prefixCollateralType = models.CharField(max_length=64, null=True, choices=[(tag.name, tag.value) for tag in CollateralType])
 
 #======================================================================
 # function declarations
 #======================================================================
-#getDjangoToString( $class false )
+	def toString(self):
+		str = ""
+		str = str + self.street
+		str = str + self.city
+		str = str + self.state
+		str = str + self.postalCode
+		str = str + self.country
+		return str;
     
 	def __str__(self):
 		return self.toString();

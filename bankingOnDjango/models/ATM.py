@@ -5,20 +5,32 @@ from bankingOnDjango.models.ATMStatus import ATMStatus
 #======================================================================
 # Class ATM Declaration
 #======================================================================
-#getDjangoClassDecl( $class $suffixToAdd )
+class ATM (models.Model):
 
 #======================================================================
 # attribute declarations
 #======================================================================
-	#getDjangoAttributeDeclaration( $attribute $class $prefix )
-	#getDjangoAttributeDeclaration( $attribute $class $prefix )
-	#getDjangoAttributeDeclaration( $attribute $class $prefix )
-	#getDjangoAttributeDeclaration( $attribute $class $prefix )
+		$prefixTerminalId = models.CharField(max_length=200, null=True)
+			locationStreet = models.CharField(max_length=200, null=True)
+		locationCity = models.CharField(max_length=200, null=True)
+		locationState = models.CharField(max_length=200, null=True)
+		locationPostalCode = models.CharField(max_length=200, null=True)
+		locationCountry = models.CharField(max_length=200, null=True)
+	locationCountry = models.CharField(max_length=200, null=True)
+		$prefixBranch = models.ForeignKey('Branch', on_delete=models.CASCADE, null=True, blank=True, related_name='+')
+		$prefixStatus = models.CharField(max_length=64, null=True, choices=[(tag.name, tag.value) for tag in ATMStatus])
 
 #======================================================================
 # function declarations
 #======================================================================
-#getDjangoToString( $class false )
+	def toString(self):
+		str = ""
+		str = str + self.street
+		str = str + self.city
+		str = str + self.state
+		str = str + self.postalCode
+		str = str + self.country
+		return str;
     
 	def __str__(self):
 		return self.toString();

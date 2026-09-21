@@ -5,22 +5,28 @@ from bankingOnDjango.models.FeeType import FeeType
 #======================================================================
 # Class FeeCharge Declaration
 #======================================================================
-#getDjangoClassDecl( $class $suffixToAdd )
+class FeeCharge (models.Model):
 
 #======================================================================
 # attribute declarations
 #======================================================================
-	#getDjangoAttributeDeclaration( $attribute $class $prefix )
-	#getDjangoAttributeDeclaration( $attribute $class $prefix )
-	#getDjangoAttributeDeclaration( $attribute $class $prefix )
-	#getDjangoAttributeDeclaration( $attribute $class $prefix )
-	#getDjangoAttributeDeclaration( $attribute $class $prefix )
-	#getDjangoAttributeDeclaration( $attribute $class $prefix )
+		$prefixFeeCode = models.CharField(max_length=200, null=True)
+			amountAmount = models.CharField(max_length=64, null=True)
+		amountCurrency = models.CharField(max_length=200, null=True)
+	amountCurrency = models.CharField(max_length=200, null=True)
+		$prefixAppliedOn = models.DateField(null=True)
+		$prefixAccount = models.ForeignKey('Account', on_delete=models.CASCADE, null=True, blank=True, related_name='+')
+		$prefixLoanAccount = models.ForeignKey('LoanAccount', on_delete=models.CASCADE, null=True, blank=True, related_name='+')
+		$prefixFeeType = models.CharField(max_length=64, null=True, choices=[(tag.name, tag.value) for tag in FeeType])
 
 #======================================================================
 # function declarations
 #======================================================================
-#getDjangoToString( $class false )
+	def toString(self):
+		str = ""
+		str = str + self.amount
+		str = str + self.currency
+		return str;
     
 	def __str__(self):
 		return self.toString();
