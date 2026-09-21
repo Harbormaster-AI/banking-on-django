@@ -20,14 +20,14 @@ from bankingOnDjango.delegates.AccountStatementDelegate import AccountStatementD
 def index(request):
 	return HttpResponse("Hello, world. You're at the AccountStatement index.")
 
-    @staticmethod
-    def get(request):
-        requestData = json.loads(request.body)
-        accountStatementId = requestData["id"]
-        delegate = AccountStatementDelegate()
-        responseData = delegate.get(accountStatementId)
-        asJson = serializers.serialize("json",responseData)
-        return HttpResponse(asJson,content_type="application/json")
+
+def get(request):
+    requestData = json.loads(request.body)
+    accountStatementId = requestData["id"]
+    delegate = AccountStatementDelegate()
+    responseData = delegate.get(accountStatementId)
+    asJson = serializers.serialize("json",responseData)
+    return HttpResponse(asJson,content_type="application/json")
 
 def create(request):
 	accountStatement = json.loads(request.body)
@@ -43,43 +43,42 @@ def save(request):
 	asJson = serializers.serialize("json", responseData)
 	return HttpResponse(asJson, content_type="application/json");
 
-    def delete(request):
-        requestData = json.loads(request.body)
-        accountStatementId = requestData["id"]
-        delegate = AccountStatementDelegate()
-        responseData = delegate.delete(accountStatementId)
-        asJson = serializers.serialize("json",responseData)
-        return HttpResponse(asJson,content_type="application/json")
+def delete(request):
+    requestData = json.loads(request.body)
+    accountStatementId = requestData["id"]
+    delegate = AccountStatementDelegate()
+    responseData = delegate.delete(accountStatementId)
+    asJson = serializers.serialize("json",responseData)
+    return HttpResponse(asJson,content_type="application/json")
 
-    def getAll(request):
-        delegate = AccountStatementDelegate()
-        responseData = delegate.getAll()
-        asJson = serializers.serialize("json", responseData)
-        return HttpResponse(asJson, content_type="application/json");
+def getAll(request):
+    delegate = AccountStatementDelegate()
+    responseData = delegate.getAll()
+    asJson = serializers.serialize("json", responseData)
+    return HttpResponse(asJson, content_type="application/json");
 
 
     # ---------------------------------------------------------
     # Single association
     # ---------------------------------------------------------
-    @staticmethod
-    def assignAccount(request):
-        requestData = json.loads(request.body)
-        parentId = requestData["parentId"]
-        childId = requestData["childId"]
-        delegate = AccountStatementDelegate()
-        responseData = delegate.assignAccount(parentId,childId)
-        asJson = serializers.serialize("json",responseData)
-        return HttpResponse(asJson,content_type="application/json")
+def assignAccount(request):
+    requestData = json.loads(request.body)
+    parentId = requestData["parentId"]
+    childId = requestData["childId"]
+    delegate = AccountStatementDelegate()
+    responseData = delegate.assignAccount(parentId,childId)
+    asJson = serializers.serialize("json",responseData)
+    return HttpResponse(asJson,content_type="application/json")
 
-    @staticmethod
-    def unassignAccount(request):
-        requestData = json.loads(request.body)
-        parentId = requestData["parentId"]
-        childId = requestData["childId"]
-        delegate = AccountStatementDelegate()
-        responseData = delegate.unassignAccount(parentId,childId)
-        asJson = serializers.serialize("json",responseData)
-        return HttpResponse(asJson,content_type="application/json")
+def unassignAccount(request):
+    requestData = json.loads(request.body)
+    parentId = requestData["parentId"]
+    childId = requestData["childId"]
+    delegate = AccountStatementDelegate()
+    responseData = delegate.unassignAccount(parentId,childId)
+    asJson = serializers.serialize("json",responseData)
+    return HttpResponse(asJson,content_type="application/json")
+
 
     # ---------------------------------------------------------
     # Multiple association

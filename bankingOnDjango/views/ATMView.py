@@ -20,14 +20,14 @@ from bankingOnDjango.delegates.ATMDelegate import ATMDelegate
 def index(request):
 	return HttpResponse("Hello, world. You're at the ATM index.")
 
-    @staticmethod
-    def get(request):
-        requestData = json.loads(request.body)
-        aTMId = requestData["id"]
-        delegate = ATMDelegate()
-        responseData = delegate.get(aTMId)
-        asJson = serializers.serialize("json",responseData)
-        return HttpResponse(asJson,content_type="application/json")
+
+def get(request):
+    requestData = json.loads(request.body)
+    aTMId = requestData["id"]
+    delegate = ATMDelegate()
+    responseData = delegate.get(aTMId)
+    asJson = serializers.serialize("json",responseData)
+    return HttpResponse(asJson,content_type="application/json")
 
 def create(request):
 	aTM = json.loads(request.body)
@@ -43,43 +43,42 @@ def save(request):
 	asJson = serializers.serialize("json", responseData)
 	return HttpResponse(asJson, content_type="application/json");
 
-    def delete(request):
-        requestData = json.loads(request.body)
-        aTMId = requestData["id"]
-        delegate = ATMDelegate()
-        responseData = delegate.delete(aTMId)
-        asJson = serializers.serialize("json",responseData)
-        return HttpResponse(asJson,content_type="application/json")
+def delete(request):
+    requestData = json.loads(request.body)
+    aTMId = requestData["id"]
+    delegate = ATMDelegate()
+    responseData = delegate.delete(aTMId)
+    asJson = serializers.serialize("json",responseData)
+    return HttpResponse(asJson,content_type="application/json")
 
-    def getAll(request):
-        delegate = ATMDelegate()
-        responseData = delegate.getAll()
-        asJson = serializers.serialize("json", responseData)
-        return HttpResponse(asJson, content_type="application/json");
+def getAll(request):
+    delegate = ATMDelegate()
+    responseData = delegate.getAll()
+    asJson = serializers.serialize("json", responseData)
+    return HttpResponse(asJson, content_type="application/json");
 
 
     # ---------------------------------------------------------
     # Single association
     # ---------------------------------------------------------
-    @staticmethod
-    def assignBranch(request):
-        requestData = json.loads(request.body)
-        parentId = requestData["parentId"]
-        childId = requestData["childId"]
-        delegate = ATMDelegate()
-        responseData = delegate.assignBranch(parentId,childId)
-        asJson = serializers.serialize("json",responseData)
-        return HttpResponse(asJson,content_type="application/json")
+def assignBranch(request):
+    requestData = json.loads(request.body)
+    parentId = requestData["parentId"]
+    childId = requestData["childId"]
+    delegate = ATMDelegate()
+    responseData = delegate.assignBranch(parentId,childId)
+    asJson = serializers.serialize("json",responseData)
+    return HttpResponse(asJson,content_type="application/json")
 
-    @staticmethod
-    def unassignBranch(request):
-        requestData = json.loads(request.body)
-        parentId = requestData["parentId"]
-        childId = requestData["childId"]
-        delegate = ATMDelegate()
-        responseData = delegate.unassignBranch(parentId,childId)
-        asJson = serializers.serialize("json",responseData)
-        return HttpResponse(asJson,content_type="application/json")
+def unassignBranch(request):
+    requestData = json.loads(request.body)
+    parentId = requestData["parentId"]
+    childId = requestData["childId"]
+    delegate = ATMDelegate()
+    responseData = delegate.unassignBranch(parentId,childId)
+    asJson = serializers.serialize("json",responseData)
+    return HttpResponse(asJson,content_type="application/json")
+
 
     # ---------------------------------------------------------
     # Multiple association

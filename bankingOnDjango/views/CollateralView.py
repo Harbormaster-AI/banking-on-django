@@ -20,14 +20,14 @@ from bankingOnDjango.delegates.CollateralDelegate import CollateralDelegate
 def index(request):
 	return HttpResponse("Hello, world. You're at the Collateral index.")
 
-    @staticmethod
-    def get(request):
-        requestData = json.loads(request.body)
-        collateralId = requestData["id"]
-        delegate = CollateralDelegate()
-        responseData = delegate.get(collateralId)
-        asJson = serializers.serialize("json",responseData)
-        return HttpResponse(asJson,content_type="application/json")
+
+def get(request):
+    requestData = json.loads(request.body)
+    collateralId = requestData["id"]
+    delegate = CollateralDelegate()
+    responseData = delegate.get(collateralId)
+    asJson = serializers.serialize("json",responseData)
+    return HttpResponse(asJson,content_type="application/json")
 
 def create(request):
 	collateral = json.loads(request.body)
@@ -43,43 +43,42 @@ def save(request):
 	asJson = serializers.serialize("json", responseData)
 	return HttpResponse(asJson, content_type="application/json");
 
-    def delete(request):
-        requestData = json.loads(request.body)
-        collateralId = requestData["id"]
-        delegate = CollateralDelegate()
-        responseData = delegate.delete(collateralId)
-        asJson = serializers.serialize("json",responseData)
-        return HttpResponse(asJson,content_type="application/json")
+def delete(request):
+    requestData = json.loads(request.body)
+    collateralId = requestData["id"]
+    delegate = CollateralDelegate()
+    responseData = delegate.delete(collateralId)
+    asJson = serializers.serialize("json",responseData)
+    return HttpResponse(asJson,content_type="application/json")
 
-    def getAll(request):
-        delegate = CollateralDelegate()
-        responseData = delegate.getAll()
-        asJson = serializers.serialize("json", responseData)
-        return HttpResponse(asJson, content_type="application/json");
+def getAll(request):
+    delegate = CollateralDelegate()
+    responseData = delegate.getAll()
+    asJson = serializers.serialize("json", responseData)
+    return HttpResponse(asJson, content_type="application/json");
 
 
     # ---------------------------------------------------------
     # Single association
     # ---------------------------------------------------------
-    @staticmethod
-    def assignLoanAccount(request):
-        requestData = json.loads(request.body)
-        parentId = requestData["parentId"]
-        childId = requestData["childId"]
-        delegate = CollateralDelegate()
-        responseData = delegate.assignLoanAccount(parentId,childId)
-        asJson = serializers.serialize("json",responseData)
-        return HttpResponse(asJson,content_type="application/json")
+def assignLoanAccount(request):
+    requestData = json.loads(request.body)
+    parentId = requestData["parentId"]
+    childId = requestData["childId"]
+    delegate = CollateralDelegate()
+    responseData = delegate.assignLoanAccount(parentId,childId)
+    asJson = serializers.serialize("json",responseData)
+    return HttpResponse(asJson,content_type="application/json")
 
-    @staticmethod
-    def unassignLoanAccount(request):
-        requestData = json.loads(request.body)
-        parentId = requestData["parentId"]
-        childId = requestData["childId"]
-        delegate = CollateralDelegate()
-        responseData = delegate.unassignLoanAccount(parentId,childId)
-        asJson = serializers.serialize("json",responseData)
-        return HttpResponse(asJson,content_type="application/json")
+def unassignLoanAccount(request):
+    requestData = json.loads(request.body)
+    parentId = requestData["parentId"]
+    childId = requestData["childId"]
+    delegate = CollateralDelegate()
+    responseData = delegate.unassignLoanAccount(parentId,childId)
+    asJson = serializers.serialize("json",responseData)
+    return HttpResponse(asJson,content_type="application/json")
+
 
     # ---------------------------------------------------------
     # Multiple association

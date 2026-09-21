@@ -20,14 +20,14 @@ from bankingOnDjango.delegates.ScreeningResultDelegate import ScreeningResultDel
 def index(request):
 	return HttpResponse("Hello, world. You're at the ScreeningResult index.")
 
-    @staticmethod
-    def get(request):
-        requestData = json.loads(request.body)
-        screeningResultId = requestData["id"]
-        delegate = ScreeningResultDelegate()
-        responseData = delegate.get(screeningResultId)
-        asJson = serializers.serialize("json",responseData)
-        return HttpResponse(asJson,content_type="application/json")
+
+def get(request):
+    requestData = json.loads(request.body)
+    screeningResultId = requestData["id"]
+    delegate = ScreeningResultDelegate()
+    responseData = delegate.get(screeningResultId)
+    asJson = serializers.serialize("json",responseData)
+    return HttpResponse(asJson,content_type="application/json")
 
 def create(request):
 	screeningResult = json.loads(request.body)
@@ -43,43 +43,42 @@ def save(request):
 	asJson = serializers.serialize("json", responseData)
 	return HttpResponse(asJson, content_type="application/json");
 
-    def delete(request):
-        requestData = json.loads(request.body)
-        screeningResultId = requestData["id"]
-        delegate = ScreeningResultDelegate()
-        responseData = delegate.delete(screeningResultId)
-        asJson = serializers.serialize("json",responseData)
-        return HttpResponse(asJson,content_type="application/json")
+def delete(request):
+    requestData = json.loads(request.body)
+    screeningResultId = requestData["id"]
+    delegate = ScreeningResultDelegate()
+    responseData = delegate.delete(screeningResultId)
+    asJson = serializers.serialize("json",responseData)
+    return HttpResponse(asJson,content_type="application/json")
 
-    def getAll(request):
-        delegate = ScreeningResultDelegate()
-        responseData = delegate.getAll()
-        asJson = serializers.serialize("json", responseData)
-        return HttpResponse(asJson, content_type="application/json");
+def getAll(request):
+    delegate = ScreeningResultDelegate()
+    responseData = delegate.getAll()
+    asJson = serializers.serialize("json", responseData)
+    return HttpResponse(asJson, content_type="application/json");
 
 
     # ---------------------------------------------------------
     # Single association
     # ---------------------------------------------------------
-    @staticmethod
-    def assignKycProfile(request):
-        requestData = json.loads(request.body)
-        parentId = requestData["parentId"]
-        childId = requestData["childId"]
-        delegate = ScreeningResultDelegate()
-        responseData = delegate.assignKycProfile(parentId,childId)
-        asJson = serializers.serialize("json",responseData)
-        return HttpResponse(asJson,content_type="application/json")
+def assignKycProfile(request):
+    requestData = json.loads(request.body)
+    parentId = requestData["parentId"]
+    childId = requestData["childId"]
+    delegate = ScreeningResultDelegate()
+    responseData = delegate.assignKycProfile(parentId,childId)
+    asJson = serializers.serialize("json",responseData)
+    return HttpResponse(asJson,content_type="application/json")
 
-    @staticmethod
-    def unassignKycProfile(request):
-        requestData = json.loads(request.body)
-        parentId = requestData["parentId"]
-        childId = requestData["childId"]
-        delegate = ScreeningResultDelegate()
-        responseData = delegate.unassignKycProfile(parentId,childId)
-        asJson = serializers.serialize("json",responseData)
-        return HttpResponse(asJson,content_type="application/json")
+def unassignKycProfile(request):
+    requestData = json.loads(request.body)
+    parentId = requestData["parentId"]
+    childId = requestData["childId"]
+    delegate = ScreeningResultDelegate()
+    responseData = delegate.unassignKycProfile(parentId,childId)
+    asJson = serializers.serialize("json",responseData)
+    return HttpResponse(asJson,content_type="application/json")
+
 
     # ---------------------------------------------------------
     # Multiple association

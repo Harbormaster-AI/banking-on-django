@@ -20,14 +20,14 @@ from bankingOnDjango.delegates.LoanPaymentDelegate import LoanPaymentDelegate
 def index(request):
 	return HttpResponse("Hello, world. You're at the LoanPayment index.")
 
-    @staticmethod
-    def get(request):
-        requestData = json.loads(request.body)
-        loanPaymentId = requestData["id"]
-        delegate = LoanPaymentDelegate()
-        responseData = delegate.get(loanPaymentId)
-        asJson = serializers.serialize("json",responseData)
-        return HttpResponse(asJson,content_type="application/json")
+
+def get(request):
+    requestData = json.loads(request.body)
+    loanPaymentId = requestData["id"]
+    delegate = LoanPaymentDelegate()
+    responseData = delegate.get(loanPaymentId)
+    asJson = serializers.serialize("json",responseData)
+    return HttpResponse(asJson,content_type="application/json")
 
 def create(request):
 	loanPayment = json.loads(request.body)
@@ -43,62 +43,59 @@ def save(request):
 	asJson = serializers.serialize("json", responseData)
 	return HttpResponse(asJson, content_type="application/json");
 
-    def delete(request):
-        requestData = json.loads(request.body)
-        loanPaymentId = requestData["id"]
-        delegate = LoanPaymentDelegate()
-        responseData = delegate.delete(loanPaymentId)
-        asJson = serializers.serialize("json",responseData)
-        return HttpResponse(asJson,content_type="application/json")
+def delete(request):
+    requestData = json.loads(request.body)
+    loanPaymentId = requestData["id"]
+    delegate = LoanPaymentDelegate()
+    responseData = delegate.delete(loanPaymentId)
+    asJson = serializers.serialize("json",responseData)
+    return HttpResponse(asJson,content_type="application/json")
 
-    def getAll(request):
-        delegate = LoanPaymentDelegate()
-        responseData = delegate.getAll()
-        asJson = serializers.serialize("json", responseData)
-        return HttpResponse(asJson, content_type="application/json");
+def getAll(request):
+    delegate = LoanPaymentDelegate()
+    responseData = delegate.getAll()
+    asJson = serializers.serialize("json", responseData)
+    return HttpResponse(asJson, content_type="application/json");
 
 
     # ---------------------------------------------------------
     # Single association
     # ---------------------------------------------------------
-    @staticmethod
-    def assignLoanAccount(request):
-        requestData = json.loads(request.body)
-        parentId = requestData["parentId"]
-        childId = requestData["childId"]
-        delegate = LoanPaymentDelegate()
-        responseData = delegate.assignLoanAccount(parentId,childId)
-        asJson = serializers.serialize("json",responseData)
-        return HttpResponse(asJson,content_type="application/json")
+def assignLoanAccount(request):
+    requestData = json.loads(request.body)
+    parentId = requestData["parentId"]
+    childId = requestData["childId"]
+    delegate = LoanPaymentDelegate()
+    responseData = delegate.assignLoanAccount(parentId,childId)
+    asJson = serializers.serialize("json",responseData)
+    return HttpResponse(asJson,content_type="application/json")
 
-    @staticmethod
-    def unassignLoanAccount(request):
-        requestData = json.loads(request.body)
-        parentId = requestData["parentId"]
-        childId = requestData["childId"]
-        delegate = LoanPaymentDelegate()
-        responseData = delegate.unassignLoanAccount(parentId,childId)
-        asJson = serializers.serialize("json",responseData)
-        return HttpResponse(asJson,content_type="application/json")
-    @staticmethod
-    def assignTransaction(request):
-        requestData = json.loads(request.body)
-        parentId = requestData["parentId"]
-        childId = requestData["childId"]
-        delegate = LoanPaymentDelegate()
-        responseData = delegate.assignTransaction(parentId,childId)
-        asJson = serializers.serialize("json",responseData)
-        return HttpResponse(asJson,content_type="application/json")
+def unassignLoanAccount(request):
+    requestData = json.loads(request.body)
+    parentId = requestData["parentId"]
+    childId = requestData["childId"]
+    delegate = LoanPaymentDelegate()
+    responseData = delegate.unassignLoanAccount(parentId,childId)
+    asJson = serializers.serialize("json",responseData)
+    return HttpResponse(asJson,content_type="application/json")
+def assignTransaction(request):
+    requestData = json.loads(request.body)
+    parentId = requestData["parentId"]
+    childId = requestData["childId"]
+    delegate = LoanPaymentDelegate()
+    responseData = delegate.assignTransaction(parentId,childId)
+    asJson = serializers.serialize("json",responseData)
+    return HttpResponse(asJson,content_type="application/json")
 
-    @staticmethod
-    def unassignTransaction(request):
-        requestData = json.loads(request.body)
-        parentId = requestData["parentId"]
-        childId = requestData["childId"]
-        delegate = LoanPaymentDelegate()
-        responseData = delegate.unassignTransaction(parentId,childId)
-        asJson = serializers.serialize("json",responseData)
-        return HttpResponse(asJson,content_type="application/json")
+def unassignTransaction(request):
+    requestData = json.loads(request.body)
+    parentId = requestData["parentId"]
+    childId = requestData["childId"]
+    delegate = LoanPaymentDelegate()
+    responseData = delegate.unassignTransaction(parentId,childId)
+    asJson = serializers.serialize("json",responseData)
+    return HttpResponse(asJson,content_type="application/json")
+
 
     # ---------------------------------------------------------
     # Multiple association

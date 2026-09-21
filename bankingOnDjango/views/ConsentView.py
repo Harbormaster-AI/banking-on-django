@@ -20,14 +20,14 @@ from bankingOnDjango.delegates.ConsentDelegate import ConsentDelegate
 def index(request):
 	return HttpResponse("Hello, world. You're at the Consent index.")
 
-    @staticmethod
-    def get(request):
-        requestData = json.loads(request.body)
-        consentId = requestData["id"]
-        delegate = ConsentDelegate()
-        responseData = delegate.get(consentId)
-        asJson = serializers.serialize("json",responseData)
-        return HttpResponse(asJson,content_type="application/json")
+
+def get(request):
+    requestData = json.loads(request.body)
+    consentId = requestData["id"]
+    delegate = ConsentDelegate()
+    responseData = delegate.get(consentId)
+    asJson = serializers.serialize("json",responseData)
+    return HttpResponse(asJson,content_type="application/json")
 
 def create(request):
 	consent = json.loads(request.body)
@@ -43,103 +43,96 @@ def save(request):
 	asJson = serializers.serialize("json", responseData)
 	return HttpResponse(asJson, content_type="application/json");
 
-    def delete(request):
-        requestData = json.loads(request.body)
-        consentId = requestData["id"]
-        delegate = ConsentDelegate()
-        responseData = delegate.delete(consentId)
-        asJson = serializers.serialize("json",responseData)
-        return HttpResponse(asJson,content_type="application/json")
+def delete(request):
+    requestData = json.loads(request.body)
+    consentId = requestData["id"]
+    delegate = ConsentDelegate()
+    responseData = delegate.delete(consentId)
+    asJson = serializers.serialize("json",responseData)
+    return HttpResponse(asJson,content_type="application/json")
 
-    def getAll(request):
-        delegate = ConsentDelegate()
-        responseData = delegate.getAll()
-        asJson = serializers.serialize("json", responseData)
-        return HttpResponse(asJson, content_type="application/json");
+def getAll(request):
+    delegate = ConsentDelegate()
+    responseData = delegate.getAll()
+    asJson = serializers.serialize("json", responseData)
+    return HttpResponse(asJson, content_type="application/json");
 
 
     # ---------------------------------------------------------
     # Single association
     # ---------------------------------------------------------
-    @staticmethod
-    def assignCustomer(request):
-        requestData = json.loads(request.body)
-        parentId = requestData["parentId"]
-        childId = requestData["childId"]
-        delegate = ConsentDelegate()
-        responseData = delegate.assignCustomer(parentId,childId)
-        asJson = serializers.serialize("json",responseData)
-        return HttpResponse(asJson,content_type="application/json")
+def assignCustomer(request):
+    requestData = json.loads(request.body)
+    parentId = requestData["parentId"]
+    childId = requestData["childId"]
+    delegate = ConsentDelegate()
+    responseData = delegate.assignCustomer(parentId,childId)
+    asJson = serializers.serialize("json",responseData)
+    return HttpResponse(asJson,content_type="application/json")
 
-    @staticmethod
-    def unassignCustomer(request):
-        requestData = json.loads(request.body)
-        parentId = requestData["parentId"]
-        childId = requestData["childId"]
-        delegate = ConsentDelegate()
-        responseData = delegate.unassignCustomer(parentId,childId)
-        asJson = serializers.serialize("json",responseData)
-        return HttpResponse(asJson,content_type="application/json")
-    @staticmethod
-    def assignBank(request):
-        requestData = json.loads(request.body)
-        parentId = requestData["parentId"]
-        childId = requestData["childId"]
-        delegate = ConsentDelegate()
-        responseData = delegate.assignBank(parentId,childId)
-        asJson = serializers.serialize("json",responseData)
-        return HttpResponse(asJson,content_type="application/json")
+def unassignCustomer(request):
+    requestData = json.loads(request.body)
+    parentId = requestData["parentId"]
+    childId = requestData["childId"]
+    delegate = ConsentDelegate()
+    responseData = delegate.unassignCustomer(parentId,childId)
+    asJson = serializers.serialize("json",responseData)
+    return HttpResponse(asJson,content_type="application/json")
+def assignBank(request):
+    requestData = json.loads(request.body)
+    parentId = requestData["parentId"]
+    childId = requestData["childId"]
+    delegate = ConsentDelegate()
+    responseData = delegate.assignBank(parentId,childId)
+    asJson = serializers.serialize("json",responseData)
+    return HttpResponse(asJson,content_type="application/json")
 
-    @staticmethod
-    def unassignBank(request):
-        requestData = json.loads(request.body)
-        parentId = requestData["parentId"]
-        childId = requestData["childId"]
-        delegate = ConsentDelegate()
-        responseData = delegate.unassignBank(parentId,childId)
-        asJson = serializers.serialize("json",responseData)
-        return HttpResponse(asJson,content_type="application/json")
-    @staticmethod
-    def assignThirdPartyProvider(request):
-        requestData = json.loads(request.body)
-        parentId = requestData["parentId"]
-        childId = requestData["childId"]
-        delegate = ConsentDelegate()
-        responseData = delegate.assignThirdPartyProvider(parentId,childId)
-        asJson = serializers.serialize("json",responseData)
-        return HttpResponse(asJson,content_type="application/json")
+def unassignBank(request):
+    requestData = json.loads(request.body)
+    parentId = requestData["parentId"]
+    childId = requestData["childId"]
+    delegate = ConsentDelegate()
+    responseData = delegate.unassignBank(parentId,childId)
+    asJson = serializers.serialize("json",responseData)
+    return HttpResponse(asJson,content_type="application/json")
+def assignThirdPartyProvider(request):
+    requestData = json.loads(request.body)
+    parentId = requestData["parentId"]
+    childId = requestData["childId"]
+    delegate = ConsentDelegate()
+    responseData = delegate.assignThirdPartyProvider(parentId,childId)
+    asJson = serializers.serialize("json",responseData)
+    return HttpResponse(asJson,content_type="application/json")
 
-    @staticmethod
-    def unassignThirdPartyProvider(request):
-        requestData = json.loads(request.body)
-        parentId = requestData["parentId"]
-        childId = requestData["childId"]
-        delegate = ConsentDelegate()
-        responseData = delegate.unassignThirdPartyProvider(parentId,childId)
-        asJson = serializers.serialize("json",responseData)
-        return HttpResponse(asJson,content_type="application/json")
+def unassignThirdPartyProvider(request):
+    requestData = json.loads(request.body)
+    parentId = requestData["parentId"]
+    childId = requestData["childId"]
+    delegate = ConsentDelegate()
+    responseData = delegate.unassignThirdPartyProvider(parentId,childId)
+    asJson = serializers.serialize("json",responseData)
+    return HttpResponse(asJson,content_type="application/json")
+
 
     # ---------------------------------------------------------
     # Multiple association
     # ---------------------------------------------------------
-    @staticmethod
-    def addAuthorizedAccounts(request):
-        requestData = json.loads(request.body)
-        parentId = requestData["parentId"]
-        childIds = requestData["childIds"]
-        delegate = ConsentDelegate()
-        responseData = delegate.addAuthorizedAccounts(parentId,childIds)
-        asJson = serializers.serialize("json",responseData)
-        return HttpResponse(asJson,content_type="application/json")
+def addAuthorizedAccounts(request):
+    requestData = json.loads(request.body)
+    parentId = requestData["parentId"]
+    childIds = requestData["childIds"]
+    delegate = ConsentDelegate()
+    responseData = delegate.addAuthorizedAccounts(parentId,childIds)
+    asJson = serializers.serialize("json",responseData)
+    return HttpResponse(asJson,content_type="application/json")
 
-    @staticmethod
-    def removeAuthorizedAccounts(request):
-        requestData = json.loads(request.body)
-        parentId = requestData["parentId"]
-        childIds = requestData["childIds"]
-        delegate = ConsentDelegate()
-        responseData = delegate.removeAuthorizedAccounts(parentId,childIds)
-        asJson = serializers.serialize("json",responseData)
-        return HttpResponse(asJson,content_type="application/json")
+def removeAuthorizedAccounts(request):
+    requestData = json.loads(request.body)
+    parentId = requestData["parentId"]
+    childIds = requestData["childIds"]
+    delegate = ConsentDelegate()
+    responseData = delegate.removeAuthorizedAccounts(parentId,childIds)
+    asJson = serializers.serialize("json",responseData)
+    return HttpResponse(asJson,content_type="application/json")
 
 

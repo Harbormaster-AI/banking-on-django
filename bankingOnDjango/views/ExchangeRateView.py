@@ -20,14 +20,14 @@ from bankingOnDjango.delegates.ExchangeRateDelegate import ExchangeRateDelegate
 def index(request):
 	return HttpResponse("Hello, world. You're at the ExchangeRate index.")
 
-    @staticmethod
-    def get(request):
-        requestData = json.loads(request.body)
-        exchangeRateId = requestData["id"]
-        delegate = ExchangeRateDelegate()
-        responseData = delegate.get(exchangeRateId)
-        asJson = serializers.serialize("json",responseData)
-        return HttpResponse(asJson,content_type="application/json")
+
+def get(request):
+    requestData = json.loads(request.body)
+    exchangeRateId = requestData["id"]
+    delegate = ExchangeRateDelegate()
+    responseData = delegate.get(exchangeRateId)
+    asJson = serializers.serialize("json",responseData)
+    return HttpResponse(asJson,content_type="application/json")
 
 def create(request):
 	exchangeRate = json.loads(request.body)
@@ -43,65 +43,62 @@ def save(request):
 	asJson = serializers.serialize("json", responseData)
 	return HttpResponse(asJson, content_type="application/json");
 
-    def delete(request):
-        requestData = json.loads(request.body)
-        exchangeRateId = requestData["id"]
-        delegate = ExchangeRateDelegate()
-        responseData = delegate.delete(exchangeRateId)
-        asJson = serializers.serialize("json",responseData)
-        return HttpResponse(asJson,content_type="application/json")
+def delete(request):
+    requestData = json.loads(request.body)
+    exchangeRateId = requestData["id"]
+    delegate = ExchangeRateDelegate()
+    responseData = delegate.delete(exchangeRateId)
+    asJson = serializers.serialize("json",responseData)
+    return HttpResponse(asJson,content_type="application/json")
 
-    def getAll(request):
-        delegate = ExchangeRateDelegate()
-        responseData = delegate.getAll()
-        asJson = serializers.serialize("json", responseData)
-        return HttpResponse(asJson, content_type="application/json");
+def getAll(request):
+    delegate = ExchangeRateDelegate()
+    responseData = delegate.getAll()
+    asJson = serializers.serialize("json", responseData)
+    return HttpResponse(asJson, content_type="application/json");
 
 
     # ---------------------------------------------------------
     # Single association
     # ---------------------------------------------------------
-    @staticmethod
-    def assignBank(request):
-        requestData = json.loads(request.body)
-        parentId = requestData["parentId"]
-        childId = requestData["childId"]
-        delegate = ExchangeRateDelegate()
-        responseData = delegate.assignBank(parentId,childId)
-        asJson = serializers.serialize("json",responseData)
-        return HttpResponse(asJson,content_type="application/json")
+def assignBank(request):
+    requestData = json.loads(request.body)
+    parentId = requestData["parentId"]
+    childId = requestData["childId"]
+    delegate = ExchangeRateDelegate()
+    responseData = delegate.assignBank(parentId,childId)
+    asJson = serializers.serialize("json",responseData)
+    return HttpResponse(asJson,content_type="application/json")
 
-    @staticmethod
-    def unassignBank(request):
-        requestData = json.loads(request.body)
-        parentId = requestData["parentId"]
-        childId = requestData["childId"]
-        delegate = ExchangeRateDelegate()
-        responseData = delegate.unassignBank(parentId,childId)
-        asJson = serializers.serialize("json",responseData)
-        return HttpResponse(asJson,content_type="application/json")
+def unassignBank(request):
+    requestData = json.loads(request.body)
+    parentId = requestData["parentId"]
+    childId = requestData["childId"]
+    delegate = ExchangeRateDelegate()
+    responseData = delegate.unassignBank(parentId,childId)
+    asJson = serializers.serialize("json",responseData)
+    return HttpResponse(asJson,content_type="application/json")
+
 
     # ---------------------------------------------------------
     # Multiple association
     # ---------------------------------------------------------
-    @staticmethod
-    def addFxTrades(request):
-        requestData = json.loads(request.body)
-        parentId = requestData["parentId"]
-        childIds = requestData["childIds"]
-        delegate = ExchangeRateDelegate()
-        responseData = delegate.addFxTrades(parentId,childIds)
-        asJson = serializers.serialize("json",responseData)
-        return HttpResponse(asJson,content_type="application/json")
+def addFxTrades(request):
+    requestData = json.loads(request.body)
+    parentId = requestData["parentId"]
+    childIds = requestData["childIds"]
+    delegate = ExchangeRateDelegate()
+    responseData = delegate.addFxTrades(parentId,childIds)
+    asJson = serializers.serialize("json",responseData)
+    return HttpResponse(asJson,content_type="application/json")
 
-    @staticmethod
-    def removeFxTrades(request):
-        requestData = json.loads(request.body)
-        parentId = requestData["parentId"]
-        childIds = requestData["childIds"]
-        delegate = ExchangeRateDelegate()
-        responseData = delegate.removeFxTrades(parentId,childIds)
-        asJson = serializers.serialize("json",responseData)
-        return HttpResponse(asJson,content_type="application/json")
+def removeFxTrades(request):
+    requestData = json.loads(request.body)
+    parentId = requestData["parentId"]
+    childIds = requestData["childIds"]
+    delegate = ExchangeRateDelegate()
+    responseData = delegate.removeFxTrades(parentId,childIds)
+    asJson = serializers.serialize("json",responseData)
+    return HttpResponse(asJson,content_type="application/json")
 
 

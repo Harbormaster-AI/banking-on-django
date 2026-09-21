@@ -20,14 +20,14 @@ from bankingOnDjango.delegates.FundsTransferDelegate import FundsTransferDelegat
 def index(request):
 	return HttpResponse("Hello, world. You're at the FundsTransfer index.")
 
-    @staticmethod
-    def get(request):
-        requestData = json.loads(request.body)
-        fundsTransferId = requestData["id"]
-        delegate = FundsTransferDelegate()
-        responseData = delegate.get(fundsTransferId)
-        asJson = serializers.serialize("json",responseData)
-        return HttpResponse(asJson,content_type="application/json")
+
+def get(request):
+    requestData = json.loads(request.body)
+    fundsTransferId = requestData["id"]
+    delegate = FundsTransferDelegate()
+    responseData = delegate.get(fundsTransferId)
+    asJson = serializers.serialize("json",responseData)
+    return HttpResponse(asJson,content_type="application/json")
 
 def create(request):
 	fundsTransfer = json.loads(request.body)
@@ -43,122 +43,113 @@ def save(request):
 	asJson = serializers.serialize("json", responseData)
 	return HttpResponse(asJson, content_type="application/json");
 
-    def delete(request):
-        requestData = json.loads(request.body)
-        fundsTransferId = requestData["id"]
-        delegate = FundsTransferDelegate()
-        responseData = delegate.delete(fundsTransferId)
-        asJson = serializers.serialize("json",responseData)
-        return HttpResponse(asJson,content_type="application/json")
+def delete(request):
+    requestData = json.loads(request.body)
+    fundsTransferId = requestData["id"]
+    delegate = FundsTransferDelegate()
+    responseData = delegate.delete(fundsTransferId)
+    asJson = serializers.serialize("json",responseData)
+    return HttpResponse(asJson,content_type="application/json")
 
-    def getAll(request):
-        delegate = FundsTransferDelegate()
-        responseData = delegate.getAll()
-        asJson = serializers.serialize("json", responseData)
-        return HttpResponse(asJson, content_type="application/json");
+def getAll(request):
+    delegate = FundsTransferDelegate()
+    responseData = delegate.getAll()
+    asJson = serializers.serialize("json", responseData)
+    return HttpResponse(asJson, content_type="application/json");
 
 
     # ---------------------------------------------------------
     # Single association
     # ---------------------------------------------------------
-    @staticmethod
-    def assignSourceAccount(request):
-        requestData = json.loads(request.body)
-        parentId = requestData["parentId"]
-        childId = requestData["childId"]
-        delegate = FundsTransferDelegate()
-        responseData = delegate.assignSourceAccount(parentId,childId)
-        asJson = serializers.serialize("json",responseData)
-        return HttpResponse(asJson,content_type="application/json")
+def assignSourceAccount(request):
+    requestData = json.loads(request.body)
+    parentId = requestData["parentId"]
+    childId = requestData["childId"]
+    delegate = FundsTransferDelegate()
+    responseData = delegate.assignSourceAccount(parentId,childId)
+    asJson = serializers.serialize("json",responseData)
+    return HttpResponse(asJson,content_type="application/json")
 
-    @staticmethod
-    def unassignSourceAccount(request):
-        requestData = json.loads(request.body)
-        parentId = requestData["parentId"]
-        childId = requestData["childId"]
-        delegate = FundsTransferDelegate()
-        responseData = delegate.unassignSourceAccount(parentId,childId)
-        asJson = serializers.serialize("json",responseData)
-        return HttpResponse(asJson,content_type="application/json")
-    @staticmethod
-    def assignDestinationAccount(request):
-        requestData = json.loads(request.body)
-        parentId = requestData["parentId"]
-        childId = requestData["childId"]
-        delegate = FundsTransferDelegate()
-        responseData = delegate.assignDestinationAccount(parentId,childId)
-        asJson = serializers.serialize("json",responseData)
-        return HttpResponse(asJson,content_type="application/json")
+def unassignSourceAccount(request):
+    requestData = json.loads(request.body)
+    parentId = requestData["parentId"]
+    childId = requestData["childId"]
+    delegate = FundsTransferDelegate()
+    responseData = delegate.unassignSourceAccount(parentId,childId)
+    asJson = serializers.serialize("json",responseData)
+    return HttpResponse(asJson,content_type="application/json")
+def assignDestinationAccount(request):
+    requestData = json.loads(request.body)
+    parentId = requestData["parentId"]
+    childId = requestData["childId"]
+    delegate = FundsTransferDelegate()
+    responseData = delegate.assignDestinationAccount(parentId,childId)
+    asJson = serializers.serialize("json",responseData)
+    return HttpResponse(asJson,content_type="application/json")
 
-    @staticmethod
-    def unassignDestinationAccount(request):
-        requestData = json.loads(request.body)
-        parentId = requestData["parentId"]
-        childId = requestData["childId"]
-        delegate = FundsTransferDelegate()
-        responseData = delegate.unassignDestinationAccount(parentId,childId)
-        asJson = serializers.serialize("json",responseData)
-        return HttpResponse(asJson,content_type="application/json")
-    @staticmethod
-    def assignExternalBeneficiary(request):
-        requestData = json.loads(request.body)
-        parentId = requestData["parentId"]
-        childId = requestData["childId"]
-        delegate = FundsTransferDelegate()
-        responseData = delegate.assignExternalBeneficiary(parentId,childId)
-        asJson = serializers.serialize("json",responseData)
-        return HttpResponse(asJson,content_type="application/json")
+def unassignDestinationAccount(request):
+    requestData = json.loads(request.body)
+    parentId = requestData["parentId"]
+    childId = requestData["childId"]
+    delegate = FundsTransferDelegate()
+    responseData = delegate.unassignDestinationAccount(parentId,childId)
+    asJson = serializers.serialize("json",responseData)
+    return HttpResponse(asJson,content_type="application/json")
+def assignExternalBeneficiary(request):
+    requestData = json.loads(request.body)
+    parentId = requestData["parentId"]
+    childId = requestData["childId"]
+    delegate = FundsTransferDelegate()
+    responseData = delegate.assignExternalBeneficiary(parentId,childId)
+    asJson = serializers.serialize("json",responseData)
+    return HttpResponse(asJson,content_type="application/json")
 
-    @staticmethod
-    def unassignExternalBeneficiary(request):
-        requestData = json.loads(request.body)
-        parentId = requestData["parentId"]
-        childId = requestData["childId"]
-        delegate = FundsTransferDelegate()
-        responseData = delegate.unassignExternalBeneficiary(parentId,childId)
-        asJson = serializers.serialize("json",responseData)
-        return HttpResponse(asJson,content_type="application/json")
-    @staticmethod
-    def assignInitiatedBy(request):
-        requestData = json.loads(request.body)
-        parentId = requestData["parentId"]
-        childId = requestData["childId"]
-        delegate = FundsTransferDelegate()
-        responseData = delegate.assignInitiatedBy(parentId,childId)
-        asJson = serializers.serialize("json",responseData)
-        return HttpResponse(asJson,content_type="application/json")
+def unassignExternalBeneficiary(request):
+    requestData = json.loads(request.body)
+    parentId = requestData["parentId"]
+    childId = requestData["childId"]
+    delegate = FundsTransferDelegate()
+    responseData = delegate.unassignExternalBeneficiary(parentId,childId)
+    asJson = serializers.serialize("json",responseData)
+    return HttpResponse(asJson,content_type="application/json")
+def assignInitiatedBy(request):
+    requestData = json.loads(request.body)
+    parentId = requestData["parentId"]
+    childId = requestData["childId"]
+    delegate = FundsTransferDelegate()
+    responseData = delegate.assignInitiatedBy(parentId,childId)
+    asJson = serializers.serialize("json",responseData)
+    return HttpResponse(asJson,content_type="application/json")
 
-    @staticmethod
-    def unassignInitiatedBy(request):
-        requestData = json.loads(request.body)
-        parentId = requestData["parentId"]
-        childId = requestData["childId"]
-        delegate = FundsTransferDelegate()
-        responseData = delegate.unassignInitiatedBy(parentId,childId)
-        asJson = serializers.serialize("json",responseData)
-        return HttpResponse(asJson,content_type="application/json")
+def unassignInitiatedBy(request):
+    requestData = json.loads(request.body)
+    parentId = requestData["parentId"]
+    childId = requestData["childId"]
+    delegate = FundsTransferDelegate()
+    responseData = delegate.unassignInitiatedBy(parentId,childId)
+    asJson = serializers.serialize("json",responseData)
+    return HttpResponse(asJson,content_type="application/json")
+
 
     # ---------------------------------------------------------
     # Multiple association
     # ---------------------------------------------------------
-    @staticmethod
-    def addTransactions(request):
-        requestData = json.loads(request.body)
-        parentId = requestData["parentId"]
-        childIds = requestData["childIds"]
-        delegate = FundsTransferDelegate()
-        responseData = delegate.addTransactions(parentId,childIds)
-        asJson = serializers.serialize("json",responseData)
-        return HttpResponse(asJson,content_type="application/json")
+def addTransactions(request):
+    requestData = json.loads(request.body)
+    parentId = requestData["parentId"]
+    childIds = requestData["childIds"]
+    delegate = FundsTransferDelegate()
+    responseData = delegate.addTransactions(parentId,childIds)
+    asJson = serializers.serialize("json",responseData)
+    return HttpResponse(asJson,content_type="application/json")
 
-    @staticmethod
-    def removeTransactions(request):
-        requestData = json.loads(request.body)
-        parentId = requestData["parentId"]
-        childIds = requestData["childIds"]
-        delegate = FundsTransferDelegate()
-        responseData = delegate.removeTransactions(parentId,childIds)
-        asJson = serializers.serialize("json",responseData)
-        return HttpResponse(asJson,content_type="application/json")
+def removeTransactions(request):
+    requestData = json.loads(request.body)
+    parentId = requestData["parentId"]
+    childIds = requestData["childIds"]
+    delegate = FundsTransferDelegate()
+    responseData = delegate.removeTransactions(parentId,childIds)
+    asJson = serializers.serialize("json",responseData)
+    return HttpResponse(asJson,content_type="application/json")
 
 
