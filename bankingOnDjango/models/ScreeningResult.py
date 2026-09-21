@@ -10,10 +10,10 @@ class ScreeningResult (models.Model):
 #======================================================================
 # attribute declarations
 #======================================================================
-	screeningDate = models.DateField(null=True)
-	provider = models.CharField(max_length=200, null=True)
-	kycProfile = models.ForeignKey('KycProfile', on_delete=models.CASCADE, null=True, blank=True, related_name='+')
-	outcome = models.CharField(max_length=64, null=True, choices=[(tag.name, tag.value) for tag in ScreeningOutcome])
+screeningDate = models.DateField(null=True)
+provider = models.CharField(max_length=200, null=True)
+kycProfile = models.ForeignKey('KycProfile', on_delete=models.CASCADE, null=True, blank=True, related_name='+')
+outcome = models.CharField(max_length=64, null=True, choices=[(tag.name, tag.value) for tag in ScreeningOutcome])
 
 #======================================================================
 # function declarations

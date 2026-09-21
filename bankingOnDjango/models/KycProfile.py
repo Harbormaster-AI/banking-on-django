@@ -10,13 +10,13 @@ class KycProfile (models.Model):
 #======================================================================
 # attribute declarations
 #======================================================================
-	profileId = models.CharField(max_length=200, null=True)
-	lastReviewedOn = models.DateField(null=True)
-	customer = models.ForeignKey('Customer', on_delete=models.CASCADE, null=True, blank=True, related_name='+')
-	identityDocuments = models.ManyToManyField('IdentityDocument',  blank=True, related_name='+')
-	riskAssessments = models.ManyToManyField('RiskAssessment',  blank=True, related_name='+')
-	screenings = models.ManyToManyField('ScreeningResult',  blank=True, related_name='+')
-	status = models.CharField(max_length=64, null=True, choices=[(tag.name, tag.value) for tag in KycStatus])
+profileId = models.CharField(max_length=200, null=True)
+lastReviewedOn = models.DateField(null=True)
+customer = models.ForeignKey('Customer', on_delete=models.CASCADE, null=True, blank=True, related_name='+')
+identityDocuments = models.ManyToManyField('IdentityDocument',  blank=True, related_name='+')
+riskAssessments = models.ManyToManyField('RiskAssessment',  blank=True, related_name='+')
+screenings = models.ManyToManyField('ScreeningResult',  blank=True, related_name='+')
+status = models.CharField(max_length=64, null=True, choices=[(tag.name, tag.value) for tag in KycStatus])
 
 #======================================================================
 # function declarations
