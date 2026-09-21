@@ -5,25 +5,20 @@ from bankingOnDjango.models.ScreeningOutcome import ScreeningOutcome
 #======================================================================
 # Class ScreeningResult Declaration
 #======================================================================
-class ScreeningResult (models.Model):
+#getDjangoClassDecl( $class $suffixToAdd )
 
 #======================================================================
 # attribute declarations
 #======================================================================
-	screeningDate = models.DateField(null=True)
-	provider = models.CharField(max_length=200, null=True)
-	kycProfile = models.ForeignKey('KycProfile', on_delete=models.CASCADE, null=True, blank=True, related_name='+')
-	outcome = models.CharField(max_length=64, null=True, choices=[(tag.name, tag.value) for tag in ScreeningOutcome])
+	#getDjangoAttributeDeclaration( $attribute $class $prefix )
+	#getDjangoAttributeDeclaration( $attribute $class $prefix )
+	#getDjangoAttributeDeclaration( $attribute $class $prefix )
+	#getDjangoAttributeDeclaration( $attribute $class $prefix )
 
 #======================================================================
 # function declarations
 #======================================================================
-	def toString(self):
-		str = ""
-		str = str + self.screeningDate
-		str = str + self.provider
-		str = str + self.outcome
-		return str;
+#getDjangoToString( $class false )
     
 	def __str__(self):
 		return self.toString();

@@ -5,25 +5,20 @@ from bankingOnDjango.models.RiskRating import RiskRating
 #======================================================================
 # Class RiskAssessment Declaration
 #======================================================================
-class RiskAssessment (models.Model):
+#getDjangoClassDecl( $class $suffixToAdd )
 
 #======================================================================
 # attribute declarations
 #======================================================================
-	score = models.IntegerField(null=True)
-	assessedOn = models.DateField(null=True)
-	kycProfile = models.ForeignKey('KycProfile', on_delete=models.CASCADE, null=True, blank=True, related_name='+')
-	rating = models.CharField(max_length=64, null=True, choices=[(tag.name, tag.value) for tag in RiskRating])
+	#getDjangoAttributeDeclaration( $attribute $class $prefix )
+	#getDjangoAttributeDeclaration( $attribute $class $prefix )
+	#getDjangoAttributeDeclaration( $attribute $class $prefix )
+	#getDjangoAttributeDeclaration( $attribute $class $prefix )
 
 #======================================================================
 # function declarations
 #======================================================================
-	def toString(self):
-		str = ""
-		str = str + self.score
-		str = str + self.assessedOn
-		str = str + self.rating
-		return str;
+#getDjangoToString( $class false )
     
 	def __str__(self):
 		return self.toString();

@@ -19,8 +19,8 @@ urlpatterns = [
 
 
 
-    path('addTransactions', ExternalAccountView.addTransactions, name='addTransactions'),
-    path('removeTransactions', ExternalAccountView.removeTransactions, name='removeTransactions'),
+    path('addToTransactions', ExternalAccountView.addTransactions, name='addTransactions'),
+    path('removeFromTransactions', ExternalAccountView.removeTransactions, name='removeTransactions'),
 
 
 ]

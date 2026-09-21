@@ -95,12 +95,8 @@ class BankDelegate :
 			# get the Bank
 			bank = self.get( bankId ).first()
 				
-			# split on a comma with no spaces
-			idList = branchesIds.split(',')
-
-			
 			# iterate over ids
-			for id in idList:
+			for id in branchesIds:
 				# read the Branch		
 				branch = BranchDelegate().get(id).first();	
 				# add the Branch
@@ -128,11 +124,8 @@ class BankDelegate :
 			# get the Bank
 			bank = self.get( bankId ).first()
 				
-			# split on a comma with no spaces
-			idList = branchesIds.split(',')
-			
 			# iterate over ids
-			for id in idList:
+			for id in branchesIds:
 				# read the Branch		
 				branch = BranchDelegate().get(id).first();	
 				# add the Branch
@@ -162,12 +155,8 @@ class BankDelegate :
 			# get the Bank
 			bank = self.get( bankId ).first()
 				
-			# split on a comma with no spaces
-			idList = productsIds.split(',')
-
-			
 			# iterate over ids
-			for id in idList:
+			for id in productsIds:
 				# read the BankingProduct		
 				bankingProduct = BankingProductDelegate().get(id).first();	
 				# add the BankingProduct
@@ -195,11 +184,8 @@ class BankDelegate :
 			# get the Bank
 			bank = self.get( bankId ).first()
 				
-			# split on a comma with no spaces
-			idList = productsIds.split(',')
-			
 			# iterate over ids
-			for id in idList:
+			for id in productsIds:
 				# read the BankingProduct		
 				bankingProduct = BankingProductDelegate().get(id).first();	
 				# add the BankingProduct
@@ -229,12 +215,8 @@ class BankDelegate :
 			# get the Bank
 			bank = self.get( bankId ).first()
 				
-			# split on a comma with no spaces
-			idList = customersIds.split(',')
-
-			
 			# iterate over ids
-			for id in idList:
+			for id in customersIds:
 				# read the Customer		
 				customer = CustomerDelegate().get(id).first();	
 				# add the Customer
@@ -262,11 +244,8 @@ class BankDelegate :
 			# get the Bank
 			bank = self.get( bankId ).first()
 				
-			# split on a comma with no spaces
-			idList = customersIds.split(',')
-			
 			# iterate over ids
-			for id in idList:
+			for id in customersIds:
 				# read the Customer		
 				customer = CustomerDelegate().get(id).first();	
 				# add the Customer
@@ -296,12 +275,8 @@ class BankDelegate :
 			# get the Bank
 			bank = self.get( bankId ).first()
 				
-			# split on a comma with no spaces
-			idList = accountsIds.split(',')
-
-			
 			# iterate over ids
-			for id in idList:
+			for id in accountsIds:
 				# read the Account		
 				account = AccountDelegate().get(id).first();	
 				# add the Account
@@ -329,11 +304,8 @@ class BankDelegate :
 			# get the Bank
 			bank = self.get( bankId ).first()
 				
-			# split on a comma with no spaces
-			idList = accountsIds.split(',')
-			
 			# iterate over ids
-			for id in idList:
+			for id in accountsIds:
 				# read the Account		
 				account = AccountDelegate().get(id).first();	
 				# add the Account
@@ -363,12 +335,8 @@ class BankDelegate :
 			# get the Bank
 			bank = self.get( bankId ).first()
 				
-			# split on a comma with no spaces
-			idList = paymentCardsIds.split(',')
-
-			
 			# iterate over ids
-			for id in idList:
+			for id in paymentCardsIds:
 				# read the PaymentCard		
 				paymentCard = PaymentCardDelegate().get(id).first();	
 				# add the PaymentCard
@@ -396,11 +364,8 @@ class BankDelegate :
 			# get the Bank
 			bank = self.get( bankId ).first()
 				
-			# split on a comma with no spaces
-			idList = paymentCardsIds.split(',')
-			
 			# iterate over ids
-			for id in idList:
+			for id in paymentCardsIds:
 				# read the PaymentCard		
 				paymentCard = PaymentCardDelegate().get(id).first();	
 				# add the PaymentCard
@@ -430,12 +395,8 @@ class BankDelegate :
 			# get the Bank
 			bank = self.get( bankId ).first()
 				
-			# split on a comma with no spaces
-			idList = loanAccountsIds.split(',')
-
-			
 			# iterate over ids
-			for id in idList:
+			for id in loanAccountsIds:
 				# read the LoanAccount		
 				loanAccount = LoanAccountDelegate().get(id).first();	
 				# add the LoanAccount
@@ -463,11 +424,8 @@ class BankDelegate :
 			# get the Bank
 			bank = self.get( bankId ).first()
 				
-			# split on a comma with no spaces
-			idList = loanAccountsIds.split(',')
-			
 			# iterate over ids
-			for id in idList:
+			for id in loanAccountsIds:
 				# read the LoanAccount		
 				loanAccount = LoanAccountDelegate().get(id).first();	
 				# add the LoanAccount
@@ -497,12 +455,8 @@ class BankDelegate :
 			# get the Bank
 			bank = self.get( bankId ).first()
 				
-			# split on a comma with no spaces
-			idList = exchangeRatesIds.split(',')
-
-			
 			# iterate over ids
-			for id in idList:
+			for id in exchangeRatesIds:
 				# read the ExchangeRate		
 				exchangeRate = ExchangeRateDelegate().get(id).first();	
 				# add the ExchangeRate
@@ -530,11 +484,8 @@ class BankDelegate :
 			# get the Bank
 			bank = self.get( bankId ).first()
 				
-			# split on a comma with no spaces
-			idList = exchangeRatesIds.split(',')
-			
 			# iterate over ids
-			for id in idList:
+			for id in exchangeRatesIds:
 				# read the ExchangeRate		
 				exchangeRate = ExchangeRateDelegate().get(id).first();	
 				# add the ExchangeRate
@@ -564,12 +515,8 @@ class BankDelegate :
 			# get the Bank
 			bank = self.get( bankId ).first()
 				
-			# split on a comma with no spaces
-			idList = consentsIds.split(',')
-
-			
 			# iterate over ids
-			for id in idList:
+			for id in consentsIds:
 				# read the Consent		
 				consent = ConsentDelegate().get(id).first();	
 				# add the Consent
@@ -597,11 +544,8 @@ class BankDelegate :
 			# get the Bank
 			bank = self.get( bankId ).first()
 				
-			# split on a comma with no spaces
-			idList = consentsIds.split(',')
-			
 			# iterate over ids
-			for id in idList:
+			for id in consentsIds:
 				# read the Consent		
 				consent = ConsentDelegate().get(id).first();	
 				# add the Consent
@@ -631,12 +575,8 @@ class BankDelegate :
 			# get the Bank
 			bank = self.get( bankId ).first()
 				
-			# split on a comma with no spaces
-			idList = thirdPartyProvidersIds.split(',')
-
-			
 			# iterate over ids
-			for id in idList:
+			for id in thirdPartyProvidersIds:
 				# read the ThirdPartyProvider		
 				thirdPartyProvider = ThirdPartyProviderDelegate().get(id).first();	
 				# add the ThirdPartyProvider
@@ -664,11 +604,8 @@ class BankDelegate :
 			# get the Bank
 			bank = self.get( bankId ).first()
 				
-			# split on a comma with no spaces
-			idList = thirdPartyProvidersIds.split(',')
-			
 			# iterate over ids
-			for id in idList:
+			for id in thirdPartyProvidersIds:
 				# read the ThirdPartyProvider		
 				thirdPartyProvider = ThirdPartyProviderDelegate().get(id).first();	
 				# add the ThirdPartyProvider

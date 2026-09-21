@@ -138,12 +138,8 @@ class BankingProductDelegate :
 			# get the BankingProduct
 			bankingProduct = self.get( bankingProductId ).first()
 				
-			# split on a comma with no spaces
-			idList = accountsIds.split(',')
-
-			
 			# iterate over ids
-			for id in idList:
+			for id in accountsIds:
 				# read the Account		
 				account = AccountDelegate().get(id).first();	
 				# add the Account
@@ -171,11 +167,8 @@ class BankingProductDelegate :
 			# get the BankingProduct
 			bankingProduct = self.get( bankingProductId ).first()
 				
-			# split on a comma with no spaces
-			idList = accountsIds.split(',')
-			
 			# iterate over ids
-			for id in idList:
+			for id in accountsIds:
 				# read the Account		
 				account = AccountDelegate().get(id).first();	
 				# add the Account
@@ -205,12 +198,8 @@ class BankingProductDelegate :
 			# get the BankingProduct
 			bankingProduct = self.get( bankingProductId ).first()
 				
-			# split on a comma with no spaces
-			idList = loanAccountsIds.split(',')
-
-			
 			# iterate over ids
-			for id in idList:
+			for id in loanAccountsIds:
 				# read the LoanAccount		
 				loanAccount = LoanAccountDelegate().get(id).first();	
 				# add the LoanAccount
@@ -238,11 +227,8 @@ class BankingProductDelegate :
 			# get the BankingProduct
 			bankingProduct = self.get( bankingProductId ).first()
 				
-			# split on a comma with no spaces
-			idList = loanAccountsIds.split(',')
-			
 			# iterate over ids
-			for id in idList:
+			for id in loanAccountsIds:
 				# read the LoanAccount		
 				loanAccount = LoanAccountDelegate().get(id).first();	
 				# add the LoanAccount
@@ -272,12 +258,8 @@ class BankingProductDelegate :
 			# get the BankingProduct
 			bankingProduct = self.get( bankingProductId ).first()
 				
-			# split on a comma with no spaces
-			idList = paymentCardsIds.split(',')
-
-			
 			# iterate over ids
-			for id in idList:
+			for id in paymentCardsIds:
 				# read the PaymentCard		
 				paymentCard = PaymentCardDelegate().get(id).first();	
 				# add the PaymentCard
@@ -305,11 +287,8 @@ class BankingProductDelegate :
 			# get the BankingProduct
 			bankingProduct = self.get( bankingProductId ).first()
 				
-			# split on a comma with no spaces
-			idList = paymentCardsIds.split(',')
-			
 			# iterate over ids
-			for id in idList:
+			for id in paymentCardsIds:
 				# read the PaymentCard		
 				paymentCard = PaymentCardDelegate().get(id).first();	
 				# add the PaymentCard

@@ -34,8 +34,8 @@ urlpatterns = [
 
 
 
-    path('addTransactions', FundsTransferView.addTransactions, name='addTransactions'),
-    path('removeTransactions', FundsTransferView.removeTransactions, name='removeTransactions'),
+    path('addToTransactions', FundsTransferView.addTransactions, name='addTransactions'),
+    path('removeFromTransactions', FundsTransferView.removeTransactions, name='removeTransactions'),
 
 
 ]

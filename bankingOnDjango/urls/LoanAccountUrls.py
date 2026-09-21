@@ -29,28 +29,28 @@ urlpatterns = [
 
 
 
-    path('addBorrowers', LoanAccountView.addBorrowers, name='addBorrowers'),
-    path('removeBorrowers', LoanAccountView.removeBorrowers, name='removeBorrowers'),
+    path('addToBorrowers', LoanAccountView.addBorrowers, name='addBorrowers'),
+    path('removeFromBorrowers', LoanAccountView.removeBorrowers, name='removeBorrowers'),
 
 
 
-    path('addRepaymentSchedule', LoanAccountView.addRepaymentSchedule, name='addRepaymentSchedule'),
-    path('removeRepaymentSchedule', LoanAccountView.removeRepaymentSchedule, name='removeRepaymentSchedule'),
+    path('addToRepaymentSchedule', LoanAccountView.addRepaymentSchedule, name='addRepaymentSchedule'),
+    path('removeFromRepaymentSchedule', LoanAccountView.removeRepaymentSchedule, name='removeRepaymentSchedule'),
 
 
 
-    path('addPayments', LoanAccountView.addPayments, name='addPayments'),
-    path('removePayments', LoanAccountView.removePayments, name='removePayments'),
+    path('addToPayments', LoanAccountView.addPayments, name='addPayments'),
+    path('removeFromPayments', LoanAccountView.removePayments, name='removePayments'),
 
 
 
-    path('addCollateral', LoanAccountView.addCollateral, name='addCollateral'),
-    path('removeCollateral', LoanAccountView.removeCollateral, name='removeCollateral'),
+    path('addToCollateral', LoanAccountView.addCollateral, name='addCollateral'),
+    path('removeFromCollateral', LoanAccountView.removeCollateral, name='removeCollateral'),
 
 
 
-    path('addFeeCharges', LoanAccountView.addFeeCharges, name='addFeeCharges'),
-    path('removeFeeCharges', LoanAccountView.removeFeeCharges, name='removeFeeCharges'),
+    path('addToFeeCharges', LoanAccountView.addFeeCharges, name='addFeeCharges'),
+    path('removeFromFeeCharges', LoanAccountView.removeFeeCharges, name='removeFeeCharges'),
 
 
 ]

@@ -19,8 +19,8 @@ urlpatterns = [
 
 
 
-    path('addFxTrades', ExchangeRateView.addFxTrades, name='addFxTrades'),
-    path('removeFxTrades', ExchangeRateView.removeFxTrades, name='removeFxTrades'),
+    path('addToFxTrades', ExchangeRateView.addFxTrades, name='addFxTrades'),
+    path('removeFromFxTrades', ExchangeRateView.removeFxTrades, name='removeFxTrades'),
 
 
 ]

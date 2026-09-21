@@ -143,12 +143,8 @@ class CustomerDelegate :
 			# get the Customer
 			customer = self.get( customerId ).first()
 				
-			# split on a comma with no spaces
-			idList = accountsIds.split(',')
-
-			
 			# iterate over ids
-			for id in idList:
+			for id in accountsIds:
 				# read the Account		
 				account = AccountDelegate().get(id).first();	
 				# add the Account
@@ -176,11 +172,8 @@ class CustomerDelegate :
 			# get the Customer
 			customer = self.get( customerId ).first()
 				
-			# split on a comma with no spaces
-			idList = accountsIds.split(',')
-			
 			# iterate over ids
-			for id in idList:
+			for id in accountsIds:
 				# read the Account		
 				account = AccountDelegate().get(id).first();	
 				# add the Account
@@ -210,12 +203,8 @@ class CustomerDelegate :
 			# get the Customer
 			customer = self.get( customerId ).first()
 				
-			# split on a comma with no spaces
-			idList = loanAccountsIds.split(',')
-
-			
 			# iterate over ids
-			for id in idList:
+			for id in loanAccountsIds:
 				# read the LoanAccount		
 				loanAccount = LoanAccountDelegate().get(id).first();	
 				# add the LoanAccount
@@ -243,11 +232,8 @@ class CustomerDelegate :
 			# get the Customer
 			customer = self.get( customerId ).first()
 				
-			# split on a comma with no spaces
-			idList = loanAccountsIds.split(',')
-			
 			# iterate over ids
-			for id in idList:
+			for id in loanAccountsIds:
 				# read the LoanAccount		
 				loanAccount = LoanAccountDelegate().get(id).first();	
 				# add the LoanAccount
@@ -277,12 +263,8 @@ class CustomerDelegate :
 			# get the Customer
 			customer = self.get( customerId ).first()
 				
-			# split on a comma with no spaces
-			idList = paymentCardsIds.split(',')
-
-			
 			# iterate over ids
-			for id in idList:
+			for id in paymentCardsIds:
 				# read the PaymentCard		
 				paymentCard = PaymentCardDelegate().get(id).first();	
 				# add the PaymentCard
@@ -310,11 +292,8 @@ class CustomerDelegate :
 			# get the Customer
 			customer = self.get( customerId ).first()
 				
-			# split on a comma with no spaces
-			idList = paymentCardsIds.split(',')
-			
 			# iterate over ids
-			for id in idList:
+			for id in paymentCardsIds:
 				# read the PaymentCard		
 				paymentCard = PaymentCardDelegate().get(id).first();	
 				# add the PaymentCard
@@ -344,12 +323,8 @@ class CustomerDelegate :
 			# get the Customer
 			customer = self.get( customerId ).first()
 				
-			# split on a comma with no spaces
-			idList = externalAccountsIds.split(',')
-
-			
 			# iterate over ids
-			for id in idList:
+			for id in externalAccountsIds:
 				# read the ExternalAccount		
 				externalAccount = ExternalAccountDelegate().get(id).first();	
 				# add the ExternalAccount
@@ -377,11 +352,8 @@ class CustomerDelegate :
 			# get the Customer
 			customer = self.get( customerId ).first()
 				
-			# split on a comma with no spaces
-			idList = externalAccountsIds.split(',')
-			
 			# iterate over ids
-			for id in idList:
+			for id in externalAccountsIds:
 				# read the ExternalAccount		
 				externalAccount = ExternalAccountDelegate().get(id).first();	
 				# add the ExternalAccount
@@ -411,12 +383,8 @@ class CustomerDelegate :
 			# get the Customer
 			customer = self.get( customerId ).first()
 				
-			# split on a comma with no spaces
-			idList = fundsTransfersIds.split(',')
-
-			
 			# iterate over ids
-			for id in idList:
+			for id in fundsTransfersIds:
 				# read the FundsTransfer		
 				fundsTransfer = FundsTransferDelegate().get(id).first();	
 				# add the FundsTransfer
@@ -444,11 +412,8 @@ class CustomerDelegate :
 			# get the Customer
 			customer = self.get( customerId ).first()
 				
-			# split on a comma with no spaces
-			idList = fundsTransfersIds.split(',')
-			
 			# iterate over ids
-			for id in idList:
+			for id in fundsTransfersIds:
 				# read the FundsTransfer		
 				fundsTransfer = FundsTransferDelegate().get(id).first();	
 				# add the FundsTransfer
@@ -478,12 +443,8 @@ class CustomerDelegate :
 			# get the Customer
 			customer = self.get( customerId ).first()
 				
-			# split on a comma with no spaces
-			idList = disputesIds.split(',')
-
-			
 			# iterate over ids
-			for id in idList:
+			for id in disputesIds:
 				# read the Dispute		
 				dispute = DisputeDelegate().get(id).first();	
 				# add the Dispute
@@ -511,11 +472,8 @@ class CustomerDelegate :
 			# get the Customer
 			customer = self.get( customerId ).first()
 				
-			# split on a comma with no spaces
-			idList = disputesIds.split(',')
-			
 			# iterate over ids
-			for id in idList:
+			for id in disputesIds:
 				# read the Dispute		
 				dispute = DisputeDelegate().get(id).first();	
 				# add the Dispute
@@ -545,12 +503,8 @@ class CustomerDelegate :
 			# get the Customer
 			customer = self.get( customerId ).first()
 				
-			# split on a comma with no spaces
-			idList = kycProfilesIds.split(',')
-
-			
 			# iterate over ids
-			for id in idList:
+			for id in kycProfilesIds:
 				# read the KycProfile		
 				kycProfile = KycProfileDelegate().get(id).first();	
 				# add the KycProfile
@@ -578,11 +532,8 @@ class CustomerDelegate :
 			# get the Customer
 			customer = self.get( customerId ).first()
 				
-			# split on a comma with no spaces
-			idList = kycProfilesIds.split(',')
-			
 			# iterate over ids
-			for id in idList:
+			for id in kycProfilesIds:
 				# read the KycProfile		
 				kycProfile = KycProfileDelegate().get(id).first();	
 				# add the KycProfile
@@ -612,12 +563,8 @@ class CustomerDelegate :
 			# get the Customer
 			customer = self.get( customerId ).first()
 				
-			# split on a comma with no spaces
-			idList = consentsIds.split(',')
-
-			
 			# iterate over ids
-			for id in idList:
+			for id in consentsIds:
 				# read the Consent		
 				consent = ConsentDelegate().get(id).first();	
 				# add the Consent
@@ -645,11 +592,8 @@ class CustomerDelegate :
 			# get the Customer
 			customer = self.get( customerId ).first()
 				
-			# split on a comma with no spaces
-			idList = consentsIds.split(',')
-			
 			# iterate over ids
-			for id in idList:
+			for id in consentsIds:
 				# read the Consent		
 				consent = ConsentDelegate().get(id).first();	
 				# add the Consent

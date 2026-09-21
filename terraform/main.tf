@@ -12,7 +12,7 @@ provider "aws" {
       CreatedBy = "Harbormaster"
       Blueprint = "Django"
       DomainModel = "Banking Industry Domain Model"
-      CertificationId = "5068ebb7-3391-425c-8a72-d9d2fec68612"
+      CertificationId = "533c1bc4-9530-4d99-9a3f-acd44a3583dc"
     }
   }
 }
@@ -39,7 +39,7 @@ resource "local_file" "private_key_pem" {
 }
 
 resource "aws_key_pair" "generated" {
-  key_name   = "pjsk-sshtest-0.9279025878209631"
+  key_name   = "pjsk-sshtest-0.0146198483871961"
   public_key = tls_private_key.generated.public_key_openssh
 
   lifecycle {

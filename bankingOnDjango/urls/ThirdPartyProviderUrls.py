@@ -19,8 +19,8 @@ urlpatterns = [
 
 
 
-    path('addConsents', ThirdPartyProviderView.addConsents, name='addConsents'),
-    path('removeConsents', ThirdPartyProviderView.removeConsents, name='removeConsents'),
+    path('addToConsents', ThirdPartyProviderView.addConsents, name='addConsents'),
+    path('removeFromConsents', ThirdPartyProviderView.removeConsents, name='removeConsents'),
 
 
 ]

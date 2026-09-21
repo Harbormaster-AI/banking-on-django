@@ -19,18 +19,18 @@ urlpatterns = [
 
 
 
-    path('addAccounts', BranchView.addAccounts, name='addAccounts'),
-    path('removeAccounts', BranchView.removeAccounts, name='removeAccounts'),
+    path('addToAccounts', BranchView.addAccounts, name='addAccounts'),
+    path('removeFromAccounts', BranchView.removeAccounts, name='removeAccounts'),
 
 
 
-    path('addLoanAccounts', BranchView.addLoanAccounts, name='addLoanAccounts'),
-    path('removeLoanAccounts', BranchView.removeLoanAccounts, name='removeLoanAccounts'),
+    path('addToLoanAccounts', BranchView.addLoanAccounts, name='addLoanAccounts'),
+    path('removeFromLoanAccounts', BranchView.removeLoanAccounts, name='removeLoanAccounts'),
 
 
 
-    path('addAtms', BranchView.addAtms, name='addAtms'),
-    path('removeAtms', BranchView.removeAtms, name='removeAtms'),
+    path('addToAtms', BranchView.addAtms, name='addAtms'),
+    path('removeFromAtms', BranchView.removeAtms, name='removeAtms'),
 
 
 ]

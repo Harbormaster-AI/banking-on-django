@@ -136,12 +136,8 @@ class ThirdPartyProviderDelegate :
 			# get the ThirdPartyProvider
 			thirdPartyProvider = self.get( thirdPartyProviderId ).first()
 				
-			# split on a comma with no spaces
-			idList = consentsIds.split(',')
-
-			
 			# iterate over ids
-			for id in idList:
+			for id in consentsIds:
 				# read the Consent		
 				consent = ConsentDelegate().get(id).first();	
 				# add the Consent
@@ -169,11 +165,8 @@ class ThirdPartyProviderDelegate :
 			# get the ThirdPartyProvider
 			thirdPartyProvider = self.get( thirdPartyProviderId ).first()
 				
-			# split on a comma with no spaces
-			idList = consentsIds.split(',')
-			
 			# iterate over ids
-			for id in idList:
+			for id in consentsIds:
 				# read the Consent		
 				consent = ConsentDelegate().get(id).first();	
 				# add the Consent

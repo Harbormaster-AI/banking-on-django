@@ -136,12 +136,8 @@ class ExternalAccountDelegate :
 			# get the ExternalAccount
 			externalAccount = self.get( externalAccountId ).first()
 				
-			# split on a comma with no spaces
-			idList = transactionsIds.split(',')
-
-			
 			# iterate over ids
-			for id in idList:
+			for id in transactionsIds:
 				# read the Transaction		
 				transaction = TransactionDelegate().get(id).first();	
 				# add the Transaction
@@ -169,11 +165,8 @@ class ExternalAccountDelegate :
 			# get the ExternalAccount
 			externalAccount = self.get( externalAccountId ).first()
 				
-			# split on a comma with no spaces
-			idList = transactionsIds.split(',')
-			
 			# iterate over ids
-			for id in idList:
+			for id in transactionsIds:
 				# read the Transaction		
 				transaction = TransactionDelegate().get(id).first();	
 				# add the Transaction

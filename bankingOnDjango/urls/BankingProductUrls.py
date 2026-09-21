@@ -19,18 +19,18 @@ urlpatterns = [
 
 
 
-    path('addAccounts', BankingProductView.addAccounts, name='addAccounts'),
-    path('removeAccounts', BankingProductView.removeAccounts, name='removeAccounts'),
+    path('addToAccounts', BankingProductView.addAccounts, name='addAccounts'),
+    path('removeFromAccounts', BankingProductView.removeAccounts, name='removeAccounts'),
 
 
 
-    path('addLoanAccounts', BankingProductView.addLoanAccounts, name='addLoanAccounts'),
-    path('removeLoanAccounts', BankingProductView.removeLoanAccounts, name='removeLoanAccounts'),
+    path('addToLoanAccounts', BankingProductView.addLoanAccounts, name='addLoanAccounts'),
+    path('removeFromLoanAccounts', BankingProductView.removeLoanAccounts, name='removeLoanAccounts'),
 
 
 
-    path('addPaymentCards', BankingProductView.addPaymentCards, name='addPaymentCards'),
-    path('removePaymentCards', BankingProductView.removePaymentCards, name='removePaymentCards'),
+    path('addToPaymentCards', BankingProductView.addPaymentCards, name='addPaymentCards'),
+    path('removeFromPaymentCards', BankingProductView.removePaymentCards, name='removePaymentCards'),
 
 
 ]

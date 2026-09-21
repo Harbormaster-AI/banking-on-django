@@ -29,28 +29,28 @@ urlpatterns = [
 
 
 
-    path('addOwners', AccountView.addOwners, name='addOwners'),
-    path('removeOwners', AccountView.removeOwners, name='removeOwners'),
+    path('addToOwners', AccountView.addOwners, name='addOwners'),
+    path('removeFromOwners', AccountView.removeOwners, name='removeOwners'),
 
 
 
-    path('addTransactions', AccountView.addTransactions, name='addTransactions'),
-    path('removeTransactions', AccountView.removeTransactions, name='removeTransactions'),
+    path('addToTransactions', AccountView.addTransactions, name='addTransactions'),
+    path('removeFromTransactions', AccountView.removeTransactions, name='removeTransactions'),
 
 
 
-    path('addStatements', AccountView.addStatements, name='addStatements'),
-    path('removeStatements', AccountView.removeStatements, name='removeStatements'),
+    path('addToStatements', AccountView.addStatements, name='addStatements'),
+    path('removeFromStatements', AccountView.removeStatements, name='removeStatements'),
 
 
 
-    path('addStandingInstructions', AccountView.addStandingInstructions, name='addStandingInstructions'),
-    path('removeStandingInstructions', AccountView.removeStandingInstructions, name='removeStandingInstructions'),
+    path('addToStandingInstructions', AccountView.addStandingInstructions, name='addStandingInstructions'),
+    path('removeFromStandingInstructions', AccountView.removeStandingInstructions, name='removeStandingInstructions'),
 
 
 
-    path('addFeeCharges', AccountView.addFeeCharges, name='addFeeCharges'),
-    path('removeFeeCharges', AccountView.removeFeeCharges, name='removeFeeCharges'),
+    path('addToFeeCharges', AccountView.addFeeCharges, name='addFeeCharges'),
+    path('removeFromFeeCharges', AccountView.removeFeeCharges, name='removeFeeCharges'),
 
 
 ]

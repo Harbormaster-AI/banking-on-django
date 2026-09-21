@@ -238,12 +238,8 @@ class LoanAccountDelegate :
 			# get the LoanAccount
 			loanAccount = self.get( loanAccountId ).first()
 				
-			# split on a comma with no spaces
-			idList = borrowersIds.split(',')
-
-			
 			# iterate over ids
-			for id in idList:
+			for id in borrowersIds:
 				# read the Customer		
 				customer = CustomerDelegate().get(id).first();	
 				# add the Customer
@@ -271,11 +267,8 @@ class LoanAccountDelegate :
 			# get the LoanAccount
 			loanAccount = self.get( loanAccountId ).first()
 				
-			# split on a comma with no spaces
-			idList = borrowersIds.split(',')
-			
 			# iterate over ids
-			for id in idList:
+			for id in borrowersIds:
 				# read the Customer		
 				customer = CustomerDelegate().get(id).first();	
 				# add the Customer
@@ -305,12 +298,8 @@ class LoanAccountDelegate :
 			# get the LoanAccount
 			loanAccount = self.get( loanAccountId ).first()
 				
-			# split on a comma with no spaces
-			idList = repaymentScheduleIds.split(',')
-
-			
 			# iterate over ids
-			for id in idList:
+			for id in repaymentScheduleIds:
 				# read the RepaymentSchedule		
 				repaymentSchedule = RepaymentScheduleDelegate().get(id).first();	
 				# add the RepaymentSchedule
@@ -338,11 +327,8 @@ class LoanAccountDelegate :
 			# get the LoanAccount
 			loanAccount = self.get( loanAccountId ).first()
 				
-			# split on a comma with no spaces
-			idList = repaymentScheduleIds.split(',')
-			
 			# iterate over ids
-			for id in idList:
+			for id in repaymentScheduleIds:
 				# read the RepaymentSchedule		
 				repaymentSchedule = RepaymentScheduleDelegate().get(id).first();	
 				# add the RepaymentSchedule
@@ -372,12 +358,8 @@ class LoanAccountDelegate :
 			# get the LoanAccount
 			loanAccount = self.get( loanAccountId ).first()
 				
-			# split on a comma with no spaces
-			idList = paymentsIds.split(',')
-
-			
 			# iterate over ids
-			for id in idList:
+			for id in paymentsIds:
 				# read the LoanPayment		
 				loanPayment = LoanPaymentDelegate().get(id).first();	
 				# add the LoanPayment
@@ -405,11 +387,8 @@ class LoanAccountDelegate :
 			# get the LoanAccount
 			loanAccount = self.get( loanAccountId ).first()
 				
-			# split on a comma with no spaces
-			idList = paymentsIds.split(',')
-			
 			# iterate over ids
-			for id in idList:
+			for id in paymentsIds:
 				# read the LoanPayment		
 				loanPayment = LoanPaymentDelegate().get(id).first();	
 				# add the LoanPayment
@@ -439,12 +418,8 @@ class LoanAccountDelegate :
 			# get the LoanAccount
 			loanAccount = self.get( loanAccountId ).first()
 				
-			# split on a comma with no spaces
-			idList = collateralIds.split(',')
-
-			
 			# iterate over ids
-			for id in idList:
+			for id in collateralIds:
 				# read the Collateral		
 				collateral = CollateralDelegate().get(id).first();	
 				# add the Collateral
@@ -472,11 +447,8 @@ class LoanAccountDelegate :
 			# get the LoanAccount
 			loanAccount = self.get( loanAccountId ).first()
 				
-			# split on a comma with no spaces
-			idList = collateralIds.split(',')
-			
 			# iterate over ids
-			for id in idList:
+			for id in collateralIds:
 				# read the Collateral		
 				collateral = CollateralDelegate().get(id).first();	
 				# add the Collateral
@@ -506,12 +478,8 @@ class LoanAccountDelegate :
 			# get the LoanAccount
 			loanAccount = self.get( loanAccountId ).first()
 				
-			# split on a comma with no spaces
-			idList = feeChargesIds.split(',')
-
-			
 			# iterate over ids
-			for id in idList:
+			for id in feeChargesIds:
 				# read the FeeCharge		
 				feeCharge = FeeChargeDelegate().get(id).first();	
 				# add the FeeCharge
@@ -539,11 +507,8 @@ class LoanAccountDelegate :
 			# get the LoanAccount
 			loanAccount = self.get( loanAccountId ).first()
 				
-			# split on a comma with no spaces
-			idList = feeChargesIds.split(',')
-			
 			# iterate over ids
-			for id in idList:
+			for id in feeChargesIds:
 				# read the FeeCharge		
 				feeCharge = FeeChargeDelegate().get(id).first();	
 				# add the FeeCharge

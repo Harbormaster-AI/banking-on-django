@@ -5,29 +5,22 @@ from bankingOnDjango.models.CollateralType import CollateralType
 #======================================================================
 # Class Collateral Declaration
 #======================================================================
-class Collateral (models.Model):
+#getDjangoClassDecl( $class $suffixToAdd )
 
 #======================================================================
 # attribute declarations
 #======================================================================
-	collateralIdentifier = models.CharField(max_length=200, null=True)
-	appraisedValue = Money
-	description = models.CharField(max_length=200, null=True)
-	location = Address
-	loanAccount = models.ForeignKey('LoanAccount', on_delete=models.CASCADE, null=True, blank=True, related_name='+')
-	collateralType = models.CharField(max_length=64, null=True, choices=[(tag.name, tag.value) for tag in CollateralType])
+	#getDjangoAttributeDeclaration( $attribute $class $prefix )
+	#getDjangoAttributeDeclaration( $attribute $class $prefix )
+	#getDjangoAttributeDeclaration( $attribute $class $prefix )
+	#getDjangoAttributeDeclaration( $attribute $class $prefix )
+	#getDjangoAttributeDeclaration( $attribute $class $prefix )
+	#getDjangoAttributeDeclaration( $attribute $class $prefix )
 
 #======================================================================
 # function declarations
 #======================================================================
-	def toString(self):
-		str = ""
-		str = str + self.collateralIdentifier
-		str = str + self.appraisedValue
-		str = str + self.description
-		str = str + self.location
-		str = str + self.collateralType
-		return str;
+#getDjangoToString( $class false )
     
 	def __str__(self):
 		return self.toString();

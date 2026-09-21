@@ -138,12 +138,8 @@ class KycProfileDelegate :
 			# get the KycProfile
 			kycProfile = self.get( kycProfileId ).first()
 				
-			# split on a comma with no spaces
-			idList = identityDocumentsIds.split(',')
-
-			
 			# iterate over ids
-			for id in idList:
+			for id in identityDocumentsIds:
 				# read the IdentityDocument		
 				identityDocument = IdentityDocumentDelegate().get(id).first();	
 				# add the IdentityDocument
@@ -171,11 +167,8 @@ class KycProfileDelegate :
 			# get the KycProfile
 			kycProfile = self.get( kycProfileId ).first()
 				
-			# split on a comma with no spaces
-			idList = identityDocumentsIds.split(',')
-			
 			# iterate over ids
-			for id in idList:
+			for id in identityDocumentsIds:
 				# read the IdentityDocument		
 				identityDocument = IdentityDocumentDelegate().get(id).first();	
 				# add the IdentityDocument
@@ -205,12 +198,8 @@ class KycProfileDelegate :
 			# get the KycProfile
 			kycProfile = self.get( kycProfileId ).first()
 				
-			# split on a comma with no spaces
-			idList = riskAssessmentsIds.split(',')
-
-			
 			# iterate over ids
-			for id in idList:
+			for id in riskAssessmentsIds:
 				# read the RiskAssessment		
 				riskAssessment = RiskAssessmentDelegate().get(id).first();	
 				# add the RiskAssessment
@@ -238,11 +227,8 @@ class KycProfileDelegate :
 			# get the KycProfile
 			kycProfile = self.get( kycProfileId ).first()
 				
-			# split on a comma with no spaces
-			idList = riskAssessmentsIds.split(',')
-			
 			# iterate over ids
-			for id in idList:
+			for id in riskAssessmentsIds:
 				# read the RiskAssessment		
 				riskAssessment = RiskAssessmentDelegate().get(id).first();	
 				# add the RiskAssessment
@@ -272,12 +258,8 @@ class KycProfileDelegate :
 			# get the KycProfile
 			kycProfile = self.get( kycProfileId ).first()
 				
-			# split on a comma with no spaces
-			idList = screeningsIds.split(',')
-
-			
 			# iterate over ids
-			for id in idList:
+			for id in screeningsIds:
 				# read the ScreeningResult		
 				screeningResult = ScreeningResultDelegate().get(id).first();	
 				# add the ScreeningResult
@@ -305,11 +287,8 @@ class KycProfileDelegate :
 			# get the KycProfile
 			kycProfile = self.get( kycProfileId ).first()
 				
-			# split on a comma with no spaces
-			idList = screeningsIds.split(',')
-			
 			# iterate over ids
-			for id in idList:
+			for id in screeningsIds:
 				# read the ScreeningResult		
 				screeningResult = ScreeningResultDelegate().get(id).first();	
 				# add the ScreeningResult

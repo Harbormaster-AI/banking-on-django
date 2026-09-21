@@ -138,12 +138,8 @@ class BranchDelegate :
 			# get the Branch
 			branch = self.get( branchId ).first()
 				
-			# split on a comma with no spaces
-			idList = accountsIds.split(',')
-
-			
 			# iterate over ids
-			for id in idList:
+			for id in accountsIds:
 				# read the Account		
 				account = AccountDelegate().get(id).first();	
 				# add the Account
@@ -171,11 +167,8 @@ class BranchDelegate :
 			# get the Branch
 			branch = self.get( branchId ).first()
 				
-			# split on a comma with no spaces
-			idList = accountsIds.split(',')
-			
 			# iterate over ids
-			for id in idList:
+			for id in accountsIds:
 				# read the Account		
 				account = AccountDelegate().get(id).first();	
 				# add the Account
@@ -205,12 +198,8 @@ class BranchDelegate :
 			# get the Branch
 			branch = self.get( branchId ).first()
 				
-			# split on a comma with no spaces
-			idList = loanAccountsIds.split(',')
-
-			
 			# iterate over ids
-			for id in idList:
+			for id in loanAccountsIds:
 				# read the LoanAccount		
 				loanAccount = LoanAccountDelegate().get(id).first();	
 				# add the LoanAccount
@@ -238,11 +227,8 @@ class BranchDelegate :
 			# get the Branch
 			branch = self.get( branchId ).first()
 				
-			# split on a comma with no spaces
-			idList = loanAccountsIds.split(',')
-			
 			# iterate over ids
-			for id in idList:
+			for id in loanAccountsIds:
 				# read the LoanAccount		
 				loanAccount = LoanAccountDelegate().get(id).first();	
 				# add the LoanAccount
@@ -272,12 +258,8 @@ class BranchDelegate :
 			# get the Branch
 			branch = self.get( branchId ).first()
 				
-			# split on a comma with no spaces
-			idList = atmsIds.split(',')
-
-			
 			# iterate over ids
-			for id in idList:
+			for id in atmsIds:
 				# read the ATM		
 				aTM = ATMDelegate().get(id).first();	
 				# add the ATM
@@ -305,11 +287,8 @@ class BranchDelegate :
 			# get the Branch
 			branch = self.get( branchId ).first()
 				
-			# split on a comma with no spaces
-			idList = atmsIds.split(',')
-			
 			# iterate over ids
-			for id in idList:
+			for id in atmsIds:
 				# read the ATM		
 				aTM = ATMDelegate().get(id).first();	
 				# add the ATM

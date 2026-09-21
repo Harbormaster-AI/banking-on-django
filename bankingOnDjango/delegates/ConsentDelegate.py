@@ -234,12 +234,8 @@ class ConsentDelegate :
 			# get the Consent
 			consent = self.get( consentId ).first()
 				
-			# split on a comma with no spaces
-			idList = authorizedAccountsIds.split(',')
-
-			
 			# iterate over ids
-			for id in idList:
+			for id in authorizedAccountsIds:
 				# read the Account		
 				account = AccountDelegate().get(id).first();	
 				# add the Account
@@ -267,11 +263,8 @@ class ConsentDelegate :
 			# get the Consent
 			consent = self.get( consentId ).first()
 				
-			# split on a comma with no spaces
-			idList = authorizedAccountsIds.split(',')
-			
 			# iterate over ids
-			for id in idList:
+			for id in authorizedAccountsIds:
 				# read the Account		
 				account = AccountDelegate().get(id).first();	
 				# add the Account

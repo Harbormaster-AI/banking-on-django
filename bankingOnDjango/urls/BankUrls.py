@@ -14,48 +14,48 @@ urlpatterns = [
 
 
 
-    path('addBranches', BankView.addBranches, name='addBranches'),
-    path('removeBranches', BankView.removeBranches, name='removeBranches'),
+    path('addToBranches', BankView.addBranches, name='addBranches'),
+    path('removeFromBranches', BankView.removeBranches, name='removeBranches'),
 
 
 
-    path('addProducts', BankView.addProducts, name='addProducts'),
-    path('removeProducts', BankView.removeProducts, name='removeProducts'),
+    path('addToProducts', BankView.addProducts, name='addProducts'),
+    path('removeFromProducts', BankView.removeProducts, name='removeProducts'),
 
 
 
-    path('addCustomers', BankView.addCustomers, name='addCustomers'),
-    path('removeCustomers', BankView.removeCustomers, name='removeCustomers'),
+    path('addToCustomers', BankView.addCustomers, name='addCustomers'),
+    path('removeFromCustomers', BankView.removeCustomers, name='removeCustomers'),
 
 
 
-    path('addAccounts', BankView.addAccounts, name='addAccounts'),
-    path('removeAccounts', BankView.removeAccounts, name='removeAccounts'),
+    path('addToAccounts', BankView.addAccounts, name='addAccounts'),
+    path('removeFromAccounts', BankView.removeAccounts, name='removeAccounts'),
 
 
 
-    path('addPaymentCards', BankView.addPaymentCards, name='addPaymentCards'),
-    path('removePaymentCards', BankView.removePaymentCards, name='removePaymentCards'),
+    path('addToPaymentCards', BankView.addPaymentCards, name='addPaymentCards'),
+    path('removeFromPaymentCards', BankView.removePaymentCards, name='removePaymentCards'),
 
 
 
-    path('addLoanAccounts', BankView.addLoanAccounts, name='addLoanAccounts'),
-    path('removeLoanAccounts', BankView.removeLoanAccounts, name='removeLoanAccounts'),
+    path('addToLoanAccounts', BankView.addLoanAccounts, name='addLoanAccounts'),
+    path('removeFromLoanAccounts', BankView.removeLoanAccounts, name='removeLoanAccounts'),
 
 
 
-    path('addExchangeRates', BankView.addExchangeRates, name='addExchangeRates'),
-    path('removeExchangeRates', BankView.removeExchangeRates, name='removeExchangeRates'),
+    path('addToExchangeRates', BankView.addExchangeRates, name='addExchangeRates'),
+    path('removeFromExchangeRates', BankView.removeExchangeRates, name='removeExchangeRates'),
 
 
 
-    path('addConsents', BankView.addConsents, name='addConsents'),
-    path('removeConsents', BankView.removeConsents, name='removeConsents'),
+    path('addToConsents', BankView.addConsents, name='addConsents'),
+    path('removeFromConsents', BankView.removeConsents, name='removeConsents'),
 
 
 
-    path('addThirdPartyProviders', BankView.addThirdPartyProviders, name='addThirdPartyProviders'),
-    path('removeThirdPartyProviders', BankView.removeThirdPartyProviders, name='removeThirdPartyProviders'),
+    path('addToThirdPartyProviders', BankView.addThirdPartyProviders, name='addThirdPartyProviders'),
+    path('removeFromThirdPartyProviders', BankView.removeThirdPartyProviders, name='removeThirdPartyProviders'),
 
 
 ]

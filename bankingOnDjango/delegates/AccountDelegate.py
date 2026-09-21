@@ -238,12 +238,8 @@ class AccountDelegate :
 			# get the Account
 			account = self.get( accountId ).first()
 				
-			# split on a comma with no spaces
-			idList = ownersIds.split(',')
-
-			
 			# iterate over ids
-			for id in idList:
+			for id in ownersIds:
 				# read the Customer		
 				customer = CustomerDelegate().get(id).first();	
 				# add the Customer
@@ -271,11 +267,8 @@ class AccountDelegate :
 			# get the Account
 			account = self.get( accountId ).first()
 				
-			# split on a comma with no spaces
-			idList = ownersIds.split(',')
-			
 			# iterate over ids
-			for id in idList:
+			for id in ownersIds:
 				# read the Customer		
 				customer = CustomerDelegate().get(id).first();	
 				# add the Customer
@@ -305,12 +298,8 @@ class AccountDelegate :
 			# get the Account
 			account = self.get( accountId ).first()
 				
-			# split on a comma with no spaces
-			idList = transactionsIds.split(',')
-
-			
 			# iterate over ids
-			for id in idList:
+			for id in transactionsIds:
 				# read the Transaction		
 				transaction = TransactionDelegate().get(id).first();	
 				# add the Transaction
@@ -338,11 +327,8 @@ class AccountDelegate :
 			# get the Account
 			account = self.get( accountId ).first()
 				
-			# split on a comma with no spaces
-			idList = transactionsIds.split(',')
-			
 			# iterate over ids
-			for id in idList:
+			for id in transactionsIds:
 				# read the Transaction		
 				transaction = TransactionDelegate().get(id).first();	
 				# add the Transaction
@@ -372,12 +358,8 @@ class AccountDelegate :
 			# get the Account
 			account = self.get( accountId ).first()
 				
-			# split on a comma with no spaces
-			idList = statementsIds.split(',')
-
-			
 			# iterate over ids
-			for id in idList:
+			for id in statementsIds:
 				# read the AccountStatement		
 				accountStatement = AccountStatementDelegate().get(id).first();	
 				# add the AccountStatement
@@ -405,11 +387,8 @@ class AccountDelegate :
 			# get the Account
 			account = self.get( accountId ).first()
 				
-			# split on a comma with no spaces
-			idList = statementsIds.split(',')
-			
 			# iterate over ids
-			for id in idList:
+			for id in statementsIds:
 				# read the AccountStatement		
 				accountStatement = AccountStatementDelegate().get(id).first();	
 				# add the AccountStatement
@@ -439,12 +418,8 @@ class AccountDelegate :
 			# get the Account
 			account = self.get( accountId ).first()
 				
-			# split on a comma with no spaces
-			idList = standingInstructionsIds.split(',')
-
-			
 			# iterate over ids
-			for id in idList:
+			for id in standingInstructionsIds:
 				# read the StandingInstruction		
 				standingInstruction = StandingInstructionDelegate().get(id).first();	
 				# add the StandingInstruction
@@ -472,11 +447,8 @@ class AccountDelegate :
 			# get the Account
 			account = self.get( accountId ).first()
 				
-			# split on a comma with no spaces
-			idList = standingInstructionsIds.split(',')
-			
 			# iterate over ids
-			for id in idList:
+			for id in standingInstructionsIds:
 				# read the StandingInstruction		
 				standingInstruction = StandingInstructionDelegate().get(id).first();	
 				# add the StandingInstruction
@@ -506,12 +478,8 @@ class AccountDelegate :
 			# get the Account
 			account = self.get( accountId ).first()
 				
-			# split on a comma with no spaces
-			idList = feeChargesIds.split(',')
-
-			
 			# iterate over ids
-			for id in idList:
+			for id in feeChargesIds:
 				# read the FeeCharge		
 				feeCharge = FeeChargeDelegate().get(id).first();	
 				# add the FeeCharge
@@ -539,11 +507,8 @@ class AccountDelegate :
 			# get the Account
 			account = self.get( accountId ).first()
 				
-			# split on a comma with no spaces
-			idList = feeChargesIds.split(',')
-			
 			# iterate over ids
-			for id in idList:
+			for id in feeChargesIds:
 				# read the FeeCharge		
 				feeCharge = FeeChargeDelegate().get(id).first();	
 				# add the FeeCharge

@@ -19,43 +19,43 @@ urlpatterns = [
 
 
 
-    path('addAccounts', CustomerView.addAccounts, name='addAccounts'),
-    path('removeAccounts', CustomerView.removeAccounts, name='removeAccounts'),
+    path('addToAccounts', CustomerView.addAccounts, name='addAccounts'),
+    path('removeFromAccounts', CustomerView.removeAccounts, name='removeAccounts'),
 
 
 
-    path('addLoanAccounts', CustomerView.addLoanAccounts, name='addLoanAccounts'),
-    path('removeLoanAccounts', CustomerView.removeLoanAccounts, name='removeLoanAccounts'),
+    path('addToLoanAccounts', CustomerView.addLoanAccounts, name='addLoanAccounts'),
+    path('removeFromLoanAccounts', CustomerView.removeLoanAccounts, name='removeLoanAccounts'),
 
 
 
-    path('addPaymentCards', CustomerView.addPaymentCards, name='addPaymentCards'),
-    path('removePaymentCards', CustomerView.removePaymentCards, name='removePaymentCards'),
+    path('addToPaymentCards', CustomerView.addPaymentCards, name='addPaymentCards'),
+    path('removeFromPaymentCards', CustomerView.removePaymentCards, name='removePaymentCards'),
 
 
 
-    path('addExternalAccounts', CustomerView.addExternalAccounts, name='addExternalAccounts'),
-    path('removeExternalAccounts', CustomerView.removeExternalAccounts, name='removeExternalAccounts'),
+    path('addToExternalAccounts', CustomerView.addExternalAccounts, name='addExternalAccounts'),
+    path('removeFromExternalAccounts', CustomerView.removeExternalAccounts, name='removeExternalAccounts'),
 
 
 
-    path('addFundsTransfers', CustomerView.addFundsTransfers, name='addFundsTransfers'),
-    path('removeFundsTransfers', CustomerView.removeFundsTransfers, name='removeFundsTransfers'),
+    path('addToFundsTransfers', CustomerView.addFundsTransfers, name='addFundsTransfers'),
+    path('removeFromFundsTransfers', CustomerView.removeFundsTransfers, name='removeFundsTransfers'),
 
 
 
-    path('addDisputes', CustomerView.addDisputes, name='addDisputes'),
-    path('removeDisputes', CustomerView.removeDisputes, name='removeDisputes'),
+    path('addToDisputes', CustomerView.addDisputes, name='addDisputes'),
+    path('removeFromDisputes', CustomerView.removeDisputes, name='removeDisputes'),
 
 
 
-    path('addKycProfiles', CustomerView.addKycProfiles, name='addKycProfiles'),
-    path('removeKycProfiles', CustomerView.removeKycProfiles, name='removeKycProfiles'),
+    path('addToKycProfiles', CustomerView.addKycProfiles, name='addKycProfiles'),
+    path('removeFromKycProfiles', CustomerView.removeKycProfiles, name='removeKycProfiles'),
 
 
 
-    path('addConsents', CustomerView.addConsents, name='addConsents'),
-    path('removeConsents', CustomerView.removeConsents, name='removeConsents'),
+    path('addToConsents', CustomerView.addConsents, name='addConsents'),
+    path('removeFromConsents', CustomerView.removeConsents, name='removeConsents'),
 
 
 ]

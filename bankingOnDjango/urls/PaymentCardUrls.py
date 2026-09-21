@@ -29,8 +29,8 @@ urlpatterns = [
 
 
 
-    path('addTransactions', PaymentCardView.addTransactions, name='addTransactions'),
-    path('removeTransactions', PaymentCardView.removeTransactions, name='removeTransactions'),
+    path('addToTransactions', PaymentCardView.addTransactions, name='addTransactions'),
+    path('removeFromTransactions', PaymentCardView.removeTransactions, name='removeTransactions'),
 
 
 ]

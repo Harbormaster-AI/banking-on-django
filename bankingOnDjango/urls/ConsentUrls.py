@@ -29,8 +29,8 @@ urlpatterns = [
 
 
 
-    path('addAuthorizedAccounts', ConsentView.addAuthorizedAccounts, name='addAuthorizedAccounts'),
-    path('removeAuthorizedAccounts', ConsentView.removeAuthorizedAccounts, name='removeAuthorizedAccounts'),
+    path('addToAuthorizedAccounts', ConsentView.addAuthorizedAccounts, name='addAuthorizedAccounts'),
+    path('removeFromAuthorizedAccounts', ConsentView.removeAuthorizedAccounts, name='removeAuthorizedAccounts'),
 
 
 ]

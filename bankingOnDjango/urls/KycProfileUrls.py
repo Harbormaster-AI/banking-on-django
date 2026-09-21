@@ -19,18 +19,18 @@ urlpatterns = [
 
 
 
-    path('addIdentityDocuments', KycProfileView.addIdentityDocuments, name='addIdentityDocuments'),
-    path('removeIdentityDocuments', KycProfileView.removeIdentityDocuments, name='removeIdentityDocuments'),
+    path('addToIdentityDocuments', KycProfileView.addIdentityDocuments, name='addIdentityDocuments'),
+    path('removeFromIdentityDocuments', KycProfileView.removeIdentityDocuments, name='removeIdentityDocuments'),
 
 
 
-    path('addRiskAssessments', KycProfileView.addRiskAssessments, name='addRiskAssessments'),
-    path('removeRiskAssessments', KycProfileView.removeRiskAssessments, name='removeRiskAssessments'),
+    path('addToRiskAssessments', KycProfileView.addRiskAssessments, name='addRiskAssessments'),
+    path('removeFromRiskAssessments', KycProfileView.removeRiskAssessments, name='removeRiskAssessments'),
 
 
 
-    path('addScreenings', KycProfileView.addScreenings, name='addScreenings'),
-    path('removeScreenings', KycProfileView.removeScreenings, name='removeScreenings'),
+    path('addToScreenings', KycProfileView.addScreenings, name='addScreenings'),
+    path('removeFromScreenings', KycProfileView.removeScreenings, name='removeScreenings'),
 
 
 ]

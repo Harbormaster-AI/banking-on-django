@@ -136,12 +136,8 @@ class ExchangeRateDelegate :
 			# get the ExchangeRate
 			exchangeRate = self.get( exchangeRateId ).first()
 				
-			# split on a comma with no spaces
-			idList = fxTradesIds.split(',')
-
-			
 			# iterate over ids
-			for id in idList:
+			for id in fxTradesIds:
 				# read the FXTrade		
 				fXTrade = FXTradeDelegate().get(id).first();	
 				# add the FXTrade
@@ -169,11 +165,8 @@ class ExchangeRateDelegate :
 			# get the ExchangeRate
 			exchangeRate = self.get( exchangeRateId ).first()
 				
-			# split on a comma with no spaces
-			idList = fxTradesIds.split(',')
-			
 			# iterate over ids
-			for id in idList:
+			for id in fxTradesIds:
 				# read the FXTrade		
 				fXTrade = FXTradeDelegate().get(id).first();	
 				# add the FXTrade

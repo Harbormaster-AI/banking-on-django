@@ -6,30 +6,23 @@ from bankingOnDjango.models.StandingInstructionStatus import StandingInstruction
 #======================================================================
 # Class StandingInstruction Declaration
 #======================================================================
-class StandingInstruction (models.Model):
+#getDjangoClassDecl( $class $suffixToAdd )
 
 #======================================================================
 # attribute declarations
 #======================================================================
-	instructionId = models.CharField(max_length=200, null=True)
-	amount = Money
-	nextExecutionDate = models.DateField(null=True)
-	account = models.ForeignKey('Account', on_delete=models.CASCADE, null=True, blank=True, related_name='+')
-	beneficiary = models.ForeignKey('ExternalAccount', on_delete=models.CASCADE, null=True, blank=True, related_name='+')
-	frequency = models.CharField(max_length=64, null=True, choices=[(tag.name, tag.value) for tag in StandingInstructionFrequency])
-	status = models.CharField(max_length=64, null=True, choices=[(tag.name, tag.value) for tag in StandingInstructionStatus])
+	#getDjangoAttributeDeclaration( $attribute $class $prefix )
+	#getDjangoAttributeDeclaration( $attribute $class $prefix )
+	#getDjangoAttributeDeclaration( $attribute $class $prefix )
+	#getDjangoAttributeDeclaration( $attribute $class $prefix )
+	#getDjangoAttributeDeclaration( $attribute $class $prefix )
+	#getDjangoAttributeDeclaration( $attribute $class $prefix )
+	#getDjangoAttributeDeclaration( $attribute $class $prefix )
 
 #======================================================================
 # function declarations
 #======================================================================
-	def toString(self):
-		str = ""
-		str = str + self.instructionId
-		str = str + self.amount
-		str = str + self.nextExecutionDate
-		str = str + self.frequency
-		str = str + self.status
-		return str;
+#getDjangoToString( $class false )
     
 	def __str__(self):
 		return self.toString();

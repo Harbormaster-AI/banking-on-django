@@ -282,12 +282,8 @@ class FundsTransferDelegate :
 			# get the FundsTransfer
 			fundsTransfer = self.get( fundsTransferId ).first()
 				
-			# split on a comma with no spaces
-			idList = transactionsIds.split(',')
-
-			
 			# iterate over ids
-			for id in idList:
+			for id in transactionsIds:
 				# read the Transaction		
 				transaction = TransactionDelegate().get(id).first();	
 				# add the Transaction
@@ -315,11 +311,8 @@ class FundsTransferDelegate :
 			# get the FundsTransfer
 			fundsTransfer = self.get( fundsTransferId ).first()
 				
-			# split on a comma with no spaces
-			idList = transactionsIds.split(',')
-			
 			# iterate over ids
-			for id in idList:
+			for id in transactionsIds:
 				# read the Transaction		
 				transaction = TransactionDelegate().get(id).first();	
 				# add the Transaction
