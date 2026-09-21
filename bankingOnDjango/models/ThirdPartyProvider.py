@@ -9,11 +9,11 @@ class ThirdPartyProvider (models.Model):
 #======================================================================
 # attribute declarations
 #======================================================================
-name = models.CharField(max_length=200, null=True)
-registrationId = models.CharField(max_length=200, null=True)
-website = models.CharField(max_length=200, null=True)
-bank = models.ForeignKey('Bank', on_delete=models.CASCADE, null=True, blank=True, related_name='+')
-consents = models.ManyToManyField('Consent',  blank=True, related_name='+')
+    name = models.CharField(max_length=200, null=True)
+    registrationId = models.CharField(max_length=200, null=True)
+    website = models.CharField(max_length=200, null=True)
+    bank = models.ForeignKey('Bank', on_delete=models.CASCADE, null=True, blank=True, related_name='+')
+    consents = models.ManyToManyField('Consent',  blank=True, related_name='+')
 
 #======================================================================
 # function declarations

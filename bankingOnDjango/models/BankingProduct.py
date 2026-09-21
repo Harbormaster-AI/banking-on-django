@@ -10,14 +10,14 @@ class BankingProduct (models.Model):
 #======================================================================
 # attribute declarations
 #======================================================================
-productCode = models.CharField(max_length=200, null=True)
-name = models.CharField(max_length=200, null=True)
-description = models.CharField(max_length=200, null=True)
-bank = models.ForeignKey('Bank', on_delete=models.CASCADE, null=True, blank=True, related_name='+')
-accounts = models.ManyToManyField('Account',  blank=True, related_name='+')
-loanAccounts = models.ManyToManyField('LoanAccount',  blank=True, related_name='+')
-paymentCards = models.ManyToManyField('PaymentCard',  blank=True, related_name='+')
-productCategory = models.CharField(max_length=64, null=True, choices=[(tag.name, tag.value) for tag in ProductCategory])
+    productCode = models.CharField(max_length=200, null=True)
+    name = models.CharField(max_length=200, null=True)
+    description = models.CharField(max_length=200, null=True)
+    bank = models.ForeignKey('Bank', on_delete=models.CASCADE, null=True, blank=True, related_name='+')
+    accounts = models.ManyToManyField('Account',  blank=True, related_name='+')
+    loanAccounts = models.ManyToManyField('LoanAccount',  blank=True, related_name='+')
+    paymentCards = models.ManyToManyField('PaymentCard',  blank=True, related_name='+')
+    productCategory = models.CharField(max_length=64, null=True, choices=[(tag.name, tag.value) for tag in ProductCategory])
 
 #======================================================================
 # function declarations
