@@ -10,11 +10,11 @@ class IdentityDocument (models.Model):
 #======================================================================
 # attribute declarations
 #======================================================================
-															documentNumber = models.CharField(max_length=200, null=True)
-															issuingCountry = models.CharField(max_length=200, null=True)
-															expirationDate = models.DateField(null=True)
-																		kycProfile = models.ForeignKey('KycProfile', on_delete=models.CASCADE, null=True, blank=True, related_name='+')
-				documentType = models.CharField(max_length=64, null=True, choices=[(tag.name, tag.value) for tag in IdentityDocumentType])
+	documentNumber = models.CharField(max_length=200, null=True)
+	issuingCountry = models.CharField(max_length=200, null=True)
+	expirationDate = models.DateField(null=True)
+	kycProfile = models.ForeignKey('KycProfile', on_delete=models.CASCADE, null=True, blank=True, related_name='+')
+	documentType = models.CharField(max_length=64, null=True, choices=[(tag.name, tag.value) for tag in IdentityDocumentType])
 
 #======================================================================
 # function declarations

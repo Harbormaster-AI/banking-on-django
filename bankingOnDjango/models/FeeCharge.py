@@ -10,13 +10,13 @@ class FeeCharge (models.Model):
 #======================================================================
 # attribute declarations
 #======================================================================
-															feeCode = models.CharField(max_length=200, null=True)
-																	amountAmount = models.CharField(max_length=64, null=True)
-															amountCurrency = models.CharField(max_length=200, null=True)
-															appliedOn = models.DateField(null=True)
-																		account = models.ForeignKey('Account', on_delete=models.CASCADE, null=True, blank=True, related_name='+')
-																		loanAccount = models.ForeignKey('LoanAccount', on_delete=models.CASCADE, null=True, blank=True, related_name='+')
-				feeType = models.CharField(max_length=64, null=True, choices=[(tag.name, tag.value) for tag in FeeType])
+	feeCode = models.CharField(max_length=200, null=True)
+		amountAmount = models.CharField(max_length=64, null=True)
+	amountCurrency = models.CharField(max_length=200, null=True)
+	appliedOn = models.DateField(null=True)
+	account = models.ForeignKey('Account', on_delete=models.CASCADE, null=True, blank=True, related_name='+')
+	loanAccount = models.ForeignKey('LoanAccount', on_delete=models.CASCADE, null=True, blank=True, related_name='+')
+	feeType = models.CharField(max_length=64, null=True, choices=[(tag.name, tag.value) for tag in FeeType])
 
 #======================================================================
 # function declarations
