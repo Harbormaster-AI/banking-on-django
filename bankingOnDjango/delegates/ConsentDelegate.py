@@ -1,4 +1,5 @@
 
+
 from django.core import exceptions
 from django.core import serializers
 from django.db import models
@@ -29,15 +30,16 @@ class ConsentDelegate :
 #======================================================================
 
 	def get(self, consent_id ):
+		err_msg = "Failed to get Consent from db using id " + str(consent_id)
 		try:	
 			consent = Consent.objects.filter(id=consent_id)
 			return consent.first();
 		except Consent.DoesNotExist:
-			raise ProcessingError("Consent with id " + str(consent_id) + " does not exist.")
-		except utils.DatabaseError:
-			raise StorageReadError()
+			raise Exceptions.ProcessingError("Consent with id " + str(consent_id) + " does not exist.")
+		except utils.Exceptions.DatabaseError:
+			raise Exceptions.StorageReadError()
 		except Exception:
-			raise GeneralError(err_msg) 
+			raise Exceptions.GeneralError(err_msg) 
 
 	def createFromJson(self, consent):
 		for model in serializers.deserialize("json", consent):
@@ -65,18 +67,18 @@ class ConsentDelegate :
 			consent.delete()
 			return True
 		except Consent.DoesNotExist:
-			raise ProcessingError("Consent with id " + str(consent_id) + " does not exist.")
-		except utils.DatabaseError:
-			raise StorageReadError()
+			raise Exceptions.ProcessingError("Consent with id " + str(consent_id) + " does not exist.")
+		except utils.Exceptions.DatabaseError:
+			raise Exceptions.StorageReadError()
 		except Exception:
-			raise GeneralError(err_msg) 
+			raise Exceptions.GeneralError(err_msg) 
 	
 	def getAll(self):
 		try:
 			all = Consent.objects.all()
 			return all;
-		except utils.DatabaseError:
-			raise StorageReadError("Failed to get all Consent from db")
+		except utils.Exceptions.DatabaseError:
+			raise Exceptions.StorageReadError("Failed to get all Consent from db")
 		except Exception:
 			return None;
 		
@@ -102,9 +104,9 @@ class ConsentDelegate :
 			# reload and return the appropriate version					
 			return self.get( consent_id );
 		except Consent.DoesNotExist:
-			raise ProcessingError(err_msg + " : Consent with id " + str(consent_id) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : Consent with id " + str(consent_id) + " does not exist.")
 		except Customer.DoesNotExist:
-			raise ProcessingError(err_msg + " : Customer with id " + str(customerId) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : Customer with id " + str(customerId) + " does not exist.")
 		except Exception:
 			return None;
 				
@@ -124,7 +126,7 @@ class ConsentDelegate :
 			# reload and return the appropriate version					
 			return self.get( consent_id );
 		except Consent.DoesNotExist:
-			raise ProcessingError(err_msg + " : Consent with id " + str(consent_id) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : Consent with id " + str(consent_id) + " does not exist.")
 		except Exception:
 			return None;
 		
@@ -150,9 +152,9 @@ class ConsentDelegate :
 			# reload and return the appropriate version					
 			return self.get( consent_id );
 		except Consent.DoesNotExist:
-			raise ProcessingError(err_msg + " : Consent with id " + str(consent_id) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : Consent with id " + str(consent_id) + " does not exist.")
 		except Bank.DoesNotExist:
-			raise ProcessingError(err_msg + " : Bank with id " + str(bankId) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : Bank with id " + str(bankId) + " does not exist.")
 		except Exception:
 			return None;
 				
@@ -172,7 +174,7 @@ class ConsentDelegate :
 			# reload and return the appropriate version					
 			return self.get( consent_id );
 		except Consent.DoesNotExist:
-			raise ProcessingError(err_msg + " : Consent with id " + str(consent_id) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : Consent with id " + str(consent_id) + " does not exist.")
 		except Exception:
 			return None;
 		
@@ -198,9 +200,9 @@ class ConsentDelegate :
 			# reload and return the appropriate version					
 			return self.get( consent_id );
 		except Consent.DoesNotExist:
-			raise ProcessingError(err_msg + " : Consent with id " + str(consent_id) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : Consent with id " + str(consent_id) + " does not exist.")
 		except ThirdPartyProvider.DoesNotExist:
-			raise ProcessingError(err_msg + " : ThirdPartyProvider with id " + str(thirdPartyProviderId) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : ThirdPartyProvider with id " + str(thirdPartyProviderId) + " does not exist.")
 		except Exception:
 			return None;
 				
@@ -220,7 +222,7 @@ class ConsentDelegate :
 			# reload and return the appropriate version					
 			return self.get( consent_id );
 		except Consent.DoesNotExist:
-			raise ProcessingError(err_msg + " : Consent with id " + str(consent_id) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : Consent with id " + str(consent_id) + " does not exist.")
 		except Exception:
 			return None;
 		
@@ -247,11 +249,11 @@ class ConsentDelegate :
 			# reload and return the appropriate version
 			return self.get( consent_id );
 		except Consent.DoesNotExist:
-			raise ProcessingError(err_msg + " : Consent with id " + str(consent_id) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : Consent with id " + str(consent_id) + " does not exist.")
 		except Account.DoesNotExist:
-			raise ProcessingError(err_msg + " : Account does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : Account does not exist.")
 		except Exception:
-			raise ProcessingError(err_msg) 
+			raise Exceptions.ProcessingError(err_msg) 
 		
 	def removeAuthorizedAccounts( self, consent_id, authorizedAccountsIds ):
 		# lazy importing avoids circular dependencies
@@ -276,11 +278,11 @@ class ConsentDelegate :
 			# reload and return the appropriate version
 			return self.get( consent_id );
 		except Consent.DoesNotExist:
-			raise ProcessingError(err_msg + " : Consent with id " + str(consent_id) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : Consent with id " + str(consent_id) + " does not exist.")
 		except Account.DoesNotExist:
-			raise ProcessingError(err_msg + " : Account does not exist.")
-		except utils.DatabaseError:
+			raise Exceptions.ProcessingError(err_msg + " : Account does not exist.")
+		except utils.Exceptions.DatabaseError:
 			raise StorageWriteError()
 		except Exception:
-			raise GeneralError(err_msg) 
+			raise Exceptions.GeneralError(err_msg) 
 		

@@ -1,4 +1,5 @@
 
+
 from django.core import exceptions
 from django.core import serializers
 from django.db import models
@@ -26,15 +27,16 @@ class RiskAssessmentDelegate :
 #======================================================================
 
 	def get(self, risk_assessment_id ):
+		err_msg = "Failed to get RiskAssessment from db using id " + str(risk_assessment_id)
 		try:	
 			risk_assessment = RiskAssessment.objects.filter(id=risk_assessment_id)
 			return risk_assessment.first();
 		except RiskAssessment.DoesNotExist:
-			raise ProcessingError("RiskAssessment with id " + str(risk_assessment_id) + " does not exist.")
-		except utils.DatabaseError:
-			raise StorageReadError()
+			raise Exceptions.ProcessingError("RiskAssessment with id " + str(risk_assessment_id) + " does not exist.")
+		except utils.Exceptions.DatabaseError:
+			raise Exceptions.StorageReadError()
 		except Exception:
-			raise GeneralError(err_msg) 
+			raise Exceptions.GeneralError(err_msg) 
 
 	def createFromJson(self, risk_assessment):
 		for model in serializers.deserialize("json", risk_assessment):
@@ -62,18 +64,18 @@ class RiskAssessmentDelegate :
 			risk_assessment.delete()
 			return True
 		except RiskAssessment.DoesNotExist:
-			raise ProcessingError("RiskAssessment with id " + str(risk_assessment_id) + " does not exist.")
-		except utils.DatabaseError:
-			raise StorageReadError()
+			raise Exceptions.ProcessingError("RiskAssessment with id " + str(risk_assessment_id) + " does not exist.")
+		except utils.Exceptions.DatabaseError:
+			raise Exceptions.StorageReadError()
 		except Exception:
-			raise GeneralError(err_msg) 
+			raise Exceptions.GeneralError(err_msg) 
 	
 	def getAll(self):
 		try:
 			all = RiskAssessment.objects.all()
 			return all;
-		except utils.DatabaseError:
-			raise StorageReadError("Failed to get all RiskAssessment from db")
+		except utils.Exceptions.DatabaseError:
+			raise Exceptions.StorageReadError("Failed to get all RiskAssessment from db")
 		except Exception:
 			return None;
 		
@@ -99,9 +101,9 @@ class RiskAssessmentDelegate :
 			# reload and return the appropriate version					
 			return self.get( risk_assessment_id );
 		except RiskAssessment.DoesNotExist:
-			raise ProcessingError(err_msg + " : RiskAssessment with id " + str(risk_assessment_id) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : RiskAssessment with id " + str(risk_assessment_id) + " does not exist.")
 		except KycProfile.DoesNotExist:
-			raise ProcessingError(err_msg + " : KycProfile with id " + str(kycProfileId) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : KycProfile with id " + str(kycProfileId) + " does not exist.")
 		except Exception:
 			return None;
 				
@@ -121,7 +123,7 @@ class RiskAssessmentDelegate :
 			# reload and return the appropriate version					
 			return self.get( risk_assessment_id );
 		except RiskAssessment.DoesNotExist:
-			raise ProcessingError(err_msg + " : RiskAssessment with id " + str(risk_assessment_id) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : RiskAssessment with id " + str(risk_assessment_id) + " does not exist.")
 		except Exception:
 			return None;
 		

@@ -1,4 +1,5 @@
 
+
 from django.core import exceptions
 from django.core import serializers
 from django.db import models
@@ -27,15 +28,16 @@ class ThirdPartyProviderDelegate :
 #======================================================================
 
 	def get(self, third_party_provider_id ):
+		err_msg = "Failed to get ThirdPartyProvider from db using id " + str(third_party_provider_id)
 		try:	
 			third_party_provider = ThirdPartyProvider.objects.filter(id=third_party_provider_id)
 			return third_party_provider.first();
 		except ThirdPartyProvider.DoesNotExist:
-			raise ProcessingError("ThirdPartyProvider with id " + str(third_party_provider_id) + " does not exist.")
-		except utils.DatabaseError:
-			raise StorageReadError()
+			raise Exceptions.ProcessingError("ThirdPartyProvider with id " + str(third_party_provider_id) + " does not exist.")
+		except utils.Exceptions.DatabaseError:
+			raise Exceptions.StorageReadError()
 		except Exception:
-			raise GeneralError(err_msg) 
+			raise Exceptions.GeneralError(err_msg) 
 
 	def createFromJson(self, third_party_provider):
 		for model in serializers.deserialize("json", third_party_provider):
@@ -63,18 +65,18 @@ class ThirdPartyProviderDelegate :
 			third_party_provider.delete()
 			return True
 		except ThirdPartyProvider.DoesNotExist:
-			raise ProcessingError("ThirdPartyProvider with id " + str(third_party_provider_id) + " does not exist.")
-		except utils.DatabaseError:
-			raise StorageReadError()
+			raise Exceptions.ProcessingError("ThirdPartyProvider with id " + str(third_party_provider_id) + " does not exist.")
+		except utils.Exceptions.DatabaseError:
+			raise Exceptions.StorageReadError()
 		except Exception:
-			raise GeneralError(err_msg) 
+			raise Exceptions.GeneralError(err_msg) 
 	
 	def getAll(self):
 		try:
 			all = ThirdPartyProvider.objects.all()
 			return all;
-		except utils.DatabaseError:
-			raise StorageReadError("Failed to get all ThirdPartyProvider from db")
+		except utils.Exceptions.DatabaseError:
+			raise Exceptions.StorageReadError("Failed to get all ThirdPartyProvider from db")
 		except Exception:
 			return None;
 		
@@ -100,9 +102,9 @@ class ThirdPartyProviderDelegate :
 			# reload and return the appropriate version					
 			return self.get( third_party_provider_id );
 		except ThirdPartyProvider.DoesNotExist:
-			raise ProcessingError(err_msg + " : ThirdPartyProvider with id " + str(third_party_provider_id) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : ThirdPartyProvider with id " + str(third_party_provider_id) + " does not exist.")
 		except Bank.DoesNotExist:
-			raise ProcessingError(err_msg + " : Bank with id " + str(bankId) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : Bank with id " + str(bankId) + " does not exist.")
 		except Exception:
 			return None;
 				
@@ -122,7 +124,7 @@ class ThirdPartyProviderDelegate :
 			# reload and return the appropriate version					
 			return self.get( third_party_provider_id );
 		except ThirdPartyProvider.DoesNotExist:
-			raise ProcessingError(err_msg + " : ThirdPartyProvider with id " + str(third_party_provider_id) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : ThirdPartyProvider with id " + str(third_party_provider_id) + " does not exist.")
 		except Exception:
 			return None;
 		
@@ -149,11 +151,11 @@ class ThirdPartyProviderDelegate :
 			# reload and return the appropriate version
 			return self.get( third_party_provider_id );
 		except ThirdPartyProvider.DoesNotExist:
-			raise ProcessingError(err_msg + " : ThirdPartyProvider with id " + str(third_party_provider_id) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : ThirdPartyProvider with id " + str(third_party_provider_id) + " does not exist.")
 		except Consent.DoesNotExist:
-			raise ProcessingError(err_msg + " : Consent does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : Consent does not exist.")
 		except Exception:
-			raise ProcessingError(err_msg) 
+			raise Exceptions.ProcessingError(err_msg) 
 		
 	def removeConsents( self, third_party_provider_id, consentsIds ):
 		# lazy importing avoids circular dependencies
@@ -178,11 +180,11 @@ class ThirdPartyProviderDelegate :
 			# reload and return the appropriate version
 			return self.get( third_party_provider_id );
 		except ThirdPartyProvider.DoesNotExist:
-			raise ProcessingError(err_msg + " : ThirdPartyProvider with id " + str(third_party_provider_id) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : ThirdPartyProvider with id " + str(third_party_provider_id) + " does not exist.")
 		except Consent.DoesNotExist:
-			raise ProcessingError(err_msg + " : Consent does not exist.")
-		except utils.DatabaseError:
+			raise Exceptions.ProcessingError(err_msg + " : Consent does not exist.")
+		except utils.Exceptions.DatabaseError:
 			raise StorageWriteError()
 		except Exception:
-			raise GeneralError(err_msg) 
+			raise Exceptions.GeneralError(err_msg) 
 		

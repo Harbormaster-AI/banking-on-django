@@ -1,4 +1,5 @@
 
+
 from django.core import exceptions
 from django.core import serializers
 from django.db import models
@@ -27,15 +28,16 @@ class RepaymentScheduleDelegate :
 #======================================================================
 
 	def get(self, repayment_schedule_id ):
+		err_msg = "Failed to get RepaymentSchedule from db using id " + str(repayment_schedule_id)
 		try:	
 			repayment_schedule = RepaymentSchedule.objects.filter(id=repayment_schedule_id)
 			return repayment_schedule.first();
 		except RepaymentSchedule.DoesNotExist:
-			raise ProcessingError("RepaymentSchedule with id " + str(repayment_schedule_id) + " does not exist.")
-		except utils.DatabaseError:
-			raise StorageReadError()
+			raise Exceptions.ProcessingError("RepaymentSchedule with id " + str(repayment_schedule_id) + " does not exist.")
+		except utils.Exceptions.DatabaseError:
+			raise Exceptions.StorageReadError()
 		except Exception:
-			raise GeneralError(err_msg) 
+			raise Exceptions.GeneralError(err_msg) 
 
 	def createFromJson(self, repayment_schedule):
 		for model in serializers.deserialize("json", repayment_schedule):
@@ -63,18 +65,18 @@ class RepaymentScheduleDelegate :
 			repayment_schedule.delete()
 			return True
 		except RepaymentSchedule.DoesNotExist:
-			raise ProcessingError("RepaymentSchedule with id " + str(repayment_schedule_id) + " does not exist.")
-		except utils.DatabaseError:
-			raise StorageReadError()
+			raise Exceptions.ProcessingError("RepaymentSchedule with id " + str(repayment_schedule_id) + " does not exist.")
+		except utils.Exceptions.DatabaseError:
+			raise Exceptions.StorageReadError()
 		except Exception:
-			raise GeneralError(err_msg) 
+			raise Exceptions.GeneralError(err_msg) 
 	
 	def getAll(self):
 		try:
 			all = RepaymentSchedule.objects.all()
 			return all;
-		except utils.DatabaseError:
-			raise StorageReadError("Failed to get all RepaymentSchedule from db")
+		except utils.Exceptions.DatabaseError:
+			raise Exceptions.StorageReadError("Failed to get all RepaymentSchedule from db")
 		except Exception:
 			return None;
 		
@@ -100,9 +102,9 @@ class RepaymentScheduleDelegate :
 			# reload and return the appropriate version					
 			return self.get( repayment_schedule_id );
 		except RepaymentSchedule.DoesNotExist:
-			raise ProcessingError(err_msg + " : RepaymentSchedule with id " + str(repayment_schedule_id) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : RepaymentSchedule with id " + str(repayment_schedule_id) + " does not exist.")
 		except LoanAccount.DoesNotExist:
-			raise ProcessingError(err_msg + " : LoanAccount with id " + str(loanAccountId) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : LoanAccount with id " + str(loanAccountId) + " does not exist.")
 		except Exception:
 			return None;
 				
@@ -122,7 +124,7 @@ class RepaymentScheduleDelegate :
 			# reload and return the appropriate version					
 			return self.get( repayment_schedule_id );
 		except RepaymentSchedule.DoesNotExist:
-			raise ProcessingError(err_msg + " : RepaymentSchedule with id " + str(repayment_schedule_id) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : RepaymentSchedule with id " + str(repayment_schedule_id) + " does not exist.")
 		except Exception:
 			return None;
 		
@@ -148,9 +150,9 @@ class RepaymentScheduleDelegate :
 			# reload and return the appropriate version					
 			return self.get( repayment_schedule_id );
 		except RepaymentSchedule.DoesNotExist:
-			raise ProcessingError(err_msg + " : RepaymentSchedule with id " + str(repayment_schedule_id) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : RepaymentSchedule with id " + str(repayment_schedule_id) + " does not exist.")
 		except LoanPayment.DoesNotExist:
-			raise ProcessingError(err_msg + " : LoanPayment with id " + str(paymentId) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : LoanPayment with id " + str(paymentId) + " does not exist.")
 		except Exception:
 			return None;
 				
@@ -170,7 +172,7 @@ class RepaymentScheduleDelegate :
 			# reload and return the appropriate version					
 			return self.get( repayment_schedule_id );
 		except RepaymentSchedule.DoesNotExist:
-			raise ProcessingError(err_msg + " : RepaymentSchedule with id " + str(repayment_schedule_id) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : RepaymentSchedule with id " + str(repayment_schedule_id) + " does not exist.")
 		except Exception:
 			return None;
 		

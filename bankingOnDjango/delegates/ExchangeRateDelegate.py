@@ -1,4 +1,5 @@
 
+
 from django.core import exceptions
 from django.core import serializers
 from django.db import models
@@ -27,15 +28,16 @@ class ExchangeRateDelegate :
 #======================================================================
 
 	def get(self, exchange_rate_id ):
+		err_msg = "Failed to get ExchangeRate from db using id " + str(exchange_rate_id)
 		try:	
 			exchange_rate = ExchangeRate.objects.filter(id=exchange_rate_id)
 			return exchange_rate.first();
 		except ExchangeRate.DoesNotExist:
-			raise ProcessingError("ExchangeRate with id " + str(exchange_rate_id) + " does not exist.")
-		except utils.DatabaseError:
-			raise StorageReadError()
+			raise Exceptions.ProcessingError("ExchangeRate with id " + str(exchange_rate_id) + " does not exist.")
+		except utils.Exceptions.DatabaseError:
+			raise Exceptions.StorageReadError()
 		except Exception:
-			raise GeneralError(err_msg) 
+			raise Exceptions.GeneralError(err_msg) 
 
 	def createFromJson(self, exchange_rate):
 		for model in serializers.deserialize("json", exchange_rate):
@@ -63,18 +65,18 @@ class ExchangeRateDelegate :
 			exchange_rate.delete()
 			return True
 		except ExchangeRate.DoesNotExist:
-			raise ProcessingError("ExchangeRate with id " + str(exchange_rate_id) + " does not exist.")
-		except utils.DatabaseError:
-			raise StorageReadError()
+			raise Exceptions.ProcessingError("ExchangeRate with id " + str(exchange_rate_id) + " does not exist.")
+		except utils.Exceptions.DatabaseError:
+			raise Exceptions.StorageReadError()
 		except Exception:
-			raise GeneralError(err_msg) 
+			raise Exceptions.GeneralError(err_msg) 
 	
 	def getAll(self):
 		try:
 			all = ExchangeRate.objects.all()
 			return all;
-		except utils.DatabaseError:
-			raise StorageReadError("Failed to get all ExchangeRate from db")
+		except utils.Exceptions.DatabaseError:
+			raise Exceptions.StorageReadError("Failed to get all ExchangeRate from db")
 		except Exception:
 			return None;
 		
@@ -100,9 +102,9 @@ class ExchangeRateDelegate :
 			# reload and return the appropriate version					
 			return self.get( exchange_rate_id );
 		except ExchangeRate.DoesNotExist:
-			raise ProcessingError(err_msg + " : ExchangeRate with id " + str(exchange_rate_id) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : ExchangeRate with id " + str(exchange_rate_id) + " does not exist.")
 		except Bank.DoesNotExist:
-			raise ProcessingError(err_msg + " : Bank with id " + str(bankId) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : Bank with id " + str(bankId) + " does not exist.")
 		except Exception:
 			return None;
 				
@@ -122,7 +124,7 @@ class ExchangeRateDelegate :
 			# reload and return the appropriate version					
 			return self.get( exchange_rate_id );
 		except ExchangeRate.DoesNotExist:
-			raise ProcessingError(err_msg + " : ExchangeRate with id " + str(exchange_rate_id) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : ExchangeRate with id " + str(exchange_rate_id) + " does not exist.")
 		except Exception:
 			return None;
 		
@@ -149,11 +151,11 @@ class ExchangeRateDelegate :
 			# reload and return the appropriate version
 			return self.get( exchange_rate_id );
 		except ExchangeRate.DoesNotExist:
-			raise ProcessingError(err_msg + " : ExchangeRate with id " + str(exchange_rate_id) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : ExchangeRate with id " + str(exchange_rate_id) + " does not exist.")
 		except FXTrade.DoesNotExist:
-			raise ProcessingError(err_msg + " : FXTrade does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : FXTrade does not exist.")
 		except Exception:
-			raise ProcessingError(err_msg) 
+			raise Exceptions.ProcessingError(err_msg) 
 		
 	def removeFxTrades( self, exchange_rate_id, fxTradesIds ):
 		# lazy importing avoids circular dependencies
@@ -178,11 +180,11 @@ class ExchangeRateDelegate :
 			# reload and return the appropriate version
 			return self.get( exchange_rate_id );
 		except ExchangeRate.DoesNotExist:
-			raise ProcessingError(err_msg + " : ExchangeRate with id " + str(exchange_rate_id) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : ExchangeRate with id " + str(exchange_rate_id) + " does not exist.")
 		except FXTrade.DoesNotExist:
-			raise ProcessingError(err_msg + " : FXTrade does not exist.")
-		except utils.DatabaseError:
+			raise Exceptions.ProcessingError(err_msg + " : FXTrade does not exist.")
+		except utils.Exceptions.DatabaseError:
 			raise StorageWriteError()
 		except Exception:
-			raise GeneralError(err_msg) 
+			raise Exceptions.GeneralError(err_msg) 
 		

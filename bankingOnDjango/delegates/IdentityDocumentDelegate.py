@@ -1,4 +1,5 @@
 
+
 from django.core import exceptions
 from django.core import serializers
 from django.db import models
@@ -26,15 +27,16 @@ class IdentityDocumentDelegate :
 #======================================================================
 
 	def get(self, identity_document_id ):
+		err_msg = "Failed to get IdentityDocument from db using id " + str(identity_document_id)
 		try:	
 			identity_document = IdentityDocument.objects.filter(id=identity_document_id)
 			return identity_document.first();
 		except IdentityDocument.DoesNotExist:
-			raise ProcessingError("IdentityDocument with id " + str(identity_document_id) + " does not exist.")
-		except utils.DatabaseError:
-			raise StorageReadError()
+			raise Exceptions.ProcessingError("IdentityDocument with id " + str(identity_document_id) + " does not exist.")
+		except utils.Exceptions.DatabaseError:
+			raise Exceptions.StorageReadError()
 		except Exception:
-			raise GeneralError(err_msg) 
+			raise Exceptions.GeneralError(err_msg) 
 
 	def createFromJson(self, identity_document):
 		for model in serializers.deserialize("json", identity_document):
@@ -62,18 +64,18 @@ class IdentityDocumentDelegate :
 			identity_document.delete()
 			return True
 		except IdentityDocument.DoesNotExist:
-			raise ProcessingError("IdentityDocument with id " + str(identity_document_id) + " does not exist.")
-		except utils.DatabaseError:
-			raise StorageReadError()
+			raise Exceptions.ProcessingError("IdentityDocument with id " + str(identity_document_id) + " does not exist.")
+		except utils.Exceptions.DatabaseError:
+			raise Exceptions.StorageReadError()
 		except Exception:
-			raise GeneralError(err_msg) 
+			raise Exceptions.GeneralError(err_msg) 
 	
 	def getAll(self):
 		try:
 			all = IdentityDocument.objects.all()
 			return all;
-		except utils.DatabaseError:
-			raise StorageReadError("Failed to get all IdentityDocument from db")
+		except utils.Exceptions.DatabaseError:
+			raise Exceptions.StorageReadError("Failed to get all IdentityDocument from db")
 		except Exception:
 			return None;
 		
@@ -99,9 +101,9 @@ class IdentityDocumentDelegate :
 			# reload and return the appropriate version					
 			return self.get( identity_document_id );
 		except IdentityDocument.DoesNotExist:
-			raise ProcessingError(err_msg + " : IdentityDocument with id " + str(identity_document_id) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : IdentityDocument with id " + str(identity_document_id) + " does not exist.")
 		except KycProfile.DoesNotExist:
-			raise ProcessingError(err_msg + " : KycProfile with id " + str(kycProfileId) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : KycProfile with id " + str(kycProfileId) + " does not exist.")
 		except Exception:
 			return None;
 				
@@ -121,7 +123,7 @@ class IdentityDocumentDelegate :
 			# reload and return the appropriate version					
 			return self.get( identity_document_id );
 		except IdentityDocument.DoesNotExist:
-			raise ProcessingError(err_msg + " : IdentityDocument with id " + str(identity_document_id) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : IdentityDocument with id " + str(identity_document_id) + " does not exist.")
 		except Exception:
 			return None;
 		

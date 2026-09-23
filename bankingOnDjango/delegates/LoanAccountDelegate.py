@@ -1,4 +1,5 @@
 
+
 from django.core import exceptions
 from django.core import serializers
 from django.db import models
@@ -33,15 +34,16 @@ class LoanAccountDelegate :
 #======================================================================
 
 	def get(self, loan_account_id ):
+		err_msg = "Failed to get LoanAccount from db using id " + str(loan_account_id)
 		try:	
 			loan_account = LoanAccount.objects.filter(id=loan_account_id)
 			return loan_account.first();
 		except LoanAccount.DoesNotExist:
-			raise ProcessingError("LoanAccount with id " + str(loan_account_id) + " does not exist.")
-		except utils.DatabaseError:
-			raise StorageReadError()
+			raise Exceptions.ProcessingError("LoanAccount with id " + str(loan_account_id) + " does not exist.")
+		except utils.Exceptions.DatabaseError:
+			raise Exceptions.StorageReadError()
 		except Exception:
-			raise GeneralError(err_msg) 
+			raise Exceptions.GeneralError(err_msg) 
 
 	def createFromJson(self, loan_account):
 		for model in serializers.deserialize("json", loan_account):
@@ -69,18 +71,18 @@ class LoanAccountDelegate :
 			loan_account.delete()
 			return True
 		except LoanAccount.DoesNotExist:
-			raise ProcessingError("LoanAccount with id " + str(loan_account_id) + " does not exist.")
-		except utils.DatabaseError:
-			raise StorageReadError()
+			raise Exceptions.ProcessingError("LoanAccount with id " + str(loan_account_id) + " does not exist.")
+		except utils.Exceptions.DatabaseError:
+			raise Exceptions.StorageReadError()
 		except Exception:
-			raise GeneralError(err_msg) 
+			raise Exceptions.GeneralError(err_msg) 
 	
 	def getAll(self):
 		try:
 			all = LoanAccount.objects.all()
 			return all;
-		except utils.DatabaseError:
-			raise StorageReadError("Failed to get all LoanAccount from db")
+		except utils.Exceptions.DatabaseError:
+			raise Exceptions.StorageReadError("Failed to get all LoanAccount from db")
 		except Exception:
 			return None;
 		
@@ -106,9 +108,9 @@ class LoanAccountDelegate :
 			# reload and return the appropriate version					
 			return self.get( loan_account_id );
 		except LoanAccount.DoesNotExist:
-			raise ProcessingError(err_msg + " : LoanAccount with id " + str(loan_account_id) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : LoanAccount with id " + str(loan_account_id) + " does not exist.")
 		except Bank.DoesNotExist:
-			raise ProcessingError(err_msg + " : Bank with id " + str(bankId) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : Bank with id " + str(bankId) + " does not exist.")
 		except Exception:
 			return None;
 				
@@ -128,7 +130,7 @@ class LoanAccountDelegate :
 			# reload and return the appropriate version					
 			return self.get( loan_account_id );
 		except LoanAccount.DoesNotExist:
-			raise ProcessingError(err_msg + " : LoanAccount with id " + str(loan_account_id) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : LoanAccount with id " + str(loan_account_id) + " does not exist.")
 		except Exception:
 			return None;
 		
@@ -154,9 +156,9 @@ class LoanAccountDelegate :
 			# reload and return the appropriate version					
 			return self.get( loan_account_id );
 		except LoanAccount.DoesNotExist:
-			raise ProcessingError(err_msg + " : LoanAccount with id " + str(loan_account_id) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : LoanAccount with id " + str(loan_account_id) + " does not exist.")
 		except Branch.DoesNotExist:
-			raise ProcessingError(err_msg + " : Branch with id " + str(branchId) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : Branch with id " + str(branchId) + " does not exist.")
 		except Exception:
 			return None;
 				
@@ -176,7 +178,7 @@ class LoanAccountDelegate :
 			# reload and return the appropriate version					
 			return self.get( loan_account_id );
 		except LoanAccount.DoesNotExist:
-			raise ProcessingError(err_msg + " : LoanAccount with id " + str(loan_account_id) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : LoanAccount with id " + str(loan_account_id) + " does not exist.")
 		except Exception:
 			return None;
 		
@@ -202,9 +204,9 @@ class LoanAccountDelegate :
 			# reload and return the appropriate version					
 			return self.get( loan_account_id );
 		except LoanAccount.DoesNotExist:
-			raise ProcessingError(err_msg + " : LoanAccount with id " + str(loan_account_id) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : LoanAccount with id " + str(loan_account_id) + " does not exist.")
 		except BankingProduct.DoesNotExist:
-			raise ProcessingError(err_msg + " : BankingProduct with id " + str(productId) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : BankingProduct with id " + str(productId) + " does not exist.")
 		except Exception:
 			return None;
 				
@@ -224,7 +226,7 @@ class LoanAccountDelegate :
 			# reload and return the appropriate version					
 			return self.get( loan_account_id );
 		except LoanAccount.DoesNotExist:
-			raise ProcessingError(err_msg + " : LoanAccount with id " + str(loan_account_id) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : LoanAccount with id " + str(loan_account_id) + " does not exist.")
 		except Exception:
 			return None;
 		
@@ -251,11 +253,11 @@ class LoanAccountDelegate :
 			# reload and return the appropriate version
 			return self.get( loan_account_id );
 		except LoanAccount.DoesNotExist:
-			raise ProcessingError(err_msg + " : LoanAccount with id " + str(loan_account_id) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : LoanAccount with id " + str(loan_account_id) + " does not exist.")
 		except Customer.DoesNotExist:
-			raise ProcessingError(err_msg + " : Customer does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : Customer does not exist.")
 		except Exception:
-			raise ProcessingError(err_msg) 
+			raise Exceptions.ProcessingError(err_msg) 
 		
 	def removeBorrowers( self, loan_account_id, borrowersIds ):
 		# lazy importing avoids circular dependencies
@@ -280,13 +282,13 @@ class LoanAccountDelegate :
 			# reload and return the appropriate version
 			return self.get( loan_account_id );
 		except LoanAccount.DoesNotExist:
-			raise ProcessingError(err_msg + " : LoanAccount with id " + str(loan_account_id) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : LoanAccount with id " + str(loan_account_id) + " does not exist.")
 		except Customer.DoesNotExist:
-			raise ProcessingError(err_msg + " : Customer does not exist.")
-		except utils.DatabaseError:
+			raise Exceptions.ProcessingError(err_msg + " : Customer does not exist.")
+		except utils.Exceptions.DatabaseError:
 			raise StorageWriteError()
 		except Exception:
-			raise GeneralError(err_msg) 
+			raise Exceptions.GeneralError(err_msg) 
 		
 	def addRepaymentSchedule( self, loan_account_id, repaymentScheduleIds ):
 		# lazy importing avoids circular dependencies
@@ -311,11 +313,11 @@ class LoanAccountDelegate :
 			# reload and return the appropriate version
 			return self.get( loan_account_id );
 		except LoanAccount.DoesNotExist:
-			raise ProcessingError(err_msg + " : LoanAccount with id " + str(loan_account_id) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : LoanAccount with id " + str(loan_account_id) + " does not exist.")
 		except RepaymentSchedule.DoesNotExist:
-			raise ProcessingError(err_msg + " : RepaymentSchedule does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : RepaymentSchedule does not exist.")
 		except Exception:
-			raise ProcessingError(err_msg) 
+			raise Exceptions.ProcessingError(err_msg) 
 		
 	def removeRepaymentSchedule( self, loan_account_id, repaymentScheduleIds ):
 		# lazy importing avoids circular dependencies
@@ -340,13 +342,13 @@ class LoanAccountDelegate :
 			# reload and return the appropriate version
 			return self.get( loan_account_id );
 		except LoanAccount.DoesNotExist:
-			raise ProcessingError(err_msg + " : LoanAccount with id " + str(loan_account_id) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : LoanAccount with id " + str(loan_account_id) + " does not exist.")
 		except RepaymentSchedule.DoesNotExist:
-			raise ProcessingError(err_msg + " : RepaymentSchedule does not exist.")
-		except utils.DatabaseError:
+			raise Exceptions.ProcessingError(err_msg + " : RepaymentSchedule does not exist.")
+		except utils.Exceptions.DatabaseError:
 			raise StorageWriteError()
 		except Exception:
-			raise GeneralError(err_msg) 
+			raise Exceptions.GeneralError(err_msg) 
 		
 	def addPayments( self, loan_account_id, paymentsIds ):
 		# lazy importing avoids circular dependencies
@@ -371,11 +373,11 @@ class LoanAccountDelegate :
 			# reload and return the appropriate version
 			return self.get( loan_account_id );
 		except LoanAccount.DoesNotExist:
-			raise ProcessingError(err_msg + " : LoanAccount with id " + str(loan_account_id) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : LoanAccount with id " + str(loan_account_id) + " does not exist.")
 		except LoanPayment.DoesNotExist:
-			raise ProcessingError(err_msg + " : LoanPayment does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : LoanPayment does not exist.")
 		except Exception:
-			raise ProcessingError(err_msg) 
+			raise Exceptions.ProcessingError(err_msg) 
 		
 	def removePayments( self, loan_account_id, paymentsIds ):
 		# lazy importing avoids circular dependencies
@@ -400,13 +402,13 @@ class LoanAccountDelegate :
 			# reload and return the appropriate version
 			return self.get( loan_account_id );
 		except LoanAccount.DoesNotExist:
-			raise ProcessingError(err_msg + " : LoanAccount with id " + str(loan_account_id) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : LoanAccount with id " + str(loan_account_id) + " does not exist.")
 		except LoanPayment.DoesNotExist:
-			raise ProcessingError(err_msg + " : LoanPayment does not exist.")
-		except utils.DatabaseError:
+			raise Exceptions.ProcessingError(err_msg + " : LoanPayment does not exist.")
+		except utils.Exceptions.DatabaseError:
 			raise StorageWriteError()
 		except Exception:
-			raise GeneralError(err_msg) 
+			raise Exceptions.GeneralError(err_msg) 
 		
 	def addCollateral( self, loan_account_id, collateralIds ):
 		# lazy importing avoids circular dependencies
@@ -431,11 +433,11 @@ class LoanAccountDelegate :
 			# reload and return the appropriate version
 			return self.get( loan_account_id );
 		except LoanAccount.DoesNotExist:
-			raise ProcessingError(err_msg + " : LoanAccount with id " + str(loan_account_id) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : LoanAccount with id " + str(loan_account_id) + " does not exist.")
 		except Collateral.DoesNotExist:
-			raise ProcessingError(err_msg + " : Collateral does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : Collateral does not exist.")
 		except Exception:
-			raise ProcessingError(err_msg) 
+			raise Exceptions.ProcessingError(err_msg) 
 		
 	def removeCollateral( self, loan_account_id, collateralIds ):
 		# lazy importing avoids circular dependencies
@@ -460,13 +462,13 @@ class LoanAccountDelegate :
 			# reload and return the appropriate version
 			return self.get( loan_account_id );
 		except LoanAccount.DoesNotExist:
-			raise ProcessingError(err_msg + " : LoanAccount with id " + str(loan_account_id) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : LoanAccount with id " + str(loan_account_id) + " does not exist.")
 		except Collateral.DoesNotExist:
-			raise ProcessingError(err_msg + " : Collateral does not exist.")
-		except utils.DatabaseError:
+			raise Exceptions.ProcessingError(err_msg + " : Collateral does not exist.")
+		except utils.Exceptions.DatabaseError:
 			raise StorageWriteError()
 		except Exception:
-			raise GeneralError(err_msg) 
+			raise Exceptions.GeneralError(err_msg) 
 		
 	def addFeeCharges( self, loan_account_id, feeChargesIds ):
 		# lazy importing avoids circular dependencies
@@ -491,11 +493,11 @@ class LoanAccountDelegate :
 			# reload and return the appropriate version
 			return self.get( loan_account_id );
 		except LoanAccount.DoesNotExist:
-			raise ProcessingError(err_msg + " : LoanAccount with id " + str(loan_account_id) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : LoanAccount with id " + str(loan_account_id) + " does not exist.")
 		except FeeCharge.DoesNotExist:
-			raise ProcessingError(err_msg + " : FeeCharge does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : FeeCharge does not exist.")
 		except Exception:
-			raise ProcessingError(err_msg) 
+			raise Exceptions.ProcessingError(err_msg) 
 		
 	def removeFeeCharges( self, loan_account_id, feeChargesIds ):
 		# lazy importing avoids circular dependencies
@@ -520,11 +522,11 @@ class LoanAccountDelegate :
 			# reload and return the appropriate version
 			return self.get( loan_account_id );
 		except LoanAccount.DoesNotExist:
-			raise ProcessingError(err_msg + " : LoanAccount with id " + str(loan_account_id) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : LoanAccount with id " + str(loan_account_id) + " does not exist.")
 		except FeeCharge.DoesNotExist:
-			raise ProcessingError(err_msg + " : FeeCharge does not exist.")
-		except utils.DatabaseError:
+			raise Exceptions.ProcessingError(err_msg + " : FeeCharge does not exist.")
+		except utils.Exceptions.DatabaseError:
 			raise StorageWriteError()
 		except Exception:
-			raise GeneralError(err_msg) 
+			raise Exceptions.GeneralError(err_msg) 
 		

@@ -1,4 +1,5 @@
 
+
 from django.core import exceptions
 from django.core import serializers
 from django.db import models
@@ -27,15 +28,16 @@ class StandingInstructionDelegate :
 #======================================================================
 
 	def get(self, standing_instruction_id ):
+		err_msg = "Failed to get StandingInstruction from db using id " + str(standing_instruction_id)
 		try:	
 			standing_instruction = StandingInstruction.objects.filter(id=standing_instruction_id)
 			return standing_instruction.first();
 		except StandingInstruction.DoesNotExist:
-			raise ProcessingError("StandingInstruction with id " + str(standing_instruction_id) + " does not exist.")
-		except utils.DatabaseError:
-			raise StorageReadError()
+			raise Exceptions.ProcessingError("StandingInstruction with id " + str(standing_instruction_id) + " does not exist.")
+		except utils.Exceptions.DatabaseError:
+			raise Exceptions.StorageReadError()
 		except Exception:
-			raise GeneralError(err_msg) 
+			raise Exceptions.GeneralError(err_msg) 
 
 	def createFromJson(self, standing_instruction):
 		for model in serializers.deserialize("json", standing_instruction):
@@ -63,18 +65,18 @@ class StandingInstructionDelegate :
 			standing_instruction.delete()
 			return True
 		except StandingInstruction.DoesNotExist:
-			raise ProcessingError("StandingInstruction with id " + str(standing_instruction_id) + " does not exist.")
-		except utils.DatabaseError:
-			raise StorageReadError()
+			raise Exceptions.ProcessingError("StandingInstruction with id " + str(standing_instruction_id) + " does not exist.")
+		except utils.Exceptions.DatabaseError:
+			raise Exceptions.StorageReadError()
 		except Exception:
-			raise GeneralError(err_msg) 
+			raise Exceptions.GeneralError(err_msg) 
 	
 	def getAll(self):
 		try:
 			all = StandingInstruction.objects.all()
 			return all;
-		except utils.DatabaseError:
-			raise StorageReadError("Failed to get all StandingInstruction from db")
+		except utils.Exceptions.DatabaseError:
+			raise Exceptions.StorageReadError("Failed to get all StandingInstruction from db")
 		except Exception:
 			return None;
 		
@@ -100,9 +102,9 @@ class StandingInstructionDelegate :
 			# reload and return the appropriate version					
 			return self.get( standing_instruction_id );
 		except StandingInstruction.DoesNotExist:
-			raise ProcessingError(err_msg + " : StandingInstruction with id " + str(standing_instruction_id) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : StandingInstruction with id " + str(standing_instruction_id) + " does not exist.")
 		except Account.DoesNotExist:
-			raise ProcessingError(err_msg + " : Account with id " + str(accountId) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : Account with id " + str(accountId) + " does not exist.")
 		except Exception:
 			return None;
 				
@@ -122,7 +124,7 @@ class StandingInstructionDelegate :
 			# reload and return the appropriate version					
 			return self.get( standing_instruction_id );
 		except StandingInstruction.DoesNotExist:
-			raise ProcessingError(err_msg + " : StandingInstruction with id " + str(standing_instruction_id) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : StandingInstruction with id " + str(standing_instruction_id) + " does not exist.")
 		except Exception:
 			return None;
 		
@@ -148,9 +150,9 @@ class StandingInstructionDelegate :
 			# reload and return the appropriate version					
 			return self.get( standing_instruction_id );
 		except StandingInstruction.DoesNotExist:
-			raise ProcessingError(err_msg + " : StandingInstruction with id " + str(standing_instruction_id) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : StandingInstruction with id " + str(standing_instruction_id) + " does not exist.")
 		except ExternalAccount.DoesNotExist:
-			raise ProcessingError(err_msg + " : ExternalAccount with id " + str(beneficiaryId) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : ExternalAccount with id " + str(beneficiaryId) + " does not exist.")
 		except Exception:
 			return None;
 				
@@ -170,7 +172,7 @@ class StandingInstructionDelegate :
 			# reload and return the appropriate version					
 			return self.get( standing_instruction_id );
 		except StandingInstruction.DoesNotExist:
-			raise ProcessingError(err_msg + " : StandingInstruction with id " + str(standing_instruction_id) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : StandingInstruction with id " + str(standing_instruction_id) + " does not exist.")
 		except Exception:
 			return None;
 		

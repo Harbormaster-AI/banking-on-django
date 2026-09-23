@@ -1,4 +1,5 @@
 
+
 from django.core import exceptions
 from django.core import serializers
 from django.db import models
@@ -29,15 +30,16 @@ class KycProfileDelegate :
 #======================================================================
 
 	def get(self, kyc_profile_id ):
+		err_msg = "Failed to get KycProfile from db using id " + str(kyc_profile_id)
 		try:	
 			kyc_profile = KycProfile.objects.filter(id=kyc_profile_id)
 			return kyc_profile.first();
 		except KycProfile.DoesNotExist:
-			raise ProcessingError("KycProfile with id " + str(kyc_profile_id) + " does not exist.")
-		except utils.DatabaseError:
-			raise StorageReadError()
+			raise Exceptions.ProcessingError("KycProfile with id " + str(kyc_profile_id) + " does not exist.")
+		except utils.Exceptions.DatabaseError:
+			raise Exceptions.StorageReadError()
 		except Exception:
-			raise GeneralError(err_msg) 
+			raise Exceptions.GeneralError(err_msg) 
 
 	def createFromJson(self, kyc_profile):
 		for model in serializers.deserialize("json", kyc_profile):
@@ -65,18 +67,18 @@ class KycProfileDelegate :
 			kyc_profile.delete()
 			return True
 		except KycProfile.DoesNotExist:
-			raise ProcessingError("KycProfile with id " + str(kyc_profile_id) + " does not exist.")
-		except utils.DatabaseError:
-			raise StorageReadError()
+			raise Exceptions.ProcessingError("KycProfile with id " + str(kyc_profile_id) + " does not exist.")
+		except utils.Exceptions.DatabaseError:
+			raise Exceptions.StorageReadError()
 		except Exception:
-			raise GeneralError(err_msg) 
+			raise Exceptions.GeneralError(err_msg) 
 	
 	def getAll(self):
 		try:
 			all = KycProfile.objects.all()
 			return all;
-		except utils.DatabaseError:
-			raise StorageReadError("Failed to get all KycProfile from db")
+		except utils.Exceptions.DatabaseError:
+			raise Exceptions.StorageReadError("Failed to get all KycProfile from db")
 		except Exception:
 			return None;
 		
@@ -102,9 +104,9 @@ class KycProfileDelegate :
 			# reload and return the appropriate version					
 			return self.get( kyc_profile_id );
 		except KycProfile.DoesNotExist:
-			raise ProcessingError(err_msg + " : KycProfile with id " + str(kyc_profile_id) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : KycProfile with id " + str(kyc_profile_id) + " does not exist.")
 		except Customer.DoesNotExist:
-			raise ProcessingError(err_msg + " : Customer with id " + str(customerId) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : Customer with id " + str(customerId) + " does not exist.")
 		except Exception:
 			return None;
 				
@@ -124,7 +126,7 @@ class KycProfileDelegate :
 			# reload and return the appropriate version					
 			return self.get( kyc_profile_id );
 		except KycProfile.DoesNotExist:
-			raise ProcessingError(err_msg + " : KycProfile with id " + str(kyc_profile_id) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : KycProfile with id " + str(kyc_profile_id) + " does not exist.")
 		except Exception:
 			return None;
 		
@@ -151,11 +153,11 @@ class KycProfileDelegate :
 			# reload and return the appropriate version
 			return self.get( kyc_profile_id );
 		except KycProfile.DoesNotExist:
-			raise ProcessingError(err_msg + " : KycProfile with id " + str(kyc_profile_id) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : KycProfile with id " + str(kyc_profile_id) + " does not exist.")
 		except IdentityDocument.DoesNotExist:
-			raise ProcessingError(err_msg + " : IdentityDocument does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : IdentityDocument does not exist.")
 		except Exception:
-			raise ProcessingError(err_msg) 
+			raise Exceptions.ProcessingError(err_msg) 
 		
 	def removeIdentityDocuments( self, kyc_profile_id, identityDocumentsIds ):
 		# lazy importing avoids circular dependencies
@@ -180,13 +182,13 @@ class KycProfileDelegate :
 			# reload and return the appropriate version
 			return self.get( kyc_profile_id );
 		except KycProfile.DoesNotExist:
-			raise ProcessingError(err_msg + " : KycProfile with id " + str(kyc_profile_id) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : KycProfile with id " + str(kyc_profile_id) + " does not exist.")
 		except IdentityDocument.DoesNotExist:
-			raise ProcessingError(err_msg + " : IdentityDocument does not exist.")
-		except utils.DatabaseError:
+			raise Exceptions.ProcessingError(err_msg + " : IdentityDocument does not exist.")
+		except utils.Exceptions.DatabaseError:
 			raise StorageWriteError()
 		except Exception:
-			raise GeneralError(err_msg) 
+			raise Exceptions.GeneralError(err_msg) 
 		
 	def addRiskAssessments( self, kyc_profile_id, riskAssessmentsIds ):
 		# lazy importing avoids circular dependencies
@@ -211,11 +213,11 @@ class KycProfileDelegate :
 			# reload and return the appropriate version
 			return self.get( kyc_profile_id );
 		except KycProfile.DoesNotExist:
-			raise ProcessingError(err_msg + " : KycProfile with id " + str(kyc_profile_id) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : KycProfile with id " + str(kyc_profile_id) + " does not exist.")
 		except RiskAssessment.DoesNotExist:
-			raise ProcessingError(err_msg + " : RiskAssessment does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : RiskAssessment does not exist.")
 		except Exception:
-			raise ProcessingError(err_msg) 
+			raise Exceptions.ProcessingError(err_msg) 
 		
 	def removeRiskAssessments( self, kyc_profile_id, riskAssessmentsIds ):
 		# lazy importing avoids circular dependencies
@@ -240,13 +242,13 @@ class KycProfileDelegate :
 			# reload and return the appropriate version
 			return self.get( kyc_profile_id );
 		except KycProfile.DoesNotExist:
-			raise ProcessingError(err_msg + " : KycProfile with id " + str(kyc_profile_id) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : KycProfile with id " + str(kyc_profile_id) + " does not exist.")
 		except RiskAssessment.DoesNotExist:
-			raise ProcessingError(err_msg + " : RiskAssessment does not exist.")
-		except utils.DatabaseError:
+			raise Exceptions.ProcessingError(err_msg + " : RiskAssessment does not exist.")
+		except utils.Exceptions.DatabaseError:
 			raise StorageWriteError()
 		except Exception:
-			raise GeneralError(err_msg) 
+			raise Exceptions.GeneralError(err_msg) 
 		
 	def addScreenings( self, kyc_profile_id, screeningsIds ):
 		# lazy importing avoids circular dependencies
@@ -271,11 +273,11 @@ class KycProfileDelegate :
 			# reload and return the appropriate version
 			return self.get( kyc_profile_id );
 		except KycProfile.DoesNotExist:
-			raise ProcessingError(err_msg + " : KycProfile with id " + str(kyc_profile_id) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : KycProfile with id " + str(kyc_profile_id) + " does not exist.")
 		except ScreeningResult.DoesNotExist:
-			raise ProcessingError(err_msg + " : ScreeningResult does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : ScreeningResult does not exist.")
 		except Exception:
-			raise ProcessingError(err_msg) 
+			raise Exceptions.ProcessingError(err_msg) 
 		
 	def removeScreenings( self, kyc_profile_id, screeningsIds ):
 		# lazy importing avoids circular dependencies
@@ -300,11 +302,11 @@ class KycProfileDelegate :
 			# reload and return the appropriate version
 			return self.get( kyc_profile_id );
 		except KycProfile.DoesNotExist:
-			raise ProcessingError(err_msg + " : KycProfile with id " + str(kyc_profile_id) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : KycProfile with id " + str(kyc_profile_id) + " does not exist.")
 		except ScreeningResult.DoesNotExist:
-			raise ProcessingError(err_msg + " : ScreeningResult does not exist.")
-		except utils.DatabaseError:
+			raise Exceptions.ProcessingError(err_msg + " : ScreeningResult does not exist.")
+		except utils.Exceptions.DatabaseError:
 			raise StorageWriteError()
 		except Exception:
-			raise GeneralError(err_msg) 
+			raise Exceptions.GeneralError(err_msg) 
 		

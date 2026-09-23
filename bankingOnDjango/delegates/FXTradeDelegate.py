@@ -1,4 +1,5 @@
 
+
 from django.core import exceptions
 from django.core import serializers
 from django.db import models
@@ -30,15 +31,16 @@ class FXTradeDelegate :
 #======================================================================
 
 	def get(self, f_x_trade_id ):
+		err_msg = "Failed to get FXTrade from db using id " + str(f_x_trade_id)
 		try:	
 			f_x_trade = FXTrade.objects.filter(id=f_x_trade_id)
 			return f_x_trade.first();
 		except FXTrade.DoesNotExist:
-			raise ProcessingError("FXTrade with id " + str(f_x_trade_id) + " does not exist.")
-		except utils.DatabaseError:
-			raise StorageReadError()
+			raise Exceptions.ProcessingError("FXTrade with id " + str(f_x_trade_id) + " does not exist.")
+		except utils.Exceptions.DatabaseError:
+			raise Exceptions.StorageReadError()
 		except Exception:
-			raise GeneralError(err_msg) 
+			raise Exceptions.GeneralError(err_msg) 
 
 	def createFromJson(self, f_x_trade):
 		for model in serializers.deserialize("json", f_x_trade):
@@ -66,18 +68,18 @@ class FXTradeDelegate :
 			f_x_trade.delete()
 			return True
 		except FXTrade.DoesNotExist:
-			raise ProcessingError("FXTrade with id " + str(f_x_trade_id) + " does not exist.")
-		except utils.DatabaseError:
-			raise StorageReadError()
+			raise Exceptions.ProcessingError("FXTrade with id " + str(f_x_trade_id) + " does not exist.")
+		except utils.Exceptions.DatabaseError:
+			raise Exceptions.StorageReadError()
 		except Exception:
-			raise GeneralError(err_msg) 
+			raise Exceptions.GeneralError(err_msg) 
 	
 	def getAll(self):
 		try:
 			all = FXTrade.objects.all()
 			return all;
-		except utils.DatabaseError:
-			raise StorageReadError("Failed to get all FXTrade from db")
+		except utils.Exceptions.DatabaseError:
+			raise Exceptions.StorageReadError("Failed to get all FXTrade from db")
 		except Exception:
 			return None;
 		
@@ -103,9 +105,9 @@ class FXTradeDelegate :
 			# reload and return the appropriate version					
 			return self.get( f_x_trade_id );
 		except FXTrade.DoesNotExist:
-			raise ProcessingError(err_msg + " : FXTrade with id " + str(f_x_trade_id) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : FXTrade with id " + str(f_x_trade_id) + " does not exist.")
 		except Customer.DoesNotExist:
-			raise ProcessingError(err_msg + " : Customer with id " + str(customerId) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : Customer with id " + str(customerId) + " does not exist.")
 		except Exception:
 			return None;
 				
@@ -125,7 +127,7 @@ class FXTradeDelegate :
 			# reload and return the appropriate version					
 			return self.get( f_x_trade_id );
 		except FXTrade.DoesNotExist:
-			raise ProcessingError(err_msg + " : FXTrade with id " + str(f_x_trade_id) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : FXTrade with id " + str(f_x_trade_id) + " does not exist.")
 		except Exception:
 			return None;
 		
@@ -151,9 +153,9 @@ class FXTradeDelegate :
 			# reload and return the appropriate version					
 			return self.get( f_x_trade_id );
 		except FXTrade.DoesNotExist:
-			raise ProcessingError(err_msg + " : FXTrade with id " + str(f_x_trade_id) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : FXTrade with id " + str(f_x_trade_id) + " does not exist.")
 		except Bank.DoesNotExist:
-			raise ProcessingError(err_msg + " : Bank with id " + str(bankId) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : Bank with id " + str(bankId) + " does not exist.")
 		except Exception:
 			return None;
 				
@@ -173,7 +175,7 @@ class FXTradeDelegate :
 			# reload and return the appropriate version					
 			return self.get( f_x_trade_id );
 		except FXTrade.DoesNotExist:
-			raise ProcessingError(err_msg + " : FXTrade with id " + str(f_x_trade_id) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : FXTrade with id " + str(f_x_trade_id) + " does not exist.")
 		except Exception:
 			return None;
 		
@@ -199,9 +201,9 @@ class FXTradeDelegate :
 			# reload and return the appropriate version					
 			return self.get( f_x_trade_id );
 		except FXTrade.DoesNotExist:
-			raise ProcessingError(err_msg + " : FXTrade with id " + str(f_x_trade_id) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : FXTrade with id " + str(f_x_trade_id) + " does not exist.")
 		except ExchangeRate.DoesNotExist:
-			raise ProcessingError(err_msg + " : ExchangeRate with id " + str(exchangeRateId) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : ExchangeRate with id " + str(exchangeRateId) + " does not exist.")
 		except Exception:
 			return None;
 				
@@ -221,7 +223,7 @@ class FXTradeDelegate :
 			# reload and return the appropriate version					
 			return self.get( f_x_trade_id );
 		except FXTrade.DoesNotExist:
-			raise ProcessingError(err_msg + " : FXTrade with id " + str(f_x_trade_id) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : FXTrade with id " + str(f_x_trade_id) + " does not exist.")
 		except Exception:
 			return None;
 		
@@ -247,9 +249,9 @@ class FXTradeDelegate :
 			# reload and return the appropriate version					
 			return self.get( f_x_trade_id );
 		except FXTrade.DoesNotExist:
-			raise ProcessingError(err_msg + " : FXTrade with id " + str(f_x_trade_id) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : FXTrade with id " + str(f_x_trade_id) + " does not exist.")
 		except Account.DoesNotExist:
-			raise ProcessingError(err_msg + " : Account with id " + str(sourceAccountId) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : Account with id " + str(sourceAccountId) + " does not exist.")
 		except Exception:
 			return None;
 				
@@ -269,7 +271,7 @@ class FXTradeDelegate :
 			# reload and return the appropriate version					
 			return self.get( f_x_trade_id );
 		except FXTrade.DoesNotExist:
-			raise ProcessingError(err_msg + " : FXTrade with id " + str(f_x_trade_id) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : FXTrade with id " + str(f_x_trade_id) + " does not exist.")
 		except Exception:
 			return None;
 		
@@ -295,9 +297,9 @@ class FXTradeDelegate :
 			# reload and return the appropriate version					
 			return self.get( f_x_trade_id );
 		except FXTrade.DoesNotExist:
-			raise ProcessingError(err_msg + " : FXTrade with id " + str(f_x_trade_id) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : FXTrade with id " + str(f_x_trade_id) + " does not exist.")
 		except Account.DoesNotExist:
-			raise ProcessingError(err_msg + " : Account with id " + str(destinationAccountId) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : Account with id " + str(destinationAccountId) + " does not exist.")
 		except Exception:
 			return None;
 				
@@ -317,7 +319,7 @@ class FXTradeDelegate :
 			# reload and return the appropriate version					
 			return self.get( f_x_trade_id );
 		except FXTrade.DoesNotExist:
-			raise ProcessingError(err_msg + " : FXTrade with id " + str(f_x_trade_id) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : FXTrade with id " + str(f_x_trade_id) + " does not exist.")
 		except Exception:
 			return None;
 		
@@ -343,9 +345,9 @@ class FXTradeDelegate :
 			# reload and return the appropriate version					
 			return self.get( f_x_trade_id );
 		except FXTrade.DoesNotExist:
-			raise ProcessingError(err_msg + " : FXTrade with id " + str(f_x_trade_id) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : FXTrade with id " + str(f_x_trade_id) + " does not exist.")
 		except Transaction.DoesNotExist:
-			raise ProcessingError(err_msg + " : Transaction with id " + str(transactionId) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : Transaction with id " + str(transactionId) + " does not exist.")
 		except Exception:
 			return None;
 				
@@ -365,7 +367,7 @@ class FXTradeDelegate :
 			# reload and return the appropriate version					
 			return self.get( f_x_trade_id );
 		except FXTrade.DoesNotExist:
-			raise ProcessingError(err_msg + " : FXTrade with id " + str(f_x_trade_id) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : FXTrade with id " + str(f_x_trade_id) + " does not exist.")
 		except Exception:
 			return None;
 		

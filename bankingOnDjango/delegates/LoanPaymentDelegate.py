@@ -1,4 +1,5 @@
 
+
 from django.core import exceptions
 from django.core import serializers
 from django.db import models
@@ -27,15 +28,16 @@ class LoanPaymentDelegate :
 #======================================================================
 
 	def get(self, loan_payment_id ):
+		err_msg = "Failed to get LoanPayment from db using id " + str(loan_payment_id)
 		try:	
 			loan_payment = LoanPayment.objects.filter(id=loan_payment_id)
 			return loan_payment.first();
 		except LoanPayment.DoesNotExist:
-			raise ProcessingError("LoanPayment with id " + str(loan_payment_id) + " does not exist.")
-		except utils.DatabaseError:
-			raise StorageReadError()
+			raise Exceptions.ProcessingError("LoanPayment with id " + str(loan_payment_id) + " does not exist.")
+		except utils.Exceptions.DatabaseError:
+			raise Exceptions.StorageReadError()
 		except Exception:
-			raise GeneralError(err_msg) 
+			raise Exceptions.GeneralError(err_msg) 
 
 	def createFromJson(self, loan_payment):
 		for model in serializers.deserialize("json", loan_payment):
@@ -63,18 +65,18 @@ class LoanPaymentDelegate :
 			loan_payment.delete()
 			return True
 		except LoanPayment.DoesNotExist:
-			raise ProcessingError("LoanPayment with id " + str(loan_payment_id) + " does not exist.")
-		except utils.DatabaseError:
-			raise StorageReadError()
+			raise Exceptions.ProcessingError("LoanPayment with id " + str(loan_payment_id) + " does not exist.")
+		except utils.Exceptions.DatabaseError:
+			raise Exceptions.StorageReadError()
 		except Exception:
-			raise GeneralError(err_msg) 
+			raise Exceptions.GeneralError(err_msg) 
 	
 	def getAll(self):
 		try:
 			all = LoanPayment.objects.all()
 			return all;
-		except utils.DatabaseError:
-			raise StorageReadError("Failed to get all LoanPayment from db")
+		except utils.Exceptions.DatabaseError:
+			raise Exceptions.StorageReadError("Failed to get all LoanPayment from db")
 		except Exception:
 			return None;
 		
@@ -100,9 +102,9 @@ class LoanPaymentDelegate :
 			# reload and return the appropriate version					
 			return self.get( loan_payment_id );
 		except LoanPayment.DoesNotExist:
-			raise ProcessingError(err_msg + " : LoanPayment with id " + str(loan_payment_id) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : LoanPayment with id " + str(loan_payment_id) + " does not exist.")
 		except LoanAccount.DoesNotExist:
-			raise ProcessingError(err_msg + " : LoanAccount with id " + str(loanAccountId) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : LoanAccount with id " + str(loanAccountId) + " does not exist.")
 		except Exception:
 			return None;
 				
@@ -122,7 +124,7 @@ class LoanPaymentDelegate :
 			# reload and return the appropriate version					
 			return self.get( loan_payment_id );
 		except LoanPayment.DoesNotExist:
-			raise ProcessingError(err_msg + " : LoanPayment with id " + str(loan_payment_id) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : LoanPayment with id " + str(loan_payment_id) + " does not exist.")
 		except Exception:
 			return None;
 		
@@ -148,9 +150,9 @@ class LoanPaymentDelegate :
 			# reload and return the appropriate version					
 			return self.get( loan_payment_id );
 		except LoanPayment.DoesNotExist:
-			raise ProcessingError(err_msg + " : LoanPayment with id " + str(loan_payment_id) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : LoanPayment with id " + str(loan_payment_id) + " does not exist.")
 		except Transaction.DoesNotExist:
-			raise ProcessingError(err_msg + " : Transaction with id " + str(transactionId) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : Transaction with id " + str(transactionId) + " does not exist.")
 		except Exception:
 			return None;
 				
@@ -170,7 +172,7 @@ class LoanPaymentDelegate :
 			# reload and return the appropriate version					
 			return self.get( loan_payment_id );
 		except LoanPayment.DoesNotExist:
-			raise ProcessingError(err_msg + " : LoanPayment with id " + str(loan_payment_id) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : LoanPayment with id " + str(loan_payment_id) + " does not exist.")
 		except Exception:
 			return None;
 		

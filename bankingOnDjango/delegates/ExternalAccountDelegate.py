@@ -1,4 +1,5 @@
 
+
 from django.core import exceptions
 from django.core import serializers
 from django.db import models
@@ -27,15 +28,16 @@ class ExternalAccountDelegate :
 #======================================================================
 
 	def get(self, external_account_id ):
+		err_msg = "Failed to get ExternalAccount from db using id " + str(external_account_id)
 		try:	
 			external_account = ExternalAccount.objects.filter(id=external_account_id)
 			return external_account.first();
 		except ExternalAccount.DoesNotExist:
-			raise ProcessingError("ExternalAccount with id " + str(external_account_id) + " does not exist.")
-		except utils.DatabaseError:
-			raise StorageReadError()
+			raise Exceptions.ProcessingError("ExternalAccount with id " + str(external_account_id) + " does not exist.")
+		except utils.Exceptions.DatabaseError:
+			raise Exceptions.StorageReadError()
 		except Exception:
-			raise GeneralError(err_msg) 
+			raise Exceptions.GeneralError(err_msg) 
 
 	def createFromJson(self, external_account):
 		for model in serializers.deserialize("json", external_account):
@@ -63,18 +65,18 @@ class ExternalAccountDelegate :
 			external_account.delete()
 			return True
 		except ExternalAccount.DoesNotExist:
-			raise ProcessingError("ExternalAccount with id " + str(external_account_id) + " does not exist.")
-		except utils.DatabaseError:
-			raise StorageReadError()
+			raise Exceptions.ProcessingError("ExternalAccount with id " + str(external_account_id) + " does not exist.")
+		except utils.Exceptions.DatabaseError:
+			raise Exceptions.StorageReadError()
 		except Exception:
-			raise GeneralError(err_msg) 
+			raise Exceptions.GeneralError(err_msg) 
 	
 	def getAll(self):
 		try:
 			all = ExternalAccount.objects.all()
 			return all;
-		except utils.DatabaseError:
-			raise StorageReadError("Failed to get all ExternalAccount from db")
+		except utils.Exceptions.DatabaseError:
+			raise Exceptions.StorageReadError("Failed to get all ExternalAccount from db")
 		except Exception:
 			return None;
 		
@@ -100,9 +102,9 @@ class ExternalAccountDelegate :
 			# reload and return the appropriate version					
 			return self.get( external_account_id );
 		except ExternalAccount.DoesNotExist:
-			raise ProcessingError(err_msg + " : ExternalAccount with id " + str(external_account_id) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : ExternalAccount with id " + str(external_account_id) + " does not exist.")
 		except Customer.DoesNotExist:
-			raise ProcessingError(err_msg + " : Customer with id " + str(customerId) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : Customer with id " + str(customerId) + " does not exist.")
 		except Exception:
 			return None;
 				
@@ -122,7 +124,7 @@ class ExternalAccountDelegate :
 			# reload and return the appropriate version					
 			return self.get( external_account_id );
 		except ExternalAccount.DoesNotExist:
-			raise ProcessingError(err_msg + " : ExternalAccount with id " + str(external_account_id) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : ExternalAccount with id " + str(external_account_id) + " does not exist.")
 		except Exception:
 			return None;
 		
@@ -149,11 +151,11 @@ class ExternalAccountDelegate :
 			# reload and return the appropriate version
 			return self.get( external_account_id );
 		except ExternalAccount.DoesNotExist:
-			raise ProcessingError(err_msg + " : ExternalAccount with id " + str(external_account_id) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : ExternalAccount with id " + str(external_account_id) + " does not exist.")
 		except Transaction.DoesNotExist:
-			raise ProcessingError(err_msg + " : Transaction does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : Transaction does not exist.")
 		except Exception:
-			raise ProcessingError(err_msg) 
+			raise Exceptions.ProcessingError(err_msg) 
 		
 	def removeTransactions( self, external_account_id, transactionsIds ):
 		# lazy importing avoids circular dependencies
@@ -178,11 +180,11 @@ class ExternalAccountDelegate :
 			# reload and return the appropriate version
 			return self.get( external_account_id );
 		except ExternalAccount.DoesNotExist:
-			raise ProcessingError(err_msg + " : ExternalAccount with id " + str(external_account_id) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : ExternalAccount with id " + str(external_account_id) + " does not exist.")
 		except Transaction.DoesNotExist:
-			raise ProcessingError(err_msg + " : Transaction does not exist.")
-		except utils.DatabaseError:
+			raise Exceptions.ProcessingError(err_msg + " : Transaction does not exist.")
+		except utils.Exceptions.DatabaseError:
 			raise StorageWriteError()
 		except Exception:
-			raise GeneralError(err_msg) 
+			raise Exceptions.GeneralError(err_msg) 
 		

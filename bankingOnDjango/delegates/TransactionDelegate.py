@@ -1,4 +1,5 @@
 
+
 from django.core import exceptions
 from django.core import serializers
 from django.db import models
@@ -31,15 +32,16 @@ class TransactionDelegate :
 #======================================================================
 
 	def get(self, transaction_id ):
+		err_msg = "Failed to get Transaction from db using id " + str(transaction_id)
 		try:	
 			transaction = Transaction.objects.filter(id=transaction_id)
 			return transaction.first();
 		except Transaction.DoesNotExist:
-			raise ProcessingError("Transaction with id " + str(transaction_id) + " does not exist.")
-		except utils.DatabaseError:
-			raise StorageReadError()
+			raise Exceptions.ProcessingError("Transaction with id " + str(transaction_id) + " does not exist.")
+		except utils.Exceptions.DatabaseError:
+			raise Exceptions.StorageReadError()
 		except Exception:
-			raise GeneralError(err_msg) 
+			raise Exceptions.GeneralError(err_msg) 
 
 	def createFromJson(self, transaction):
 		for model in serializers.deserialize("json", transaction):
@@ -67,18 +69,18 @@ class TransactionDelegate :
 			transaction.delete()
 			return True
 		except Transaction.DoesNotExist:
-			raise ProcessingError("Transaction with id " + str(transaction_id) + " does not exist.")
-		except utils.DatabaseError:
-			raise StorageReadError()
+			raise Exceptions.ProcessingError("Transaction with id " + str(transaction_id) + " does not exist.")
+		except utils.Exceptions.DatabaseError:
+			raise Exceptions.StorageReadError()
 		except Exception:
-			raise GeneralError(err_msg) 
+			raise Exceptions.GeneralError(err_msg) 
 	
 	def getAll(self):
 		try:
 			all = Transaction.objects.all()
 			return all;
-		except utils.DatabaseError:
-			raise StorageReadError("Failed to get all Transaction from db")
+		except utils.Exceptions.DatabaseError:
+			raise Exceptions.StorageReadError("Failed to get all Transaction from db")
 		except Exception:
 			return None;
 		
@@ -104,9 +106,9 @@ class TransactionDelegate :
 			# reload and return the appropriate version					
 			return self.get( transaction_id );
 		except Transaction.DoesNotExist:
-			raise ProcessingError(err_msg + " : Transaction with id " + str(transaction_id) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : Transaction with id " + str(transaction_id) + " does not exist.")
 		except Account.DoesNotExist:
-			raise ProcessingError(err_msg + " : Account with id " + str(accountId) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : Account with id " + str(accountId) + " does not exist.")
 		except Exception:
 			return None;
 				
@@ -126,7 +128,7 @@ class TransactionDelegate :
 			# reload and return the appropriate version					
 			return self.get( transaction_id );
 		except Transaction.DoesNotExist:
-			raise ProcessingError(err_msg + " : Transaction with id " + str(transaction_id) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : Transaction with id " + str(transaction_id) + " does not exist.")
 		except Exception:
 			return None;
 		
@@ -152,9 +154,9 @@ class TransactionDelegate :
 			# reload and return the appropriate version					
 			return self.get( transaction_id );
 		except Transaction.DoesNotExist:
-			raise ProcessingError(err_msg + " : Transaction with id " + str(transaction_id) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : Transaction with id " + str(transaction_id) + " does not exist.")
 		except ExternalAccount.DoesNotExist:
-			raise ProcessingError(err_msg + " : ExternalAccount with id " + str(externalCounterpartyId) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : ExternalAccount with id " + str(externalCounterpartyId) + " does not exist.")
 		except Exception:
 			return None;
 				
@@ -174,7 +176,7 @@ class TransactionDelegate :
 			# reload and return the appropriate version					
 			return self.get( transaction_id );
 		except Transaction.DoesNotExist:
-			raise ProcessingError(err_msg + " : Transaction with id " + str(transaction_id) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : Transaction with id " + str(transaction_id) + " does not exist.")
 		except Exception:
 			return None;
 		
@@ -200,9 +202,9 @@ class TransactionDelegate :
 			# reload and return the appropriate version					
 			return self.get( transaction_id );
 		except Transaction.DoesNotExist:
-			raise ProcessingError(err_msg + " : Transaction with id " + str(transaction_id) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : Transaction with id " + str(transaction_id) + " does not exist.")
 		except PaymentCard.DoesNotExist:
-			raise ProcessingError(err_msg + " : PaymentCard with id " + str(paymentCardId) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : PaymentCard with id " + str(paymentCardId) + " does not exist.")
 		except Exception:
 			return None;
 				
@@ -222,7 +224,7 @@ class TransactionDelegate :
 			# reload and return the appropriate version					
 			return self.get( transaction_id );
 		except Transaction.DoesNotExist:
-			raise ProcessingError(err_msg + " : Transaction with id " + str(transaction_id) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : Transaction with id " + str(transaction_id) + " does not exist.")
 		except Exception:
 			return None;
 		
@@ -248,9 +250,9 @@ class TransactionDelegate :
 			# reload and return the appropriate version					
 			return self.get( transaction_id );
 		except Transaction.DoesNotExist:
-			raise ProcessingError(err_msg + " : Transaction with id " + str(transaction_id) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : Transaction with id " + str(transaction_id) + " does not exist.")
 		except FundsTransfer.DoesNotExist:
-			raise ProcessingError(err_msg + " : FundsTransfer with id " + str(fundsTransferId) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : FundsTransfer with id " + str(fundsTransferId) + " does not exist.")
 		except Exception:
 			return None;
 				
@@ -270,7 +272,7 @@ class TransactionDelegate :
 			# reload and return the appropriate version					
 			return self.get( transaction_id );
 		except Transaction.DoesNotExist:
-			raise ProcessingError(err_msg + " : Transaction with id " + str(transaction_id) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : Transaction with id " + str(transaction_id) + " does not exist.")
 		except Exception:
 			return None;
 		
@@ -296,9 +298,9 @@ class TransactionDelegate :
 			# reload and return the appropriate version					
 			return self.get( transaction_id );
 		except Transaction.DoesNotExist:
-			raise ProcessingError(err_msg + " : Transaction with id " + str(transaction_id) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : Transaction with id " + str(transaction_id) + " does not exist.")
 		except FXTrade.DoesNotExist:
-			raise ProcessingError(err_msg + " : FXTrade with id " + str(fxTradeId) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : FXTrade with id " + str(fxTradeId) + " does not exist.")
 		except Exception:
 			return None;
 				
@@ -318,7 +320,7 @@ class TransactionDelegate :
 			# reload and return the appropriate version					
 			return self.get( transaction_id );
 		except Transaction.DoesNotExist:
-			raise ProcessingError(err_msg + " : Transaction with id " + str(transaction_id) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : Transaction with id " + str(transaction_id) + " does not exist.")
 		except Exception:
 			return None;
 		
@@ -344,9 +346,9 @@ class TransactionDelegate :
 			# reload and return the appropriate version					
 			return self.get( transaction_id );
 		except Transaction.DoesNotExist:
-			raise ProcessingError(err_msg + " : Transaction with id " + str(transaction_id) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : Transaction with id " + str(transaction_id) + " does not exist.")
 		except Dispute.DoesNotExist:
-			raise ProcessingError(err_msg + " : Dispute with id " + str(disputeId) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : Dispute with id " + str(disputeId) + " does not exist.")
 		except Exception:
 			return None;
 				
@@ -366,7 +368,7 @@ class TransactionDelegate :
 			# reload and return the appropriate version					
 			return self.get( transaction_id );
 		except Transaction.DoesNotExist:
-			raise ProcessingError(err_msg + " : Transaction with id " + str(transaction_id) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : Transaction with id " + str(transaction_id) + " does not exist.")
 		except Exception:
 			return None;
 		

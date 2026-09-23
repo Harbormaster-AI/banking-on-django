@@ -1,4 +1,5 @@
 
+
 from django.core import exceptions
 from django.core import serializers
 from django.db import models
@@ -26,15 +27,16 @@ class CollateralDelegate :
 #======================================================================
 
 	def get(self, collateral_id ):
+		err_msg = "Failed to get Collateral from db using id " + str(collateral_id)
 		try:	
 			collateral = Collateral.objects.filter(id=collateral_id)
 			return collateral.first();
 		except Collateral.DoesNotExist:
-			raise ProcessingError("Collateral with id " + str(collateral_id) + " does not exist.")
-		except utils.DatabaseError:
-			raise StorageReadError()
+			raise Exceptions.ProcessingError("Collateral with id " + str(collateral_id) + " does not exist.")
+		except utils.Exceptions.DatabaseError:
+			raise Exceptions.StorageReadError()
 		except Exception:
-			raise GeneralError(err_msg) 
+			raise Exceptions.GeneralError(err_msg) 
 
 	def createFromJson(self, collateral):
 		for model in serializers.deserialize("json", collateral):
@@ -62,18 +64,18 @@ class CollateralDelegate :
 			collateral.delete()
 			return True
 		except Collateral.DoesNotExist:
-			raise ProcessingError("Collateral with id " + str(collateral_id) + " does not exist.")
-		except utils.DatabaseError:
-			raise StorageReadError()
+			raise Exceptions.ProcessingError("Collateral with id " + str(collateral_id) + " does not exist.")
+		except utils.Exceptions.DatabaseError:
+			raise Exceptions.StorageReadError()
 		except Exception:
-			raise GeneralError(err_msg) 
+			raise Exceptions.GeneralError(err_msg) 
 	
 	def getAll(self):
 		try:
 			all = Collateral.objects.all()
 			return all;
-		except utils.DatabaseError:
-			raise StorageReadError("Failed to get all Collateral from db")
+		except utils.Exceptions.DatabaseError:
+			raise Exceptions.StorageReadError("Failed to get all Collateral from db")
 		except Exception:
 			return None;
 		
@@ -99,9 +101,9 @@ class CollateralDelegate :
 			# reload and return the appropriate version					
 			return self.get( collateral_id );
 		except Collateral.DoesNotExist:
-			raise ProcessingError(err_msg + " : Collateral with id " + str(collateral_id) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : Collateral with id " + str(collateral_id) + " does not exist.")
 		except LoanAccount.DoesNotExist:
-			raise ProcessingError(err_msg + " : LoanAccount with id " + str(loanAccountId) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : LoanAccount with id " + str(loanAccountId) + " does not exist.")
 		except Exception:
 			return None;
 				
@@ -121,7 +123,7 @@ class CollateralDelegate :
 			# reload and return the appropriate version					
 			return self.get( collateral_id );
 		except Collateral.DoesNotExist:
-			raise ProcessingError(err_msg + " : Collateral with id " + str(collateral_id) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : Collateral with id " + str(collateral_id) + " does not exist.")
 		except Exception:
 			return None;
 		

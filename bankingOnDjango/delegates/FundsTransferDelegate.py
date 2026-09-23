@@ -1,4 +1,5 @@
 
+
 from django.core import exceptions
 from django.core import serializers
 from django.db import models
@@ -29,15 +30,16 @@ class FundsTransferDelegate :
 #======================================================================
 
 	def get(self, funds_transfer_id ):
+		err_msg = "Failed to get FundsTransfer from db using id " + str(funds_transfer_id)
 		try:	
 			funds_transfer = FundsTransfer.objects.filter(id=funds_transfer_id)
 			return funds_transfer.first();
 		except FundsTransfer.DoesNotExist:
-			raise ProcessingError("FundsTransfer with id " + str(funds_transfer_id) + " does not exist.")
-		except utils.DatabaseError:
-			raise StorageReadError()
+			raise Exceptions.ProcessingError("FundsTransfer with id " + str(funds_transfer_id) + " does not exist.")
+		except utils.Exceptions.DatabaseError:
+			raise Exceptions.StorageReadError()
 		except Exception:
-			raise GeneralError(err_msg) 
+			raise Exceptions.GeneralError(err_msg) 
 
 	def createFromJson(self, funds_transfer):
 		for model in serializers.deserialize("json", funds_transfer):
@@ -65,18 +67,18 @@ class FundsTransferDelegate :
 			funds_transfer.delete()
 			return True
 		except FundsTransfer.DoesNotExist:
-			raise ProcessingError("FundsTransfer with id " + str(funds_transfer_id) + " does not exist.")
-		except utils.DatabaseError:
-			raise StorageReadError()
+			raise Exceptions.ProcessingError("FundsTransfer with id " + str(funds_transfer_id) + " does not exist.")
+		except utils.Exceptions.DatabaseError:
+			raise Exceptions.StorageReadError()
 		except Exception:
-			raise GeneralError(err_msg) 
+			raise Exceptions.GeneralError(err_msg) 
 	
 	def getAll(self):
 		try:
 			all = FundsTransfer.objects.all()
 			return all;
-		except utils.DatabaseError:
-			raise StorageReadError("Failed to get all FundsTransfer from db")
+		except utils.Exceptions.DatabaseError:
+			raise Exceptions.StorageReadError("Failed to get all FundsTransfer from db")
 		except Exception:
 			return None;
 		
@@ -102,9 +104,9 @@ class FundsTransferDelegate :
 			# reload and return the appropriate version					
 			return self.get( funds_transfer_id );
 		except FundsTransfer.DoesNotExist:
-			raise ProcessingError(err_msg + " : FundsTransfer with id " + str(funds_transfer_id) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : FundsTransfer with id " + str(funds_transfer_id) + " does not exist.")
 		except Account.DoesNotExist:
-			raise ProcessingError(err_msg + " : Account with id " + str(sourceAccountId) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : Account with id " + str(sourceAccountId) + " does not exist.")
 		except Exception:
 			return None;
 				
@@ -124,7 +126,7 @@ class FundsTransferDelegate :
 			# reload and return the appropriate version					
 			return self.get( funds_transfer_id );
 		except FundsTransfer.DoesNotExist:
-			raise ProcessingError(err_msg + " : FundsTransfer with id " + str(funds_transfer_id) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : FundsTransfer with id " + str(funds_transfer_id) + " does not exist.")
 		except Exception:
 			return None;
 		
@@ -150,9 +152,9 @@ class FundsTransferDelegate :
 			# reload and return the appropriate version					
 			return self.get( funds_transfer_id );
 		except FundsTransfer.DoesNotExist:
-			raise ProcessingError(err_msg + " : FundsTransfer with id " + str(funds_transfer_id) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : FundsTransfer with id " + str(funds_transfer_id) + " does not exist.")
 		except Account.DoesNotExist:
-			raise ProcessingError(err_msg + " : Account with id " + str(destinationAccountId) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : Account with id " + str(destinationAccountId) + " does not exist.")
 		except Exception:
 			return None;
 				
@@ -172,7 +174,7 @@ class FundsTransferDelegate :
 			# reload and return the appropriate version					
 			return self.get( funds_transfer_id );
 		except FundsTransfer.DoesNotExist:
-			raise ProcessingError(err_msg + " : FundsTransfer with id " + str(funds_transfer_id) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : FundsTransfer with id " + str(funds_transfer_id) + " does not exist.")
 		except Exception:
 			return None;
 		
@@ -198,9 +200,9 @@ class FundsTransferDelegate :
 			# reload and return the appropriate version					
 			return self.get( funds_transfer_id );
 		except FundsTransfer.DoesNotExist:
-			raise ProcessingError(err_msg + " : FundsTransfer with id " + str(funds_transfer_id) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : FundsTransfer with id " + str(funds_transfer_id) + " does not exist.")
 		except ExternalAccount.DoesNotExist:
-			raise ProcessingError(err_msg + " : ExternalAccount with id " + str(externalBeneficiaryId) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : ExternalAccount with id " + str(externalBeneficiaryId) + " does not exist.")
 		except Exception:
 			return None;
 				
@@ -220,7 +222,7 @@ class FundsTransferDelegate :
 			# reload and return the appropriate version					
 			return self.get( funds_transfer_id );
 		except FundsTransfer.DoesNotExist:
-			raise ProcessingError(err_msg + " : FundsTransfer with id " + str(funds_transfer_id) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : FundsTransfer with id " + str(funds_transfer_id) + " does not exist.")
 		except Exception:
 			return None;
 		
@@ -246,9 +248,9 @@ class FundsTransferDelegate :
 			# reload and return the appropriate version					
 			return self.get( funds_transfer_id );
 		except FundsTransfer.DoesNotExist:
-			raise ProcessingError(err_msg + " : FundsTransfer with id " + str(funds_transfer_id) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : FundsTransfer with id " + str(funds_transfer_id) + " does not exist.")
 		except Customer.DoesNotExist:
-			raise ProcessingError(err_msg + " : Customer with id " + str(initiatedById) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : Customer with id " + str(initiatedById) + " does not exist.")
 		except Exception:
 			return None;
 				
@@ -268,7 +270,7 @@ class FundsTransferDelegate :
 			# reload and return the appropriate version					
 			return self.get( funds_transfer_id );
 		except FundsTransfer.DoesNotExist:
-			raise ProcessingError(err_msg + " : FundsTransfer with id " + str(funds_transfer_id) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : FundsTransfer with id " + str(funds_transfer_id) + " does not exist.")
 		except Exception:
 			return None;
 		
@@ -295,11 +297,11 @@ class FundsTransferDelegate :
 			# reload and return the appropriate version
 			return self.get( funds_transfer_id );
 		except FundsTransfer.DoesNotExist:
-			raise ProcessingError(err_msg + " : FundsTransfer with id " + str(funds_transfer_id) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : FundsTransfer with id " + str(funds_transfer_id) + " does not exist.")
 		except Transaction.DoesNotExist:
-			raise ProcessingError(err_msg + " : Transaction does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : Transaction does not exist.")
 		except Exception:
-			raise ProcessingError(err_msg) 
+			raise Exceptions.ProcessingError(err_msg) 
 		
 	def removeTransactions( self, funds_transfer_id, transactionsIds ):
 		# lazy importing avoids circular dependencies
@@ -324,11 +326,11 @@ class FundsTransferDelegate :
 			# reload and return the appropriate version
 			return self.get( funds_transfer_id );
 		except FundsTransfer.DoesNotExist:
-			raise ProcessingError(err_msg + " : FundsTransfer with id " + str(funds_transfer_id) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : FundsTransfer with id " + str(funds_transfer_id) + " does not exist.")
 		except Transaction.DoesNotExist:
-			raise ProcessingError(err_msg + " : Transaction does not exist.")
-		except utils.DatabaseError:
+			raise Exceptions.ProcessingError(err_msg + " : Transaction does not exist.")
+		except utils.Exceptions.DatabaseError:
 			raise StorageWriteError()
 		except Exception:
-			raise GeneralError(err_msg) 
+			raise Exceptions.GeneralError(err_msg) 
 		

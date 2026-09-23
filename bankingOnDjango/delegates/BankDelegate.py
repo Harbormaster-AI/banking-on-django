@@ -1,4 +1,5 @@
 
+
 from django.core import exceptions
 from django.core import serializers
 from django.db import models
@@ -34,15 +35,16 @@ class BankDelegate :
 #======================================================================
 
 	def get(self, bank_id ):
+		err_msg = "Failed to get Bank from db using id " + str(bank_id)
 		try:	
 			bank = Bank.objects.filter(id=bank_id)
 			return bank.first();
 		except Bank.DoesNotExist:
-			raise ProcessingError("Bank with id " + str(bank_id) + " does not exist.")
-		except utils.DatabaseError:
-			raise StorageReadError()
+			raise Exceptions.ProcessingError("Bank with id " + str(bank_id) + " does not exist.")
+		except utils.Exceptions.DatabaseError:
+			raise Exceptions.StorageReadError()
 		except Exception:
-			raise GeneralError(err_msg) 
+			raise Exceptions.GeneralError(err_msg) 
 
 	def createFromJson(self, bank):
 		for model in serializers.deserialize("json", bank):
@@ -70,18 +72,18 @@ class BankDelegate :
 			bank.delete()
 			return True
 		except Bank.DoesNotExist:
-			raise ProcessingError("Bank with id " + str(bank_id) + " does not exist.")
-		except utils.DatabaseError:
-			raise StorageReadError()
+			raise Exceptions.ProcessingError("Bank with id " + str(bank_id) + " does not exist.")
+		except utils.Exceptions.DatabaseError:
+			raise Exceptions.StorageReadError()
 		except Exception:
-			raise GeneralError(err_msg) 
+			raise Exceptions.GeneralError(err_msg) 
 	
 	def getAll(self):
 		try:
 			all = Bank.objects.all()
 			return all;
-		except utils.DatabaseError:
-			raise StorageReadError("Failed to get all Bank from db")
+		except utils.Exceptions.DatabaseError:
+			raise Exceptions.StorageReadError("Failed to get all Bank from db")
 		except Exception:
 			return None;
 		
@@ -108,11 +110,11 @@ class BankDelegate :
 			# reload and return the appropriate version
 			return self.get( bank_id );
 		except Bank.DoesNotExist:
-			raise ProcessingError(err_msg + " : Bank with id " + str(bank_id) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : Bank with id " + str(bank_id) + " does not exist.")
 		except Branch.DoesNotExist:
-			raise ProcessingError(err_msg + " : Branch does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : Branch does not exist.")
 		except Exception:
-			raise ProcessingError(err_msg) 
+			raise Exceptions.ProcessingError(err_msg) 
 		
 	def removeBranches( self, bank_id, branchesIds ):
 		# lazy importing avoids circular dependencies
@@ -137,13 +139,13 @@ class BankDelegate :
 			# reload and return the appropriate version
 			return self.get( bank_id );
 		except Bank.DoesNotExist:
-			raise ProcessingError(err_msg + " : Bank with id " + str(bank_id) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : Bank with id " + str(bank_id) + " does not exist.")
 		except Branch.DoesNotExist:
-			raise ProcessingError(err_msg + " : Branch does not exist.")
-		except utils.DatabaseError:
+			raise Exceptions.ProcessingError(err_msg + " : Branch does not exist.")
+		except utils.Exceptions.DatabaseError:
 			raise StorageWriteError()
 		except Exception:
-			raise GeneralError(err_msg) 
+			raise Exceptions.GeneralError(err_msg) 
 		
 	def addProducts( self, bank_id, productsIds ):
 		# lazy importing avoids circular dependencies
@@ -168,11 +170,11 @@ class BankDelegate :
 			# reload and return the appropriate version
 			return self.get( bank_id );
 		except Bank.DoesNotExist:
-			raise ProcessingError(err_msg + " : Bank with id " + str(bank_id) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : Bank with id " + str(bank_id) + " does not exist.")
 		except BankingProduct.DoesNotExist:
-			raise ProcessingError(err_msg + " : BankingProduct does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : BankingProduct does not exist.")
 		except Exception:
-			raise ProcessingError(err_msg) 
+			raise Exceptions.ProcessingError(err_msg) 
 		
 	def removeProducts( self, bank_id, productsIds ):
 		# lazy importing avoids circular dependencies
@@ -197,13 +199,13 @@ class BankDelegate :
 			# reload and return the appropriate version
 			return self.get( bank_id );
 		except Bank.DoesNotExist:
-			raise ProcessingError(err_msg + " : Bank with id " + str(bank_id) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : Bank with id " + str(bank_id) + " does not exist.")
 		except BankingProduct.DoesNotExist:
-			raise ProcessingError(err_msg + " : BankingProduct does not exist.")
-		except utils.DatabaseError:
+			raise Exceptions.ProcessingError(err_msg + " : BankingProduct does not exist.")
+		except utils.Exceptions.DatabaseError:
 			raise StorageWriteError()
 		except Exception:
-			raise GeneralError(err_msg) 
+			raise Exceptions.GeneralError(err_msg) 
 		
 	def addCustomers( self, bank_id, customersIds ):
 		# lazy importing avoids circular dependencies
@@ -228,11 +230,11 @@ class BankDelegate :
 			# reload and return the appropriate version
 			return self.get( bank_id );
 		except Bank.DoesNotExist:
-			raise ProcessingError(err_msg + " : Bank with id " + str(bank_id) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : Bank with id " + str(bank_id) + " does not exist.")
 		except Customer.DoesNotExist:
-			raise ProcessingError(err_msg + " : Customer does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : Customer does not exist.")
 		except Exception:
-			raise ProcessingError(err_msg) 
+			raise Exceptions.ProcessingError(err_msg) 
 		
 	def removeCustomers( self, bank_id, customersIds ):
 		# lazy importing avoids circular dependencies
@@ -257,13 +259,13 @@ class BankDelegate :
 			# reload and return the appropriate version
 			return self.get( bank_id );
 		except Bank.DoesNotExist:
-			raise ProcessingError(err_msg + " : Bank with id " + str(bank_id) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : Bank with id " + str(bank_id) + " does not exist.")
 		except Customer.DoesNotExist:
-			raise ProcessingError(err_msg + " : Customer does not exist.")
-		except utils.DatabaseError:
+			raise Exceptions.ProcessingError(err_msg + " : Customer does not exist.")
+		except utils.Exceptions.DatabaseError:
 			raise StorageWriteError()
 		except Exception:
-			raise GeneralError(err_msg) 
+			raise Exceptions.GeneralError(err_msg) 
 		
 	def addAccounts( self, bank_id, accountsIds ):
 		# lazy importing avoids circular dependencies
@@ -288,11 +290,11 @@ class BankDelegate :
 			# reload and return the appropriate version
 			return self.get( bank_id );
 		except Bank.DoesNotExist:
-			raise ProcessingError(err_msg + " : Bank with id " + str(bank_id) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : Bank with id " + str(bank_id) + " does not exist.")
 		except Account.DoesNotExist:
-			raise ProcessingError(err_msg + " : Account does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : Account does not exist.")
 		except Exception:
-			raise ProcessingError(err_msg) 
+			raise Exceptions.ProcessingError(err_msg) 
 		
 	def removeAccounts( self, bank_id, accountsIds ):
 		# lazy importing avoids circular dependencies
@@ -317,13 +319,13 @@ class BankDelegate :
 			# reload and return the appropriate version
 			return self.get( bank_id );
 		except Bank.DoesNotExist:
-			raise ProcessingError(err_msg + " : Bank with id " + str(bank_id) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : Bank with id " + str(bank_id) + " does not exist.")
 		except Account.DoesNotExist:
-			raise ProcessingError(err_msg + " : Account does not exist.")
-		except utils.DatabaseError:
+			raise Exceptions.ProcessingError(err_msg + " : Account does not exist.")
+		except utils.Exceptions.DatabaseError:
 			raise StorageWriteError()
 		except Exception:
-			raise GeneralError(err_msg) 
+			raise Exceptions.GeneralError(err_msg) 
 		
 	def addPaymentCards( self, bank_id, paymentCardsIds ):
 		# lazy importing avoids circular dependencies
@@ -348,11 +350,11 @@ class BankDelegate :
 			# reload and return the appropriate version
 			return self.get( bank_id );
 		except Bank.DoesNotExist:
-			raise ProcessingError(err_msg + " : Bank with id " + str(bank_id) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : Bank with id " + str(bank_id) + " does not exist.")
 		except PaymentCard.DoesNotExist:
-			raise ProcessingError(err_msg + " : PaymentCard does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : PaymentCard does not exist.")
 		except Exception:
-			raise ProcessingError(err_msg) 
+			raise Exceptions.ProcessingError(err_msg) 
 		
 	def removePaymentCards( self, bank_id, paymentCardsIds ):
 		# lazy importing avoids circular dependencies
@@ -377,13 +379,13 @@ class BankDelegate :
 			# reload and return the appropriate version
 			return self.get( bank_id );
 		except Bank.DoesNotExist:
-			raise ProcessingError(err_msg + " : Bank with id " + str(bank_id) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : Bank with id " + str(bank_id) + " does not exist.")
 		except PaymentCard.DoesNotExist:
-			raise ProcessingError(err_msg + " : PaymentCard does not exist.")
-		except utils.DatabaseError:
+			raise Exceptions.ProcessingError(err_msg + " : PaymentCard does not exist.")
+		except utils.Exceptions.DatabaseError:
 			raise StorageWriteError()
 		except Exception:
-			raise GeneralError(err_msg) 
+			raise Exceptions.GeneralError(err_msg) 
 		
 	def addLoanAccounts( self, bank_id, loanAccountsIds ):
 		# lazy importing avoids circular dependencies
@@ -408,11 +410,11 @@ class BankDelegate :
 			# reload and return the appropriate version
 			return self.get( bank_id );
 		except Bank.DoesNotExist:
-			raise ProcessingError(err_msg + " : Bank with id " + str(bank_id) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : Bank with id " + str(bank_id) + " does not exist.")
 		except LoanAccount.DoesNotExist:
-			raise ProcessingError(err_msg + " : LoanAccount does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : LoanAccount does not exist.")
 		except Exception:
-			raise ProcessingError(err_msg) 
+			raise Exceptions.ProcessingError(err_msg) 
 		
 	def removeLoanAccounts( self, bank_id, loanAccountsIds ):
 		# lazy importing avoids circular dependencies
@@ -437,13 +439,13 @@ class BankDelegate :
 			# reload and return the appropriate version
 			return self.get( bank_id );
 		except Bank.DoesNotExist:
-			raise ProcessingError(err_msg + " : Bank with id " + str(bank_id) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : Bank with id " + str(bank_id) + " does not exist.")
 		except LoanAccount.DoesNotExist:
-			raise ProcessingError(err_msg + " : LoanAccount does not exist.")
-		except utils.DatabaseError:
+			raise Exceptions.ProcessingError(err_msg + " : LoanAccount does not exist.")
+		except utils.Exceptions.DatabaseError:
 			raise StorageWriteError()
 		except Exception:
-			raise GeneralError(err_msg) 
+			raise Exceptions.GeneralError(err_msg) 
 		
 	def addExchangeRates( self, bank_id, exchangeRatesIds ):
 		# lazy importing avoids circular dependencies
@@ -468,11 +470,11 @@ class BankDelegate :
 			# reload and return the appropriate version
 			return self.get( bank_id );
 		except Bank.DoesNotExist:
-			raise ProcessingError(err_msg + " : Bank with id " + str(bank_id) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : Bank with id " + str(bank_id) + " does not exist.")
 		except ExchangeRate.DoesNotExist:
-			raise ProcessingError(err_msg + " : ExchangeRate does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : ExchangeRate does not exist.")
 		except Exception:
-			raise ProcessingError(err_msg) 
+			raise Exceptions.ProcessingError(err_msg) 
 		
 	def removeExchangeRates( self, bank_id, exchangeRatesIds ):
 		# lazy importing avoids circular dependencies
@@ -497,13 +499,13 @@ class BankDelegate :
 			# reload and return the appropriate version
 			return self.get( bank_id );
 		except Bank.DoesNotExist:
-			raise ProcessingError(err_msg + " : Bank with id " + str(bank_id) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : Bank with id " + str(bank_id) + " does not exist.")
 		except ExchangeRate.DoesNotExist:
-			raise ProcessingError(err_msg + " : ExchangeRate does not exist.")
-		except utils.DatabaseError:
+			raise Exceptions.ProcessingError(err_msg + " : ExchangeRate does not exist.")
+		except utils.Exceptions.DatabaseError:
 			raise StorageWriteError()
 		except Exception:
-			raise GeneralError(err_msg) 
+			raise Exceptions.GeneralError(err_msg) 
 		
 	def addConsents( self, bank_id, consentsIds ):
 		# lazy importing avoids circular dependencies
@@ -528,11 +530,11 @@ class BankDelegate :
 			# reload and return the appropriate version
 			return self.get( bank_id );
 		except Bank.DoesNotExist:
-			raise ProcessingError(err_msg + " : Bank with id " + str(bank_id) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : Bank with id " + str(bank_id) + " does not exist.")
 		except Consent.DoesNotExist:
-			raise ProcessingError(err_msg + " : Consent does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : Consent does not exist.")
 		except Exception:
-			raise ProcessingError(err_msg) 
+			raise Exceptions.ProcessingError(err_msg) 
 		
 	def removeConsents( self, bank_id, consentsIds ):
 		# lazy importing avoids circular dependencies
@@ -557,13 +559,13 @@ class BankDelegate :
 			# reload and return the appropriate version
 			return self.get( bank_id );
 		except Bank.DoesNotExist:
-			raise ProcessingError(err_msg + " : Bank with id " + str(bank_id) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : Bank with id " + str(bank_id) + " does not exist.")
 		except Consent.DoesNotExist:
-			raise ProcessingError(err_msg + " : Consent does not exist.")
-		except utils.DatabaseError:
+			raise Exceptions.ProcessingError(err_msg + " : Consent does not exist.")
+		except utils.Exceptions.DatabaseError:
 			raise StorageWriteError()
 		except Exception:
-			raise GeneralError(err_msg) 
+			raise Exceptions.GeneralError(err_msg) 
 		
 	def addThirdPartyProviders( self, bank_id, thirdPartyProvidersIds ):
 		# lazy importing avoids circular dependencies
@@ -588,11 +590,11 @@ class BankDelegate :
 			# reload and return the appropriate version
 			return self.get( bank_id );
 		except Bank.DoesNotExist:
-			raise ProcessingError(err_msg + " : Bank with id " + str(bank_id) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : Bank with id " + str(bank_id) + " does not exist.")
 		except ThirdPartyProvider.DoesNotExist:
-			raise ProcessingError(err_msg + " : ThirdPartyProvider does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : ThirdPartyProvider does not exist.")
 		except Exception:
-			raise ProcessingError(err_msg) 
+			raise Exceptions.ProcessingError(err_msg) 
 		
 	def removeThirdPartyProviders( self, bank_id, thirdPartyProvidersIds ):
 		# lazy importing avoids circular dependencies
@@ -617,11 +619,11 @@ class BankDelegate :
 			# reload and return the appropriate version
 			return self.get( bank_id );
 		except Bank.DoesNotExist:
-			raise ProcessingError(err_msg + " : Bank with id " + str(bank_id) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : Bank with id " + str(bank_id) + " does not exist.")
 		except ThirdPartyProvider.DoesNotExist:
-			raise ProcessingError(err_msg + " : ThirdPartyProvider does not exist.")
-		except utils.DatabaseError:
+			raise Exceptions.ProcessingError(err_msg + " : ThirdPartyProvider does not exist.")
+		except utils.Exceptions.DatabaseError:
 			raise StorageWriteError()
 		except Exception:
-			raise GeneralError(err_msg) 
+			raise Exceptions.GeneralError(err_msg) 
 		

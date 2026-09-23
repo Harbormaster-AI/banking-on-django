@@ -1,4 +1,5 @@
 
+
 from django.core import exceptions
 from django.core import serializers
 from django.db import models
@@ -29,15 +30,16 @@ class PaymentCardDelegate :
 #======================================================================
 
 	def get(self, payment_card_id ):
+		err_msg = "Failed to get PaymentCard from db using id " + str(payment_card_id)
 		try:	
 			payment_card = PaymentCard.objects.filter(id=payment_card_id)
 			return payment_card.first();
 		except PaymentCard.DoesNotExist:
-			raise ProcessingError("PaymentCard with id " + str(payment_card_id) + " does not exist.")
-		except utils.DatabaseError:
-			raise StorageReadError()
+			raise Exceptions.ProcessingError("PaymentCard with id " + str(payment_card_id) + " does not exist.")
+		except utils.Exceptions.DatabaseError:
+			raise Exceptions.StorageReadError()
 		except Exception:
-			raise GeneralError(err_msg) 
+			raise Exceptions.GeneralError(err_msg) 
 
 	def createFromJson(self, payment_card):
 		for model in serializers.deserialize("json", payment_card):
@@ -65,18 +67,18 @@ class PaymentCardDelegate :
 			payment_card.delete()
 			return True
 		except PaymentCard.DoesNotExist:
-			raise ProcessingError("PaymentCard with id " + str(payment_card_id) + " does not exist.")
-		except utils.DatabaseError:
-			raise StorageReadError()
+			raise Exceptions.ProcessingError("PaymentCard with id " + str(payment_card_id) + " does not exist.")
+		except utils.Exceptions.DatabaseError:
+			raise Exceptions.StorageReadError()
 		except Exception:
-			raise GeneralError(err_msg) 
+			raise Exceptions.GeneralError(err_msg) 
 	
 	def getAll(self):
 		try:
 			all = PaymentCard.objects.all()
 			return all;
-		except utils.DatabaseError:
-			raise StorageReadError("Failed to get all PaymentCard from db")
+		except utils.Exceptions.DatabaseError:
+			raise Exceptions.StorageReadError("Failed to get all PaymentCard from db")
 		except Exception:
 			return None;
 		
@@ -102,9 +104,9 @@ class PaymentCardDelegate :
 			# reload and return the appropriate version					
 			return self.get( payment_card_id );
 		except PaymentCard.DoesNotExist:
-			raise ProcessingError(err_msg + " : PaymentCard with id " + str(payment_card_id) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : PaymentCard with id " + str(payment_card_id) + " does not exist.")
 		except Bank.DoesNotExist:
-			raise ProcessingError(err_msg + " : Bank with id " + str(bankId) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : Bank with id " + str(bankId) + " does not exist.")
 		except Exception:
 			return None;
 				
@@ -124,7 +126,7 @@ class PaymentCardDelegate :
 			# reload and return the appropriate version					
 			return self.get( payment_card_id );
 		except PaymentCard.DoesNotExist:
-			raise ProcessingError(err_msg + " : PaymentCard with id " + str(payment_card_id) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : PaymentCard with id " + str(payment_card_id) + " does not exist.")
 		except Exception:
 			return None;
 		
@@ -150,9 +152,9 @@ class PaymentCardDelegate :
 			# reload and return the appropriate version					
 			return self.get( payment_card_id );
 		except PaymentCard.DoesNotExist:
-			raise ProcessingError(err_msg + " : PaymentCard with id " + str(payment_card_id) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : PaymentCard with id " + str(payment_card_id) + " does not exist.")
 		except Account.DoesNotExist:
-			raise ProcessingError(err_msg + " : Account with id " + str(accountId) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : Account with id " + str(accountId) + " does not exist.")
 		except Exception:
 			return None;
 				
@@ -172,7 +174,7 @@ class PaymentCardDelegate :
 			# reload and return the appropriate version					
 			return self.get( payment_card_id );
 		except PaymentCard.DoesNotExist:
-			raise ProcessingError(err_msg + " : PaymentCard with id " + str(payment_card_id) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : PaymentCard with id " + str(payment_card_id) + " does not exist.")
 		except Exception:
 			return None;
 		
@@ -198,9 +200,9 @@ class PaymentCardDelegate :
 			# reload and return the appropriate version					
 			return self.get( payment_card_id );
 		except PaymentCard.DoesNotExist:
-			raise ProcessingError(err_msg + " : PaymentCard with id " + str(payment_card_id) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : PaymentCard with id " + str(payment_card_id) + " does not exist.")
 		except Customer.DoesNotExist:
-			raise ProcessingError(err_msg + " : Customer with id " + str(customerId) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : Customer with id " + str(customerId) + " does not exist.")
 		except Exception:
 			return None;
 				
@@ -220,7 +222,7 @@ class PaymentCardDelegate :
 			# reload and return the appropriate version					
 			return self.get( payment_card_id );
 		except PaymentCard.DoesNotExist:
-			raise ProcessingError(err_msg + " : PaymentCard with id " + str(payment_card_id) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : PaymentCard with id " + str(payment_card_id) + " does not exist.")
 		except Exception:
 			return None;
 		
@@ -247,11 +249,11 @@ class PaymentCardDelegate :
 			# reload and return the appropriate version
 			return self.get( payment_card_id );
 		except PaymentCard.DoesNotExist:
-			raise ProcessingError(err_msg + " : PaymentCard with id " + str(payment_card_id) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : PaymentCard with id " + str(payment_card_id) + " does not exist.")
 		except Transaction.DoesNotExist:
-			raise ProcessingError(err_msg + " : Transaction does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : Transaction does not exist.")
 		except Exception:
-			raise ProcessingError(err_msg) 
+			raise Exceptions.ProcessingError(err_msg) 
 		
 	def removeTransactions( self, payment_card_id, transactionsIds ):
 		# lazy importing avoids circular dependencies
@@ -276,11 +278,11 @@ class PaymentCardDelegate :
 			# reload and return the appropriate version
 			return self.get( payment_card_id );
 		except PaymentCard.DoesNotExist:
-			raise ProcessingError(err_msg + " : PaymentCard with id " + str(payment_card_id) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : PaymentCard with id " + str(payment_card_id) + " does not exist.")
 		except Transaction.DoesNotExist:
-			raise ProcessingError(err_msg + " : Transaction does not exist.")
-		except utils.DatabaseError:
+			raise Exceptions.ProcessingError(err_msg + " : Transaction does not exist.")
+		except utils.Exceptions.DatabaseError:
 			raise StorageWriteError()
 		except Exception:
-			raise GeneralError(err_msg) 
+			raise Exceptions.GeneralError(err_msg) 
 		

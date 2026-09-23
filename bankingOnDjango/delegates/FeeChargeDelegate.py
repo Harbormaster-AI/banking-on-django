@@ -1,4 +1,5 @@
 
+
 from django.core import exceptions
 from django.core import serializers
 from django.db import models
@@ -27,15 +28,16 @@ class FeeChargeDelegate :
 #======================================================================
 
 	def get(self, fee_charge_id ):
+		err_msg = "Failed to get FeeCharge from db using id " + str(fee_charge_id)
 		try:	
 			fee_charge = FeeCharge.objects.filter(id=fee_charge_id)
 			return fee_charge.first();
 		except FeeCharge.DoesNotExist:
-			raise ProcessingError("FeeCharge with id " + str(fee_charge_id) + " does not exist.")
-		except utils.DatabaseError:
-			raise StorageReadError()
+			raise Exceptions.ProcessingError("FeeCharge with id " + str(fee_charge_id) + " does not exist.")
+		except utils.Exceptions.DatabaseError:
+			raise Exceptions.StorageReadError()
 		except Exception:
-			raise GeneralError(err_msg) 
+			raise Exceptions.GeneralError(err_msg) 
 
 	def createFromJson(self, fee_charge):
 		for model in serializers.deserialize("json", fee_charge):
@@ -63,18 +65,18 @@ class FeeChargeDelegate :
 			fee_charge.delete()
 			return True
 		except FeeCharge.DoesNotExist:
-			raise ProcessingError("FeeCharge with id " + str(fee_charge_id) + " does not exist.")
-		except utils.DatabaseError:
-			raise StorageReadError()
+			raise Exceptions.ProcessingError("FeeCharge with id " + str(fee_charge_id) + " does not exist.")
+		except utils.Exceptions.DatabaseError:
+			raise Exceptions.StorageReadError()
 		except Exception:
-			raise GeneralError(err_msg) 
+			raise Exceptions.GeneralError(err_msg) 
 	
 	def getAll(self):
 		try:
 			all = FeeCharge.objects.all()
 			return all;
-		except utils.DatabaseError:
-			raise StorageReadError("Failed to get all FeeCharge from db")
+		except utils.Exceptions.DatabaseError:
+			raise Exceptions.StorageReadError("Failed to get all FeeCharge from db")
 		except Exception:
 			return None;
 		
@@ -100,9 +102,9 @@ class FeeChargeDelegate :
 			# reload and return the appropriate version					
 			return self.get( fee_charge_id );
 		except FeeCharge.DoesNotExist:
-			raise ProcessingError(err_msg + " : FeeCharge with id " + str(fee_charge_id) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : FeeCharge with id " + str(fee_charge_id) + " does not exist.")
 		except Account.DoesNotExist:
-			raise ProcessingError(err_msg + " : Account with id " + str(accountId) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : Account with id " + str(accountId) + " does not exist.")
 		except Exception:
 			return None;
 				
@@ -122,7 +124,7 @@ class FeeChargeDelegate :
 			# reload and return the appropriate version					
 			return self.get( fee_charge_id );
 		except FeeCharge.DoesNotExist:
-			raise ProcessingError(err_msg + " : FeeCharge with id " + str(fee_charge_id) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : FeeCharge with id " + str(fee_charge_id) + " does not exist.")
 		except Exception:
 			return None;
 		
@@ -148,9 +150,9 @@ class FeeChargeDelegate :
 			# reload and return the appropriate version					
 			return self.get( fee_charge_id );
 		except FeeCharge.DoesNotExist:
-			raise ProcessingError(err_msg + " : FeeCharge with id " + str(fee_charge_id) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : FeeCharge with id " + str(fee_charge_id) + " does not exist.")
 		except LoanAccount.DoesNotExist:
-			raise ProcessingError(err_msg + " : LoanAccount with id " + str(loanAccountId) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : LoanAccount with id " + str(loanAccountId) + " does not exist.")
 		except Exception:
 			return None;
 				
@@ -170,7 +172,7 @@ class FeeChargeDelegate :
 			# reload and return the appropriate version					
 			return self.get( fee_charge_id );
 		except FeeCharge.DoesNotExist:
-			raise ProcessingError(err_msg + " : FeeCharge with id " + str(fee_charge_id) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : FeeCharge with id " + str(fee_charge_id) + " does not exist.")
 		except Exception:
 			return None;
 		

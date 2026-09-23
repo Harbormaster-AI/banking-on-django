@@ -1,4 +1,5 @@
 
+
 from django.core import exceptions
 from django.core import serializers
 from django.db import models
@@ -29,15 +30,16 @@ class BranchDelegate :
 #======================================================================
 
 	def get(self, branch_id ):
+		err_msg = "Failed to get Branch from db using id " + str(branch_id)
 		try:	
 			branch = Branch.objects.filter(id=branch_id)
 			return branch.first();
 		except Branch.DoesNotExist:
-			raise ProcessingError("Branch with id " + str(branch_id) + " does not exist.")
-		except utils.DatabaseError:
-			raise StorageReadError()
+			raise Exceptions.ProcessingError("Branch with id " + str(branch_id) + " does not exist.")
+		except utils.Exceptions.DatabaseError:
+			raise Exceptions.StorageReadError()
 		except Exception:
-			raise GeneralError(err_msg) 
+			raise Exceptions.GeneralError(err_msg) 
 
 	def createFromJson(self, branch):
 		for model in serializers.deserialize("json", branch):
@@ -65,18 +67,18 @@ class BranchDelegate :
 			branch.delete()
 			return True
 		except Branch.DoesNotExist:
-			raise ProcessingError("Branch with id " + str(branch_id) + " does not exist.")
-		except utils.DatabaseError:
-			raise StorageReadError()
+			raise Exceptions.ProcessingError("Branch with id " + str(branch_id) + " does not exist.")
+		except utils.Exceptions.DatabaseError:
+			raise Exceptions.StorageReadError()
 		except Exception:
-			raise GeneralError(err_msg) 
+			raise Exceptions.GeneralError(err_msg) 
 	
 	def getAll(self):
 		try:
 			all = Branch.objects.all()
 			return all;
-		except utils.DatabaseError:
-			raise StorageReadError("Failed to get all Branch from db")
+		except utils.Exceptions.DatabaseError:
+			raise Exceptions.StorageReadError("Failed to get all Branch from db")
 		except Exception:
 			return None;
 		
@@ -102,9 +104,9 @@ class BranchDelegate :
 			# reload and return the appropriate version					
 			return self.get( branch_id );
 		except Branch.DoesNotExist:
-			raise ProcessingError(err_msg + " : Branch with id " + str(branch_id) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : Branch with id " + str(branch_id) + " does not exist.")
 		except Bank.DoesNotExist:
-			raise ProcessingError(err_msg + " : Bank with id " + str(bankId) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : Bank with id " + str(bankId) + " does not exist.")
 		except Exception:
 			return None;
 				
@@ -124,7 +126,7 @@ class BranchDelegate :
 			# reload and return the appropriate version					
 			return self.get( branch_id );
 		except Branch.DoesNotExist:
-			raise ProcessingError(err_msg + " : Branch with id " + str(branch_id) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : Branch with id " + str(branch_id) + " does not exist.")
 		except Exception:
 			return None;
 		
@@ -151,11 +153,11 @@ class BranchDelegate :
 			# reload and return the appropriate version
 			return self.get( branch_id );
 		except Branch.DoesNotExist:
-			raise ProcessingError(err_msg + " : Branch with id " + str(branch_id) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : Branch with id " + str(branch_id) + " does not exist.")
 		except Account.DoesNotExist:
-			raise ProcessingError(err_msg + " : Account does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : Account does not exist.")
 		except Exception:
-			raise ProcessingError(err_msg) 
+			raise Exceptions.ProcessingError(err_msg) 
 		
 	def removeAccounts( self, branch_id, accountsIds ):
 		# lazy importing avoids circular dependencies
@@ -180,13 +182,13 @@ class BranchDelegate :
 			# reload and return the appropriate version
 			return self.get( branch_id );
 		except Branch.DoesNotExist:
-			raise ProcessingError(err_msg + " : Branch with id " + str(branch_id) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : Branch with id " + str(branch_id) + " does not exist.")
 		except Account.DoesNotExist:
-			raise ProcessingError(err_msg + " : Account does not exist.")
-		except utils.DatabaseError:
+			raise Exceptions.ProcessingError(err_msg + " : Account does not exist.")
+		except utils.Exceptions.DatabaseError:
 			raise StorageWriteError()
 		except Exception:
-			raise GeneralError(err_msg) 
+			raise Exceptions.GeneralError(err_msg) 
 		
 	def addLoanAccounts( self, branch_id, loanAccountsIds ):
 		# lazy importing avoids circular dependencies
@@ -211,11 +213,11 @@ class BranchDelegate :
 			# reload and return the appropriate version
 			return self.get( branch_id );
 		except Branch.DoesNotExist:
-			raise ProcessingError(err_msg + " : Branch with id " + str(branch_id) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : Branch with id " + str(branch_id) + " does not exist.")
 		except LoanAccount.DoesNotExist:
-			raise ProcessingError(err_msg + " : LoanAccount does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : LoanAccount does not exist.")
 		except Exception:
-			raise ProcessingError(err_msg) 
+			raise Exceptions.ProcessingError(err_msg) 
 		
 	def removeLoanAccounts( self, branch_id, loanAccountsIds ):
 		# lazy importing avoids circular dependencies
@@ -240,13 +242,13 @@ class BranchDelegate :
 			# reload and return the appropriate version
 			return self.get( branch_id );
 		except Branch.DoesNotExist:
-			raise ProcessingError(err_msg + " : Branch with id " + str(branch_id) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : Branch with id " + str(branch_id) + " does not exist.")
 		except LoanAccount.DoesNotExist:
-			raise ProcessingError(err_msg + " : LoanAccount does not exist.")
-		except utils.DatabaseError:
+			raise Exceptions.ProcessingError(err_msg + " : LoanAccount does not exist.")
+		except utils.Exceptions.DatabaseError:
 			raise StorageWriteError()
 		except Exception:
-			raise GeneralError(err_msg) 
+			raise Exceptions.GeneralError(err_msg) 
 		
 	def addAtms( self, branch_id, atmsIds ):
 		# lazy importing avoids circular dependencies
@@ -271,11 +273,11 @@ class BranchDelegate :
 			# reload and return the appropriate version
 			return self.get( branch_id );
 		except Branch.DoesNotExist:
-			raise ProcessingError(err_msg + " : Branch with id " + str(branch_id) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : Branch with id " + str(branch_id) + " does not exist.")
 		except ATM.DoesNotExist:
-			raise ProcessingError(err_msg + " : ATM does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : ATM does not exist.")
 		except Exception:
-			raise ProcessingError(err_msg) 
+			raise Exceptions.ProcessingError(err_msg) 
 		
 	def removeAtms( self, branch_id, atmsIds ):
 		# lazy importing avoids circular dependencies
@@ -300,11 +302,11 @@ class BranchDelegate :
 			# reload and return the appropriate version
 			return self.get( branch_id );
 		except Branch.DoesNotExist:
-			raise ProcessingError(err_msg + " : Branch with id " + str(branch_id) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : Branch with id " + str(branch_id) + " does not exist.")
 		except ATM.DoesNotExist:
-			raise ProcessingError(err_msg + " : ATM does not exist.")
-		except utils.DatabaseError:
+			raise Exceptions.ProcessingError(err_msg + " : ATM does not exist.")
+		except utils.Exceptions.DatabaseError:
 			raise StorageWriteError()
 		except Exception:
-			raise GeneralError(err_msg) 
+			raise Exceptions.GeneralError(err_msg) 
 		

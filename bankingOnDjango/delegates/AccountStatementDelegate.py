@@ -1,4 +1,5 @@
 
+
 from django.core import exceptions
 from django.core import serializers
 from django.db import models
@@ -26,15 +27,16 @@ class AccountStatementDelegate :
 #======================================================================
 
 	def get(self, account_statement_id ):
+		err_msg = "Failed to get AccountStatement from db using id " + str(account_statement_id)
 		try:	
 			account_statement = AccountStatement.objects.filter(id=account_statement_id)
 			return account_statement.first();
 		except AccountStatement.DoesNotExist:
-			raise ProcessingError("AccountStatement with id " + str(account_statement_id) + " does not exist.")
-		except utils.DatabaseError:
-			raise StorageReadError()
+			raise Exceptions.ProcessingError("AccountStatement with id " + str(account_statement_id) + " does not exist.")
+		except utils.Exceptions.DatabaseError:
+			raise Exceptions.StorageReadError()
 		except Exception:
-			raise GeneralError(err_msg) 
+			raise Exceptions.GeneralError(err_msg) 
 
 	def createFromJson(self, account_statement):
 		for model in serializers.deserialize("json", account_statement):
@@ -62,18 +64,18 @@ class AccountStatementDelegate :
 			account_statement.delete()
 			return True
 		except AccountStatement.DoesNotExist:
-			raise ProcessingError("AccountStatement with id " + str(account_statement_id) + " does not exist.")
-		except utils.DatabaseError:
-			raise StorageReadError()
+			raise Exceptions.ProcessingError("AccountStatement with id " + str(account_statement_id) + " does not exist.")
+		except utils.Exceptions.DatabaseError:
+			raise Exceptions.StorageReadError()
 		except Exception:
-			raise GeneralError(err_msg) 
+			raise Exceptions.GeneralError(err_msg) 
 	
 	def getAll(self):
 		try:
 			all = AccountStatement.objects.all()
 			return all;
-		except utils.DatabaseError:
-			raise StorageReadError("Failed to get all AccountStatement from db")
+		except utils.Exceptions.DatabaseError:
+			raise Exceptions.StorageReadError("Failed to get all AccountStatement from db")
 		except Exception:
 			return None;
 		
@@ -99,9 +101,9 @@ class AccountStatementDelegate :
 			# reload and return the appropriate version					
 			return self.get( account_statement_id );
 		except AccountStatement.DoesNotExist:
-			raise ProcessingError(err_msg + " : AccountStatement with id " + str(account_statement_id) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : AccountStatement with id " + str(account_statement_id) + " does not exist.")
 		except Account.DoesNotExist:
-			raise ProcessingError(err_msg + " : Account with id " + str(accountId) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : Account with id " + str(accountId) + " does not exist.")
 		except Exception:
 			return None;
 				
@@ -121,7 +123,7 @@ class AccountStatementDelegate :
 			# reload and return the appropriate version					
 			return self.get( account_statement_id );
 		except AccountStatement.DoesNotExist:
-			raise ProcessingError(err_msg + " : AccountStatement with id " + str(account_statement_id) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : AccountStatement with id " + str(account_statement_id) + " does not exist.")
 		except Exception:
 			return None;
 		

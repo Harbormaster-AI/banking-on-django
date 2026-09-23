@@ -1,4 +1,5 @@
 
+
 from django.core import exceptions
 from django.core import serializers
 from django.db import models
@@ -26,15 +27,16 @@ class ScreeningResultDelegate :
 #======================================================================
 
 	def get(self, screening_result_id ):
+		err_msg = "Failed to get ScreeningResult from db using id " + str(screening_result_id)
 		try:	
 			screening_result = ScreeningResult.objects.filter(id=screening_result_id)
 			return screening_result.first();
 		except ScreeningResult.DoesNotExist:
-			raise ProcessingError("ScreeningResult with id " + str(screening_result_id) + " does not exist.")
-		except utils.DatabaseError:
-			raise StorageReadError()
+			raise Exceptions.ProcessingError("ScreeningResult with id " + str(screening_result_id) + " does not exist.")
+		except utils.Exceptions.DatabaseError:
+			raise Exceptions.StorageReadError()
 		except Exception:
-			raise GeneralError(err_msg) 
+			raise Exceptions.GeneralError(err_msg) 
 
 	def createFromJson(self, screening_result):
 		for model in serializers.deserialize("json", screening_result):
@@ -62,18 +64,18 @@ class ScreeningResultDelegate :
 			screening_result.delete()
 			return True
 		except ScreeningResult.DoesNotExist:
-			raise ProcessingError("ScreeningResult with id " + str(screening_result_id) + " does not exist.")
-		except utils.DatabaseError:
-			raise StorageReadError()
+			raise Exceptions.ProcessingError("ScreeningResult with id " + str(screening_result_id) + " does not exist.")
+		except utils.Exceptions.DatabaseError:
+			raise Exceptions.StorageReadError()
 		except Exception:
-			raise GeneralError(err_msg) 
+			raise Exceptions.GeneralError(err_msg) 
 	
 	def getAll(self):
 		try:
 			all = ScreeningResult.objects.all()
 			return all;
-		except utils.DatabaseError:
-			raise StorageReadError("Failed to get all ScreeningResult from db")
+		except utils.Exceptions.DatabaseError:
+			raise Exceptions.StorageReadError("Failed to get all ScreeningResult from db")
 		except Exception:
 			return None;
 		
@@ -99,9 +101,9 @@ class ScreeningResultDelegate :
 			# reload and return the appropriate version					
 			return self.get( screening_result_id );
 		except ScreeningResult.DoesNotExist:
-			raise ProcessingError(err_msg + " : ScreeningResult with id " + str(screening_result_id) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : ScreeningResult with id " + str(screening_result_id) + " does not exist.")
 		except KycProfile.DoesNotExist:
-			raise ProcessingError(err_msg + " : KycProfile with id " + str(kycProfileId) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : KycProfile with id " + str(kycProfileId) + " does not exist.")
 		except Exception:
 			return None;
 				
@@ -121,7 +123,7 @@ class ScreeningResultDelegate :
 			# reload and return the appropriate version					
 			return self.get( screening_result_id );
 		except ScreeningResult.DoesNotExist:
-			raise ProcessingError(err_msg + " : ScreeningResult with id " + str(screening_result_id) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : ScreeningResult with id " + str(screening_result_id) + " does not exist.")
 		except Exception:
 			return None;
 		

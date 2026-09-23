@@ -1,4 +1,5 @@
 
+
 from django.core import exceptions
 from django.core import serializers
 from django.db import models
@@ -26,15 +27,16 @@ class ATMDelegate :
 #======================================================================
 
 	def get(self, a_t_m_id ):
+		err_msg = "Failed to get ATM from db using id " + str(a_t_m_id)
 		try:	
 			a_t_m = ATM.objects.filter(id=a_t_m_id)
 			return a_t_m.first();
 		except ATM.DoesNotExist:
-			raise ProcessingError("ATM with id " + str(a_t_m_id) + " does not exist.")
-		except utils.DatabaseError:
-			raise StorageReadError()
+			raise Exceptions.ProcessingError("ATM with id " + str(a_t_m_id) + " does not exist.")
+		except utils.Exceptions.DatabaseError:
+			raise Exceptions.StorageReadError()
 		except Exception:
-			raise GeneralError(err_msg) 
+			raise Exceptions.GeneralError(err_msg) 
 
 	def createFromJson(self, a_t_m):
 		for model in serializers.deserialize("json", a_t_m):
@@ -62,18 +64,18 @@ class ATMDelegate :
 			a_t_m.delete()
 			return True
 		except ATM.DoesNotExist:
-			raise ProcessingError("ATM with id " + str(a_t_m_id) + " does not exist.")
-		except utils.DatabaseError:
-			raise StorageReadError()
+			raise Exceptions.ProcessingError("ATM with id " + str(a_t_m_id) + " does not exist.")
+		except utils.Exceptions.DatabaseError:
+			raise Exceptions.StorageReadError()
 		except Exception:
-			raise GeneralError(err_msg) 
+			raise Exceptions.GeneralError(err_msg) 
 	
 	def getAll(self):
 		try:
 			all = ATM.objects.all()
 			return all;
-		except utils.DatabaseError:
-			raise StorageReadError("Failed to get all ATM from db")
+		except utils.Exceptions.DatabaseError:
+			raise Exceptions.StorageReadError("Failed to get all ATM from db")
 		except Exception:
 			return None;
 		
@@ -99,9 +101,9 @@ class ATMDelegate :
 			# reload and return the appropriate version					
 			return self.get( a_t_m_id );
 		except ATM.DoesNotExist:
-			raise ProcessingError(err_msg + " : ATM with id " + str(a_t_m_id) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : ATM with id " + str(a_t_m_id) + " does not exist.")
 		except Branch.DoesNotExist:
-			raise ProcessingError(err_msg + " : Branch with id " + str(branchId) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : Branch with id " + str(branchId) + " does not exist.")
 		except Exception:
 			return None;
 				
@@ -121,7 +123,7 @@ class ATMDelegate :
 			# reload and return the appropriate version					
 			return self.get( a_t_m_id );
 		except ATM.DoesNotExist:
-			raise ProcessingError(err_msg + " : ATM with id " + str(a_t_m_id) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : ATM with id " + str(a_t_m_id) + " does not exist.")
 		except Exception:
 			return None;
 		

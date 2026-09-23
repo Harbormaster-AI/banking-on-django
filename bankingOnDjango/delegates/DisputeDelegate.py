@@ -1,4 +1,5 @@
 
+
 from django.core import exceptions
 from django.core import serializers
 from django.db import models
@@ -29,15 +30,16 @@ class DisputeDelegate :
 #======================================================================
 
 	def get(self, dispute_id ):
+		err_msg = "Failed to get Dispute from db using id " + str(dispute_id)
 		try:	
 			dispute = Dispute.objects.filter(id=dispute_id)
 			return dispute.first();
 		except Dispute.DoesNotExist:
-			raise ProcessingError("Dispute with id " + str(dispute_id) + " does not exist.")
-		except utils.DatabaseError:
-			raise StorageReadError()
+			raise Exceptions.ProcessingError("Dispute with id " + str(dispute_id) + " does not exist.")
+		except utils.Exceptions.DatabaseError:
+			raise Exceptions.StorageReadError()
 		except Exception:
-			raise GeneralError(err_msg) 
+			raise Exceptions.GeneralError(err_msg) 
 
 	def createFromJson(self, dispute):
 		for model in serializers.deserialize("json", dispute):
@@ -65,18 +67,18 @@ class DisputeDelegate :
 			dispute.delete()
 			return True
 		except Dispute.DoesNotExist:
-			raise ProcessingError("Dispute with id " + str(dispute_id) + " does not exist.")
-		except utils.DatabaseError:
-			raise StorageReadError()
+			raise Exceptions.ProcessingError("Dispute with id " + str(dispute_id) + " does not exist.")
+		except utils.Exceptions.DatabaseError:
+			raise Exceptions.StorageReadError()
 		except Exception:
-			raise GeneralError(err_msg) 
+			raise Exceptions.GeneralError(err_msg) 
 	
 	def getAll(self):
 		try:
 			all = Dispute.objects.all()
 			return all;
-		except utils.DatabaseError:
-			raise StorageReadError("Failed to get all Dispute from db")
+		except utils.Exceptions.DatabaseError:
+			raise Exceptions.StorageReadError("Failed to get all Dispute from db")
 		except Exception:
 			return None;
 		
@@ -102,9 +104,9 @@ class DisputeDelegate :
 			# reload and return the appropriate version					
 			return self.get( dispute_id );
 		except Dispute.DoesNotExist:
-			raise ProcessingError(err_msg + " : Dispute with id " + str(dispute_id) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : Dispute with id " + str(dispute_id) + " does not exist.")
 		except Transaction.DoesNotExist:
-			raise ProcessingError(err_msg + " : Transaction with id " + str(transactionId) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : Transaction with id " + str(transactionId) + " does not exist.")
 		except Exception:
 			return None;
 				
@@ -124,7 +126,7 @@ class DisputeDelegate :
 			# reload and return the appropriate version					
 			return self.get( dispute_id );
 		except Dispute.DoesNotExist:
-			raise ProcessingError(err_msg + " : Dispute with id " + str(dispute_id) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : Dispute with id " + str(dispute_id) + " does not exist.")
 		except Exception:
 			return None;
 		
@@ -150,9 +152,9 @@ class DisputeDelegate :
 			# reload and return the appropriate version					
 			return self.get( dispute_id );
 		except Dispute.DoesNotExist:
-			raise ProcessingError(err_msg + " : Dispute with id " + str(dispute_id) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : Dispute with id " + str(dispute_id) + " does not exist.")
 		except Customer.DoesNotExist:
-			raise ProcessingError(err_msg + " : Customer with id " + str(customerId) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : Customer with id " + str(customerId) + " does not exist.")
 		except Exception:
 			return None;
 				
@@ -172,7 +174,7 @@ class DisputeDelegate :
 			# reload and return the appropriate version					
 			return self.get( dispute_id );
 		except Dispute.DoesNotExist:
-			raise ProcessingError(err_msg + " : Dispute with id " + str(dispute_id) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : Dispute with id " + str(dispute_id) + " does not exist.")
 		except Exception:
 			return None;
 		
@@ -198,9 +200,9 @@ class DisputeDelegate :
 			# reload and return the appropriate version					
 			return self.get( dispute_id );
 		except Dispute.DoesNotExist:
-			raise ProcessingError(err_msg + " : Dispute with id " + str(dispute_id) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : Dispute with id " + str(dispute_id) + " does not exist.")
 		except Account.DoesNotExist:
-			raise ProcessingError(err_msg + " : Account with id " + str(accountId) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : Account with id " + str(accountId) + " does not exist.")
 		except Exception:
 			return None;
 				
@@ -220,7 +222,7 @@ class DisputeDelegate :
 			# reload and return the appropriate version					
 			return self.get( dispute_id );
 		except Dispute.DoesNotExist:
-			raise ProcessingError(err_msg + " : Dispute with id " + str(dispute_id) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : Dispute with id " + str(dispute_id) + " does not exist.")
 		except Exception:
 			return None;
 		
@@ -246,9 +248,9 @@ class DisputeDelegate :
 			# reload and return the appropriate version					
 			return self.get( dispute_id );
 		except Dispute.DoesNotExist:
-			raise ProcessingError(err_msg + " : Dispute with id " + str(dispute_id) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : Dispute with id " + str(dispute_id) + " does not exist.")
 		except PaymentCard.DoesNotExist:
-			raise ProcessingError(err_msg + " : PaymentCard with id " + str(paymentCardId) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : PaymentCard with id " + str(paymentCardId) + " does not exist.")
 		except Exception:
 			return None;
 				
@@ -268,7 +270,7 @@ class DisputeDelegate :
 			# reload and return the appropriate version					
 			return self.get( dispute_id );
 		except Dispute.DoesNotExist:
-			raise ProcessingError(err_msg + " : Dispute with id " + str(dispute_id) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : Dispute with id " + str(dispute_id) + " does not exist.")
 		except Exception:
 			return None;
 		
