@@ -12,7 +12,7 @@ provider "aws" {
       CreatedBy = "Harbormaster"
       Blueprint = "Django"
       DomainModel = "Banking Industry Domain Model"
-      CertificationId = "80149f5a-eec9-4809-9c34-fadaf51c3334"
+      CertificationId = "622d6eb4-ade7-4e53-8020-4469b45fb5e5"
     }
   }
 }
@@ -39,7 +39,7 @@ resource "local_file" "private_key_pem" {
 }
 
 resource "aws_key_pair" "generated" {
-  key_name   = "pjsk-sshtest-0.533543031719352"
+  key_name   = "pjsk-sshtest-0.8698947843956379"
   public_key = tls_private_key.generated.public_key_openssh
 
   lifecycle {
@@ -92,7 +92,7 @@ resource "aws_route_table_association" "default" {
 
 # bug: RDS must use DB subnet group in same VPC
 resource "aws_db_subnet_group" "default" {
-  name       = "bankingOnDjango-db-subnet"
+  name       = "bankingondjango-db-subnet"
   subnet_ids = [aws_subnet.default.id, aws_subnet.secondary.id]
 }
 
@@ -102,8 +102,8 @@ resource "aws_db_subnet_group" "default" {
 # -------------------------------------------------------
 
 resource "aws_security_group" "web" {
-#  name        = "bankingOnDjango-security-group-from-terraform" #optional, when omitted, terraform creates a random name
-  description = "security group for application bankingOnDjango created from terraform"
+#  name        = "bankingondjango-security-group-from-terraform" #optional, when omitted, terraform creates a random name
+  description = "security group for application bankingondjango created from terraform"
   vpc_id      = aws_vpc.default.id
 
   # SSH access from anywhere
@@ -144,7 +144,7 @@ resource "aws_security_group" "web" {
 # -------------------------------------------------------
 
 resource "aws_security_group" "db" {
-  description = "security group for bankingOnDjango and mysql created from terraform"
+  description = "security group for bankingondjango and mysql created from terraform"
   vpc_id      = aws_vpc.default.id
 
   # mysql access from anywhere
@@ -166,11 +166,11 @@ resource "aws_security_group" "db" {
 
 resource "aws_db_instance" "default" {
   depends_on             = [aws_security_group.db]
-#  identifier             = "bankingOnDjango-rds" # Terraform will create a unique id if not assigned
+#  identifier             = "bankingondjango-rds" # Terraform will create a unique id if not assigned
   allocated_storage      = 20
   engine                 = "mysql"
   instance_class         = "db.t3.medium"
-  db_name                = "bankingOnDjango"
+  db_name                = "bankingondjango"
   username               = "no_user_name"
   password               = "no_password"
   vpc_security_group_ids = [aws_security_group.db.id]
@@ -204,7 +204,7 @@ resource "aws_iam_role_policy_attachment" "eks_cluster_policy" {
 }
 
 resource "aws_eks_cluster" "this" {
-  name     = "eks_cluster_bankingOnDjango"
+  name     = "eks_cluster_bankingondjango"
   role_arn = aws_iam_role.eks.arn
   vpc_config {
     # EKS requires subnet IDs in at least 2 AZs
@@ -233,7 +233,7 @@ resource "aws_instance" "web" {
 
   instance_type = "t2.medium"
   
-  tags = { Name = "bankingOnDjango instance" } 
+  tags = { Name = "bankingondjango instance" } 
 
   # -------------------------------------------------------
   # standard harbormaster community AMI with docker pre-installed
@@ -270,7 +270,7 @@ resource "aws_instance" "web" {
       "sudo systemctl enable --now docker",
       "sudo docker login --username tylertravismya --password 69Cutlass",
       "sudo docker pull theharbormaster/banking-on-django:latest",
-      "sudo docker run -d -p 8000:8000 -p 8080:8080 -e DATABASE_URL=jdbc:mysql://${aws_db_instance.default.endpoint}/bankingOnDjango theharbormaster/banking-on-django:latest"
+      "sudo docker run -d -p 8000:8000 -p 8080:8080 -e DATABASE_URL=jdbc:mysql://${aws_db_instance.default.endpoint}/bankingondjango theharbormaster/banking-on-django:latest"
     ]
   }
 }
