@@ -1,8 +1,7 @@
 
-import datetime
 
 from django.test import TestCase
-from django.utils import timezone
+
 from bankingOnDjango.models.Dispute import Dispute
 from bankingOnDjango.delegates.DisputeDelegate import DisputeDelegate
 

@@ -1,8 +1,7 @@
 
-import datetime
 
 from django.test import TestCase
-from django.utils import timezone
+
 from bankingOnDjango.models.RepaymentSchedule import RepaymentSchedule
 from bankingOnDjango.delegates.RepaymentScheduleDelegate import RepaymentScheduleDelegate
 

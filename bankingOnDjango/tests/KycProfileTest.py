@@ -1,8 +1,7 @@
 
-import datetime
 
 from django.test import TestCase
-from django.utils import timezone
+
 from bankingOnDjango.models.KycProfile import KycProfile
 from bankingOnDjango.delegates.KycProfileDelegate import KycProfileDelegate
 
