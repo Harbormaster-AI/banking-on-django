@@ -22,7 +22,7 @@ from enum import Enum
 class $className(Enum):   # A subclass of Enum
 #set( $attributes = $class.getAttributes() )
 #foreach ( $attribute in $attributes )
-#set( $name = attribute.getName() )
+#set( $name = $attribute.getName() )
 #set( $name = "${Utils.camelToSnake( $name )} )
 	${name} = '${name}'
 #end
