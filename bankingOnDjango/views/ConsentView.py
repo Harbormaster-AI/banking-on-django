@@ -66,7 +66,7 @@ def assignCustomer(request):
     parent_id = request_data["parent_id"]
     child_id = request_data["childId"]
     delegate = ConsentDelegate()
-    request_data = delegate.assignCustomer(parent_id,childId)
+    request_data = delegate.assignCustomer(parent_id,child_id)
     as_json = serializers.serialize("json",request_data)
     return HttpResponse(as_json,content_type="application/json")
 
@@ -75,7 +75,7 @@ def unassignCustomer(request):
     parent_id = request_data["parent_id"]
     child_id = request_data["childId"]
     delegate = ConsentDelegate()
-    request_data = delegate.unassignCustomer(parent_id,childId)
+    request_data = delegate.unassignCustomer(parent_id,child_id)
     as_json = serializers.serialize("json",request_data)
     return HttpResponse(as_json,content_type="application/json")
 def assignBank(request):
@@ -83,7 +83,7 @@ def assignBank(request):
     parent_id = request_data["parent_id"]
     child_id = request_data["childId"]
     delegate = ConsentDelegate()
-    request_data = delegate.assignBank(parent_id,childId)
+    request_data = delegate.assignBank(parent_id,child_id)
     as_json = serializers.serialize("json",request_data)
     return HttpResponse(as_json,content_type="application/json")
 
@@ -92,7 +92,7 @@ def unassignBank(request):
     parent_id = request_data["parent_id"]
     child_id = request_data["childId"]
     delegate = ConsentDelegate()
-    request_data = delegate.unassignBank(parent_id,childId)
+    request_data = delegate.unassignBank(parent_id,child_id)
     as_json = serializers.serialize("json",request_data)
     return HttpResponse(as_json,content_type="application/json")
 def assignThirdPartyProvider(request):
@@ -100,7 +100,7 @@ def assignThirdPartyProvider(request):
     parent_id = request_data["parent_id"]
     child_id = request_data["childId"]
     delegate = ConsentDelegate()
-    request_data = delegate.assignThirdPartyProvider(parent_id,childId)
+    request_data = delegate.assignThirdPartyProvider(parent_id,child_id)
     as_json = serializers.serialize("json",request_data)
     return HttpResponse(as_json,content_type="application/json")
 
@@ -109,7 +109,7 @@ def unassignThirdPartyProvider(request):
     parent_id = request_data["parent_id"]
     child_id = request_data["childId"]
     delegate = ConsentDelegate()
-    request_data = delegate.unassignThirdPartyProvider(parent_id,childId)
+    request_data = delegate.unassignThirdPartyProvider(parent_id,child_id)
     as_json = serializers.serialize("json",request_data)
     return HttpResponse(as_json,content_type="application/json")
 

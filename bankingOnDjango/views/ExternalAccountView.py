@@ -23,31 +23,31 @@ def index(request):
 
 def get(request):
     request_data = json.loads(request.body)
-    externalAccount_id = request_data["id"]
+    external_account_id = request_data["id"]
     delegate = ExternalAccountDelegate()
-    request_data = delegate.get(externalAccount_id)
+    request_data = delegate.get(external_account_id)
     as_json = serializers.serialize("json",request_data)
     return HttpResponse(as_json,content_type="application/json")
 
 def create(request):
-	externalAccount = json.loads(request.body)
+	external_account = json.loads(request.body)
 	delegate = ExternalAccountDelegate()
-	request_data = delegate.createFromJson( externalAccount )
+	request_data = delegate.createFromJson( external_account )
 	as_json = serializers.serialize("json", request_data)
 	return HttpResponse(as_json, content_type="application/json");
 
 def update(request):
-	externalAccount = json.loads(request.body)
+	external_account = json.loads(request.body)
 	delegate = ExternalAccountDelegate()
-	request_data = delegate.save( externalAccount )
+	request_data = delegate.save( external_account )
 	as_json = serializers.serialize("json", request_data)
 	return HttpResponse(as_json, content_type="application/json");
 
 def delete(request):
     request_data = json.loads(request.body)
-    externalAccount_id = request_data["id"]
+    external_account_id = request_data["id"]
     delegate = ExternalAccountDelegate()
-    request_data = delegate.delete(externalAccount_id)
+    request_data = delegate.delete(external_account_id)
     as_json = serializers.serialize("json",request_data)
     return HttpResponse(as_json,content_type="application/json")
 
@@ -66,7 +66,7 @@ def assignCustomer(request):
     parent_id = request_data["parent_id"]
     child_id = request_data["childId"]
     delegate = ExternalAccountDelegate()
-    request_data = delegate.assignCustomer(parent_id,childId)
+    request_data = delegate.assignCustomer(parent_id,child_id)
     as_json = serializers.serialize("json",request_data)
     return HttpResponse(as_json,content_type="application/json")
 
@@ -75,7 +75,7 @@ def unassignCustomer(request):
     parent_id = request_data["parent_id"]
     child_id = request_data["childId"]
     delegate = ExternalAccountDelegate()
-    request_data = delegate.unassignCustomer(parent_id,childId)
+    request_data = delegate.unassignCustomer(parent_id,child_id)
     as_json = serializers.serialize("json",request_data)
     return HttpResponse(as_json,content_type="application/json")
 

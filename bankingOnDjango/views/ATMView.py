@@ -23,31 +23,31 @@ def index(request):
 
 def get(request):
     request_data = json.loads(request.body)
-    aTM_id = request_data["id"]
+    a_t_m_id = request_data["id"]
     delegate = ATMDelegate()
-    request_data = delegate.get(aTM_id)
+    request_data = delegate.get(a_t_m_id)
     as_json = serializers.serialize("json",request_data)
     return HttpResponse(as_json,content_type="application/json")
 
 def create(request):
-	aTM = json.loads(request.body)
+	a_t_m = json.loads(request.body)
 	delegate = ATMDelegate()
-	request_data = delegate.createFromJson( aTM )
+	request_data = delegate.createFromJson( a_t_m )
 	as_json = serializers.serialize("json", request_data)
 	return HttpResponse(as_json, content_type="application/json");
 
 def update(request):
-	aTM = json.loads(request.body)
+	a_t_m = json.loads(request.body)
 	delegate = ATMDelegate()
-	request_data = delegate.save( aTM )
+	request_data = delegate.save( a_t_m )
 	as_json = serializers.serialize("json", request_data)
 	return HttpResponse(as_json, content_type="application/json");
 
 def delete(request):
     request_data = json.loads(request.body)
-    aTM_id = request_data["id"]
+    a_t_m_id = request_data["id"]
     delegate = ATMDelegate()
-    request_data = delegate.delete(aTM_id)
+    request_data = delegate.delete(a_t_m_id)
     as_json = serializers.serialize("json",request_data)
     return HttpResponse(as_json,content_type="application/json")
 
@@ -66,7 +66,7 @@ def assignBranch(request):
     parent_id = request_data["parent_id"]
     child_id = request_data["childId"]
     delegate = ATMDelegate()
-    request_data = delegate.assignBranch(parent_id,childId)
+    request_data = delegate.assignBranch(parent_id,child_id)
     as_json = serializers.serialize("json",request_data)
     return HttpResponse(as_json,content_type="application/json")
 
@@ -75,7 +75,7 @@ def unassignBranch(request):
     parent_id = request_data["parent_id"]
     child_id = request_data["childId"]
     delegate = ATMDelegate()
-    request_data = delegate.unassignBranch(parent_id,childId)
+    request_data = delegate.unassignBranch(parent_id,child_id)
     as_json = serializers.serialize("json",request_data)
     return HttpResponse(as_json,content_type="application/json")
 

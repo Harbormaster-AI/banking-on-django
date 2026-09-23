@@ -23,31 +23,31 @@ def index(request):
 
 def get(request):
     request_data = json.loads(request.body)
-    repaymentSchedule_id = request_data["id"]
+    repayment_schedule_id = request_data["id"]
     delegate = RepaymentScheduleDelegate()
-    request_data = delegate.get(repaymentSchedule_id)
+    request_data = delegate.get(repayment_schedule_id)
     as_json = serializers.serialize("json",request_data)
     return HttpResponse(as_json,content_type="application/json")
 
 def create(request):
-	repaymentSchedule = json.loads(request.body)
+	repayment_schedule = json.loads(request.body)
 	delegate = RepaymentScheduleDelegate()
-	request_data = delegate.createFromJson( repaymentSchedule )
+	request_data = delegate.createFromJson( repayment_schedule )
 	as_json = serializers.serialize("json", request_data)
 	return HttpResponse(as_json, content_type="application/json");
 
 def update(request):
-	repaymentSchedule = json.loads(request.body)
+	repayment_schedule = json.loads(request.body)
 	delegate = RepaymentScheduleDelegate()
-	request_data = delegate.save( repaymentSchedule )
+	request_data = delegate.save( repayment_schedule )
 	as_json = serializers.serialize("json", request_data)
 	return HttpResponse(as_json, content_type="application/json");
 
 def delete(request):
     request_data = json.loads(request.body)
-    repaymentSchedule_id = request_data["id"]
+    repayment_schedule_id = request_data["id"]
     delegate = RepaymentScheduleDelegate()
-    request_data = delegate.delete(repaymentSchedule_id)
+    request_data = delegate.delete(repayment_schedule_id)
     as_json = serializers.serialize("json",request_data)
     return HttpResponse(as_json,content_type="application/json")
 
@@ -66,7 +66,7 @@ def assignLoanAccount(request):
     parent_id = request_data["parent_id"]
     child_id = request_data["childId"]
     delegate = RepaymentScheduleDelegate()
-    request_data = delegate.assignLoanAccount(parent_id,childId)
+    request_data = delegate.assignLoanAccount(parent_id,child_id)
     as_json = serializers.serialize("json",request_data)
     return HttpResponse(as_json,content_type="application/json")
 
@@ -75,7 +75,7 @@ def unassignLoanAccount(request):
     parent_id = request_data["parent_id"]
     child_id = request_data["childId"]
     delegate = RepaymentScheduleDelegate()
-    request_data = delegate.unassignLoanAccount(parent_id,childId)
+    request_data = delegate.unassignLoanAccount(parent_id,child_id)
     as_json = serializers.serialize("json",request_data)
     return HttpResponse(as_json,content_type="application/json")
 def assignPayment(request):
@@ -83,7 +83,7 @@ def assignPayment(request):
     parent_id = request_data["parent_id"]
     child_id = request_data["childId"]
     delegate = RepaymentScheduleDelegate()
-    request_data = delegate.assignPayment(parent_id,childId)
+    request_data = delegate.assignPayment(parent_id,child_id)
     as_json = serializers.serialize("json",request_data)
     return HttpResponse(as_json,content_type="application/json")
 
@@ -92,7 +92,7 @@ def unassignPayment(request):
     parent_id = request_data["parent_id"]
     child_id = request_data["childId"]
     delegate = RepaymentScheduleDelegate()
-    request_data = delegate.unassignPayment(parent_id,childId)
+    request_data = delegate.unassignPayment(parent_id,child_id)
     as_json = serializers.serialize("json",request_data)
     return HttpResponse(as_json,content_type="application/json")
 

@@ -66,7 +66,7 @@ def assignTransaction(request):
     parent_id = request_data["parent_id"]
     child_id = request_data["childId"]
     delegate = DisputeDelegate()
-    request_data = delegate.assignTransaction(parent_id,childId)
+    request_data = delegate.assignTransaction(parent_id,child_id)
     as_json = serializers.serialize("json",request_data)
     return HttpResponse(as_json,content_type="application/json")
 
@@ -75,7 +75,7 @@ def unassignTransaction(request):
     parent_id = request_data["parent_id"]
     child_id = request_data["childId"]
     delegate = DisputeDelegate()
-    request_data = delegate.unassignTransaction(parent_id,childId)
+    request_data = delegate.unassignTransaction(parent_id,child_id)
     as_json = serializers.serialize("json",request_data)
     return HttpResponse(as_json,content_type="application/json")
 def assignCustomer(request):
@@ -83,7 +83,7 @@ def assignCustomer(request):
     parent_id = request_data["parent_id"]
     child_id = request_data["childId"]
     delegate = DisputeDelegate()
-    request_data = delegate.assignCustomer(parent_id,childId)
+    request_data = delegate.assignCustomer(parent_id,child_id)
     as_json = serializers.serialize("json",request_data)
     return HttpResponse(as_json,content_type="application/json")
 
@@ -92,7 +92,7 @@ def unassignCustomer(request):
     parent_id = request_data["parent_id"]
     child_id = request_data["childId"]
     delegate = DisputeDelegate()
-    request_data = delegate.unassignCustomer(parent_id,childId)
+    request_data = delegate.unassignCustomer(parent_id,child_id)
     as_json = serializers.serialize("json",request_data)
     return HttpResponse(as_json,content_type="application/json")
 def assignAccount(request):
@@ -100,7 +100,7 @@ def assignAccount(request):
     parent_id = request_data["parent_id"]
     child_id = request_data["childId"]
     delegate = DisputeDelegate()
-    request_data = delegate.assignAccount(parent_id,childId)
+    request_data = delegate.assignAccount(parent_id,child_id)
     as_json = serializers.serialize("json",request_data)
     return HttpResponse(as_json,content_type="application/json")
 
@@ -109,7 +109,7 @@ def unassignAccount(request):
     parent_id = request_data["parent_id"]
     child_id = request_data["childId"]
     delegate = DisputeDelegate()
-    request_data = delegate.unassignAccount(parent_id,childId)
+    request_data = delegate.unassignAccount(parent_id,child_id)
     as_json = serializers.serialize("json",request_data)
     return HttpResponse(as_json,content_type="application/json")
 def assignPaymentCard(request):
@@ -117,7 +117,7 @@ def assignPaymentCard(request):
     parent_id = request_data["parent_id"]
     child_id = request_data["childId"]
     delegate = DisputeDelegate()
-    request_data = delegate.assignPaymentCard(parent_id,childId)
+    request_data = delegate.assignPaymentCard(parent_id,child_id)
     as_json = serializers.serialize("json",request_data)
     return HttpResponse(as_json,content_type="application/json")
 
@@ -126,7 +126,7 @@ def unassignPaymentCard(request):
     parent_id = request_data["parent_id"]
     child_id = request_data["childId"]
     delegate = DisputeDelegate()
-    request_data = delegate.unassignPaymentCard(parent_id,childId)
+    request_data = delegate.unassignPaymentCard(parent_id,child_id)
     as_json = serializers.serialize("json",request_data)
     return HttpResponse(as_json,content_type="application/json")
 

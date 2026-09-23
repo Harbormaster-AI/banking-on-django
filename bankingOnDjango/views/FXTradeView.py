@@ -23,31 +23,31 @@ def index(request):
 
 def get(request):
     request_data = json.loads(request.body)
-    fXTrade_id = request_data["id"]
+    f_x_trade_id = request_data["id"]
     delegate = FXTradeDelegate()
-    request_data = delegate.get(fXTrade_id)
+    request_data = delegate.get(f_x_trade_id)
     as_json = serializers.serialize("json",request_data)
     return HttpResponse(as_json,content_type="application/json")
 
 def create(request):
-	fXTrade = json.loads(request.body)
+	f_x_trade = json.loads(request.body)
 	delegate = FXTradeDelegate()
-	request_data = delegate.createFromJson( fXTrade )
+	request_data = delegate.createFromJson( f_x_trade )
 	as_json = serializers.serialize("json", request_data)
 	return HttpResponse(as_json, content_type="application/json");
 
 def update(request):
-	fXTrade = json.loads(request.body)
+	f_x_trade = json.loads(request.body)
 	delegate = FXTradeDelegate()
-	request_data = delegate.save( fXTrade )
+	request_data = delegate.save( f_x_trade )
 	as_json = serializers.serialize("json", request_data)
 	return HttpResponse(as_json, content_type="application/json");
 
 def delete(request):
     request_data = json.loads(request.body)
-    fXTrade_id = request_data["id"]
+    f_x_trade_id = request_data["id"]
     delegate = FXTradeDelegate()
-    request_data = delegate.delete(fXTrade_id)
+    request_data = delegate.delete(f_x_trade_id)
     as_json = serializers.serialize("json",request_data)
     return HttpResponse(as_json,content_type="application/json")
 
@@ -66,7 +66,7 @@ def assignCustomer(request):
     parent_id = request_data["parent_id"]
     child_id = request_data["childId"]
     delegate = FXTradeDelegate()
-    request_data = delegate.assignCustomer(parent_id,childId)
+    request_data = delegate.assignCustomer(parent_id,child_id)
     as_json = serializers.serialize("json",request_data)
     return HttpResponse(as_json,content_type="application/json")
 
@@ -75,7 +75,7 @@ def unassignCustomer(request):
     parent_id = request_data["parent_id"]
     child_id = request_data["childId"]
     delegate = FXTradeDelegate()
-    request_data = delegate.unassignCustomer(parent_id,childId)
+    request_data = delegate.unassignCustomer(parent_id,child_id)
     as_json = serializers.serialize("json",request_data)
     return HttpResponse(as_json,content_type="application/json")
 def assignBank(request):
@@ -83,7 +83,7 @@ def assignBank(request):
     parent_id = request_data["parent_id"]
     child_id = request_data["childId"]
     delegate = FXTradeDelegate()
-    request_data = delegate.assignBank(parent_id,childId)
+    request_data = delegate.assignBank(parent_id,child_id)
     as_json = serializers.serialize("json",request_data)
     return HttpResponse(as_json,content_type="application/json")
 
@@ -92,7 +92,7 @@ def unassignBank(request):
     parent_id = request_data["parent_id"]
     child_id = request_data["childId"]
     delegate = FXTradeDelegate()
-    request_data = delegate.unassignBank(parent_id,childId)
+    request_data = delegate.unassignBank(parent_id,child_id)
     as_json = serializers.serialize("json",request_data)
     return HttpResponse(as_json,content_type="application/json")
 def assignExchangeRate(request):
@@ -100,7 +100,7 @@ def assignExchangeRate(request):
     parent_id = request_data["parent_id"]
     child_id = request_data["childId"]
     delegate = FXTradeDelegate()
-    request_data = delegate.assignExchangeRate(parent_id,childId)
+    request_data = delegate.assignExchangeRate(parent_id,child_id)
     as_json = serializers.serialize("json",request_data)
     return HttpResponse(as_json,content_type="application/json")
 
@@ -109,7 +109,7 @@ def unassignExchangeRate(request):
     parent_id = request_data["parent_id"]
     child_id = request_data["childId"]
     delegate = FXTradeDelegate()
-    request_data = delegate.unassignExchangeRate(parent_id,childId)
+    request_data = delegate.unassignExchangeRate(parent_id,child_id)
     as_json = serializers.serialize("json",request_data)
     return HttpResponse(as_json,content_type="application/json")
 def assignSourceAccount(request):
@@ -117,7 +117,7 @@ def assignSourceAccount(request):
     parent_id = request_data["parent_id"]
     child_id = request_data["childId"]
     delegate = FXTradeDelegate()
-    request_data = delegate.assignSourceAccount(parent_id,childId)
+    request_data = delegate.assignSourceAccount(parent_id,child_id)
     as_json = serializers.serialize("json",request_data)
     return HttpResponse(as_json,content_type="application/json")
 
@@ -126,7 +126,7 @@ def unassignSourceAccount(request):
     parent_id = request_data["parent_id"]
     child_id = request_data["childId"]
     delegate = FXTradeDelegate()
-    request_data = delegate.unassignSourceAccount(parent_id,childId)
+    request_data = delegate.unassignSourceAccount(parent_id,child_id)
     as_json = serializers.serialize("json",request_data)
     return HttpResponse(as_json,content_type="application/json")
 def assignDestinationAccount(request):
@@ -134,7 +134,7 @@ def assignDestinationAccount(request):
     parent_id = request_data["parent_id"]
     child_id = request_data["childId"]
     delegate = FXTradeDelegate()
-    request_data = delegate.assignDestinationAccount(parent_id,childId)
+    request_data = delegate.assignDestinationAccount(parent_id,child_id)
     as_json = serializers.serialize("json",request_data)
     return HttpResponse(as_json,content_type="application/json")
 
@@ -143,7 +143,7 @@ def unassignDestinationAccount(request):
     parent_id = request_data["parent_id"]
     child_id = request_data["childId"]
     delegate = FXTradeDelegate()
-    request_data = delegate.unassignDestinationAccount(parent_id,childId)
+    request_data = delegate.unassignDestinationAccount(parent_id,child_id)
     as_json = serializers.serialize("json",request_data)
     return HttpResponse(as_json,content_type="application/json")
 def assignTransaction(request):
@@ -151,7 +151,7 @@ def assignTransaction(request):
     parent_id = request_data["parent_id"]
     child_id = request_data["childId"]
     delegate = FXTradeDelegate()
-    request_data = delegate.assignTransaction(parent_id,childId)
+    request_data = delegate.assignTransaction(parent_id,child_id)
     as_json = serializers.serialize("json",request_data)
     return HttpResponse(as_json,content_type="application/json")
 
@@ -160,7 +160,7 @@ def unassignTransaction(request):
     parent_id = request_data["parent_id"]
     child_id = request_data["childId"]
     delegate = FXTradeDelegate()
-    request_data = delegate.unassignTransaction(parent_id,childId)
+    request_data = delegate.unassignTransaction(parent_id,child_id)
     as_json = serializers.serialize("json",request_data)
     return HttpResponse(as_json,content_type="application/json")
 

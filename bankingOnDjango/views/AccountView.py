@@ -66,7 +66,7 @@ def assignBank(request):
     parent_id = request_data["parent_id"]
     child_id = request_data["childId"]
     delegate = AccountDelegate()
-    request_data = delegate.assignBank(parent_id,childId)
+    request_data = delegate.assignBank(parent_id,child_id)
     as_json = serializers.serialize("json",request_data)
     return HttpResponse(as_json,content_type="application/json")
 
@@ -75,7 +75,7 @@ def unassignBank(request):
     parent_id = request_data["parent_id"]
     child_id = request_data["childId"]
     delegate = AccountDelegate()
-    request_data = delegate.unassignBank(parent_id,childId)
+    request_data = delegate.unassignBank(parent_id,child_id)
     as_json = serializers.serialize("json",request_data)
     return HttpResponse(as_json,content_type="application/json")
 def assignBranch(request):
@@ -83,7 +83,7 @@ def assignBranch(request):
     parent_id = request_data["parent_id"]
     child_id = request_data["childId"]
     delegate = AccountDelegate()
-    request_data = delegate.assignBranch(parent_id,childId)
+    request_data = delegate.assignBranch(parent_id,child_id)
     as_json = serializers.serialize("json",request_data)
     return HttpResponse(as_json,content_type="application/json")
 
@@ -92,7 +92,7 @@ def unassignBranch(request):
     parent_id = request_data["parent_id"]
     child_id = request_data["childId"]
     delegate = AccountDelegate()
-    request_data = delegate.unassignBranch(parent_id,childId)
+    request_data = delegate.unassignBranch(parent_id,child_id)
     as_json = serializers.serialize("json",request_data)
     return HttpResponse(as_json,content_type="application/json")
 def assignProduct(request):
@@ -100,7 +100,7 @@ def assignProduct(request):
     parent_id = request_data["parent_id"]
     child_id = request_data["childId"]
     delegate = AccountDelegate()
-    request_data = delegate.assignProduct(parent_id,childId)
+    request_data = delegate.assignProduct(parent_id,child_id)
     as_json = serializers.serialize("json",request_data)
     return HttpResponse(as_json,content_type="application/json")
 
@@ -109,7 +109,7 @@ def unassignProduct(request):
     parent_id = request_data["parent_id"]
     child_id = request_data["childId"]
     delegate = AccountDelegate()
-    request_data = delegate.unassignProduct(parent_id,childId)
+    request_data = delegate.unassignProduct(parent_id,child_id)
     as_json = serializers.serialize("json",request_data)
     return HttpResponse(as_json,content_type="application/json")
 

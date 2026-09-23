@@ -23,31 +23,31 @@ def index(request):
 
 def get(request):
     request_data = json.loads(request.body)
-    kycProfile_id = request_data["id"]
+    kyc_profile_id = request_data["id"]
     delegate = KycProfileDelegate()
-    request_data = delegate.get(kycProfile_id)
+    request_data = delegate.get(kyc_profile_id)
     as_json = serializers.serialize("json",request_data)
     return HttpResponse(as_json,content_type="application/json")
 
 def create(request):
-	kycProfile = json.loads(request.body)
+	kyc_profile = json.loads(request.body)
 	delegate = KycProfileDelegate()
-	request_data = delegate.createFromJson( kycProfile )
+	request_data = delegate.createFromJson( kyc_profile )
 	as_json = serializers.serialize("json", request_data)
 	return HttpResponse(as_json, content_type="application/json");
 
 def update(request):
-	kycProfile = json.loads(request.body)
+	kyc_profile = json.loads(request.body)
 	delegate = KycProfileDelegate()
-	request_data = delegate.save( kycProfile )
+	request_data = delegate.save( kyc_profile )
 	as_json = serializers.serialize("json", request_data)
 	return HttpResponse(as_json, content_type="application/json");
 
 def delete(request):
     request_data = json.loads(request.body)
-    kycProfile_id = request_data["id"]
+    kyc_profile_id = request_data["id"]
     delegate = KycProfileDelegate()
-    request_data = delegate.delete(kycProfile_id)
+    request_data = delegate.delete(kyc_profile_id)
     as_json = serializers.serialize("json",request_data)
     return HttpResponse(as_json,content_type="application/json")
 
@@ -66,7 +66,7 @@ def assignCustomer(request):
     parent_id = request_data["parent_id"]
     child_id = request_data["childId"]
     delegate = KycProfileDelegate()
-    request_data = delegate.assignCustomer(parent_id,childId)
+    request_data = delegate.assignCustomer(parent_id,child_id)
     as_json = serializers.serialize("json",request_data)
     return HttpResponse(as_json,content_type="application/json")
 
@@ -75,7 +75,7 @@ def unassignCustomer(request):
     parent_id = request_data["parent_id"]
     child_id = request_data["childId"]
     delegate = KycProfileDelegate()
-    request_data = delegate.unassignCustomer(parent_id,childId)
+    request_data = delegate.unassignCustomer(parent_id,child_id)
     as_json = serializers.serialize("json",request_data)
     return HttpResponse(as_json,content_type="application/json")
 

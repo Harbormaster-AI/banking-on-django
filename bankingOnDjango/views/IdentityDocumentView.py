@@ -23,31 +23,31 @@ def index(request):
 
 def get(request):
     request_data = json.loads(request.body)
-    identityDocument_id = request_data["id"]
+    identity_document_id = request_data["id"]
     delegate = IdentityDocumentDelegate()
-    request_data = delegate.get(identityDocument_id)
+    request_data = delegate.get(identity_document_id)
     as_json = serializers.serialize("json",request_data)
     return HttpResponse(as_json,content_type="application/json")
 
 def create(request):
-	identityDocument = json.loads(request.body)
+	identity_document = json.loads(request.body)
 	delegate = IdentityDocumentDelegate()
-	request_data = delegate.createFromJson( identityDocument )
+	request_data = delegate.createFromJson( identity_document )
 	as_json = serializers.serialize("json", request_data)
 	return HttpResponse(as_json, content_type="application/json");
 
 def update(request):
-	identityDocument = json.loads(request.body)
+	identity_document = json.loads(request.body)
 	delegate = IdentityDocumentDelegate()
-	request_data = delegate.save( identityDocument )
+	request_data = delegate.save( identity_document )
 	as_json = serializers.serialize("json", request_data)
 	return HttpResponse(as_json, content_type="application/json");
 
 def delete(request):
     request_data = json.loads(request.body)
-    identityDocument_id = request_data["id"]
+    identity_document_id = request_data["id"]
     delegate = IdentityDocumentDelegate()
-    request_data = delegate.delete(identityDocument_id)
+    request_data = delegate.delete(identity_document_id)
     as_json = serializers.serialize("json",request_data)
     return HttpResponse(as_json,content_type="application/json")
 
@@ -66,7 +66,7 @@ def assignKycProfile(request):
     parent_id = request_data["parent_id"]
     child_id = request_data["childId"]
     delegate = IdentityDocumentDelegate()
-    request_data = delegate.assignKycProfile(parent_id,childId)
+    request_data = delegate.assignKycProfile(parent_id,child_id)
     as_json = serializers.serialize("json",request_data)
     return HttpResponse(as_json,content_type="application/json")
 
@@ -75,7 +75,7 @@ def unassignKycProfile(request):
     parent_id = request_data["parent_id"]
     child_id = request_data["childId"]
     delegate = IdentityDocumentDelegate()
-    request_data = delegate.unassignKycProfile(parent_id,childId)
+    request_data = delegate.unassignKycProfile(parent_id,child_id)
     as_json = serializers.serialize("json",request_data)
     return HttpResponse(as_json,content_type="application/json")
 

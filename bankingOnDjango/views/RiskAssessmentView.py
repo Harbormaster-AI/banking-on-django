@@ -23,31 +23,31 @@ def index(request):
 
 def get(request):
     request_data = json.loads(request.body)
-    riskAssessment_id = request_data["id"]
+    risk_assessment_id = request_data["id"]
     delegate = RiskAssessmentDelegate()
-    request_data = delegate.get(riskAssessment_id)
+    request_data = delegate.get(risk_assessment_id)
     as_json = serializers.serialize("json",request_data)
     return HttpResponse(as_json,content_type="application/json")
 
 def create(request):
-	riskAssessment = json.loads(request.body)
+	risk_assessment = json.loads(request.body)
 	delegate = RiskAssessmentDelegate()
-	request_data = delegate.createFromJson( riskAssessment )
+	request_data = delegate.createFromJson( risk_assessment )
 	as_json = serializers.serialize("json", request_data)
 	return HttpResponse(as_json, content_type="application/json");
 
 def update(request):
-	riskAssessment = json.loads(request.body)
+	risk_assessment = json.loads(request.body)
 	delegate = RiskAssessmentDelegate()
-	request_data = delegate.save( riskAssessment )
+	request_data = delegate.save( risk_assessment )
 	as_json = serializers.serialize("json", request_data)
 	return HttpResponse(as_json, content_type="application/json");
 
 def delete(request):
     request_data = json.loads(request.body)
-    riskAssessment_id = request_data["id"]
+    risk_assessment_id = request_data["id"]
     delegate = RiskAssessmentDelegate()
-    request_data = delegate.delete(riskAssessment_id)
+    request_data = delegate.delete(risk_assessment_id)
     as_json = serializers.serialize("json",request_data)
     return HttpResponse(as_json,content_type="application/json")
 
@@ -66,7 +66,7 @@ def assignKycProfile(request):
     parent_id = request_data["parent_id"]
     child_id = request_data["childId"]
     delegate = RiskAssessmentDelegate()
-    request_data = delegate.assignKycProfile(parent_id,childId)
+    request_data = delegate.assignKycProfile(parent_id,child_id)
     as_json = serializers.serialize("json",request_data)
     return HttpResponse(as_json,content_type="application/json")
 
@@ -75,7 +75,7 @@ def unassignKycProfile(request):
     parent_id = request_data["parent_id"]
     child_id = request_data["childId"]
     delegate = RiskAssessmentDelegate()
-    request_data = delegate.unassignKycProfile(parent_id,childId)
+    request_data = delegate.unassignKycProfile(parent_id,child_id)
     as_json = serializers.serialize("json",request_data)
     return HttpResponse(as_json,content_type="application/json")
 

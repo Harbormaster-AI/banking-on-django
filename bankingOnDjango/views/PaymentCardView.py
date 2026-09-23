@@ -23,31 +23,31 @@ def index(request):
 
 def get(request):
     request_data = json.loads(request.body)
-    paymentCard_id = request_data["id"]
+    payment_card_id = request_data["id"]
     delegate = PaymentCardDelegate()
-    request_data = delegate.get(paymentCard_id)
+    request_data = delegate.get(payment_card_id)
     as_json = serializers.serialize("json",request_data)
     return HttpResponse(as_json,content_type="application/json")
 
 def create(request):
-	paymentCard = json.loads(request.body)
+	payment_card = json.loads(request.body)
 	delegate = PaymentCardDelegate()
-	request_data = delegate.createFromJson( paymentCard )
+	request_data = delegate.createFromJson( payment_card )
 	as_json = serializers.serialize("json", request_data)
 	return HttpResponse(as_json, content_type="application/json");
 
 def update(request):
-	paymentCard = json.loads(request.body)
+	payment_card = json.loads(request.body)
 	delegate = PaymentCardDelegate()
-	request_data = delegate.save( paymentCard )
+	request_data = delegate.save( payment_card )
 	as_json = serializers.serialize("json", request_data)
 	return HttpResponse(as_json, content_type="application/json");
 
 def delete(request):
     request_data = json.loads(request.body)
-    paymentCard_id = request_data["id"]
+    payment_card_id = request_data["id"]
     delegate = PaymentCardDelegate()
-    request_data = delegate.delete(paymentCard_id)
+    request_data = delegate.delete(payment_card_id)
     as_json = serializers.serialize("json",request_data)
     return HttpResponse(as_json,content_type="application/json")
 
@@ -66,7 +66,7 @@ def assignBank(request):
     parent_id = request_data["parent_id"]
     child_id = request_data["childId"]
     delegate = PaymentCardDelegate()
-    request_data = delegate.assignBank(parent_id,childId)
+    request_data = delegate.assignBank(parent_id,child_id)
     as_json = serializers.serialize("json",request_data)
     return HttpResponse(as_json,content_type="application/json")
 
@@ -75,7 +75,7 @@ def unassignBank(request):
     parent_id = request_data["parent_id"]
     child_id = request_data["childId"]
     delegate = PaymentCardDelegate()
-    request_data = delegate.unassignBank(parent_id,childId)
+    request_data = delegate.unassignBank(parent_id,child_id)
     as_json = serializers.serialize("json",request_data)
     return HttpResponse(as_json,content_type="application/json")
 def assignAccount(request):
@@ -83,7 +83,7 @@ def assignAccount(request):
     parent_id = request_data["parent_id"]
     child_id = request_data["childId"]
     delegate = PaymentCardDelegate()
-    request_data = delegate.assignAccount(parent_id,childId)
+    request_data = delegate.assignAccount(parent_id,child_id)
     as_json = serializers.serialize("json",request_data)
     return HttpResponse(as_json,content_type="application/json")
 
@@ -92,7 +92,7 @@ def unassignAccount(request):
     parent_id = request_data["parent_id"]
     child_id = request_data["childId"]
     delegate = PaymentCardDelegate()
-    request_data = delegate.unassignAccount(parent_id,childId)
+    request_data = delegate.unassignAccount(parent_id,child_id)
     as_json = serializers.serialize("json",request_data)
     return HttpResponse(as_json,content_type="application/json")
 def assignCustomer(request):
@@ -100,7 +100,7 @@ def assignCustomer(request):
     parent_id = request_data["parent_id"]
     child_id = request_data["childId"]
     delegate = PaymentCardDelegate()
-    request_data = delegate.assignCustomer(parent_id,childId)
+    request_data = delegate.assignCustomer(parent_id,child_id)
     as_json = serializers.serialize("json",request_data)
     return HttpResponse(as_json,content_type="application/json")
 
@@ -109,7 +109,7 @@ def unassignCustomer(request):
     parent_id = request_data["parent_id"]
     child_id = request_data["childId"]
     delegate = PaymentCardDelegate()
-    request_data = delegate.unassignCustomer(parent_id,childId)
+    request_data = delegate.unassignCustomer(parent_id,child_id)
     as_json = serializers.serialize("json",request_data)
     return HttpResponse(as_json,content_type="application/json")
 

@@ -23,31 +23,31 @@ def index(request):
 
 def get(request):
     request_data = json.loads(request.body)
-    feeCharge_id = request_data["id"]
+    fee_charge_id = request_data["id"]
     delegate = FeeChargeDelegate()
-    request_data = delegate.get(feeCharge_id)
+    request_data = delegate.get(fee_charge_id)
     as_json = serializers.serialize("json",request_data)
     return HttpResponse(as_json,content_type="application/json")
 
 def create(request):
-	feeCharge = json.loads(request.body)
+	fee_charge = json.loads(request.body)
 	delegate = FeeChargeDelegate()
-	request_data = delegate.createFromJson( feeCharge )
+	request_data = delegate.createFromJson( fee_charge )
 	as_json = serializers.serialize("json", request_data)
 	return HttpResponse(as_json, content_type="application/json");
 
 def update(request):
-	feeCharge = json.loads(request.body)
+	fee_charge = json.loads(request.body)
 	delegate = FeeChargeDelegate()
-	request_data = delegate.save( feeCharge )
+	request_data = delegate.save( fee_charge )
 	as_json = serializers.serialize("json", request_data)
 	return HttpResponse(as_json, content_type="application/json");
 
 def delete(request):
     request_data = json.loads(request.body)
-    feeCharge_id = request_data["id"]
+    fee_charge_id = request_data["id"]
     delegate = FeeChargeDelegate()
-    request_data = delegate.delete(feeCharge_id)
+    request_data = delegate.delete(fee_charge_id)
     as_json = serializers.serialize("json",request_data)
     return HttpResponse(as_json,content_type="application/json")
 
@@ -66,7 +66,7 @@ def assignAccount(request):
     parent_id = request_data["parent_id"]
     child_id = request_data["childId"]
     delegate = FeeChargeDelegate()
-    request_data = delegate.assignAccount(parent_id,childId)
+    request_data = delegate.assignAccount(parent_id,child_id)
     as_json = serializers.serialize("json",request_data)
     return HttpResponse(as_json,content_type="application/json")
 
@@ -75,7 +75,7 @@ def unassignAccount(request):
     parent_id = request_data["parent_id"]
     child_id = request_data["childId"]
     delegate = FeeChargeDelegate()
-    request_data = delegate.unassignAccount(parent_id,childId)
+    request_data = delegate.unassignAccount(parent_id,child_id)
     as_json = serializers.serialize("json",request_data)
     return HttpResponse(as_json,content_type="application/json")
 def assignLoanAccount(request):
@@ -83,7 +83,7 @@ def assignLoanAccount(request):
     parent_id = request_data["parent_id"]
     child_id = request_data["childId"]
     delegate = FeeChargeDelegate()
-    request_data = delegate.assignLoanAccount(parent_id,childId)
+    request_data = delegate.assignLoanAccount(parent_id,child_id)
     as_json = serializers.serialize("json",request_data)
     return HttpResponse(as_json,content_type="application/json")
 
@@ -92,7 +92,7 @@ def unassignLoanAccount(request):
     parent_id = request_data["parent_id"]
     child_id = request_data["childId"]
     delegate = FeeChargeDelegate()
-    request_data = delegate.unassignLoanAccount(parent_id,childId)
+    request_data = delegate.unassignLoanAccount(parent_id,child_id)
     as_json = serializers.serialize("json",request_data)
     return HttpResponse(as_json,content_type="application/json")
 

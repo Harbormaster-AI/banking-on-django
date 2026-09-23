@@ -23,31 +23,31 @@ def index(request):
 
 def get(request):
     request_data = json.loads(request.body)
-    fundsTransfer_id = request_data["id"]
+    funds_transfer_id = request_data["id"]
     delegate = FundsTransferDelegate()
-    request_data = delegate.get(fundsTransfer_id)
+    request_data = delegate.get(funds_transfer_id)
     as_json = serializers.serialize("json",request_data)
     return HttpResponse(as_json,content_type="application/json")
 
 def create(request):
-	fundsTransfer = json.loads(request.body)
+	funds_transfer = json.loads(request.body)
 	delegate = FundsTransferDelegate()
-	request_data = delegate.createFromJson( fundsTransfer )
+	request_data = delegate.createFromJson( funds_transfer )
 	as_json = serializers.serialize("json", request_data)
 	return HttpResponse(as_json, content_type="application/json");
 
 def update(request):
-	fundsTransfer = json.loads(request.body)
+	funds_transfer = json.loads(request.body)
 	delegate = FundsTransferDelegate()
-	request_data = delegate.save( fundsTransfer )
+	request_data = delegate.save( funds_transfer )
 	as_json = serializers.serialize("json", request_data)
 	return HttpResponse(as_json, content_type="application/json");
 
 def delete(request):
     request_data = json.loads(request.body)
-    fundsTransfer_id = request_data["id"]
+    funds_transfer_id = request_data["id"]
     delegate = FundsTransferDelegate()
-    request_data = delegate.delete(fundsTransfer_id)
+    request_data = delegate.delete(funds_transfer_id)
     as_json = serializers.serialize("json",request_data)
     return HttpResponse(as_json,content_type="application/json")
 
@@ -66,7 +66,7 @@ def assignSourceAccount(request):
     parent_id = request_data["parent_id"]
     child_id = request_data["childId"]
     delegate = FundsTransferDelegate()
-    request_data = delegate.assignSourceAccount(parent_id,childId)
+    request_data = delegate.assignSourceAccount(parent_id,child_id)
     as_json = serializers.serialize("json",request_data)
     return HttpResponse(as_json,content_type="application/json")
 
@@ -75,7 +75,7 @@ def unassignSourceAccount(request):
     parent_id = request_data["parent_id"]
     child_id = request_data["childId"]
     delegate = FundsTransferDelegate()
-    request_data = delegate.unassignSourceAccount(parent_id,childId)
+    request_data = delegate.unassignSourceAccount(parent_id,child_id)
     as_json = serializers.serialize("json",request_data)
     return HttpResponse(as_json,content_type="application/json")
 def assignDestinationAccount(request):
@@ -83,7 +83,7 @@ def assignDestinationAccount(request):
     parent_id = request_data["parent_id"]
     child_id = request_data["childId"]
     delegate = FundsTransferDelegate()
-    request_data = delegate.assignDestinationAccount(parent_id,childId)
+    request_data = delegate.assignDestinationAccount(parent_id,child_id)
     as_json = serializers.serialize("json",request_data)
     return HttpResponse(as_json,content_type="application/json")
 
@@ -92,7 +92,7 @@ def unassignDestinationAccount(request):
     parent_id = request_data["parent_id"]
     child_id = request_data["childId"]
     delegate = FundsTransferDelegate()
-    request_data = delegate.unassignDestinationAccount(parent_id,childId)
+    request_data = delegate.unassignDestinationAccount(parent_id,child_id)
     as_json = serializers.serialize("json",request_data)
     return HttpResponse(as_json,content_type="application/json")
 def assignExternalBeneficiary(request):
@@ -100,7 +100,7 @@ def assignExternalBeneficiary(request):
     parent_id = request_data["parent_id"]
     child_id = request_data["childId"]
     delegate = FundsTransferDelegate()
-    request_data = delegate.assignExternalBeneficiary(parent_id,childId)
+    request_data = delegate.assignExternalBeneficiary(parent_id,child_id)
     as_json = serializers.serialize("json",request_data)
     return HttpResponse(as_json,content_type="application/json")
 
@@ -109,7 +109,7 @@ def unassignExternalBeneficiary(request):
     parent_id = request_data["parent_id"]
     child_id = request_data["childId"]
     delegate = FundsTransferDelegate()
-    request_data = delegate.unassignExternalBeneficiary(parent_id,childId)
+    request_data = delegate.unassignExternalBeneficiary(parent_id,child_id)
     as_json = serializers.serialize("json",request_data)
     return HttpResponse(as_json,content_type="application/json")
 def assignInitiatedBy(request):
@@ -117,7 +117,7 @@ def assignInitiatedBy(request):
     parent_id = request_data["parent_id"]
     child_id = request_data["childId"]
     delegate = FundsTransferDelegate()
-    request_data = delegate.assignInitiatedBy(parent_id,childId)
+    request_data = delegate.assignInitiatedBy(parent_id,child_id)
     as_json = serializers.serialize("json",request_data)
     return HttpResponse(as_json,content_type="application/json")
 
@@ -126,7 +126,7 @@ def unassignInitiatedBy(request):
     parent_id = request_data["parent_id"]
     child_id = request_data["childId"]
     delegate = FundsTransferDelegate()
-    request_data = delegate.unassignInitiatedBy(parent_id,childId)
+    request_data = delegate.unassignInitiatedBy(parent_id,child_id)
     as_json = serializers.serialize("json",request_data)
     return HttpResponse(as_json,content_type="application/json")
 

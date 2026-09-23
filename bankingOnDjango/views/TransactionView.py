@@ -66,7 +66,7 @@ def assignAccount(request):
     parent_id = request_data["parent_id"]
     child_id = request_data["childId"]
     delegate = TransactionDelegate()
-    request_data = delegate.assignAccount(parent_id,childId)
+    request_data = delegate.assignAccount(parent_id,child_id)
     as_json = serializers.serialize("json",request_data)
     return HttpResponse(as_json,content_type="application/json")
 
@@ -75,7 +75,7 @@ def unassignAccount(request):
     parent_id = request_data["parent_id"]
     child_id = request_data["childId"]
     delegate = TransactionDelegate()
-    request_data = delegate.unassignAccount(parent_id,childId)
+    request_data = delegate.unassignAccount(parent_id,child_id)
     as_json = serializers.serialize("json",request_data)
     return HttpResponse(as_json,content_type="application/json")
 def assignExternalCounterparty(request):
@@ -83,7 +83,7 @@ def assignExternalCounterparty(request):
     parent_id = request_data["parent_id"]
     child_id = request_data["childId"]
     delegate = TransactionDelegate()
-    request_data = delegate.assignExternalCounterparty(parent_id,childId)
+    request_data = delegate.assignExternalCounterparty(parent_id,child_id)
     as_json = serializers.serialize("json",request_data)
     return HttpResponse(as_json,content_type="application/json")
 
@@ -92,7 +92,7 @@ def unassignExternalCounterparty(request):
     parent_id = request_data["parent_id"]
     child_id = request_data["childId"]
     delegate = TransactionDelegate()
-    request_data = delegate.unassignExternalCounterparty(parent_id,childId)
+    request_data = delegate.unassignExternalCounterparty(parent_id,child_id)
     as_json = serializers.serialize("json",request_data)
     return HttpResponse(as_json,content_type="application/json")
 def assignPaymentCard(request):
@@ -100,7 +100,7 @@ def assignPaymentCard(request):
     parent_id = request_data["parent_id"]
     child_id = request_data["childId"]
     delegate = TransactionDelegate()
-    request_data = delegate.assignPaymentCard(parent_id,childId)
+    request_data = delegate.assignPaymentCard(parent_id,child_id)
     as_json = serializers.serialize("json",request_data)
     return HttpResponse(as_json,content_type="application/json")
 
@@ -109,7 +109,7 @@ def unassignPaymentCard(request):
     parent_id = request_data["parent_id"]
     child_id = request_data["childId"]
     delegate = TransactionDelegate()
-    request_data = delegate.unassignPaymentCard(parent_id,childId)
+    request_data = delegate.unassignPaymentCard(parent_id,child_id)
     as_json = serializers.serialize("json",request_data)
     return HttpResponse(as_json,content_type="application/json")
 def assignFundsTransfer(request):
@@ -117,7 +117,7 @@ def assignFundsTransfer(request):
     parent_id = request_data["parent_id"]
     child_id = request_data["childId"]
     delegate = TransactionDelegate()
-    request_data = delegate.assignFundsTransfer(parent_id,childId)
+    request_data = delegate.assignFundsTransfer(parent_id,child_id)
     as_json = serializers.serialize("json",request_data)
     return HttpResponse(as_json,content_type="application/json")
 
@@ -126,7 +126,7 @@ def unassignFundsTransfer(request):
     parent_id = request_data["parent_id"]
     child_id = request_data["childId"]
     delegate = TransactionDelegate()
-    request_data = delegate.unassignFundsTransfer(parent_id,childId)
+    request_data = delegate.unassignFundsTransfer(parent_id,child_id)
     as_json = serializers.serialize("json",request_data)
     return HttpResponse(as_json,content_type="application/json")
 def assignFxTrade(request):
@@ -134,7 +134,7 @@ def assignFxTrade(request):
     parent_id = request_data["parent_id"]
     child_id = request_data["childId"]
     delegate = TransactionDelegate()
-    request_data = delegate.assignFxTrade(parent_id,childId)
+    request_data = delegate.assignFxTrade(parent_id,child_id)
     as_json = serializers.serialize("json",request_data)
     return HttpResponse(as_json,content_type="application/json")
 
@@ -143,7 +143,7 @@ def unassignFxTrade(request):
     parent_id = request_data["parent_id"]
     child_id = request_data["childId"]
     delegate = TransactionDelegate()
-    request_data = delegate.unassignFxTrade(parent_id,childId)
+    request_data = delegate.unassignFxTrade(parent_id,child_id)
     as_json = serializers.serialize("json",request_data)
     return HttpResponse(as_json,content_type="application/json")
 def assignDispute(request):
@@ -151,7 +151,7 @@ def assignDispute(request):
     parent_id = request_data["parent_id"]
     child_id = request_data["childId"]
     delegate = TransactionDelegate()
-    request_data = delegate.assignDispute(parent_id,childId)
+    request_data = delegate.assignDispute(parent_id,child_id)
     as_json = serializers.serialize("json",request_data)
     return HttpResponse(as_json,content_type="application/json")
 
@@ -160,7 +160,7 @@ def unassignDispute(request):
     parent_id = request_data["parent_id"]
     child_id = request_data["childId"]
     delegate = TransactionDelegate()
-    request_data = delegate.unassignDispute(parent_id,childId)
+    request_data = delegate.unassignDispute(parent_id,child_id)
     as_json = serializers.serialize("json",request_data)
     return HttpResponse(as_json,content_type="application/json")
 

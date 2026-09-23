@@ -66,7 +66,7 @@ def assignLoanAccount(request):
     parent_id = request_data["parent_id"]
     child_id = request_data["childId"]
     delegate = CollateralDelegate()
-    request_data = delegate.assignLoanAccount(parent_id,childId)
+    request_data = delegate.assignLoanAccount(parent_id,child_id)
     as_json = serializers.serialize("json",request_data)
     return HttpResponse(as_json,content_type="application/json")
 
@@ -75,7 +75,7 @@ def unassignLoanAccount(request):
     parent_id = request_data["parent_id"]
     child_id = request_data["childId"]
     delegate = CollateralDelegate()
-    request_data = delegate.unassignLoanAccount(parent_id,childId)
+    request_data = delegate.unassignLoanAccount(parent_id,child_id)
     as_json = serializers.serialize("json",request_data)
     return HttpResponse(as_json,content_type="application/json")
 
