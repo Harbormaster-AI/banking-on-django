@@ -10,15 +10,15 @@ class AccountStatement (models.Model):
 #======================================================================
 # attribute declarations
 #======================================================================
-	statementNumber = models.CharField(max_length=200, null=True)
-	periodStart = models.DateField(null=True)
-	periodEnd = models.DateField(null=True)
-	openingBalanceAmount = models.CharField(max_length=64, null=True)
-	openingBalanceCurrency = models.CharField(max_length=200, null=True)
-	closingBalanceAmount = models.CharField(max_length=64, null=True)
-	closingBalanceCurrency = models.CharField(max_length=200, null=True)
+	statement_number = models.CharField(max_length=200, null=True)
+	period_start = models.DateField(null=True)
+	period_end = models.DateField(null=True)
+	opening_balance_amount = models.CharField(max_length=64, null=True)
+	opening_balance_currency = models.CharField(max_length=200, null=True)
+	closing_balance_amount = models.CharField(max_length=64, null=True)
+	closing_balance_currency = models.CharField(max_length=200, null=True)
 	account = models.ForeignKey('Account', on_delete=models.CASCADE, null=True, blank=True, related_name='+')
-	deliveryMethod = models.CharField(max_length=64, null=True, choices=[(tag.name, tag.value) for tag in StatementDeliveryMethod])
+	delivery_method = models.CharField(max_length=64, null=True, choices=[(tag.name, tag.value) for tag in StatementDeliveryMethod])
 
 #======================================================================
 # function declarations

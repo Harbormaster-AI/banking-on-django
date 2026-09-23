@@ -19,21 +19,21 @@ from bankingOnDjango.delegates.KycProfileDelegate import KycProfileDelegate
 #======================================================================
 class KycProfileTest (TestCase) :
 	def test_crud(self) :
-		kycProfile = KycProfile()
-		kycProfile.profileId = "default profileId field value"
-		kycProfile.lastReviewedOn = datetime.datetime.now()
-		kycProfile.status = "default status field value"
+		kyc_profile = KycProfile()
+		kyc_profile.profileId = "default profileId field value"
+		kyc_profile.lastReviewedOn = datetime.datetime.now()
+		kyc_profile.status = "default status field value"
 		
 		delegate = KycProfileDelegate()
-		responseObj = delegate.create(kycProfile)
+		response_obj = delegate.create(kyc_profile)
 		
-		self.assertEqual(responseObj, delegate.get( responseObj.id ))
+		self.assertEqual(response_obj, delegate.get( response_obj.id ))
 	
-		allObj = delegate.getAll()
-		self.assertEqual(allObj.count(), 1 )		
-		delegate.delete(responseObj.id)
+		all_obj = delegate.getAll()
+		self.assertEqual(all_obj.count(), 1 )		
+		delegate.delete(response_obj.id)
 		
-		allObj = delegate.getAll()
-		self.assertEqual(allObj.count(), 0 )		
+		all_obj = delegate.getAll()
+		self.assertEqual(all_obj.count(), 0 )		
 
 

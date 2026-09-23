@@ -19,21 +19,21 @@ from bankingOnDjango.delegates.RiskAssessmentDelegate import RiskAssessmentDeleg
 #======================================================================
 class RiskAssessmentTest (TestCase) :
 	def test_crud(self) :
-		riskAssessment = RiskAssessment()
-		riskAssessment.score = 22
-		riskAssessment.assessedOn = datetime.datetime.now()
-		riskAssessment.rating = "default rating field value"
+		risk_assessment = RiskAssessment()
+		risk_assessment.score = 22
+		risk_assessment.assessedOn = datetime.datetime.now()
+		risk_assessment.rating = "default rating field value"
 		
 		delegate = RiskAssessmentDelegate()
-		responseObj = delegate.create(riskAssessment)
+		response_obj = delegate.create(risk_assessment)
 		
-		self.assertEqual(responseObj, delegate.get( responseObj.id ))
+		self.assertEqual(response_obj, delegate.get( response_obj.id ))
 	
-		allObj = delegate.getAll()
-		self.assertEqual(allObj.count(), 1 )		
-		delegate.delete(responseObj.id)
+		all_obj = delegate.getAll()
+		self.assertEqual(all_obj.count(), 1 )		
+		delegate.delete(response_obj.id)
 		
-		allObj = delegate.getAll()
-		self.assertEqual(allObj.count(), 0 )		
+		all_obj = delegate.getAll()
+		self.assertEqual(all_obj.count(), 0 )		
 
 

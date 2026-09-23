@@ -11,10 +11,10 @@ class StandingInstruction (models.Model):
 #======================================================================
 # attribute declarations
 #======================================================================
-	instructionId = models.CharField(max_length=200, null=True)
-	amountAmount = models.CharField(max_length=64, null=True)
-	amountCurrency = models.CharField(max_length=200, null=True)
-	nextExecutionDate = models.DateField(null=True)
+	instruction_id = models.CharField(max_length=200, null=True)
+	amount_amount = models.CharField(max_length=64, null=True)
+	amount_currency = models.CharField(max_length=200, null=True)
+	next_execution_date = models.DateField(null=True)
 	account = models.ForeignKey('Account', on_delete=models.CASCADE, null=True, blank=True, related_name='+')
 	beneficiary = models.ForeignKey('ExternalAccount', on_delete=models.CASCADE, null=True, blank=True, related_name='+')
 	frequency = models.CharField(max_length=64, null=True, choices=[(tag.name, tag.value) for tag in StandingInstructionFrequency])

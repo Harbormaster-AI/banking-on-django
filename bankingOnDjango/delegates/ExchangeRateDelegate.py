@@ -26,48 +26,48 @@ class ExchangeRateDelegate :
 # Function Declarations
 #======================================================================
 
-	def get(self, exchangeRateId ):
+	def get(self, exchange_rate_id ):
 		try:	
-			exchangeRate = ExchangeRate.objects.filter(id=exchangeRateId)
-			return exchangeRate.first();
+			exchange_rate = ExchangeRate.objects.filter(id=exchange_rate_id)
+			return exchange_rate.first();
 		except ExchangeRate.DoesNotExist:
-			raise ProcessingError("ExchangeRate with id " + str(exchangeRateId) + " does not exist.")
+			raise ProcessingError("ExchangeRate with id " + str(exchange_rate_id) + " does not exist.")
 		except utils.DatabaseError:
 			raise StorageReadError()
 		except Exception:
-			raise GeneralError(errMsg) 
+			raise GeneralError(err_msg) 
 
-	def createFromJson(self, exchangeRate):
-		for model in serializers.deserialize("json", exchangeRate):
+	def createFromJson(self, exchange_rate):
+		for model in serializers.deserialize("json", exchange_rate):
 			model.save()
 			return model;
 
-	def create(self, exchangeRate):
-		exchangeRate.save()
-		return exchangeRate;
+	def create(self, exchange_rate):
+		exchange_rate.save()
+		return exchange_rate;
 
-	def saveFromJson(self, exchangeRate):
-		for model in serializers.deserialize("json", exchangeRate):
+	def saveFromJson(self, exchange_rate):
+		for model in serializers.deserialize("json", exchange_rate):
 			model.save()
-			return exchangeRate;
+			return exchange_rate;
 	
-	def save(self, exchangeRate):
-		exchangeRate.save()
-		return exchangeRate;
+	def save(self, exchange_rate):
+		exchange_rate.save()
+		return exchange_rate;
 	
-	def delete(self, exchangeRateId ):
-		errMsg = "Failed to delete ExchangeRate from db using id " + str(exchangeRateId)
+	def delete(self, exchange_rate_id ):
+		err_msg = "Failed to delete ExchangeRate from db using id " + str(exchange_rate_id)
 		
 		try:
-			exchangeRate = ExchangeRate.objects.get(id=exchangeRateId)
-			exchangeRate.delete()
+			exchange_rate = ExchangeRate.objects.get(id=exchange_rate_id)
+			exchange_rate.delete()
 			return True
 		except ExchangeRate.DoesNotExist:
-			raise ProcessingError("ExchangeRate with id " + str(exchangeRateId) + " does not exist.")
+			raise ProcessingError("ExchangeRate with id " + str(exchange_rate_id) + " does not exist.")
 		except utils.DatabaseError:
 			raise StorageReadError()
 		except Exception:
-			raise GeneralError(errMsg) 
+			raise GeneralError(err_msg) 
 	
 	def getAll(self):
 		try:
@@ -78,111 +78,111 @@ class ExchangeRateDelegate :
 		except Exception:
 			return None;
 		
-	def assignBank( self, exchangeRateId, bankId ):
+	def assignBank( self, exchange_rate_id, bankId ):
 		# lazy importing avoids circular dependencies
 		from bankingOnDjango.delegates.BankDelegate import BankDelegate
 
-		errMsg = "Failed to assign element " + str(bankId) + " for Bank on ExchangeRate"
+		err_msg = "Failed to assign element " + str(bankId) + " for Bank on ExchangeRate"
 
 		try:
 			# get the ExchangeRate from db
-			exchangeRate = self.get( exchangeRateId ).first()	
+			exchange_rate = self.get( exchange_rate_id ).first()	
 			
 			# get the Bank from db
 			bank = BankDelegate().get(bankId).first();
 			
 			# assign the Bank		
-			exchangeRate.bank = bank
+			exchange_rate.bank = bank
 			
 			#save it
-			exchangeRate.save()
+			exchange_rate.save()
 
 			# reload and return the appropriate version					
-			return self.get( exchangeRateId );
+			return self.get( exchange_rate_id );
 		except ExchangeRate.DoesNotExist:
-			raise ProcessingError(errMsg + " : ExchangeRate with id " + str(exchangeRateId) + " does not exist.")
+			raise ProcessingError(err_msg + " : ExchangeRate with id " + str(exchange_rate_id) + " does not exist.")
 		except Bank.DoesNotExist:
-			raise ProcessingError(errMsg + " : Bank with id " + str(bankId) + " does not exist.")
+			raise ProcessingError(err_msg + " : Bank with id " + str(bankId) + " does not exist.")
 		except Exception:
 			return None;
 				
-	def unassignBank( self, exchangeRateId ):
-		errMsg = "Failed to unassign element " + str(bankId) + " for Bank on ExchangeRate"
+	def unassignBank( self, exchange_rate_id ):
+		err_msg = "Failed to unassign element " + str(bankId) + " for Bank on ExchangeRate"
 
 		try:
 			# get the ExchangeRate from db
-			exchangeRate = self.get( exchangeRateId ).first()	
+			exchange_rate = self.get( exchange_rate_id ).first()	
 			
 			# assign to None for unassignment
-			exchangeRate.bank = None			
+			exchange_rate.bank = None			
 
 			#save it
-			exchangeRate.save()
+			exchange_rate.save()
 
 			# reload and return the appropriate version					
-			return self.get( exchangeRateId );
+			return self.get( exchange_rate_id );
 		except ExchangeRate.DoesNotExist:
-			raise ProcessingError(errMsg + " : ExchangeRate with id " + str(exchangeRateId) + " does not exist.")
+			raise ProcessingError(err_msg + " : ExchangeRate with id " + str(exchange_rate_id) + " does not exist.")
 		except Exception:
 			return None;
 		
-	def addFxTrades( self, exchangeRateId, fxTradesIds ):
+	def addFxTrades( self, exchange_rate_id, fxTradesIds ):
 		# lazy importing avoids circular dependencies
 		from bankingOnDjango.delegates.FXTradeDelegate import FXTradeDelegate
 
-		errMsg = "Failed to add elements " + str(fxTradesIds) + " for FxTrades on ExchangeRate"
+		err_msg = "Failed to add elements " + str(fxTradesIds) + " for FxTrades on ExchangeRate"
 
 		try:
 			# get the ExchangeRate
-			exchangeRate = self.get( exchangeRateId ).first()
+			exchange_rate = self.get( exchange_rate_id ).first()
 				
 			# iterate over ids
 			for id in fxTradesIds:
 				# read the FXTrade		
 				fXTrade = FXTradeDelegate().get(id).first();	
 				# add the FXTrade
-				exchangeRate.fxTrades.add(fXTrade)
+				exchange_rate.fxTrades.add(fXTrade)
 				
 			# save it		
-			exchangeRate.save()
+			exchange_rate.save()
 			
 			# reload and return the appropriate version
-			return self.get( exchangeRateId );
+			return self.get( exchange_rate_id );
 		except ExchangeRate.DoesNotExist:
-			raise ProcessingError(errMsg + " : ExchangeRate with id " + str(exchangeRateId) + " does not exist.")
+			raise ProcessingError(err_msg + " : ExchangeRate with id " + str(exchange_rate_id) + " does not exist.")
 		except FXTrade.DoesNotExist:
-			raise ProcessingError(errMsg + " : FXTrade does not exist.")
+			raise ProcessingError(err_msg + " : FXTrade does not exist.")
 		except Exception:
-			raise ProcessingError(errMsg) 
+			raise ProcessingError(err_msg) 
 		
-	def removeFxTrades( self, exchangeRateId, fxTradesIds ):
+	def removeFxTrades( self, exchange_rate_id, fxTradesIds ):
 		# lazy importing avoids circular dependencies
 		from bankingOnDjango.delegates.FXTradeDelegate import FXTradeDelegate
 
-		errMsg = "Failed to remove elements " + str(fxTradesIds) + " for FxTrades on ExchangeRate"
+		err_msg = "Failed to remove elements " + str(fxTradesIds) + " for FxTrades on ExchangeRate"
 
 		try:
 			# get the ExchangeRate
-			exchangeRate = self.get( exchangeRateId ).first()
+			exchange_rate = self.get( exchange_rate_id ).first()
 				
 			# iterate over ids
 			for id in fxTradesIds:
 				# read the FXTrade		
 				fXTrade = FXTradeDelegate().get(id).first();	
 				# add the FXTrade
-				exchangeRate.fxTrades.remove(fXTrade)
+				exchange_rate.fxTrades.remove(fXTrade)
 				
 			# save it		
-			exchangeRate.save()
+			exchange_rate.save()
 			
 			# reload and return the appropriate version
-			return self.get( exchangeRateId );
+			return self.get( exchange_rate_id );
 		except ExchangeRate.DoesNotExist:
-			raise ProcessingError(errMsg + " : ExchangeRate with id " + str(exchangeRateId) + " does not exist.")
+			raise ProcessingError(err_msg + " : ExchangeRate with id " + str(exchange_rate_id) + " does not exist.")
 		except FXTrade.DoesNotExist:
-			raise ProcessingError(errMsg + " : FXTrade does not exist.")
+			raise ProcessingError(err_msg + " : FXTrade does not exist.")
 		except utils.DatabaseError:
 			raise StorageWriteError()
 		except Exception:
-			raise GeneralError(errMsg) 
+			raise GeneralError(err_msg) 
 		

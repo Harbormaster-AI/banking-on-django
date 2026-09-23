@@ -19,21 +19,21 @@ from bankingOnDjango.delegates.ThirdPartyProviderDelegate import ThirdPartyProvi
 #======================================================================
 class ThirdPartyProviderTest (TestCase) :
 	def test_crud(self) :
-		thirdPartyProvider = ThirdPartyProvider()
-		thirdPartyProvider.name = "default name field value"
-		thirdPartyProvider.registrationId = "default registrationId field value"
-		thirdPartyProvider.website = "default website field value"
+		third_party_provider = ThirdPartyProvider()
+		third_party_provider.name = "default name field value"
+		third_party_provider.registrationId = "default registrationId field value"
+		third_party_provider.website = "default website field value"
 		
 		delegate = ThirdPartyProviderDelegate()
-		responseObj = delegate.create(thirdPartyProvider)
+		response_obj = delegate.create(third_party_provider)
 		
-		self.assertEqual(responseObj, delegate.get( responseObj.id ))
+		self.assertEqual(response_obj, delegate.get( response_obj.id ))
 	
-		allObj = delegate.getAll()
-		self.assertEqual(allObj.count(), 1 )		
-		delegate.delete(responseObj.id)
+		all_obj = delegate.getAll()
+		self.assertEqual(all_obj.count(), 1 )		
+		delegate.delete(response_obj.id)
 		
-		allObj = delegate.getAll()
-		self.assertEqual(allObj.count(), 0 )		
+		all_obj = delegate.getAll()
+		self.assertEqual(all_obj.count(), 0 )		
 
 

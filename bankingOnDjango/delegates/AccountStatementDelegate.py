@@ -25,48 +25,48 @@ class AccountStatementDelegate :
 # Function Declarations
 #======================================================================
 
-	def get(self, accountStatementId ):
+	def get(self, account_statement_id ):
 		try:	
-			accountStatement = AccountStatement.objects.filter(id=accountStatementId)
-			return accountStatement.first();
+			account_statement = AccountStatement.objects.filter(id=account_statement_id)
+			return account_statement.first();
 		except AccountStatement.DoesNotExist:
-			raise ProcessingError("AccountStatement with id " + str(accountStatementId) + " does not exist.")
+			raise ProcessingError("AccountStatement with id " + str(account_statement_id) + " does not exist.")
 		except utils.DatabaseError:
 			raise StorageReadError()
 		except Exception:
-			raise GeneralError(errMsg) 
+			raise GeneralError(err_msg) 
 
-	def createFromJson(self, accountStatement):
-		for model in serializers.deserialize("json", accountStatement):
+	def createFromJson(self, account_statement):
+		for model in serializers.deserialize("json", account_statement):
 			model.save()
 			return model;
 
-	def create(self, accountStatement):
-		accountStatement.save()
-		return accountStatement;
+	def create(self, account_statement):
+		account_statement.save()
+		return account_statement;
 
-	def saveFromJson(self, accountStatement):
-		for model in serializers.deserialize("json", accountStatement):
+	def saveFromJson(self, account_statement):
+		for model in serializers.deserialize("json", account_statement):
 			model.save()
-			return accountStatement;
+			return account_statement;
 	
-	def save(self, accountStatement):
-		accountStatement.save()
-		return accountStatement;
+	def save(self, account_statement):
+		account_statement.save()
+		return account_statement;
 	
-	def delete(self, accountStatementId ):
-		errMsg = "Failed to delete AccountStatement from db using id " + str(accountStatementId)
+	def delete(self, account_statement_id ):
+		err_msg = "Failed to delete AccountStatement from db using id " + str(account_statement_id)
 		
 		try:
-			accountStatement = AccountStatement.objects.get(id=accountStatementId)
-			accountStatement.delete()
+			account_statement = AccountStatement.objects.get(id=account_statement_id)
+			account_statement.delete()
 			return True
 		except AccountStatement.DoesNotExist:
-			raise ProcessingError("AccountStatement with id " + str(accountStatementId) + " does not exist.")
+			raise ProcessingError("AccountStatement with id " + str(account_statement_id) + " does not exist.")
 		except utils.DatabaseError:
 			raise StorageReadError()
 		except Exception:
-			raise GeneralError(errMsg) 
+			raise GeneralError(err_msg) 
 	
 	def getAll(self):
 		try:
@@ -77,51 +77,51 @@ class AccountStatementDelegate :
 		except Exception:
 			return None;
 		
-	def assignAccount( self, accountStatementId, accountId ):
+	def assignAccount( self, account_statement_id, accountId ):
 		# lazy importing avoids circular dependencies
 		from bankingOnDjango.delegates.AccountDelegate import AccountDelegate
 
-		errMsg = "Failed to assign element " + str(accountId) + " for Account on AccountStatement"
+		err_msg = "Failed to assign element " + str(accountId) + " for Account on AccountStatement"
 
 		try:
 			# get the AccountStatement from db
-			accountStatement = self.get( accountStatementId ).first()	
+			account_statement = self.get( account_statement_id ).first()	
 			
 			# get the Account from db
 			account = AccountDelegate().get(accountId).first();
 			
 			# assign the Account		
-			accountStatement.account = account
+			account_statement.account = account
 			
 			#save it
-			accountStatement.save()
+			account_statement.save()
 
 			# reload and return the appropriate version					
-			return self.get( accountStatementId );
+			return self.get( account_statement_id );
 		except AccountStatement.DoesNotExist:
-			raise ProcessingError(errMsg + " : AccountStatement with id " + str(accountStatementId) + " does not exist.")
+			raise ProcessingError(err_msg + " : AccountStatement with id " + str(account_statement_id) + " does not exist.")
 		except Account.DoesNotExist:
-			raise ProcessingError(errMsg + " : Account with id " + str(accountId) + " does not exist.")
+			raise ProcessingError(err_msg + " : Account with id " + str(accountId) + " does not exist.")
 		except Exception:
 			return None;
 				
-	def unassignAccount( self, accountStatementId ):
-		errMsg = "Failed to unassign element " + str(accountId) + " for Account on AccountStatement"
+	def unassignAccount( self, account_statement_id ):
+		err_msg = "Failed to unassign element " + str(accountId) + " for Account on AccountStatement"
 
 		try:
 			# get the AccountStatement from db
-			accountStatement = self.get( accountStatementId ).first()	
+			account_statement = self.get( account_statement_id ).first()	
 			
 			# assign to None for unassignment
-			accountStatement.account = None			
+			account_statement.account = None			
 
 			#save it
-			accountStatement.save()
+			account_statement.save()
 
 			# reload and return the appropriate version					
-			return self.get( accountStatementId );
+			return self.get( account_statement_id );
 		except AccountStatement.DoesNotExist:
-			raise ProcessingError(errMsg + " : AccountStatement with id " + str(accountStatementId) + " does not exist.")
+			raise ProcessingError(err_msg + " : AccountStatement with id " + str(account_statement_id) + " does not exist.")
 		except Exception:
 			return None;
 		

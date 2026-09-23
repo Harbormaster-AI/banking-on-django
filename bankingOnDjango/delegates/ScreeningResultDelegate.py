@@ -25,48 +25,48 @@ class ScreeningResultDelegate :
 # Function Declarations
 #======================================================================
 
-	def get(self, screeningResultId ):
+	def get(self, screening_result_id ):
 		try:	
-			screeningResult = ScreeningResult.objects.filter(id=screeningResultId)
-			return screeningResult.first();
+			screening_result = ScreeningResult.objects.filter(id=screening_result_id)
+			return screening_result.first();
 		except ScreeningResult.DoesNotExist:
-			raise ProcessingError("ScreeningResult with id " + str(screeningResultId) + " does not exist.")
+			raise ProcessingError("ScreeningResult with id " + str(screening_result_id) + " does not exist.")
 		except utils.DatabaseError:
 			raise StorageReadError()
 		except Exception:
-			raise GeneralError(errMsg) 
+			raise GeneralError(err_msg) 
 
-	def createFromJson(self, screeningResult):
-		for model in serializers.deserialize("json", screeningResult):
+	def createFromJson(self, screening_result):
+		for model in serializers.deserialize("json", screening_result):
 			model.save()
 			return model;
 
-	def create(self, screeningResult):
-		screeningResult.save()
-		return screeningResult;
+	def create(self, screening_result):
+		screening_result.save()
+		return screening_result;
 
-	def saveFromJson(self, screeningResult):
-		for model in serializers.deserialize("json", screeningResult):
+	def saveFromJson(self, screening_result):
+		for model in serializers.deserialize("json", screening_result):
 			model.save()
-			return screeningResult;
+			return screening_result;
 	
-	def save(self, screeningResult):
-		screeningResult.save()
-		return screeningResult;
+	def save(self, screening_result):
+		screening_result.save()
+		return screening_result;
 	
-	def delete(self, screeningResultId ):
-		errMsg = "Failed to delete ScreeningResult from db using id " + str(screeningResultId)
+	def delete(self, screening_result_id ):
+		err_msg = "Failed to delete ScreeningResult from db using id " + str(screening_result_id)
 		
 		try:
-			screeningResult = ScreeningResult.objects.get(id=screeningResultId)
-			screeningResult.delete()
+			screening_result = ScreeningResult.objects.get(id=screening_result_id)
+			screening_result.delete()
 			return True
 		except ScreeningResult.DoesNotExist:
-			raise ProcessingError("ScreeningResult with id " + str(screeningResultId) + " does not exist.")
+			raise ProcessingError("ScreeningResult with id " + str(screening_result_id) + " does not exist.")
 		except utils.DatabaseError:
 			raise StorageReadError()
 		except Exception:
-			raise GeneralError(errMsg) 
+			raise GeneralError(err_msg) 
 	
 	def getAll(self):
 		try:
@@ -77,51 +77,51 @@ class ScreeningResultDelegate :
 		except Exception:
 			return None;
 		
-	def assignKycProfile( self, screeningResultId, kycProfileId ):
+	def assignKycProfile( self, screening_result_id, kycProfileId ):
 		# lazy importing avoids circular dependencies
 		from bankingOnDjango.delegates.KycProfileDelegate import KycProfileDelegate
 
-		errMsg = "Failed to assign element " + str(kycProfileId) + " for KycProfile on ScreeningResult"
+		err_msg = "Failed to assign element " + str(kycProfileId) + " for KycProfile on ScreeningResult"
 
 		try:
 			# get the ScreeningResult from db
-			screeningResult = self.get( screeningResultId ).first()	
+			screening_result = self.get( screening_result_id ).first()	
 			
 			# get the KycProfile from db
 			kycProfile = KycProfileDelegate().get(kycProfileId).first();
 			
 			# assign the KycProfile		
-			screeningResult.kycProfile = kycProfile
+			screening_result.kycProfile = kycProfile
 			
 			#save it
-			screeningResult.save()
+			screening_result.save()
 
 			# reload and return the appropriate version					
-			return self.get( screeningResultId );
+			return self.get( screening_result_id );
 		except ScreeningResult.DoesNotExist:
-			raise ProcessingError(errMsg + " : ScreeningResult with id " + str(screeningResultId) + " does not exist.")
+			raise ProcessingError(err_msg + " : ScreeningResult with id " + str(screening_result_id) + " does not exist.")
 		except KycProfile.DoesNotExist:
-			raise ProcessingError(errMsg + " : KycProfile with id " + str(kycProfileId) + " does not exist.")
+			raise ProcessingError(err_msg + " : KycProfile with id " + str(kycProfileId) + " does not exist.")
 		except Exception:
 			return None;
 				
-	def unassignKycProfile( self, screeningResultId ):
-		errMsg = "Failed to unassign element " + str(kycProfileId) + " for KycProfile on ScreeningResult"
+	def unassignKycProfile( self, screening_result_id ):
+		err_msg = "Failed to unassign element " + str(kycProfileId) + " for KycProfile on ScreeningResult"
 
 		try:
 			# get the ScreeningResult from db
-			screeningResult = self.get( screeningResultId ).first()	
+			screening_result = self.get( screening_result_id ).first()	
 			
 			# assign to None for unassignment
-			screeningResult.kycProfile = None			
+			screening_result.kycProfile = None			
 
 			#save it
-			screeningResult.save()
+			screening_result.save()
 
 			# reload and return the appropriate version					
-			return self.get( screeningResultId );
+			return self.get( screening_result_id );
 		except ScreeningResult.DoesNotExist:
-			raise ProcessingError(errMsg + " : ScreeningResult with id " + str(screeningResultId) + " does not exist.")
+			raise ProcessingError(err_msg + " : ScreeningResult with id " + str(screening_result_id) + " does not exist.")
 		except Exception:
 			return None;
 		

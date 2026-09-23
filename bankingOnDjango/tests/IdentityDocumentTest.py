@@ -19,22 +19,22 @@ from bankingOnDjango.delegates.IdentityDocumentDelegate import IdentityDocumentD
 #======================================================================
 class IdentityDocumentTest (TestCase) :
 	def test_crud(self) :
-		identityDocument = IdentityDocument()
-		identityDocument.documentNumber = "default documentNumber field value"
-		identityDocument.issuingCountry = "default issuingCountry field value"
-		identityDocument.expirationDate = datetime.datetime.now()
-		identityDocument.documentType = "default documentType field value"
+		identity_document = IdentityDocument()
+		identity_document.documentNumber = "default documentNumber field value"
+		identity_document.issuingCountry = "default issuingCountry field value"
+		identity_document.expirationDate = datetime.datetime.now()
+		identity_document.documentType = "default documentType field value"
 		
 		delegate = IdentityDocumentDelegate()
-		responseObj = delegate.create(identityDocument)
+		response_obj = delegate.create(identity_document)
 		
-		self.assertEqual(responseObj, delegate.get( responseObj.id ))
+		self.assertEqual(response_obj, delegate.get( response_obj.id ))
 	
-		allObj = delegate.getAll()
-		self.assertEqual(allObj.count(), 1 )		
-		delegate.delete(responseObj.id)
+		all_obj = delegate.getAll()
+		self.assertEqual(all_obj.count(), 1 )		
+		delegate.delete(response_obj.id)
 		
-		allObj = delegate.getAll()
-		self.assertEqual(allObj.count(), 0 )		
+		all_obj = delegate.getAll()
+		self.assertEqual(all_obj.count(), 0 )		
 
 

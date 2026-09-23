@@ -7,7 +7,7 @@ LABEL org.opencontainers.image.version="0.0.1"
 LABEL com.harbormaster.blueprint="Django"
 LABEL com.harbormaster.model="Banking Industry Domain Model"
 LABEL com.harbormaster.generated="2026-09-23"
-#LABEL com.harbormaster.certification="622d6eb4-ade7-4e53-8020-4469b45fb5e5"
+#LABEL com.harbormaster.certification="942e87ba-5b0d-43d8-aa89-8e05d74fed45"
 
 WORKDIR /app
 

@@ -19,26 +19,26 @@ from bankingOnDjango.delegates.FundsTransferDelegate import FundsTransferDelegat
 #======================================================================
 class FundsTransferTest (TestCase) :
 	def test_crud(self) :
-		fundsTransfer = FundsTransfer()
-		fundsTransfer.transferReference = "default transferReference field value"
-		fundsTransfer.amount = "default amount field value"
-		fundsTransfer.requestedDate = datetime.datetime.now()
-		fundsTransfer.executionDate = datetime.datetime.now()
-		fundsTransfer.purpose = "default purpose field value"
-		fundsTransfer.feeAmount = "default feeAmount field value"
-		fundsTransfer.method = "default method field value"
-		fundsTransfer.status = "default status field value"
+		funds_transfer = FundsTransfer()
+		funds_transfer.transferReference = "default transferReference field value"
+		funds_transfer.amount = "default amount field value"
+		funds_transfer.requestedDate = datetime.datetime.now()
+		funds_transfer.executionDate = datetime.datetime.now()
+		funds_transfer.purpose = "default purpose field value"
+		funds_transfer.feeAmount = "default feeAmount field value"
+		funds_transfer.method = "default method field value"
+		funds_transfer.status = "default status field value"
 		
 		delegate = FundsTransferDelegate()
-		responseObj = delegate.create(fundsTransfer)
+		response_obj = delegate.create(funds_transfer)
 		
-		self.assertEqual(responseObj, delegate.get( responseObj.id ))
+		self.assertEqual(response_obj, delegate.get( response_obj.id ))
 	
-		allObj = delegate.getAll()
-		self.assertEqual(allObj.count(), 1 )		
-		delegate.delete(responseObj.id)
+		all_obj = delegate.getAll()
+		self.assertEqual(all_obj.count(), 1 )		
+		delegate.delete(response_obj.id)
 		
-		allObj = delegate.getAll()
-		self.assertEqual(allObj.count(), 0 )		
+		all_obj = delegate.getAll()
+		self.assertEqual(all_obj.count(), 0 )		
 
 

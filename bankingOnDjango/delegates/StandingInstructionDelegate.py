@@ -26,48 +26,48 @@ class StandingInstructionDelegate :
 # Function Declarations
 #======================================================================
 
-	def get(self, standingInstructionId ):
+	def get(self, standing_instruction_id ):
 		try:	
-			standingInstruction = StandingInstruction.objects.filter(id=standingInstructionId)
-			return standingInstruction.first();
+			standing_instruction = StandingInstruction.objects.filter(id=standing_instruction_id)
+			return standing_instruction.first();
 		except StandingInstruction.DoesNotExist:
-			raise ProcessingError("StandingInstruction with id " + str(standingInstructionId) + " does not exist.")
+			raise ProcessingError("StandingInstruction with id " + str(standing_instruction_id) + " does not exist.")
 		except utils.DatabaseError:
 			raise StorageReadError()
 		except Exception:
-			raise GeneralError(errMsg) 
+			raise GeneralError(err_msg) 
 
-	def createFromJson(self, standingInstruction):
-		for model in serializers.deserialize("json", standingInstruction):
+	def createFromJson(self, standing_instruction):
+		for model in serializers.deserialize("json", standing_instruction):
 			model.save()
 			return model;
 
-	def create(self, standingInstruction):
-		standingInstruction.save()
-		return standingInstruction;
+	def create(self, standing_instruction):
+		standing_instruction.save()
+		return standing_instruction;
 
-	def saveFromJson(self, standingInstruction):
-		for model in serializers.deserialize("json", standingInstruction):
+	def saveFromJson(self, standing_instruction):
+		for model in serializers.deserialize("json", standing_instruction):
 			model.save()
-			return standingInstruction;
+			return standing_instruction;
 	
-	def save(self, standingInstruction):
-		standingInstruction.save()
-		return standingInstruction;
+	def save(self, standing_instruction):
+		standing_instruction.save()
+		return standing_instruction;
 	
-	def delete(self, standingInstructionId ):
-		errMsg = "Failed to delete StandingInstruction from db using id " + str(standingInstructionId)
+	def delete(self, standing_instruction_id ):
+		err_msg = "Failed to delete StandingInstruction from db using id " + str(standing_instruction_id)
 		
 		try:
-			standingInstruction = StandingInstruction.objects.get(id=standingInstructionId)
-			standingInstruction.delete()
+			standing_instruction = StandingInstruction.objects.get(id=standing_instruction_id)
+			standing_instruction.delete()
 			return True
 		except StandingInstruction.DoesNotExist:
-			raise ProcessingError("StandingInstruction with id " + str(standingInstructionId) + " does not exist.")
+			raise ProcessingError("StandingInstruction with id " + str(standing_instruction_id) + " does not exist.")
 		except utils.DatabaseError:
 			raise StorageReadError()
 		except Exception:
-			raise GeneralError(errMsg) 
+			raise GeneralError(err_msg) 
 	
 	def getAll(self):
 		try:
@@ -78,99 +78,99 @@ class StandingInstructionDelegate :
 		except Exception:
 			return None;
 		
-	def assignAccount( self, standingInstructionId, accountId ):
+	def assignAccount( self, standing_instruction_id, accountId ):
 		# lazy importing avoids circular dependencies
 		from bankingOnDjango.delegates.AccountDelegate import AccountDelegate
 
-		errMsg = "Failed to assign element " + str(accountId) + " for Account on StandingInstruction"
+		err_msg = "Failed to assign element " + str(accountId) + " for Account on StandingInstruction"
 
 		try:
 			# get the StandingInstruction from db
-			standingInstruction = self.get( standingInstructionId ).first()	
+			standing_instruction = self.get( standing_instruction_id ).first()	
 			
 			# get the Account from db
 			account = AccountDelegate().get(accountId).first();
 			
 			# assign the Account		
-			standingInstruction.account = account
+			standing_instruction.account = account
 			
 			#save it
-			standingInstruction.save()
+			standing_instruction.save()
 
 			# reload and return the appropriate version					
-			return self.get( standingInstructionId );
+			return self.get( standing_instruction_id );
 		except StandingInstruction.DoesNotExist:
-			raise ProcessingError(errMsg + " : StandingInstruction with id " + str(standingInstructionId) + " does not exist.")
+			raise ProcessingError(err_msg + " : StandingInstruction with id " + str(standing_instruction_id) + " does not exist.")
 		except Account.DoesNotExist:
-			raise ProcessingError(errMsg + " : Account with id " + str(accountId) + " does not exist.")
+			raise ProcessingError(err_msg + " : Account with id " + str(accountId) + " does not exist.")
 		except Exception:
 			return None;
 				
-	def unassignAccount( self, standingInstructionId ):
-		errMsg = "Failed to unassign element " + str(accountId) + " for Account on StandingInstruction"
+	def unassignAccount( self, standing_instruction_id ):
+		err_msg = "Failed to unassign element " + str(accountId) + " for Account on StandingInstruction"
 
 		try:
 			# get the StandingInstruction from db
-			standingInstruction = self.get( standingInstructionId ).first()	
+			standing_instruction = self.get( standing_instruction_id ).first()	
 			
 			# assign to None for unassignment
-			standingInstruction.account = None			
+			standing_instruction.account = None			
 
 			#save it
-			standingInstruction.save()
+			standing_instruction.save()
 
 			# reload and return the appropriate version					
-			return self.get( standingInstructionId );
+			return self.get( standing_instruction_id );
 		except StandingInstruction.DoesNotExist:
-			raise ProcessingError(errMsg + " : StandingInstruction with id " + str(standingInstructionId) + " does not exist.")
+			raise ProcessingError(err_msg + " : StandingInstruction with id " + str(standing_instruction_id) + " does not exist.")
 		except Exception:
 			return None;
 		
-	def assignBeneficiary( self, standingInstructionId, beneficiaryId ):
+	def assignBeneficiary( self, standing_instruction_id, beneficiaryId ):
 		# lazy importing avoids circular dependencies
 		from bankingOnDjango.delegates.ExternalAccountDelegate import ExternalAccountDelegate
 
-		errMsg = "Failed to assign element " + str(beneficiaryId) + " for Beneficiary on StandingInstruction"
+		err_msg = "Failed to assign element " + str(beneficiaryId) + " for Beneficiary on StandingInstruction"
 
 		try:
 			# get the StandingInstruction from db
-			standingInstruction = self.get( standingInstructionId ).first()	
+			standing_instruction = self.get( standing_instruction_id ).first()	
 			
 			# get the ExternalAccount from db
 			externalAccount = ExternalAccountDelegate().get(beneficiaryId).first();
 			
 			# assign the Beneficiary		
-			standingInstruction.beneficiary = externalAccount
+			standing_instruction.beneficiary = externalAccount
 			
 			#save it
-			standingInstruction.save()
+			standing_instruction.save()
 
 			# reload and return the appropriate version					
-			return self.get( standingInstructionId );
+			return self.get( standing_instruction_id );
 		except StandingInstruction.DoesNotExist:
-			raise ProcessingError(errMsg + " : StandingInstruction with id " + str(standingInstructionId) + " does not exist.")
+			raise ProcessingError(err_msg + " : StandingInstruction with id " + str(standing_instruction_id) + " does not exist.")
 		except ExternalAccount.DoesNotExist:
-			raise ProcessingError(errMsg + " : ExternalAccount with id " + str(beneficiaryId) + " does not exist.")
+			raise ProcessingError(err_msg + " : ExternalAccount with id " + str(beneficiaryId) + " does not exist.")
 		except Exception:
 			return None;
 				
-	def unassignBeneficiary( self, standingInstructionId ):
-		errMsg = "Failed to unassign element " + str(beneficiaryId) + " for Beneficiary on StandingInstruction"
+	def unassignBeneficiary( self, standing_instruction_id ):
+		err_msg = "Failed to unassign element " + str(beneficiaryId) + " for Beneficiary on StandingInstruction"
 
 		try:
 			# get the StandingInstruction from db
-			standingInstruction = self.get( standingInstructionId ).first()	
+			standing_instruction = self.get( standing_instruction_id ).first()	
 			
 			# assign to None for unassignment
-			standingInstruction.externalAccount = None			
+			standing_instruction.externalAccount = None			
 
 			#save it
-			standingInstruction.save()
+			standing_instruction.save()
 
 			# reload and return the appropriate version					
-			return self.get( standingInstructionId );
+			return self.get( standing_instruction_id );
 		except StandingInstruction.DoesNotExist:
-			raise ProcessingError(errMsg + " : StandingInstruction with id " + str(standingInstructionId) + " does not exist.")
+			raise ProcessingError(err_msg + " : StandingInstruction with id " + str(standing_instruction_id) + " does not exist.")
 		except Exception:
 			return None;
 		

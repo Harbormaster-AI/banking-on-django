@@ -28,16 +28,16 @@ class DisputeDelegate :
 # Function Declarations
 #======================================================================
 
-	def get(self, disputeId ):
+	def get(self, dispute_id ):
 		try:	
-			dispute = Dispute.objects.filter(id=disputeId)
+			dispute = Dispute.objects.filter(id=dispute_id)
 			return dispute.first();
 		except Dispute.DoesNotExist:
-			raise ProcessingError("Dispute with id " + str(disputeId) + " does not exist.")
+			raise ProcessingError("Dispute with id " + str(dispute_id) + " does not exist.")
 		except utils.DatabaseError:
 			raise StorageReadError()
 		except Exception:
-			raise GeneralError(errMsg) 
+			raise GeneralError(err_msg) 
 
 	def createFromJson(self, dispute):
 		for model in serializers.deserialize("json", dispute):
@@ -57,19 +57,19 @@ class DisputeDelegate :
 		dispute.save()
 		return dispute;
 	
-	def delete(self, disputeId ):
-		errMsg = "Failed to delete Dispute from db using id " + str(disputeId)
+	def delete(self, dispute_id ):
+		err_msg = "Failed to delete Dispute from db using id " + str(dispute_id)
 		
 		try:
-			dispute = Dispute.objects.get(id=disputeId)
+			dispute = Dispute.objects.get(id=dispute_id)
 			dispute.delete()
 			return True
 		except Dispute.DoesNotExist:
-			raise ProcessingError("Dispute with id " + str(disputeId) + " does not exist.")
+			raise ProcessingError("Dispute with id " + str(dispute_id) + " does not exist.")
 		except utils.DatabaseError:
 			raise StorageReadError()
 		except Exception:
-			raise GeneralError(errMsg) 
+			raise GeneralError(err_msg) 
 	
 	def getAll(self):
 		try:
@@ -80,15 +80,15 @@ class DisputeDelegate :
 		except Exception:
 			return None;
 		
-	def assignTransaction( self, disputeId, transactionId ):
+	def assignTransaction( self, dispute_id, transactionId ):
 		# lazy importing avoids circular dependencies
 		from bankingOnDjango.delegates.TransactionDelegate import TransactionDelegate
 
-		errMsg = "Failed to assign element " + str(transactionId) + " for Transaction on Dispute"
+		err_msg = "Failed to assign element " + str(transactionId) + " for Transaction on Dispute"
 
 		try:
 			# get the Dispute from db
-			dispute = self.get( disputeId ).first()	
+			dispute = self.get( dispute_id ).first()	
 			
 			# get the Transaction from db
 			transaction = TransactionDelegate().get(transactionId).first();
@@ -100,20 +100,20 @@ class DisputeDelegate :
 			dispute.save()
 
 			# reload and return the appropriate version					
-			return self.get( disputeId );
+			return self.get( dispute_id );
 		except Dispute.DoesNotExist:
-			raise ProcessingError(errMsg + " : Dispute with id " + str(disputeId) + " does not exist.")
+			raise ProcessingError(err_msg + " : Dispute with id " + str(dispute_id) + " does not exist.")
 		except Transaction.DoesNotExist:
-			raise ProcessingError(errMsg + " : Transaction with id " + str(transactionId) + " does not exist.")
+			raise ProcessingError(err_msg + " : Transaction with id " + str(transactionId) + " does not exist.")
 		except Exception:
 			return None;
 				
-	def unassignTransaction( self, disputeId ):
-		errMsg = "Failed to unassign element " + str(transactionId) + " for Transaction on Dispute"
+	def unassignTransaction( self, dispute_id ):
+		err_msg = "Failed to unassign element " + str(transactionId) + " for Transaction on Dispute"
 
 		try:
 			# get the Dispute from db
-			dispute = self.get( disputeId ).first()	
+			dispute = self.get( dispute_id ).first()	
 			
 			# assign to None for unassignment
 			dispute.transaction = None			
@@ -122,21 +122,21 @@ class DisputeDelegate :
 			dispute.save()
 
 			# reload and return the appropriate version					
-			return self.get( disputeId );
+			return self.get( dispute_id );
 		except Dispute.DoesNotExist:
-			raise ProcessingError(errMsg + " : Dispute with id " + str(disputeId) + " does not exist.")
+			raise ProcessingError(err_msg + " : Dispute with id " + str(dispute_id) + " does not exist.")
 		except Exception:
 			return None;
 		
-	def assignCustomer( self, disputeId, customerId ):
+	def assignCustomer( self, dispute_id, customerId ):
 		# lazy importing avoids circular dependencies
 		from bankingOnDjango.delegates.CustomerDelegate import CustomerDelegate
 
-		errMsg = "Failed to assign element " + str(customerId) + " for Customer on Dispute"
+		err_msg = "Failed to assign element " + str(customerId) + " for Customer on Dispute"
 
 		try:
 			# get the Dispute from db
-			dispute = self.get( disputeId ).first()	
+			dispute = self.get( dispute_id ).first()	
 			
 			# get the Customer from db
 			customer = CustomerDelegate().get(customerId).first();
@@ -148,20 +148,20 @@ class DisputeDelegate :
 			dispute.save()
 
 			# reload and return the appropriate version					
-			return self.get( disputeId );
+			return self.get( dispute_id );
 		except Dispute.DoesNotExist:
-			raise ProcessingError(errMsg + " : Dispute with id " + str(disputeId) + " does not exist.")
+			raise ProcessingError(err_msg + " : Dispute with id " + str(dispute_id) + " does not exist.")
 		except Customer.DoesNotExist:
-			raise ProcessingError(errMsg + " : Customer with id " + str(customerId) + " does not exist.")
+			raise ProcessingError(err_msg + " : Customer with id " + str(customerId) + " does not exist.")
 		except Exception:
 			return None;
 				
-	def unassignCustomer( self, disputeId ):
-		errMsg = "Failed to unassign element " + str(customerId) + " for Customer on Dispute"
+	def unassignCustomer( self, dispute_id ):
+		err_msg = "Failed to unassign element " + str(customerId) + " for Customer on Dispute"
 
 		try:
 			# get the Dispute from db
-			dispute = self.get( disputeId ).first()	
+			dispute = self.get( dispute_id ).first()	
 			
 			# assign to None for unassignment
 			dispute.customer = None			
@@ -170,21 +170,21 @@ class DisputeDelegate :
 			dispute.save()
 
 			# reload and return the appropriate version					
-			return self.get( disputeId );
+			return self.get( dispute_id );
 		except Dispute.DoesNotExist:
-			raise ProcessingError(errMsg + " : Dispute with id " + str(disputeId) + " does not exist.")
+			raise ProcessingError(err_msg + " : Dispute with id " + str(dispute_id) + " does not exist.")
 		except Exception:
 			return None;
 		
-	def assignAccount( self, disputeId, accountId ):
+	def assignAccount( self, dispute_id, accountId ):
 		# lazy importing avoids circular dependencies
 		from bankingOnDjango.delegates.AccountDelegate import AccountDelegate
 
-		errMsg = "Failed to assign element " + str(accountId) + " for Account on Dispute"
+		err_msg = "Failed to assign element " + str(accountId) + " for Account on Dispute"
 
 		try:
 			# get the Dispute from db
-			dispute = self.get( disputeId ).first()	
+			dispute = self.get( dispute_id ).first()	
 			
 			# get the Account from db
 			account = AccountDelegate().get(accountId).first();
@@ -196,20 +196,20 @@ class DisputeDelegate :
 			dispute.save()
 
 			# reload and return the appropriate version					
-			return self.get( disputeId );
+			return self.get( dispute_id );
 		except Dispute.DoesNotExist:
-			raise ProcessingError(errMsg + " : Dispute with id " + str(disputeId) + " does not exist.")
+			raise ProcessingError(err_msg + " : Dispute with id " + str(dispute_id) + " does not exist.")
 		except Account.DoesNotExist:
-			raise ProcessingError(errMsg + " : Account with id " + str(accountId) + " does not exist.")
+			raise ProcessingError(err_msg + " : Account with id " + str(accountId) + " does not exist.")
 		except Exception:
 			return None;
 				
-	def unassignAccount( self, disputeId ):
-		errMsg = "Failed to unassign element " + str(accountId) + " for Account on Dispute"
+	def unassignAccount( self, dispute_id ):
+		err_msg = "Failed to unassign element " + str(accountId) + " for Account on Dispute"
 
 		try:
 			# get the Dispute from db
-			dispute = self.get( disputeId ).first()	
+			dispute = self.get( dispute_id ).first()	
 			
 			# assign to None for unassignment
 			dispute.account = None			
@@ -218,21 +218,21 @@ class DisputeDelegate :
 			dispute.save()
 
 			# reload and return the appropriate version					
-			return self.get( disputeId );
+			return self.get( dispute_id );
 		except Dispute.DoesNotExist:
-			raise ProcessingError(errMsg + " : Dispute with id " + str(disputeId) + " does not exist.")
+			raise ProcessingError(err_msg + " : Dispute with id " + str(dispute_id) + " does not exist.")
 		except Exception:
 			return None;
 		
-	def assignPaymentCard( self, disputeId, paymentCardId ):
+	def assignPaymentCard( self, dispute_id, paymentCardId ):
 		# lazy importing avoids circular dependencies
 		from bankingOnDjango.delegates.PaymentCardDelegate import PaymentCardDelegate
 
-		errMsg = "Failed to assign element " + str(paymentCardId) + " for PaymentCard on Dispute"
+		err_msg = "Failed to assign element " + str(paymentCardId) + " for PaymentCard on Dispute"
 
 		try:
 			# get the Dispute from db
-			dispute = self.get( disputeId ).first()	
+			dispute = self.get( dispute_id ).first()	
 			
 			# get the PaymentCard from db
 			paymentCard = PaymentCardDelegate().get(paymentCardId).first();
@@ -244,20 +244,20 @@ class DisputeDelegate :
 			dispute.save()
 
 			# reload and return the appropriate version					
-			return self.get( disputeId );
+			return self.get( dispute_id );
 		except Dispute.DoesNotExist:
-			raise ProcessingError(errMsg + " : Dispute with id " + str(disputeId) + " does not exist.")
+			raise ProcessingError(err_msg + " : Dispute with id " + str(dispute_id) + " does not exist.")
 		except PaymentCard.DoesNotExist:
-			raise ProcessingError(errMsg + " : PaymentCard with id " + str(paymentCardId) + " does not exist.")
+			raise ProcessingError(err_msg + " : PaymentCard with id " + str(paymentCardId) + " does not exist.")
 		except Exception:
 			return None;
 				
-	def unassignPaymentCard( self, disputeId ):
-		errMsg = "Failed to unassign element " + str(paymentCardId) + " for PaymentCard on Dispute"
+	def unassignPaymentCard( self, dispute_id ):
+		err_msg = "Failed to unassign element " + str(paymentCardId) + " for PaymentCard on Dispute"
 
 		try:
 			# get the Dispute from db
-			dispute = self.get( disputeId ).first()	
+			dispute = self.get( dispute_id ).first()	
 			
 			# assign to None for unassignment
 			dispute.paymentCard = None			
@@ -266,9 +266,9 @@ class DisputeDelegate :
 			dispute.save()
 
 			# reload and return the appropriate version					
-			return self.get( disputeId );
+			return self.get( dispute_id );
 		except Dispute.DoesNotExist:
-			raise ProcessingError(errMsg + " : Dispute with id " + str(disputeId) + " does not exist.")
+			raise ProcessingError(err_msg + " : Dispute with id " + str(dispute_id) + " does not exist.")
 		except Exception:
 			return None;
 		

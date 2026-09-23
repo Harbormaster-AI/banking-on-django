@@ -11,13 +11,13 @@ class Consent (models.Model):
 #======================================================================
 # attribute declarations
 #======================================================================
-	grantedOn = models.DateField(null=True)
-	expiresOn = models.DateField(null=True)
+	granted_on = models.DateField(null=True)
+	expires_on = models.DateField(null=True)
 	customer = models.ForeignKey('Customer', on_delete=models.CASCADE, null=True, blank=True, related_name='+')
 	bank = models.ForeignKey('Bank', on_delete=models.CASCADE, null=True, blank=True, related_name='+')
-	authorizedAccounts = models.ManyToManyField('Account',  blank=True, related_name='+')
-	thirdPartyProvider = models.ForeignKey('ThirdPartyProvider', on_delete=models.CASCADE, null=True, blank=True, related_name='+')
-	consentType = models.CharField(max_length=64, null=True, choices=[(tag.name, tag.value) for tag in ConsentType])
+	authorized_accounts = models.ManyToManyField('Account',  blank=True, related_name='+')
+	third_party_provider = models.ForeignKey('ThirdPartyProvider', on_delete=models.CASCADE, null=True, blank=True, related_name='+')
+	consent_type = models.CharField(max_length=64, null=True, choices=[(tag.name, tag.value) for tag in ConsentType])
 	status = models.CharField(max_length=64, null=True, choices=[(tag.name, tag.value) for tag in ConsentStatus])
 
 #======================================================================

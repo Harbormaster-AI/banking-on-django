@@ -19,21 +19,21 @@ from bankingOnDjango.delegates.ScreeningResultDelegate import ScreeningResultDel
 #======================================================================
 class ScreeningResultTest (TestCase) :
 	def test_crud(self) :
-		screeningResult = ScreeningResult()
-		screeningResult.screeningDate = datetime.datetime.now()
-		screeningResult.provider = "default provider field value"
-		screeningResult.outcome = "default outcome field value"
+		screening_result = ScreeningResult()
+		screening_result.screeningDate = datetime.datetime.now()
+		screening_result.provider = "default provider field value"
+		screening_result.outcome = "default outcome field value"
 		
 		delegate = ScreeningResultDelegate()
-		responseObj = delegate.create(screeningResult)
+		response_obj = delegate.create(screening_result)
 		
-		self.assertEqual(responseObj, delegate.get( responseObj.id ))
+		self.assertEqual(response_obj, delegate.get( response_obj.id ))
 	
-		allObj = delegate.getAll()
-		self.assertEqual(allObj.count(), 1 )		
-		delegate.delete(responseObj.id)
+		all_obj = delegate.getAll()
+		self.assertEqual(all_obj.count(), 1 )		
+		delegate.delete(response_obj.id)
 		
-		allObj = delegate.getAll()
-		self.assertEqual(allObj.count(), 0 )		
+		all_obj = delegate.getAll()
+		self.assertEqual(all_obj.count(), 0 )		
 
 

@@ -22,62 +22,62 @@ def index(request):
 
 
 def get(request):
-    requestData = json.loads(request.body)
-    aTMId = requestData["id"]
+    request_data = json.loads(request.body)
+    aTM_id = request_data["id"]
     delegate = ATMDelegate()
-    responseData = delegate.get(aTMId)
-    asJson = serializers.serialize("json",responseData)
-    return HttpResponse(asJson,content_type="application/json")
+    request_data = delegate.get(aTM_id)
+    as_json = serializers.serialize("json",request_data)
+    return HttpResponse(as_json,content_type="application/json")
 
 def create(request):
 	aTM = json.loads(request.body)
 	delegate = ATMDelegate()
-	responseData = delegate.createFromJson( aTM )
-	asJson = serializers.serialize("json", responseData)
-	return HttpResponse(asJson, content_type="application/json");
+	request_data = delegate.createFromJson( aTM )
+	as_json = serializers.serialize("json", request_data)
+	return HttpResponse(as_json, content_type="application/json");
 
 def update(request):
 	aTM = json.loads(request.body)
 	delegate = ATMDelegate()
-	responseData = delegate.save( aTM )
-	asJson = serializers.serialize("json", responseData)
-	return HttpResponse(asJson, content_type="application/json");
+	request_data = delegate.save( aTM )
+	as_json = serializers.serialize("json", request_data)
+	return HttpResponse(as_json, content_type="application/json");
 
 def delete(request):
-    requestData = json.loads(request.body)
-    aTMId = requestData["id"]
+    request_data = json.loads(request.body)
+    aTM_id = request_data["id"]
     delegate = ATMDelegate()
-    responseData = delegate.delete(aTMId)
-    asJson = serializers.serialize("json",responseData)
-    return HttpResponse(asJson,content_type="application/json")
+    request_data = delegate.delete(aTM_id)
+    as_json = serializers.serialize("json",request_data)
+    return HttpResponse(as_json,content_type="application/json")
 
 def getAll(request):
     delegate = ATMDelegate()
-    responseData = delegate.getAll()
-    asJson = serializers.serialize("json", responseData)
-    return HttpResponse(asJson, content_type="application/json");
+    request_data = delegate.getAll()
+    as_json = serializers.serialize("json", request_data)
+    return HttpResponse(as_json, content_type="application/json");
 
 
     # ---------------------------------------------------------
     # Single association
     # ---------------------------------------------------------
 def assignBranch(request):
-    requestData = json.loads(request.body)
-    parentId = requestData["parentId"]
-    childId = requestData["childId"]
+    request_data = json.loads(request.body)
+    parent_id = request_data["parent_id"]
+    child_id = request_data["childId"]
     delegate = ATMDelegate()
-    responseData = delegate.assignBranch(parentId,childId)
-    asJson = serializers.serialize("json",responseData)
-    return HttpResponse(asJson,content_type="application/json")
+    request_data = delegate.assignBranch(parent_id,childId)
+    as_json = serializers.serialize("json",request_data)
+    return HttpResponse(as_json,content_type="application/json")
 
 def unassignBranch(request):
-    requestData = json.loads(request.body)
-    parentId = requestData["parentId"]
-    childId = requestData["childId"]
+    request_data = json.loads(request.body)
+    parent_id = request_data["parent_id"]
+    child_id = request_data["childId"]
     delegate = ATMDelegate()
-    responseData = delegate.unassignBranch(parentId,childId)
-    asJson = serializers.serialize("json",responseData)
-    return HttpResponse(asJson,content_type="application/json")
+    request_data = delegate.unassignBranch(parent_id,childId)
+    as_json = serializers.serialize("json",request_data)
+    return HttpResponse(as_json,content_type="application/json")
 
 
     # ---------------------------------------------------------

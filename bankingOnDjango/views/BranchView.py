@@ -22,121 +22,121 @@ def index(request):
 
 
 def get(request):
-    requestData = json.loads(request.body)
-    branchId = requestData["id"]
+    request_data = json.loads(request.body)
+    branch_id = request_data["id"]
     delegate = BranchDelegate()
-    responseData = delegate.get(branchId)
-    asJson = serializers.serialize("json",responseData)
-    return HttpResponse(asJson,content_type="application/json")
+    request_data = delegate.get(branch_id)
+    as_json = serializers.serialize("json",request_data)
+    return HttpResponse(as_json,content_type="application/json")
 
 def create(request):
 	branch = json.loads(request.body)
 	delegate = BranchDelegate()
-	responseData = delegate.createFromJson( branch )
-	asJson = serializers.serialize("json", responseData)
-	return HttpResponse(asJson, content_type="application/json");
+	request_data = delegate.createFromJson( branch )
+	as_json = serializers.serialize("json", request_data)
+	return HttpResponse(as_json, content_type="application/json");
 
 def update(request):
 	branch = json.loads(request.body)
 	delegate = BranchDelegate()
-	responseData = delegate.save( branch )
-	asJson = serializers.serialize("json", responseData)
-	return HttpResponse(asJson, content_type="application/json");
+	request_data = delegate.save( branch )
+	as_json = serializers.serialize("json", request_data)
+	return HttpResponse(as_json, content_type="application/json");
 
 def delete(request):
-    requestData = json.loads(request.body)
-    branchId = requestData["id"]
+    request_data = json.loads(request.body)
+    branch_id = request_data["id"]
     delegate = BranchDelegate()
-    responseData = delegate.delete(branchId)
-    asJson = serializers.serialize("json",responseData)
-    return HttpResponse(asJson,content_type="application/json")
+    request_data = delegate.delete(branch_id)
+    as_json = serializers.serialize("json",request_data)
+    return HttpResponse(as_json,content_type="application/json")
 
 def getAll(request):
     delegate = BranchDelegate()
-    responseData = delegate.getAll()
-    asJson = serializers.serialize("json", responseData)
-    return HttpResponse(asJson, content_type="application/json");
+    request_data = delegate.getAll()
+    as_json = serializers.serialize("json", request_data)
+    return HttpResponse(as_json, content_type="application/json");
 
 
     # ---------------------------------------------------------
     # Single association
     # ---------------------------------------------------------
 def assignBank(request):
-    requestData = json.loads(request.body)
-    parentId = requestData["parentId"]
-    childId = requestData["childId"]
+    request_data = json.loads(request.body)
+    parent_id = request_data["parent_id"]
+    child_id = request_data["childId"]
     delegate = BranchDelegate()
-    responseData = delegate.assignBank(parentId,childId)
-    asJson = serializers.serialize("json",responseData)
-    return HttpResponse(asJson,content_type="application/json")
+    request_data = delegate.assignBank(parent_id,childId)
+    as_json = serializers.serialize("json",request_data)
+    return HttpResponse(as_json,content_type="application/json")
 
 def unassignBank(request):
-    requestData = json.loads(request.body)
-    parentId = requestData["parentId"]
-    childId = requestData["childId"]
+    request_data = json.loads(request.body)
+    parent_id = request_data["parent_id"]
+    child_id = request_data["childId"]
     delegate = BranchDelegate()
-    responseData = delegate.unassignBank(parentId,childId)
-    asJson = serializers.serialize("json",responseData)
-    return HttpResponse(asJson,content_type="application/json")
+    request_data = delegate.unassignBank(parent_id,childId)
+    as_json = serializers.serialize("json",request_data)
+    return HttpResponse(as_json,content_type="application/json")
 
 
     # ---------------------------------------------------------
     # Multiple association
     # ---------------------------------------------------------
 def addAccounts(request):
-    requestData = json.loads(request.body)
-    parentId = requestData["parentId"]
-    childIds = requestData["childIds"]
+    request_data = json.loads(request.body)
+    parent_id = request_data["parent_id"]
+    child_ids =  request_data["child_ids"]
     delegate = BranchDelegate()
-    responseData = delegate.addAccounts(parentId,childIds)
-    asJson = serializers.serialize("json",responseData)
-    return HttpResponse(asJson,content_type="application/json")
+    request_data = delegate.addAccounts(parent_id,child_ids)
+    as_json = serializers.serialize("json",request_data)
+    return HttpResponse(as_json,content_type="application/json")
 
 def removeAccounts(request):
-    requestData = json.loads(request.body)
-    parentId = requestData["parentId"]
-    childIds = requestData["childIds"]
+    request_data = json.loads(request.body)
+    parent_id = request_data["parent_id"]
+    child_ids =  request_data["child_ids"]
     delegate = BranchDelegate()
-    responseData = delegate.removeAccounts(parentId,childIds)
-    asJson = serializers.serialize("json",responseData)
-    return HttpResponse(asJson,content_type="application/json")
+    request_data = delegate.removeAccounts(parent_id,child_ids)
+    as_json = serializers.serialize("json",request_data)
+    return HttpResponse(as_json,content_type="application/json")
 
 
 def addLoanAccounts(request):
-    requestData = json.loads(request.body)
-    parentId = requestData["parentId"]
-    childIds = requestData["childIds"]
+    request_data = json.loads(request.body)
+    parent_id = request_data["parent_id"]
+    child_ids =  request_data["child_ids"]
     delegate = BranchDelegate()
-    responseData = delegate.addLoanAccounts(parentId,childIds)
-    asJson = serializers.serialize("json",responseData)
-    return HttpResponse(asJson,content_type="application/json")
+    request_data = delegate.addLoanAccounts(parent_id,child_ids)
+    as_json = serializers.serialize("json",request_data)
+    return HttpResponse(as_json,content_type="application/json")
 
 def removeLoanAccounts(request):
-    requestData = json.loads(request.body)
-    parentId = requestData["parentId"]
-    childIds = requestData["childIds"]
+    request_data = json.loads(request.body)
+    parent_id = request_data["parent_id"]
+    child_ids =  request_data["child_ids"]
     delegate = BranchDelegate()
-    responseData = delegate.removeLoanAccounts(parentId,childIds)
-    asJson = serializers.serialize("json",responseData)
-    return HttpResponse(asJson,content_type="application/json")
+    request_data = delegate.removeLoanAccounts(parent_id,child_ids)
+    as_json = serializers.serialize("json",request_data)
+    return HttpResponse(as_json,content_type="application/json")
 
 
 def addAtms(request):
-    requestData = json.loads(request.body)
-    parentId = requestData["parentId"]
-    childIds = requestData["childIds"]
+    request_data = json.loads(request.body)
+    parent_id = request_data["parent_id"]
+    child_ids =  request_data["child_ids"]
     delegate = BranchDelegate()
-    responseData = delegate.addAtms(parentId,childIds)
-    asJson = serializers.serialize("json",responseData)
-    return HttpResponse(asJson,content_type="application/json")
+    request_data = delegate.addAtms(parent_id,child_ids)
+    as_json = serializers.serialize("json",request_data)
+    return HttpResponse(as_json,content_type="application/json")
 
 def removeAtms(request):
-    requestData = json.loads(request.body)
-    parentId = requestData["parentId"]
-    childIds = requestData["childIds"]
+    request_data = json.loads(request.body)
+    parent_id = request_data["parent_id"]
+    child_ids =  request_data["child_ids"]
     delegate = BranchDelegate()
-    responseData = delegate.removeAtms(parentId,childIds)
-    asJson = serializers.serialize("json",responseData)
-    return HttpResponse(asJson,content_type="application/json")
+    request_data = delegate.removeAtms(parent_id,child_ids)
+    as_json = serializers.serialize("json",request_data)
+    return HttpResponse(as_json,content_type="application/json")
 
 

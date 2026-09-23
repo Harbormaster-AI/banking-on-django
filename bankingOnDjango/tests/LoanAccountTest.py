@@ -19,30 +19,30 @@ from bankingOnDjango.delegates.LoanAccountDelegate import LoanAccountDelegate
 #======================================================================
 class LoanAccountTest (TestCase) :
 	def test_crud(self) :
-		loanAccount = LoanAccount()
-		loanAccount.loanNumber = "default loanNumber field value"
-		loanAccount.principalAmount = "default principalAmount field value"
-		loanAccount.outstandingPrincipal = "default outstandingPrincipal field value"
-		loanAccount.interestRate = "default interestRate field value"
-		loanAccount.originationDate = datetime.datetime.now()
-		loanAccount.maturityDate = datetime.datetime.now()
-		loanAccount.paymentDayOfMonth = 22
-		loanAccount.currency = "default currency field value"
-		loanAccount.loanType = "default loanType field value"
-		loanAccount.rateType = "default rateType field value"
-		loanAccount.compounding = "default compounding field value"
-		loanAccount.status = "default status field value"
+		loan_account = LoanAccount()
+		loan_account.loanNumber = "default loanNumber field value"
+		loan_account.principalAmount = "default principalAmount field value"
+		loan_account.outstandingPrincipal = "default outstandingPrincipal field value"
+		loan_account.interestRate = "default interestRate field value"
+		loan_account.originationDate = datetime.datetime.now()
+		loan_account.maturityDate = datetime.datetime.now()
+		loan_account.paymentDayOfMonth = 22
+		loan_account.currency = "default currency field value"
+		loan_account.loanType = "default loanType field value"
+		loan_account.rateType = "default rateType field value"
+		loan_account.compounding = "default compounding field value"
+		loan_account.status = "default status field value"
 		
 		delegate = LoanAccountDelegate()
-		responseObj = delegate.create(loanAccount)
+		response_obj = delegate.create(loan_account)
 		
-		self.assertEqual(responseObj, delegate.get( responseObj.id ))
+		self.assertEqual(response_obj, delegate.get( response_obj.id ))
 	
-		allObj = delegate.getAll()
-		self.assertEqual(allObj.count(), 1 )		
-		delegate.delete(responseObj.id)
+		all_obj = delegate.getAll()
+		self.assertEqual(all_obj.count(), 1 )		
+		delegate.delete(response_obj.id)
 		
-		allObj = delegate.getAll()
-		self.assertEqual(allObj.count(), 0 )		
+		all_obj = delegate.getAll()
+		self.assertEqual(all_obj.count(), 0 )		
 
 

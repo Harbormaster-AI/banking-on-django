@@ -22,193 +22,193 @@ def index(request):
 
 
 def get(request):
-    requestData = json.loads(request.body)
-    loanAccountId = requestData["id"]
+    request_data = json.loads(request.body)
+    loanAccount_id = request_data["id"]
     delegate = LoanAccountDelegate()
-    responseData = delegate.get(loanAccountId)
-    asJson = serializers.serialize("json",responseData)
-    return HttpResponse(asJson,content_type="application/json")
+    request_data = delegate.get(loanAccount_id)
+    as_json = serializers.serialize("json",request_data)
+    return HttpResponse(as_json,content_type="application/json")
 
 def create(request):
 	loanAccount = json.loads(request.body)
 	delegate = LoanAccountDelegate()
-	responseData = delegate.createFromJson( loanAccount )
-	asJson = serializers.serialize("json", responseData)
-	return HttpResponse(asJson, content_type="application/json");
+	request_data = delegate.createFromJson( loanAccount )
+	as_json = serializers.serialize("json", request_data)
+	return HttpResponse(as_json, content_type="application/json");
 
 def update(request):
 	loanAccount = json.loads(request.body)
 	delegate = LoanAccountDelegate()
-	responseData = delegate.save( loanAccount )
-	asJson = serializers.serialize("json", responseData)
-	return HttpResponse(asJson, content_type="application/json");
+	request_data = delegate.save( loanAccount )
+	as_json = serializers.serialize("json", request_data)
+	return HttpResponse(as_json, content_type="application/json");
 
 def delete(request):
-    requestData = json.loads(request.body)
-    loanAccountId = requestData["id"]
+    request_data = json.loads(request.body)
+    loanAccount_id = request_data["id"]
     delegate = LoanAccountDelegate()
-    responseData = delegate.delete(loanAccountId)
-    asJson = serializers.serialize("json",responseData)
-    return HttpResponse(asJson,content_type="application/json")
+    request_data = delegate.delete(loanAccount_id)
+    as_json = serializers.serialize("json",request_data)
+    return HttpResponse(as_json,content_type="application/json")
 
 def getAll(request):
     delegate = LoanAccountDelegate()
-    responseData = delegate.getAll()
-    asJson = serializers.serialize("json", responseData)
-    return HttpResponse(asJson, content_type="application/json");
+    request_data = delegate.getAll()
+    as_json = serializers.serialize("json", request_data)
+    return HttpResponse(as_json, content_type="application/json");
 
 
     # ---------------------------------------------------------
     # Single association
     # ---------------------------------------------------------
 def assignBank(request):
-    requestData = json.loads(request.body)
-    parentId = requestData["parentId"]
-    childId = requestData["childId"]
+    request_data = json.loads(request.body)
+    parent_id = request_data["parent_id"]
+    child_id = request_data["childId"]
     delegate = LoanAccountDelegate()
-    responseData = delegate.assignBank(parentId,childId)
-    asJson = serializers.serialize("json",responseData)
-    return HttpResponse(asJson,content_type="application/json")
+    request_data = delegate.assignBank(parent_id,childId)
+    as_json = serializers.serialize("json",request_data)
+    return HttpResponse(as_json,content_type="application/json")
 
 def unassignBank(request):
-    requestData = json.loads(request.body)
-    parentId = requestData["parentId"]
-    childId = requestData["childId"]
+    request_data = json.loads(request.body)
+    parent_id = request_data["parent_id"]
+    child_id = request_data["childId"]
     delegate = LoanAccountDelegate()
-    responseData = delegate.unassignBank(parentId,childId)
-    asJson = serializers.serialize("json",responseData)
-    return HttpResponse(asJson,content_type="application/json")
+    request_data = delegate.unassignBank(parent_id,childId)
+    as_json = serializers.serialize("json",request_data)
+    return HttpResponse(as_json,content_type="application/json")
 def assignBranch(request):
-    requestData = json.loads(request.body)
-    parentId = requestData["parentId"]
-    childId = requestData["childId"]
+    request_data = json.loads(request.body)
+    parent_id = request_data["parent_id"]
+    child_id = request_data["childId"]
     delegate = LoanAccountDelegate()
-    responseData = delegate.assignBranch(parentId,childId)
-    asJson = serializers.serialize("json",responseData)
-    return HttpResponse(asJson,content_type="application/json")
+    request_data = delegate.assignBranch(parent_id,childId)
+    as_json = serializers.serialize("json",request_data)
+    return HttpResponse(as_json,content_type="application/json")
 
 def unassignBranch(request):
-    requestData = json.loads(request.body)
-    parentId = requestData["parentId"]
-    childId = requestData["childId"]
+    request_data = json.loads(request.body)
+    parent_id = request_data["parent_id"]
+    child_id = request_data["childId"]
     delegate = LoanAccountDelegate()
-    responseData = delegate.unassignBranch(parentId,childId)
-    asJson = serializers.serialize("json",responseData)
-    return HttpResponse(asJson,content_type="application/json")
+    request_data = delegate.unassignBranch(parent_id,childId)
+    as_json = serializers.serialize("json",request_data)
+    return HttpResponse(as_json,content_type="application/json")
 def assignProduct(request):
-    requestData = json.loads(request.body)
-    parentId = requestData["parentId"]
-    childId = requestData["childId"]
+    request_data = json.loads(request.body)
+    parent_id = request_data["parent_id"]
+    child_id = request_data["childId"]
     delegate = LoanAccountDelegate()
-    responseData = delegate.assignProduct(parentId,childId)
-    asJson = serializers.serialize("json",responseData)
-    return HttpResponse(asJson,content_type="application/json")
+    request_data = delegate.assignProduct(parent_id,childId)
+    as_json = serializers.serialize("json",request_data)
+    return HttpResponse(as_json,content_type="application/json")
 
 def unassignProduct(request):
-    requestData = json.loads(request.body)
-    parentId = requestData["parentId"]
-    childId = requestData["childId"]
+    request_data = json.loads(request.body)
+    parent_id = request_data["parent_id"]
+    child_id = request_data["childId"]
     delegate = LoanAccountDelegate()
-    responseData = delegate.unassignProduct(parentId,childId)
-    asJson = serializers.serialize("json",responseData)
-    return HttpResponse(asJson,content_type="application/json")
+    request_data = delegate.unassignProduct(parent_id,childId)
+    as_json = serializers.serialize("json",request_data)
+    return HttpResponse(as_json,content_type="application/json")
 
 
     # ---------------------------------------------------------
     # Multiple association
     # ---------------------------------------------------------
 def addBorrowers(request):
-    requestData = json.loads(request.body)
-    parentId = requestData["parentId"]
-    childIds = requestData["childIds"]
+    request_data = json.loads(request.body)
+    parent_id = request_data["parent_id"]
+    child_ids =  request_data["child_ids"]
     delegate = LoanAccountDelegate()
-    responseData = delegate.addBorrowers(parentId,childIds)
-    asJson = serializers.serialize("json",responseData)
-    return HttpResponse(asJson,content_type="application/json")
+    request_data = delegate.addBorrowers(parent_id,child_ids)
+    as_json = serializers.serialize("json",request_data)
+    return HttpResponse(as_json,content_type="application/json")
 
 def removeBorrowers(request):
-    requestData = json.loads(request.body)
-    parentId = requestData["parentId"]
-    childIds = requestData["childIds"]
+    request_data = json.loads(request.body)
+    parent_id = request_data["parent_id"]
+    child_ids =  request_data["child_ids"]
     delegate = LoanAccountDelegate()
-    responseData = delegate.removeBorrowers(parentId,childIds)
-    asJson = serializers.serialize("json",responseData)
-    return HttpResponse(asJson,content_type="application/json")
+    request_data = delegate.removeBorrowers(parent_id,child_ids)
+    as_json = serializers.serialize("json",request_data)
+    return HttpResponse(as_json,content_type="application/json")
 
 
 def addRepaymentSchedule(request):
-    requestData = json.loads(request.body)
-    parentId = requestData["parentId"]
-    childIds = requestData["childIds"]
+    request_data = json.loads(request.body)
+    parent_id = request_data["parent_id"]
+    child_ids =  request_data["child_ids"]
     delegate = LoanAccountDelegate()
-    responseData = delegate.addRepaymentSchedule(parentId,childIds)
-    asJson = serializers.serialize("json",responseData)
-    return HttpResponse(asJson,content_type="application/json")
+    request_data = delegate.addRepaymentSchedule(parent_id,child_ids)
+    as_json = serializers.serialize("json",request_data)
+    return HttpResponse(as_json,content_type="application/json")
 
 def removeRepaymentSchedule(request):
-    requestData = json.loads(request.body)
-    parentId = requestData["parentId"]
-    childIds = requestData["childIds"]
+    request_data = json.loads(request.body)
+    parent_id = request_data["parent_id"]
+    child_ids =  request_data["child_ids"]
     delegate = LoanAccountDelegate()
-    responseData = delegate.removeRepaymentSchedule(parentId,childIds)
-    asJson = serializers.serialize("json",responseData)
-    return HttpResponse(asJson,content_type="application/json")
+    request_data = delegate.removeRepaymentSchedule(parent_id,child_ids)
+    as_json = serializers.serialize("json",request_data)
+    return HttpResponse(as_json,content_type="application/json")
 
 
 def addPayments(request):
-    requestData = json.loads(request.body)
-    parentId = requestData["parentId"]
-    childIds = requestData["childIds"]
+    request_data = json.loads(request.body)
+    parent_id = request_data["parent_id"]
+    child_ids =  request_data["child_ids"]
     delegate = LoanAccountDelegate()
-    responseData = delegate.addPayments(parentId,childIds)
-    asJson = serializers.serialize("json",responseData)
-    return HttpResponse(asJson,content_type="application/json")
+    request_data = delegate.addPayments(parent_id,child_ids)
+    as_json = serializers.serialize("json",request_data)
+    return HttpResponse(as_json,content_type="application/json")
 
 def removePayments(request):
-    requestData = json.loads(request.body)
-    parentId = requestData["parentId"]
-    childIds = requestData["childIds"]
+    request_data = json.loads(request.body)
+    parent_id = request_data["parent_id"]
+    child_ids =  request_data["child_ids"]
     delegate = LoanAccountDelegate()
-    responseData = delegate.removePayments(parentId,childIds)
-    asJson = serializers.serialize("json",responseData)
-    return HttpResponse(asJson,content_type="application/json")
+    request_data = delegate.removePayments(parent_id,child_ids)
+    as_json = serializers.serialize("json",request_data)
+    return HttpResponse(as_json,content_type="application/json")
 
 
 def addCollateral(request):
-    requestData = json.loads(request.body)
-    parentId = requestData["parentId"]
-    childIds = requestData["childIds"]
+    request_data = json.loads(request.body)
+    parent_id = request_data["parent_id"]
+    child_ids =  request_data["child_ids"]
     delegate = LoanAccountDelegate()
-    responseData = delegate.addCollateral(parentId,childIds)
-    asJson = serializers.serialize("json",responseData)
-    return HttpResponse(asJson,content_type="application/json")
+    request_data = delegate.addCollateral(parent_id,child_ids)
+    as_json = serializers.serialize("json",request_data)
+    return HttpResponse(as_json,content_type="application/json")
 
 def removeCollateral(request):
-    requestData = json.loads(request.body)
-    parentId = requestData["parentId"]
-    childIds = requestData["childIds"]
+    request_data = json.loads(request.body)
+    parent_id = request_data["parent_id"]
+    child_ids =  request_data["child_ids"]
     delegate = LoanAccountDelegate()
-    responseData = delegate.removeCollateral(parentId,childIds)
-    asJson = serializers.serialize("json",responseData)
-    return HttpResponse(asJson,content_type="application/json")
+    request_data = delegate.removeCollateral(parent_id,child_ids)
+    as_json = serializers.serialize("json",request_data)
+    return HttpResponse(as_json,content_type="application/json")
 
 
 def addFeeCharges(request):
-    requestData = json.loads(request.body)
-    parentId = requestData["parentId"]
-    childIds = requestData["childIds"]
+    request_data = json.loads(request.body)
+    parent_id = request_data["parent_id"]
+    child_ids =  request_data["child_ids"]
     delegate = LoanAccountDelegate()
-    responseData = delegate.addFeeCharges(parentId,childIds)
-    asJson = serializers.serialize("json",responseData)
-    return HttpResponse(asJson,content_type="application/json")
+    request_data = delegate.addFeeCharges(parent_id,child_ids)
+    as_json = serializers.serialize("json",request_data)
+    return HttpResponse(as_json,content_type="application/json")
 
 def removeFeeCharges(request):
-    requestData = json.loads(request.body)
-    parentId = requestData["parentId"]
-    childIds = requestData["childIds"]
+    request_data = json.loads(request.body)
+    parent_id = request_data["parent_id"]
+    child_ids =  request_data["child_ids"]
     delegate = LoanAccountDelegate()
-    responseData = delegate.removeFeeCharges(parentId,childIds)
-    asJson = serializers.serialize("json",responseData)
-    return HttpResponse(asJson,content_type="application/json")
+    request_data = delegate.removeFeeCharges(parent_id,child_ids)
+    as_json = serializers.serialize("json",request_data)
+    return HttpResponse(as_json,content_type="application/json")
 
 

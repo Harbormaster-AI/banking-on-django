@@ -28,48 +28,48 @@ class BankingProductDelegate :
 # Function Declarations
 #======================================================================
 
-	def get(self, bankingProductId ):
+	def get(self, banking_product_id ):
 		try:	
-			bankingProduct = BankingProduct.objects.filter(id=bankingProductId)
-			return bankingProduct.first();
+			banking_product = BankingProduct.objects.filter(id=banking_product_id)
+			return banking_product.first();
 		except BankingProduct.DoesNotExist:
-			raise ProcessingError("BankingProduct with id " + str(bankingProductId) + " does not exist.")
+			raise ProcessingError("BankingProduct with id " + str(banking_product_id) + " does not exist.")
 		except utils.DatabaseError:
 			raise StorageReadError()
 		except Exception:
-			raise GeneralError(errMsg) 
+			raise GeneralError(err_msg) 
 
-	def createFromJson(self, bankingProduct):
-		for model in serializers.deserialize("json", bankingProduct):
+	def createFromJson(self, banking_product):
+		for model in serializers.deserialize("json", banking_product):
 			model.save()
 			return model;
 
-	def create(self, bankingProduct):
-		bankingProduct.save()
-		return bankingProduct;
+	def create(self, banking_product):
+		banking_product.save()
+		return banking_product;
 
-	def saveFromJson(self, bankingProduct):
-		for model in serializers.deserialize("json", bankingProduct):
+	def saveFromJson(self, banking_product):
+		for model in serializers.deserialize("json", banking_product):
 			model.save()
-			return bankingProduct;
+			return banking_product;
 	
-	def save(self, bankingProduct):
-		bankingProduct.save()
-		return bankingProduct;
+	def save(self, banking_product):
+		banking_product.save()
+		return banking_product;
 	
-	def delete(self, bankingProductId ):
-		errMsg = "Failed to delete BankingProduct from db using id " + str(bankingProductId)
+	def delete(self, banking_product_id ):
+		err_msg = "Failed to delete BankingProduct from db using id " + str(banking_product_id)
 		
 		try:
-			bankingProduct = BankingProduct.objects.get(id=bankingProductId)
-			bankingProduct.delete()
+			banking_product = BankingProduct.objects.get(id=banking_product_id)
+			banking_product.delete()
 			return True
 		except BankingProduct.DoesNotExist:
-			raise ProcessingError("BankingProduct with id " + str(bankingProductId) + " does not exist.")
+			raise ProcessingError("BankingProduct with id " + str(banking_product_id) + " does not exist.")
 		except utils.DatabaseError:
 			raise StorageReadError()
 		except Exception:
-			raise GeneralError(errMsg) 
+			raise GeneralError(err_msg) 
 	
 	def getAll(self):
 		try:
@@ -80,231 +80,231 @@ class BankingProductDelegate :
 		except Exception:
 			return None;
 		
-	def assignBank( self, bankingProductId, bankId ):
+	def assignBank( self, banking_product_id, bankId ):
 		# lazy importing avoids circular dependencies
 		from bankingOnDjango.delegates.BankDelegate import BankDelegate
 
-		errMsg = "Failed to assign element " + str(bankId) + " for Bank on BankingProduct"
+		err_msg = "Failed to assign element " + str(bankId) + " for Bank on BankingProduct"
 
 		try:
 			# get the BankingProduct from db
-			bankingProduct = self.get( bankingProductId ).first()	
+			banking_product = self.get( banking_product_id ).first()	
 			
 			# get the Bank from db
 			bank = BankDelegate().get(bankId).first();
 			
 			# assign the Bank		
-			bankingProduct.bank = bank
+			banking_product.bank = bank
 			
 			#save it
-			bankingProduct.save()
+			banking_product.save()
 
 			# reload and return the appropriate version					
-			return self.get( bankingProductId );
+			return self.get( banking_product_id );
 		except BankingProduct.DoesNotExist:
-			raise ProcessingError(errMsg + " : BankingProduct with id " + str(bankingProductId) + " does not exist.")
+			raise ProcessingError(err_msg + " : BankingProduct with id " + str(banking_product_id) + " does not exist.")
 		except Bank.DoesNotExist:
-			raise ProcessingError(errMsg + " : Bank with id " + str(bankId) + " does not exist.")
+			raise ProcessingError(err_msg + " : Bank with id " + str(bankId) + " does not exist.")
 		except Exception:
 			return None;
 				
-	def unassignBank( self, bankingProductId ):
-		errMsg = "Failed to unassign element " + str(bankId) + " for Bank on BankingProduct"
+	def unassignBank( self, banking_product_id ):
+		err_msg = "Failed to unassign element " + str(bankId) + " for Bank on BankingProduct"
 
 		try:
 			# get the BankingProduct from db
-			bankingProduct = self.get( bankingProductId ).first()	
+			banking_product = self.get( banking_product_id ).first()	
 			
 			# assign to None for unassignment
-			bankingProduct.bank = None			
+			banking_product.bank = None			
 
 			#save it
-			bankingProduct.save()
+			banking_product.save()
 
 			# reload and return the appropriate version					
-			return self.get( bankingProductId );
+			return self.get( banking_product_id );
 		except BankingProduct.DoesNotExist:
-			raise ProcessingError(errMsg + " : BankingProduct with id " + str(bankingProductId) + " does not exist.")
+			raise ProcessingError(err_msg + " : BankingProduct with id " + str(banking_product_id) + " does not exist.")
 		except Exception:
 			return None;
 		
-	def addAccounts( self, bankingProductId, accountsIds ):
+	def addAccounts( self, banking_product_id, accountsIds ):
 		# lazy importing avoids circular dependencies
 		from bankingOnDjango.delegates.AccountDelegate import AccountDelegate
 
-		errMsg = "Failed to add elements " + str(accountsIds) + " for Accounts on BankingProduct"
+		err_msg = "Failed to add elements " + str(accountsIds) + " for Accounts on BankingProduct"
 
 		try:
 			# get the BankingProduct
-			bankingProduct = self.get( bankingProductId ).first()
+			banking_product = self.get( banking_product_id ).first()
 				
 			# iterate over ids
 			for id in accountsIds:
 				# read the Account		
 				account = AccountDelegate().get(id).first();	
 				# add the Account
-				bankingProduct.accounts.add(account)
+				banking_product.accounts.add(account)
 				
 			# save it		
-			bankingProduct.save()
+			banking_product.save()
 			
 			# reload and return the appropriate version
-			return self.get( bankingProductId );
+			return self.get( banking_product_id );
 		except BankingProduct.DoesNotExist:
-			raise ProcessingError(errMsg + " : BankingProduct with id " + str(bankingProductId) + " does not exist.")
+			raise ProcessingError(err_msg + " : BankingProduct with id " + str(banking_product_id) + " does not exist.")
 		except Account.DoesNotExist:
-			raise ProcessingError(errMsg + " : Account does not exist.")
+			raise ProcessingError(err_msg + " : Account does not exist.")
 		except Exception:
-			raise ProcessingError(errMsg) 
+			raise ProcessingError(err_msg) 
 		
-	def removeAccounts( self, bankingProductId, accountsIds ):
+	def removeAccounts( self, banking_product_id, accountsIds ):
 		# lazy importing avoids circular dependencies
 		from bankingOnDjango.delegates.AccountDelegate import AccountDelegate
 
-		errMsg = "Failed to remove elements " + str(accountsIds) + " for Accounts on BankingProduct"
+		err_msg = "Failed to remove elements " + str(accountsIds) + " for Accounts on BankingProduct"
 
 		try:
 			# get the BankingProduct
-			bankingProduct = self.get( bankingProductId ).first()
+			banking_product = self.get( banking_product_id ).first()
 				
 			# iterate over ids
 			for id in accountsIds:
 				# read the Account		
 				account = AccountDelegate().get(id).first();	
 				# add the Account
-				bankingProduct.accounts.remove(account)
+				banking_product.accounts.remove(account)
 				
 			# save it		
-			bankingProduct.save()
+			banking_product.save()
 			
 			# reload and return the appropriate version
-			return self.get( bankingProductId );
+			return self.get( banking_product_id );
 		except BankingProduct.DoesNotExist:
-			raise ProcessingError(errMsg + " : BankingProduct with id " + str(bankingProductId) + " does not exist.")
+			raise ProcessingError(err_msg + " : BankingProduct with id " + str(banking_product_id) + " does not exist.")
 		except Account.DoesNotExist:
-			raise ProcessingError(errMsg + " : Account does not exist.")
+			raise ProcessingError(err_msg + " : Account does not exist.")
 		except utils.DatabaseError:
 			raise StorageWriteError()
 		except Exception:
-			raise GeneralError(errMsg) 
+			raise GeneralError(err_msg) 
 		
-	def addLoanAccounts( self, bankingProductId, loanAccountsIds ):
+	def addLoanAccounts( self, banking_product_id, loanAccountsIds ):
 		# lazy importing avoids circular dependencies
 		from bankingOnDjango.delegates.LoanAccountDelegate import LoanAccountDelegate
 
-		errMsg = "Failed to add elements " + str(loanAccountsIds) + " for LoanAccounts on BankingProduct"
+		err_msg = "Failed to add elements " + str(loanAccountsIds) + " for LoanAccounts on BankingProduct"
 
 		try:
 			# get the BankingProduct
-			bankingProduct = self.get( bankingProductId ).first()
+			banking_product = self.get( banking_product_id ).first()
 				
 			# iterate over ids
 			for id in loanAccountsIds:
 				# read the LoanAccount		
 				loanAccount = LoanAccountDelegate().get(id).first();	
 				# add the LoanAccount
-				bankingProduct.loanAccounts.add(loanAccount)
+				banking_product.loanAccounts.add(loanAccount)
 				
 			# save it		
-			bankingProduct.save()
+			banking_product.save()
 			
 			# reload and return the appropriate version
-			return self.get( bankingProductId );
+			return self.get( banking_product_id );
 		except BankingProduct.DoesNotExist:
-			raise ProcessingError(errMsg + " : BankingProduct with id " + str(bankingProductId) + " does not exist.")
+			raise ProcessingError(err_msg + " : BankingProduct with id " + str(banking_product_id) + " does not exist.")
 		except LoanAccount.DoesNotExist:
-			raise ProcessingError(errMsg + " : LoanAccount does not exist.")
+			raise ProcessingError(err_msg + " : LoanAccount does not exist.")
 		except Exception:
-			raise ProcessingError(errMsg) 
+			raise ProcessingError(err_msg) 
 		
-	def removeLoanAccounts( self, bankingProductId, loanAccountsIds ):
+	def removeLoanAccounts( self, banking_product_id, loanAccountsIds ):
 		# lazy importing avoids circular dependencies
 		from bankingOnDjango.delegates.LoanAccountDelegate import LoanAccountDelegate
 
-		errMsg = "Failed to remove elements " + str(loanAccountsIds) + " for LoanAccounts on BankingProduct"
+		err_msg = "Failed to remove elements " + str(loanAccountsIds) + " for LoanAccounts on BankingProduct"
 
 		try:
 			# get the BankingProduct
-			bankingProduct = self.get( bankingProductId ).first()
+			banking_product = self.get( banking_product_id ).first()
 				
 			# iterate over ids
 			for id in loanAccountsIds:
 				# read the LoanAccount		
 				loanAccount = LoanAccountDelegate().get(id).first();	
 				# add the LoanAccount
-				bankingProduct.loanAccounts.remove(loanAccount)
+				banking_product.loanAccounts.remove(loanAccount)
 				
 			# save it		
-			bankingProduct.save()
+			banking_product.save()
 			
 			# reload and return the appropriate version
-			return self.get( bankingProductId );
+			return self.get( banking_product_id );
 		except BankingProduct.DoesNotExist:
-			raise ProcessingError(errMsg + " : BankingProduct with id " + str(bankingProductId) + " does not exist.")
+			raise ProcessingError(err_msg + " : BankingProduct with id " + str(banking_product_id) + " does not exist.")
 		except LoanAccount.DoesNotExist:
-			raise ProcessingError(errMsg + " : LoanAccount does not exist.")
+			raise ProcessingError(err_msg + " : LoanAccount does not exist.")
 		except utils.DatabaseError:
 			raise StorageWriteError()
 		except Exception:
-			raise GeneralError(errMsg) 
+			raise GeneralError(err_msg) 
 		
-	def addPaymentCards( self, bankingProductId, paymentCardsIds ):
+	def addPaymentCards( self, banking_product_id, paymentCardsIds ):
 		# lazy importing avoids circular dependencies
 		from bankingOnDjango.delegates.PaymentCardDelegate import PaymentCardDelegate
 
-		errMsg = "Failed to add elements " + str(paymentCardsIds) + " for PaymentCards on BankingProduct"
+		err_msg = "Failed to add elements " + str(paymentCardsIds) + " for PaymentCards on BankingProduct"
 
 		try:
 			# get the BankingProduct
-			bankingProduct = self.get( bankingProductId ).first()
+			banking_product = self.get( banking_product_id ).first()
 				
 			# iterate over ids
 			for id in paymentCardsIds:
 				# read the PaymentCard		
 				paymentCard = PaymentCardDelegate().get(id).first();	
 				# add the PaymentCard
-				bankingProduct.paymentCards.add(paymentCard)
+				banking_product.paymentCards.add(paymentCard)
 				
 			# save it		
-			bankingProduct.save()
+			banking_product.save()
 			
 			# reload and return the appropriate version
-			return self.get( bankingProductId );
+			return self.get( banking_product_id );
 		except BankingProduct.DoesNotExist:
-			raise ProcessingError(errMsg + " : BankingProduct with id " + str(bankingProductId) + " does not exist.")
+			raise ProcessingError(err_msg + " : BankingProduct with id " + str(banking_product_id) + " does not exist.")
 		except PaymentCard.DoesNotExist:
-			raise ProcessingError(errMsg + " : PaymentCard does not exist.")
+			raise ProcessingError(err_msg + " : PaymentCard does not exist.")
 		except Exception:
-			raise ProcessingError(errMsg) 
+			raise ProcessingError(err_msg) 
 		
-	def removePaymentCards( self, bankingProductId, paymentCardsIds ):
+	def removePaymentCards( self, banking_product_id, paymentCardsIds ):
 		# lazy importing avoids circular dependencies
 		from bankingOnDjango.delegates.PaymentCardDelegate import PaymentCardDelegate
 
-		errMsg = "Failed to remove elements " + str(paymentCardsIds) + " for PaymentCards on BankingProduct"
+		err_msg = "Failed to remove elements " + str(paymentCardsIds) + " for PaymentCards on BankingProduct"
 
 		try:
 			# get the BankingProduct
-			bankingProduct = self.get( bankingProductId ).first()
+			banking_product = self.get( banking_product_id ).first()
 				
 			# iterate over ids
 			for id in paymentCardsIds:
 				# read the PaymentCard		
 				paymentCard = PaymentCardDelegate().get(id).first();	
 				# add the PaymentCard
-				bankingProduct.paymentCards.remove(paymentCard)
+				banking_product.paymentCards.remove(paymentCard)
 				
 			# save it		
-			bankingProduct.save()
+			banking_product.save()
 			
 			# reload and return the appropriate version
-			return self.get( bankingProductId );
+			return self.get( banking_product_id );
 		except BankingProduct.DoesNotExist:
-			raise ProcessingError(errMsg + " : BankingProduct with id " + str(bankingProductId) + " does not exist.")
+			raise ProcessingError(err_msg + " : BankingProduct with id " + str(banking_product_id) + " does not exist.")
 		except PaymentCard.DoesNotExist:
-			raise ProcessingError(errMsg + " : PaymentCard does not exist.")
+			raise ProcessingError(err_msg + " : PaymentCard does not exist.")
 		except utils.DatabaseError:
 			raise StorageWriteError()
 		except Exception:
-			raise GeneralError(errMsg) 
+			raise GeneralError(err_msg) 
 		

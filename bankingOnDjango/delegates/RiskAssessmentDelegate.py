@@ -25,48 +25,48 @@ class RiskAssessmentDelegate :
 # Function Declarations
 #======================================================================
 
-	def get(self, riskAssessmentId ):
+	def get(self, risk_assessment_id ):
 		try:	
-			riskAssessment = RiskAssessment.objects.filter(id=riskAssessmentId)
-			return riskAssessment.first();
+			risk_assessment = RiskAssessment.objects.filter(id=risk_assessment_id)
+			return risk_assessment.first();
 		except RiskAssessment.DoesNotExist:
-			raise ProcessingError("RiskAssessment with id " + str(riskAssessmentId) + " does not exist.")
+			raise ProcessingError("RiskAssessment with id " + str(risk_assessment_id) + " does not exist.")
 		except utils.DatabaseError:
 			raise StorageReadError()
 		except Exception:
-			raise GeneralError(errMsg) 
+			raise GeneralError(err_msg) 
 
-	def createFromJson(self, riskAssessment):
-		for model in serializers.deserialize("json", riskAssessment):
+	def createFromJson(self, risk_assessment):
+		for model in serializers.deserialize("json", risk_assessment):
 			model.save()
 			return model;
 
-	def create(self, riskAssessment):
-		riskAssessment.save()
-		return riskAssessment;
+	def create(self, risk_assessment):
+		risk_assessment.save()
+		return risk_assessment;
 
-	def saveFromJson(self, riskAssessment):
-		for model in serializers.deserialize("json", riskAssessment):
+	def saveFromJson(self, risk_assessment):
+		for model in serializers.deserialize("json", risk_assessment):
 			model.save()
-			return riskAssessment;
+			return risk_assessment;
 	
-	def save(self, riskAssessment):
-		riskAssessment.save()
-		return riskAssessment;
+	def save(self, risk_assessment):
+		risk_assessment.save()
+		return risk_assessment;
 	
-	def delete(self, riskAssessmentId ):
-		errMsg = "Failed to delete RiskAssessment from db using id " + str(riskAssessmentId)
+	def delete(self, risk_assessment_id ):
+		err_msg = "Failed to delete RiskAssessment from db using id " + str(risk_assessment_id)
 		
 		try:
-			riskAssessment = RiskAssessment.objects.get(id=riskAssessmentId)
-			riskAssessment.delete()
+			risk_assessment = RiskAssessment.objects.get(id=risk_assessment_id)
+			risk_assessment.delete()
 			return True
 		except RiskAssessment.DoesNotExist:
-			raise ProcessingError("RiskAssessment with id " + str(riskAssessmentId) + " does not exist.")
+			raise ProcessingError("RiskAssessment with id " + str(risk_assessment_id) + " does not exist.")
 		except utils.DatabaseError:
 			raise StorageReadError()
 		except Exception:
-			raise GeneralError(errMsg) 
+			raise GeneralError(err_msg) 
 	
 	def getAll(self):
 		try:
@@ -77,51 +77,51 @@ class RiskAssessmentDelegate :
 		except Exception:
 			return None;
 		
-	def assignKycProfile( self, riskAssessmentId, kycProfileId ):
+	def assignKycProfile( self, risk_assessment_id, kycProfileId ):
 		# lazy importing avoids circular dependencies
 		from bankingOnDjango.delegates.KycProfileDelegate import KycProfileDelegate
 
-		errMsg = "Failed to assign element " + str(kycProfileId) + " for KycProfile on RiskAssessment"
+		err_msg = "Failed to assign element " + str(kycProfileId) + " for KycProfile on RiskAssessment"
 
 		try:
 			# get the RiskAssessment from db
-			riskAssessment = self.get( riskAssessmentId ).first()	
+			risk_assessment = self.get( risk_assessment_id ).first()	
 			
 			# get the KycProfile from db
 			kycProfile = KycProfileDelegate().get(kycProfileId).first();
 			
 			# assign the KycProfile		
-			riskAssessment.kycProfile = kycProfile
+			risk_assessment.kycProfile = kycProfile
 			
 			#save it
-			riskAssessment.save()
+			risk_assessment.save()
 
 			# reload and return the appropriate version					
-			return self.get( riskAssessmentId );
+			return self.get( risk_assessment_id );
 		except RiskAssessment.DoesNotExist:
-			raise ProcessingError(errMsg + " : RiskAssessment with id " + str(riskAssessmentId) + " does not exist.")
+			raise ProcessingError(err_msg + " : RiskAssessment with id " + str(risk_assessment_id) + " does not exist.")
 		except KycProfile.DoesNotExist:
-			raise ProcessingError(errMsg + " : KycProfile with id " + str(kycProfileId) + " does not exist.")
+			raise ProcessingError(err_msg + " : KycProfile with id " + str(kycProfileId) + " does not exist.")
 		except Exception:
 			return None;
 				
-	def unassignKycProfile( self, riskAssessmentId ):
-		errMsg = "Failed to unassign element " + str(kycProfileId) + " for KycProfile on RiskAssessment"
+	def unassignKycProfile( self, risk_assessment_id ):
+		err_msg = "Failed to unassign element " + str(kycProfileId) + " for KycProfile on RiskAssessment"
 
 		try:
 			# get the RiskAssessment from db
-			riskAssessment = self.get( riskAssessmentId ).first()	
+			risk_assessment = self.get( risk_assessment_id ).first()	
 			
 			# assign to None for unassignment
-			riskAssessment.kycProfile = None			
+			risk_assessment.kycProfile = None			
 
 			#save it
-			riskAssessment.save()
+			risk_assessment.save()
 
 			# reload and return the appropriate version					
-			return self.get( riskAssessmentId );
+			return self.get( risk_assessment_id );
 		except RiskAssessment.DoesNotExist:
-			raise ProcessingError(errMsg + " : RiskAssessment with id " + str(riskAssessmentId) + " does not exist.")
+			raise ProcessingError(err_msg + " : RiskAssessment with id " + str(risk_assessment_id) + " does not exist.")
 		except Exception:
 			return None;
 		

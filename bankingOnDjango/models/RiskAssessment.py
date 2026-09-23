@@ -11,8 +11,8 @@ class RiskAssessment (models.Model):
 # attribute declarations
 #======================================================================
 	score = models.IntegerField(null=True)
-	assessedOn = models.DateField(null=True)
-	kycProfile = models.ForeignKey('KycProfile', on_delete=models.CASCADE, null=True, blank=True, related_name='+')
+	assessed_on = models.DateField(null=True)
+	kyc_profile = models.ForeignKey('KycProfile', on_delete=models.CASCADE, null=True, blank=True, related_name='+')
 	rating = models.CharField(max_length=64, null=True, choices=[(tag.name, tag.value) for tag in RiskRating])
 
 #======================================================================

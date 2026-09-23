@@ -19,22 +19,22 @@ from bankingOnDjango.delegates.FeeChargeDelegate import FeeChargeDelegate
 #======================================================================
 class FeeChargeTest (TestCase) :
 	def test_crud(self) :
-		feeCharge = FeeCharge()
-		feeCharge.feeCode = "default feeCode field value"
-		feeCharge.amount = "default amount field value"
-		feeCharge.appliedOn = datetime.datetime.now()
-		feeCharge.feeType = "default feeType field value"
+		fee_charge = FeeCharge()
+		fee_charge.feeCode = "default feeCode field value"
+		fee_charge.amount = "default amount field value"
+		fee_charge.appliedOn = datetime.datetime.now()
+		fee_charge.feeType = "default feeType field value"
 		
 		delegate = FeeChargeDelegate()
-		responseObj = delegate.create(feeCharge)
+		response_obj = delegate.create(fee_charge)
 		
-		self.assertEqual(responseObj, delegate.get( responseObj.id ))
+		self.assertEqual(response_obj, delegate.get( response_obj.id ))
 	
-		allObj = delegate.getAll()
-		self.assertEqual(allObj.count(), 1 )		
-		delegate.delete(responseObj.id)
+		all_obj = delegate.getAll()
+		self.assertEqual(all_obj.count(), 1 )		
+		delegate.delete(response_obj.id)
 		
-		allObj = delegate.getAll()
-		self.assertEqual(allObj.count(), 0 )		
+		all_obj = delegate.getAll()
+		self.assertEqual(all_obj.count(), 0 )		
 
 

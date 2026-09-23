@@ -26,48 +26,48 @@ class LoanPaymentDelegate :
 # Function Declarations
 #======================================================================
 
-	def get(self, loanPaymentId ):
+	def get(self, loan_payment_id ):
 		try:	
-			loanPayment = LoanPayment.objects.filter(id=loanPaymentId)
-			return loanPayment.first();
+			loan_payment = LoanPayment.objects.filter(id=loan_payment_id)
+			return loan_payment.first();
 		except LoanPayment.DoesNotExist:
-			raise ProcessingError("LoanPayment with id " + str(loanPaymentId) + " does not exist.")
+			raise ProcessingError("LoanPayment with id " + str(loan_payment_id) + " does not exist.")
 		except utils.DatabaseError:
 			raise StorageReadError()
 		except Exception:
-			raise GeneralError(errMsg) 
+			raise GeneralError(err_msg) 
 
-	def createFromJson(self, loanPayment):
-		for model in serializers.deserialize("json", loanPayment):
+	def createFromJson(self, loan_payment):
+		for model in serializers.deserialize("json", loan_payment):
 			model.save()
 			return model;
 
-	def create(self, loanPayment):
-		loanPayment.save()
-		return loanPayment;
+	def create(self, loan_payment):
+		loan_payment.save()
+		return loan_payment;
 
-	def saveFromJson(self, loanPayment):
-		for model in serializers.deserialize("json", loanPayment):
+	def saveFromJson(self, loan_payment):
+		for model in serializers.deserialize("json", loan_payment):
 			model.save()
-			return loanPayment;
+			return loan_payment;
 	
-	def save(self, loanPayment):
-		loanPayment.save()
-		return loanPayment;
+	def save(self, loan_payment):
+		loan_payment.save()
+		return loan_payment;
 	
-	def delete(self, loanPaymentId ):
-		errMsg = "Failed to delete LoanPayment from db using id " + str(loanPaymentId)
+	def delete(self, loan_payment_id ):
+		err_msg = "Failed to delete LoanPayment from db using id " + str(loan_payment_id)
 		
 		try:
-			loanPayment = LoanPayment.objects.get(id=loanPaymentId)
-			loanPayment.delete()
+			loan_payment = LoanPayment.objects.get(id=loan_payment_id)
+			loan_payment.delete()
 			return True
 		except LoanPayment.DoesNotExist:
-			raise ProcessingError("LoanPayment with id " + str(loanPaymentId) + " does not exist.")
+			raise ProcessingError("LoanPayment with id " + str(loan_payment_id) + " does not exist.")
 		except utils.DatabaseError:
 			raise StorageReadError()
 		except Exception:
-			raise GeneralError(errMsg) 
+			raise GeneralError(err_msg) 
 	
 	def getAll(self):
 		try:
@@ -78,99 +78,99 @@ class LoanPaymentDelegate :
 		except Exception:
 			return None;
 		
-	def assignLoanAccount( self, loanPaymentId, loanAccountId ):
+	def assignLoanAccount( self, loan_payment_id, loanAccountId ):
 		# lazy importing avoids circular dependencies
 		from bankingOnDjango.delegates.LoanAccountDelegate import LoanAccountDelegate
 
-		errMsg = "Failed to assign element " + str(loanAccountId) + " for LoanAccount on LoanPayment"
+		err_msg = "Failed to assign element " + str(loanAccountId) + " for LoanAccount on LoanPayment"
 
 		try:
 			# get the LoanPayment from db
-			loanPayment = self.get( loanPaymentId ).first()	
+			loan_payment = self.get( loan_payment_id ).first()	
 			
 			# get the LoanAccount from db
 			loanAccount = LoanAccountDelegate().get(loanAccountId).first();
 			
 			# assign the LoanAccount		
-			loanPayment.loanAccount = loanAccount
+			loan_payment.loanAccount = loanAccount
 			
 			#save it
-			loanPayment.save()
+			loan_payment.save()
 
 			# reload and return the appropriate version					
-			return self.get( loanPaymentId );
+			return self.get( loan_payment_id );
 		except LoanPayment.DoesNotExist:
-			raise ProcessingError(errMsg + " : LoanPayment with id " + str(loanPaymentId) + " does not exist.")
+			raise ProcessingError(err_msg + " : LoanPayment with id " + str(loan_payment_id) + " does not exist.")
 		except LoanAccount.DoesNotExist:
-			raise ProcessingError(errMsg + " : LoanAccount with id " + str(loanAccountId) + " does not exist.")
+			raise ProcessingError(err_msg + " : LoanAccount with id " + str(loanAccountId) + " does not exist.")
 		except Exception:
 			return None;
 				
-	def unassignLoanAccount( self, loanPaymentId ):
-		errMsg = "Failed to unassign element " + str(loanAccountId) + " for LoanAccount on LoanPayment"
+	def unassignLoanAccount( self, loan_payment_id ):
+		err_msg = "Failed to unassign element " + str(loanAccountId) + " for LoanAccount on LoanPayment"
 
 		try:
 			# get the LoanPayment from db
-			loanPayment = self.get( loanPaymentId ).first()	
+			loan_payment = self.get( loan_payment_id ).first()	
 			
 			# assign to None for unassignment
-			loanPayment.loanAccount = None			
+			loan_payment.loanAccount = None			
 
 			#save it
-			loanPayment.save()
+			loan_payment.save()
 
 			# reload and return the appropriate version					
-			return self.get( loanPaymentId );
+			return self.get( loan_payment_id );
 		except LoanPayment.DoesNotExist:
-			raise ProcessingError(errMsg + " : LoanPayment with id " + str(loanPaymentId) + " does not exist.")
+			raise ProcessingError(err_msg + " : LoanPayment with id " + str(loan_payment_id) + " does not exist.")
 		except Exception:
 			return None;
 		
-	def assignTransaction( self, loanPaymentId, transactionId ):
+	def assignTransaction( self, loan_payment_id, transactionId ):
 		# lazy importing avoids circular dependencies
 		from bankingOnDjango.delegates.TransactionDelegate import TransactionDelegate
 
-		errMsg = "Failed to assign element " + str(transactionId) + " for Transaction on LoanPayment"
+		err_msg = "Failed to assign element " + str(transactionId) + " for Transaction on LoanPayment"
 
 		try:
 			# get the LoanPayment from db
-			loanPayment = self.get( loanPaymentId ).first()	
+			loan_payment = self.get( loan_payment_id ).first()	
 			
 			# get the Transaction from db
 			transaction = TransactionDelegate().get(transactionId).first();
 			
 			# assign the Transaction		
-			loanPayment.transaction = transaction
+			loan_payment.transaction = transaction
 			
 			#save it
-			loanPayment.save()
+			loan_payment.save()
 
 			# reload and return the appropriate version					
-			return self.get( loanPaymentId );
+			return self.get( loan_payment_id );
 		except LoanPayment.DoesNotExist:
-			raise ProcessingError(errMsg + " : LoanPayment with id " + str(loanPaymentId) + " does not exist.")
+			raise ProcessingError(err_msg + " : LoanPayment with id " + str(loan_payment_id) + " does not exist.")
 		except Transaction.DoesNotExist:
-			raise ProcessingError(errMsg + " : Transaction with id " + str(transactionId) + " does not exist.")
+			raise ProcessingError(err_msg + " : Transaction with id " + str(transactionId) + " does not exist.")
 		except Exception:
 			return None;
 				
-	def unassignTransaction( self, loanPaymentId ):
-		errMsg = "Failed to unassign element " + str(transactionId) + " for Transaction on LoanPayment"
+	def unassignTransaction( self, loan_payment_id ):
+		err_msg = "Failed to unassign element " + str(transactionId) + " for Transaction on LoanPayment"
 
 		try:
 			# get the LoanPayment from db
-			loanPayment = self.get( loanPaymentId ).first()	
+			loan_payment = self.get( loan_payment_id ).first()	
 			
 			# assign to None for unassignment
-			loanPayment.transaction = None			
+			loan_payment.transaction = None			
 
 			#save it
-			loanPayment.save()
+			loan_payment.save()
 
 			# reload and return the appropriate version					
-			return self.get( loanPaymentId );
+			return self.get( loan_payment_id );
 		except LoanPayment.DoesNotExist:
-			raise ProcessingError(errMsg + " : LoanPayment with id " + str(loanPaymentId) + " does not exist.")
+			raise ProcessingError(err_msg + " : LoanPayment with id " + str(loan_payment_id) + " does not exist.")
 		except Exception:
 			return None;
 		

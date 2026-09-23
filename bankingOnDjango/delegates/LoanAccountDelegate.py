@@ -32,48 +32,48 @@ class LoanAccountDelegate :
 # Function Declarations
 #======================================================================
 
-	def get(self, loanAccountId ):
+	def get(self, loan_account_id ):
 		try:	
-			loanAccount = LoanAccount.objects.filter(id=loanAccountId)
-			return loanAccount.first();
+			loan_account = LoanAccount.objects.filter(id=loan_account_id)
+			return loan_account.first();
 		except LoanAccount.DoesNotExist:
-			raise ProcessingError("LoanAccount with id " + str(loanAccountId) + " does not exist.")
+			raise ProcessingError("LoanAccount with id " + str(loan_account_id) + " does not exist.")
 		except utils.DatabaseError:
 			raise StorageReadError()
 		except Exception:
-			raise GeneralError(errMsg) 
+			raise GeneralError(err_msg) 
 
-	def createFromJson(self, loanAccount):
-		for model in serializers.deserialize("json", loanAccount):
+	def createFromJson(self, loan_account):
+		for model in serializers.deserialize("json", loan_account):
 			model.save()
 			return model;
 
-	def create(self, loanAccount):
-		loanAccount.save()
-		return loanAccount;
+	def create(self, loan_account):
+		loan_account.save()
+		return loan_account;
 
-	def saveFromJson(self, loanAccount):
-		for model in serializers.deserialize("json", loanAccount):
+	def saveFromJson(self, loan_account):
+		for model in serializers.deserialize("json", loan_account):
 			model.save()
-			return loanAccount;
+			return loan_account;
 	
-	def save(self, loanAccount):
-		loanAccount.save()
-		return loanAccount;
+	def save(self, loan_account):
+		loan_account.save()
+		return loan_account;
 	
-	def delete(self, loanAccountId ):
-		errMsg = "Failed to delete LoanAccount from db using id " + str(loanAccountId)
+	def delete(self, loan_account_id ):
+		err_msg = "Failed to delete LoanAccount from db using id " + str(loan_account_id)
 		
 		try:
-			loanAccount = LoanAccount.objects.get(id=loanAccountId)
-			loanAccount.delete()
+			loan_account = LoanAccount.objects.get(id=loan_account_id)
+			loan_account.delete()
 			return True
 		except LoanAccount.DoesNotExist:
-			raise ProcessingError("LoanAccount with id " + str(loanAccountId) + " does not exist.")
+			raise ProcessingError("LoanAccount with id " + str(loan_account_id) + " does not exist.")
 		except utils.DatabaseError:
 			raise StorageReadError()
 		except Exception:
-			raise GeneralError(errMsg) 
+			raise GeneralError(err_msg) 
 	
 	def getAll(self):
 		try:
@@ -84,447 +84,447 @@ class LoanAccountDelegate :
 		except Exception:
 			return None;
 		
-	def assignBank( self, loanAccountId, bankId ):
+	def assignBank( self, loan_account_id, bankId ):
 		# lazy importing avoids circular dependencies
 		from bankingOnDjango.delegates.BankDelegate import BankDelegate
 
-		errMsg = "Failed to assign element " + str(bankId) + " for Bank on LoanAccount"
+		err_msg = "Failed to assign element " + str(bankId) + " for Bank on LoanAccount"
 
 		try:
 			# get the LoanAccount from db
-			loanAccount = self.get( loanAccountId ).first()	
+			loan_account = self.get( loan_account_id ).first()	
 			
 			# get the Bank from db
 			bank = BankDelegate().get(bankId).first();
 			
 			# assign the Bank		
-			loanAccount.bank = bank
+			loan_account.bank = bank
 			
 			#save it
-			loanAccount.save()
+			loan_account.save()
 
 			# reload and return the appropriate version					
-			return self.get( loanAccountId );
+			return self.get( loan_account_id );
 		except LoanAccount.DoesNotExist:
-			raise ProcessingError(errMsg + " : LoanAccount with id " + str(loanAccountId) + " does not exist.")
+			raise ProcessingError(err_msg + " : LoanAccount with id " + str(loan_account_id) + " does not exist.")
 		except Bank.DoesNotExist:
-			raise ProcessingError(errMsg + " : Bank with id " + str(bankId) + " does not exist.")
+			raise ProcessingError(err_msg + " : Bank with id " + str(bankId) + " does not exist.")
 		except Exception:
 			return None;
 				
-	def unassignBank( self, loanAccountId ):
-		errMsg = "Failed to unassign element " + str(bankId) + " for Bank on LoanAccount"
+	def unassignBank( self, loan_account_id ):
+		err_msg = "Failed to unassign element " + str(bankId) + " for Bank on LoanAccount"
 
 		try:
 			# get the LoanAccount from db
-			loanAccount = self.get( loanAccountId ).first()	
+			loan_account = self.get( loan_account_id ).first()	
 			
 			# assign to None for unassignment
-			loanAccount.bank = None			
+			loan_account.bank = None			
 
 			#save it
-			loanAccount.save()
+			loan_account.save()
 
 			# reload and return the appropriate version					
-			return self.get( loanAccountId );
+			return self.get( loan_account_id );
 		except LoanAccount.DoesNotExist:
-			raise ProcessingError(errMsg + " : LoanAccount with id " + str(loanAccountId) + " does not exist.")
+			raise ProcessingError(err_msg + " : LoanAccount with id " + str(loan_account_id) + " does not exist.")
 		except Exception:
 			return None;
 		
-	def assignBranch( self, loanAccountId, branchId ):
+	def assignBranch( self, loan_account_id, branchId ):
 		# lazy importing avoids circular dependencies
 		from bankingOnDjango.delegates.BranchDelegate import BranchDelegate
 
-		errMsg = "Failed to assign element " + str(branchId) + " for Branch on LoanAccount"
+		err_msg = "Failed to assign element " + str(branchId) + " for Branch on LoanAccount"
 
 		try:
 			# get the LoanAccount from db
-			loanAccount = self.get( loanAccountId ).first()	
+			loan_account = self.get( loan_account_id ).first()	
 			
 			# get the Branch from db
 			branch = BranchDelegate().get(branchId).first();
 			
 			# assign the Branch		
-			loanAccount.branch = branch
+			loan_account.branch = branch
 			
 			#save it
-			loanAccount.save()
+			loan_account.save()
 
 			# reload and return the appropriate version					
-			return self.get( loanAccountId );
+			return self.get( loan_account_id );
 		except LoanAccount.DoesNotExist:
-			raise ProcessingError(errMsg + " : LoanAccount with id " + str(loanAccountId) + " does not exist.")
+			raise ProcessingError(err_msg + " : LoanAccount with id " + str(loan_account_id) + " does not exist.")
 		except Branch.DoesNotExist:
-			raise ProcessingError(errMsg + " : Branch with id " + str(branchId) + " does not exist.")
+			raise ProcessingError(err_msg + " : Branch with id " + str(branchId) + " does not exist.")
 		except Exception:
 			return None;
 				
-	def unassignBranch( self, loanAccountId ):
-		errMsg = "Failed to unassign element " + str(branchId) + " for Branch on LoanAccount"
+	def unassignBranch( self, loan_account_id ):
+		err_msg = "Failed to unassign element " + str(branchId) + " for Branch on LoanAccount"
 
 		try:
 			# get the LoanAccount from db
-			loanAccount = self.get( loanAccountId ).first()	
+			loan_account = self.get( loan_account_id ).first()	
 			
 			# assign to None for unassignment
-			loanAccount.branch = None			
+			loan_account.branch = None			
 
 			#save it
-			loanAccount.save()
+			loan_account.save()
 
 			# reload and return the appropriate version					
-			return self.get( loanAccountId );
+			return self.get( loan_account_id );
 		except LoanAccount.DoesNotExist:
-			raise ProcessingError(errMsg + " : LoanAccount with id " + str(loanAccountId) + " does not exist.")
+			raise ProcessingError(err_msg + " : LoanAccount with id " + str(loan_account_id) + " does not exist.")
 		except Exception:
 			return None;
 		
-	def assignProduct( self, loanAccountId, productId ):
+	def assignProduct( self, loan_account_id, productId ):
 		# lazy importing avoids circular dependencies
 		from bankingOnDjango.delegates.BankingProductDelegate import BankingProductDelegate
 
-		errMsg = "Failed to assign element " + str(productId) + " for Product on LoanAccount"
+		err_msg = "Failed to assign element " + str(productId) + " for Product on LoanAccount"
 
 		try:
 			# get the LoanAccount from db
-			loanAccount = self.get( loanAccountId ).first()	
+			loan_account = self.get( loan_account_id ).first()	
 			
 			# get the BankingProduct from db
 			bankingProduct = BankingProductDelegate().get(productId).first();
 			
 			# assign the Product		
-			loanAccount.product = bankingProduct
+			loan_account.product = bankingProduct
 			
 			#save it
-			loanAccount.save()
+			loan_account.save()
 
 			# reload and return the appropriate version					
-			return self.get( loanAccountId );
+			return self.get( loan_account_id );
 		except LoanAccount.DoesNotExist:
-			raise ProcessingError(errMsg + " : LoanAccount with id " + str(loanAccountId) + " does not exist.")
+			raise ProcessingError(err_msg + " : LoanAccount with id " + str(loan_account_id) + " does not exist.")
 		except BankingProduct.DoesNotExist:
-			raise ProcessingError(errMsg + " : BankingProduct with id " + str(productId) + " does not exist.")
+			raise ProcessingError(err_msg + " : BankingProduct with id " + str(productId) + " does not exist.")
 		except Exception:
 			return None;
 				
-	def unassignProduct( self, loanAccountId ):
-		errMsg = "Failed to unassign element " + str(productId) + " for Product on LoanAccount"
+	def unassignProduct( self, loan_account_id ):
+		err_msg = "Failed to unassign element " + str(productId) + " for Product on LoanAccount"
 
 		try:
 			# get the LoanAccount from db
-			loanAccount = self.get( loanAccountId ).first()	
+			loan_account = self.get( loan_account_id ).first()	
 			
 			# assign to None for unassignment
-			loanAccount.bankingProduct = None			
+			loan_account.bankingProduct = None			
 
 			#save it
-			loanAccount.save()
+			loan_account.save()
 
 			# reload and return the appropriate version					
-			return self.get( loanAccountId );
+			return self.get( loan_account_id );
 		except LoanAccount.DoesNotExist:
-			raise ProcessingError(errMsg + " : LoanAccount with id " + str(loanAccountId) + " does not exist.")
+			raise ProcessingError(err_msg + " : LoanAccount with id " + str(loan_account_id) + " does not exist.")
 		except Exception:
 			return None;
 		
-	def addBorrowers( self, loanAccountId, borrowersIds ):
+	def addBorrowers( self, loan_account_id, borrowersIds ):
 		# lazy importing avoids circular dependencies
 		from bankingOnDjango.delegates.CustomerDelegate import CustomerDelegate
 
-		errMsg = "Failed to add elements " + str(borrowersIds) + " for Borrowers on LoanAccount"
+		err_msg = "Failed to add elements " + str(borrowersIds) + " for Borrowers on LoanAccount"
 
 		try:
 			# get the LoanAccount
-			loanAccount = self.get( loanAccountId ).first()
+			loan_account = self.get( loan_account_id ).first()
 				
 			# iterate over ids
 			for id in borrowersIds:
 				# read the Customer		
 				customer = CustomerDelegate().get(id).first();	
 				# add the Customer
-				loanAccount.borrowers.add(customer)
+				loan_account.borrowers.add(customer)
 				
 			# save it		
-			loanAccount.save()
+			loan_account.save()
 			
 			# reload and return the appropriate version
-			return self.get( loanAccountId );
+			return self.get( loan_account_id );
 		except LoanAccount.DoesNotExist:
-			raise ProcessingError(errMsg + " : LoanAccount with id " + str(loanAccountId) + " does not exist.")
+			raise ProcessingError(err_msg + " : LoanAccount with id " + str(loan_account_id) + " does not exist.")
 		except Customer.DoesNotExist:
-			raise ProcessingError(errMsg + " : Customer does not exist.")
+			raise ProcessingError(err_msg + " : Customer does not exist.")
 		except Exception:
-			raise ProcessingError(errMsg) 
+			raise ProcessingError(err_msg) 
 		
-	def removeBorrowers( self, loanAccountId, borrowersIds ):
+	def removeBorrowers( self, loan_account_id, borrowersIds ):
 		# lazy importing avoids circular dependencies
 		from bankingOnDjango.delegates.CustomerDelegate import CustomerDelegate
 
-		errMsg = "Failed to remove elements " + str(borrowersIds) + " for Borrowers on LoanAccount"
+		err_msg = "Failed to remove elements " + str(borrowersIds) + " for Borrowers on LoanAccount"
 
 		try:
 			# get the LoanAccount
-			loanAccount = self.get( loanAccountId ).first()
+			loan_account = self.get( loan_account_id ).first()
 				
 			# iterate over ids
 			for id in borrowersIds:
 				# read the Customer		
 				customer = CustomerDelegate().get(id).first();	
 				# add the Customer
-				loanAccount.borrowers.remove(customer)
+				loan_account.borrowers.remove(customer)
 				
 			# save it		
-			loanAccount.save()
+			loan_account.save()
 			
 			# reload and return the appropriate version
-			return self.get( loanAccountId );
+			return self.get( loan_account_id );
 		except LoanAccount.DoesNotExist:
-			raise ProcessingError(errMsg + " : LoanAccount with id " + str(loanAccountId) + " does not exist.")
+			raise ProcessingError(err_msg + " : LoanAccount with id " + str(loan_account_id) + " does not exist.")
 		except Customer.DoesNotExist:
-			raise ProcessingError(errMsg + " : Customer does not exist.")
+			raise ProcessingError(err_msg + " : Customer does not exist.")
 		except utils.DatabaseError:
 			raise StorageWriteError()
 		except Exception:
-			raise GeneralError(errMsg) 
+			raise GeneralError(err_msg) 
 		
-	def addRepaymentSchedule( self, loanAccountId, repaymentScheduleIds ):
+	def addRepaymentSchedule( self, loan_account_id, repaymentScheduleIds ):
 		# lazy importing avoids circular dependencies
 		from bankingOnDjango.delegates.RepaymentScheduleDelegate import RepaymentScheduleDelegate
 
-		errMsg = "Failed to add elements " + str(repaymentScheduleIds) + " for RepaymentSchedule on LoanAccount"
+		err_msg = "Failed to add elements " + str(repaymentScheduleIds) + " for RepaymentSchedule on LoanAccount"
 
 		try:
 			# get the LoanAccount
-			loanAccount = self.get( loanAccountId ).first()
+			loan_account = self.get( loan_account_id ).first()
 				
 			# iterate over ids
 			for id in repaymentScheduleIds:
 				# read the RepaymentSchedule		
 				repaymentSchedule = RepaymentScheduleDelegate().get(id).first();	
 				# add the RepaymentSchedule
-				loanAccount.repaymentSchedule.add(repaymentSchedule)
+				loan_account.repaymentSchedule.add(repaymentSchedule)
 				
 			# save it		
-			loanAccount.save()
+			loan_account.save()
 			
 			# reload and return the appropriate version
-			return self.get( loanAccountId );
+			return self.get( loan_account_id );
 		except LoanAccount.DoesNotExist:
-			raise ProcessingError(errMsg + " : LoanAccount with id " + str(loanAccountId) + " does not exist.")
+			raise ProcessingError(err_msg + " : LoanAccount with id " + str(loan_account_id) + " does not exist.")
 		except RepaymentSchedule.DoesNotExist:
-			raise ProcessingError(errMsg + " : RepaymentSchedule does not exist.")
+			raise ProcessingError(err_msg + " : RepaymentSchedule does not exist.")
 		except Exception:
-			raise ProcessingError(errMsg) 
+			raise ProcessingError(err_msg) 
 		
-	def removeRepaymentSchedule( self, loanAccountId, repaymentScheduleIds ):
+	def removeRepaymentSchedule( self, loan_account_id, repaymentScheduleIds ):
 		# lazy importing avoids circular dependencies
 		from bankingOnDjango.delegates.RepaymentScheduleDelegate import RepaymentScheduleDelegate
 
-		errMsg = "Failed to remove elements " + str(repaymentScheduleIds) + " for RepaymentSchedule on LoanAccount"
+		err_msg = "Failed to remove elements " + str(repaymentScheduleIds) + " for RepaymentSchedule on LoanAccount"
 
 		try:
 			# get the LoanAccount
-			loanAccount = self.get( loanAccountId ).first()
+			loan_account = self.get( loan_account_id ).first()
 				
 			# iterate over ids
 			for id in repaymentScheduleIds:
 				# read the RepaymentSchedule		
 				repaymentSchedule = RepaymentScheduleDelegate().get(id).first();	
 				# add the RepaymentSchedule
-				loanAccount.repaymentSchedule.remove(repaymentSchedule)
+				loan_account.repaymentSchedule.remove(repaymentSchedule)
 				
 			# save it		
-			loanAccount.save()
+			loan_account.save()
 			
 			# reload and return the appropriate version
-			return self.get( loanAccountId );
+			return self.get( loan_account_id );
 		except LoanAccount.DoesNotExist:
-			raise ProcessingError(errMsg + " : LoanAccount with id " + str(loanAccountId) + " does not exist.")
+			raise ProcessingError(err_msg + " : LoanAccount with id " + str(loan_account_id) + " does not exist.")
 		except RepaymentSchedule.DoesNotExist:
-			raise ProcessingError(errMsg + " : RepaymentSchedule does not exist.")
+			raise ProcessingError(err_msg + " : RepaymentSchedule does not exist.")
 		except utils.DatabaseError:
 			raise StorageWriteError()
 		except Exception:
-			raise GeneralError(errMsg) 
+			raise GeneralError(err_msg) 
 		
-	def addPayments( self, loanAccountId, paymentsIds ):
+	def addPayments( self, loan_account_id, paymentsIds ):
 		# lazy importing avoids circular dependencies
 		from bankingOnDjango.delegates.LoanPaymentDelegate import LoanPaymentDelegate
 
-		errMsg = "Failed to add elements " + str(paymentsIds) + " for Payments on LoanAccount"
+		err_msg = "Failed to add elements " + str(paymentsIds) + " for Payments on LoanAccount"
 
 		try:
 			# get the LoanAccount
-			loanAccount = self.get( loanAccountId ).first()
+			loan_account = self.get( loan_account_id ).first()
 				
 			# iterate over ids
 			for id in paymentsIds:
 				# read the LoanPayment		
 				loanPayment = LoanPaymentDelegate().get(id).first();	
 				# add the LoanPayment
-				loanAccount.payments.add(loanPayment)
+				loan_account.payments.add(loanPayment)
 				
 			# save it		
-			loanAccount.save()
+			loan_account.save()
 			
 			# reload and return the appropriate version
-			return self.get( loanAccountId );
+			return self.get( loan_account_id );
 		except LoanAccount.DoesNotExist:
-			raise ProcessingError(errMsg + " : LoanAccount with id " + str(loanAccountId) + " does not exist.")
+			raise ProcessingError(err_msg + " : LoanAccount with id " + str(loan_account_id) + " does not exist.")
 		except LoanPayment.DoesNotExist:
-			raise ProcessingError(errMsg + " : LoanPayment does not exist.")
+			raise ProcessingError(err_msg + " : LoanPayment does not exist.")
 		except Exception:
-			raise ProcessingError(errMsg) 
+			raise ProcessingError(err_msg) 
 		
-	def removePayments( self, loanAccountId, paymentsIds ):
+	def removePayments( self, loan_account_id, paymentsIds ):
 		# lazy importing avoids circular dependencies
 		from bankingOnDjango.delegates.LoanPaymentDelegate import LoanPaymentDelegate
 
-		errMsg = "Failed to remove elements " + str(paymentsIds) + " for Payments on LoanAccount"
+		err_msg = "Failed to remove elements " + str(paymentsIds) + " for Payments on LoanAccount"
 
 		try:
 			# get the LoanAccount
-			loanAccount = self.get( loanAccountId ).first()
+			loan_account = self.get( loan_account_id ).first()
 				
 			# iterate over ids
 			for id in paymentsIds:
 				# read the LoanPayment		
 				loanPayment = LoanPaymentDelegate().get(id).first();	
 				# add the LoanPayment
-				loanAccount.payments.remove(loanPayment)
+				loan_account.payments.remove(loanPayment)
 				
 			# save it		
-			loanAccount.save()
+			loan_account.save()
 			
 			# reload and return the appropriate version
-			return self.get( loanAccountId );
+			return self.get( loan_account_id );
 		except LoanAccount.DoesNotExist:
-			raise ProcessingError(errMsg + " : LoanAccount with id " + str(loanAccountId) + " does not exist.")
+			raise ProcessingError(err_msg + " : LoanAccount with id " + str(loan_account_id) + " does not exist.")
 		except LoanPayment.DoesNotExist:
-			raise ProcessingError(errMsg + " : LoanPayment does not exist.")
+			raise ProcessingError(err_msg + " : LoanPayment does not exist.")
 		except utils.DatabaseError:
 			raise StorageWriteError()
 		except Exception:
-			raise GeneralError(errMsg) 
+			raise GeneralError(err_msg) 
 		
-	def addCollateral( self, loanAccountId, collateralIds ):
+	def addCollateral( self, loan_account_id, collateralIds ):
 		# lazy importing avoids circular dependencies
 		from bankingOnDjango.delegates.CollateralDelegate import CollateralDelegate
 
-		errMsg = "Failed to add elements " + str(collateralIds) + " for Collateral on LoanAccount"
+		err_msg = "Failed to add elements " + str(collateralIds) + " for Collateral on LoanAccount"
 
 		try:
 			# get the LoanAccount
-			loanAccount = self.get( loanAccountId ).first()
+			loan_account = self.get( loan_account_id ).first()
 				
 			# iterate over ids
 			for id in collateralIds:
 				# read the Collateral		
 				collateral = CollateralDelegate().get(id).first();	
 				# add the Collateral
-				loanAccount.collateral.add(collateral)
+				loan_account.collateral.add(collateral)
 				
 			# save it		
-			loanAccount.save()
+			loan_account.save()
 			
 			# reload and return the appropriate version
-			return self.get( loanAccountId );
+			return self.get( loan_account_id );
 		except LoanAccount.DoesNotExist:
-			raise ProcessingError(errMsg + " : LoanAccount with id " + str(loanAccountId) + " does not exist.")
+			raise ProcessingError(err_msg + " : LoanAccount with id " + str(loan_account_id) + " does not exist.")
 		except Collateral.DoesNotExist:
-			raise ProcessingError(errMsg + " : Collateral does not exist.")
+			raise ProcessingError(err_msg + " : Collateral does not exist.")
 		except Exception:
-			raise ProcessingError(errMsg) 
+			raise ProcessingError(err_msg) 
 		
-	def removeCollateral( self, loanAccountId, collateralIds ):
+	def removeCollateral( self, loan_account_id, collateralIds ):
 		# lazy importing avoids circular dependencies
 		from bankingOnDjango.delegates.CollateralDelegate import CollateralDelegate
 
-		errMsg = "Failed to remove elements " + str(collateralIds) + " for Collateral on LoanAccount"
+		err_msg = "Failed to remove elements " + str(collateralIds) + " for Collateral on LoanAccount"
 
 		try:
 			# get the LoanAccount
-			loanAccount = self.get( loanAccountId ).first()
+			loan_account = self.get( loan_account_id ).first()
 				
 			# iterate over ids
 			for id in collateralIds:
 				# read the Collateral		
 				collateral = CollateralDelegate().get(id).first();	
 				# add the Collateral
-				loanAccount.collateral.remove(collateral)
+				loan_account.collateral.remove(collateral)
 				
 			# save it		
-			loanAccount.save()
+			loan_account.save()
 			
 			# reload and return the appropriate version
-			return self.get( loanAccountId );
+			return self.get( loan_account_id );
 		except LoanAccount.DoesNotExist:
-			raise ProcessingError(errMsg + " : LoanAccount with id " + str(loanAccountId) + " does not exist.")
+			raise ProcessingError(err_msg + " : LoanAccount with id " + str(loan_account_id) + " does not exist.")
 		except Collateral.DoesNotExist:
-			raise ProcessingError(errMsg + " : Collateral does not exist.")
+			raise ProcessingError(err_msg + " : Collateral does not exist.")
 		except utils.DatabaseError:
 			raise StorageWriteError()
 		except Exception:
-			raise GeneralError(errMsg) 
+			raise GeneralError(err_msg) 
 		
-	def addFeeCharges( self, loanAccountId, feeChargesIds ):
+	def addFeeCharges( self, loan_account_id, feeChargesIds ):
 		# lazy importing avoids circular dependencies
 		from bankingOnDjango.delegates.FeeChargeDelegate import FeeChargeDelegate
 
-		errMsg = "Failed to add elements " + str(feeChargesIds) + " for FeeCharges on LoanAccount"
+		err_msg = "Failed to add elements " + str(feeChargesIds) + " for FeeCharges on LoanAccount"
 
 		try:
 			# get the LoanAccount
-			loanAccount = self.get( loanAccountId ).first()
+			loan_account = self.get( loan_account_id ).first()
 				
 			# iterate over ids
 			for id in feeChargesIds:
 				# read the FeeCharge		
 				feeCharge = FeeChargeDelegate().get(id).first();	
 				# add the FeeCharge
-				loanAccount.feeCharges.add(feeCharge)
+				loan_account.feeCharges.add(feeCharge)
 				
 			# save it		
-			loanAccount.save()
+			loan_account.save()
 			
 			# reload and return the appropriate version
-			return self.get( loanAccountId );
+			return self.get( loan_account_id );
 		except LoanAccount.DoesNotExist:
-			raise ProcessingError(errMsg + " : LoanAccount with id " + str(loanAccountId) + " does not exist.")
+			raise ProcessingError(err_msg + " : LoanAccount with id " + str(loan_account_id) + " does not exist.")
 		except FeeCharge.DoesNotExist:
-			raise ProcessingError(errMsg + " : FeeCharge does not exist.")
+			raise ProcessingError(err_msg + " : FeeCharge does not exist.")
 		except Exception:
-			raise ProcessingError(errMsg) 
+			raise ProcessingError(err_msg) 
 		
-	def removeFeeCharges( self, loanAccountId, feeChargesIds ):
+	def removeFeeCharges( self, loan_account_id, feeChargesIds ):
 		# lazy importing avoids circular dependencies
 		from bankingOnDjango.delegates.FeeChargeDelegate import FeeChargeDelegate
 
-		errMsg = "Failed to remove elements " + str(feeChargesIds) + " for FeeCharges on LoanAccount"
+		err_msg = "Failed to remove elements " + str(feeChargesIds) + " for FeeCharges on LoanAccount"
 
 		try:
 			# get the LoanAccount
-			loanAccount = self.get( loanAccountId ).first()
+			loan_account = self.get( loan_account_id ).first()
 				
 			# iterate over ids
 			for id in feeChargesIds:
 				# read the FeeCharge		
 				feeCharge = FeeChargeDelegate().get(id).first();	
 				# add the FeeCharge
-				loanAccount.feeCharges.remove(feeCharge)
+				loan_account.feeCharges.remove(feeCharge)
 				
 			# save it		
-			loanAccount.save()
+			loan_account.save()
 			
 			# reload and return the appropriate version
-			return self.get( loanAccountId );
+			return self.get( loan_account_id );
 		except LoanAccount.DoesNotExist:
-			raise ProcessingError(errMsg + " : LoanAccount with id " + str(loanAccountId) + " does not exist.")
+			raise ProcessingError(err_msg + " : LoanAccount with id " + str(loan_account_id) + " does not exist.")
 		except FeeCharge.DoesNotExist:
-			raise ProcessingError(errMsg + " : FeeCharge does not exist.")
+			raise ProcessingError(err_msg + " : FeeCharge does not exist.")
 		except utils.DatabaseError:
 			raise StorageWriteError()
 		except Exception:
-			raise GeneralError(errMsg) 
+			raise GeneralError(err_msg) 
 		

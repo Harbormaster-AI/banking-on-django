@@ -28,48 +28,48 @@ class FundsTransferDelegate :
 # Function Declarations
 #======================================================================
 
-	def get(self, fundsTransferId ):
+	def get(self, funds_transfer_id ):
 		try:	
-			fundsTransfer = FundsTransfer.objects.filter(id=fundsTransferId)
-			return fundsTransfer.first();
+			funds_transfer = FundsTransfer.objects.filter(id=funds_transfer_id)
+			return funds_transfer.first();
 		except FundsTransfer.DoesNotExist:
-			raise ProcessingError("FundsTransfer with id " + str(fundsTransferId) + " does not exist.")
+			raise ProcessingError("FundsTransfer with id " + str(funds_transfer_id) + " does not exist.")
 		except utils.DatabaseError:
 			raise StorageReadError()
 		except Exception:
-			raise GeneralError(errMsg) 
+			raise GeneralError(err_msg) 
 
-	def createFromJson(self, fundsTransfer):
-		for model in serializers.deserialize("json", fundsTransfer):
+	def createFromJson(self, funds_transfer):
+		for model in serializers.deserialize("json", funds_transfer):
 			model.save()
 			return model;
 
-	def create(self, fundsTransfer):
-		fundsTransfer.save()
-		return fundsTransfer;
+	def create(self, funds_transfer):
+		funds_transfer.save()
+		return funds_transfer;
 
-	def saveFromJson(self, fundsTransfer):
-		for model in serializers.deserialize("json", fundsTransfer):
+	def saveFromJson(self, funds_transfer):
+		for model in serializers.deserialize("json", funds_transfer):
 			model.save()
-			return fundsTransfer;
+			return funds_transfer;
 	
-	def save(self, fundsTransfer):
-		fundsTransfer.save()
-		return fundsTransfer;
+	def save(self, funds_transfer):
+		funds_transfer.save()
+		return funds_transfer;
 	
-	def delete(self, fundsTransferId ):
-		errMsg = "Failed to delete FundsTransfer from db using id " + str(fundsTransferId)
+	def delete(self, funds_transfer_id ):
+		err_msg = "Failed to delete FundsTransfer from db using id " + str(funds_transfer_id)
 		
 		try:
-			fundsTransfer = FundsTransfer.objects.get(id=fundsTransferId)
-			fundsTransfer.delete()
+			funds_transfer = FundsTransfer.objects.get(id=funds_transfer_id)
+			funds_transfer.delete()
 			return True
 		except FundsTransfer.DoesNotExist:
-			raise ProcessingError("FundsTransfer with id " + str(fundsTransferId) + " does not exist.")
+			raise ProcessingError("FundsTransfer with id " + str(funds_transfer_id) + " does not exist.")
 		except utils.DatabaseError:
 			raise StorageReadError()
 		except Exception:
-			raise GeneralError(errMsg) 
+			raise GeneralError(err_msg) 
 	
 	def getAll(self):
 		try:
@@ -80,255 +80,255 @@ class FundsTransferDelegate :
 		except Exception:
 			return None;
 		
-	def assignSourceAccount( self, fundsTransferId, sourceAccountId ):
+	def assignSourceAccount( self, funds_transfer_id, sourceAccountId ):
 		# lazy importing avoids circular dependencies
 		from bankingOnDjango.delegates.AccountDelegate import AccountDelegate
 
-		errMsg = "Failed to assign element " + str(sourceAccountId) + " for SourceAccount on FundsTransfer"
+		err_msg = "Failed to assign element " + str(sourceAccountId) + " for SourceAccount on FundsTransfer"
 
 		try:
 			# get the FundsTransfer from db
-			fundsTransfer = self.get( fundsTransferId ).first()	
+			funds_transfer = self.get( funds_transfer_id ).first()	
 			
 			# get the Account from db
 			account = AccountDelegate().get(sourceAccountId).first();
 			
 			# assign the SourceAccount		
-			fundsTransfer.sourceAccount = account
+			funds_transfer.sourceAccount = account
 			
 			#save it
-			fundsTransfer.save()
+			funds_transfer.save()
 
 			# reload and return the appropriate version					
-			return self.get( fundsTransferId );
+			return self.get( funds_transfer_id );
 		except FundsTransfer.DoesNotExist:
-			raise ProcessingError(errMsg + " : FundsTransfer with id " + str(fundsTransferId) + " does not exist.")
+			raise ProcessingError(err_msg + " : FundsTransfer with id " + str(funds_transfer_id) + " does not exist.")
 		except Account.DoesNotExist:
-			raise ProcessingError(errMsg + " : Account with id " + str(sourceAccountId) + " does not exist.")
+			raise ProcessingError(err_msg + " : Account with id " + str(sourceAccountId) + " does not exist.")
 		except Exception:
 			return None;
 				
-	def unassignSourceAccount( self, fundsTransferId ):
-		errMsg = "Failed to unassign element " + str(sourceAccountId) + " for SourceAccount on FundsTransfer"
+	def unassignSourceAccount( self, funds_transfer_id ):
+		err_msg = "Failed to unassign element " + str(sourceAccountId) + " for SourceAccount on FundsTransfer"
 
 		try:
 			# get the FundsTransfer from db
-			fundsTransfer = self.get( fundsTransferId ).first()	
+			funds_transfer = self.get( funds_transfer_id ).first()	
 			
 			# assign to None for unassignment
-			fundsTransfer.account = None			
+			funds_transfer.account = None			
 
 			#save it
-			fundsTransfer.save()
+			funds_transfer.save()
 
 			# reload and return the appropriate version					
-			return self.get( fundsTransferId );
+			return self.get( funds_transfer_id );
 		except FundsTransfer.DoesNotExist:
-			raise ProcessingError(errMsg + " : FundsTransfer with id " + str(fundsTransferId) + " does not exist.")
+			raise ProcessingError(err_msg + " : FundsTransfer with id " + str(funds_transfer_id) + " does not exist.")
 		except Exception:
 			return None;
 		
-	def assignDestinationAccount( self, fundsTransferId, destinationAccountId ):
+	def assignDestinationAccount( self, funds_transfer_id, destinationAccountId ):
 		# lazy importing avoids circular dependencies
 		from bankingOnDjango.delegates.AccountDelegate import AccountDelegate
 
-		errMsg = "Failed to assign element " + str(destinationAccountId) + " for DestinationAccount on FundsTransfer"
+		err_msg = "Failed to assign element " + str(destinationAccountId) + " for DestinationAccount on FundsTransfer"
 
 		try:
 			# get the FundsTransfer from db
-			fundsTransfer = self.get( fundsTransferId ).first()	
+			funds_transfer = self.get( funds_transfer_id ).first()	
 			
 			# get the Account from db
 			account = AccountDelegate().get(destinationAccountId).first();
 			
 			# assign the DestinationAccount		
-			fundsTransfer.destinationAccount = account
+			funds_transfer.destinationAccount = account
 			
 			#save it
-			fundsTransfer.save()
+			funds_transfer.save()
 
 			# reload and return the appropriate version					
-			return self.get( fundsTransferId );
+			return self.get( funds_transfer_id );
 		except FundsTransfer.DoesNotExist:
-			raise ProcessingError(errMsg + " : FundsTransfer with id " + str(fundsTransferId) + " does not exist.")
+			raise ProcessingError(err_msg + " : FundsTransfer with id " + str(funds_transfer_id) + " does not exist.")
 		except Account.DoesNotExist:
-			raise ProcessingError(errMsg + " : Account with id " + str(destinationAccountId) + " does not exist.")
+			raise ProcessingError(err_msg + " : Account with id " + str(destinationAccountId) + " does not exist.")
 		except Exception:
 			return None;
 				
-	def unassignDestinationAccount( self, fundsTransferId ):
-		errMsg = "Failed to unassign element " + str(destinationAccountId) + " for DestinationAccount on FundsTransfer"
+	def unassignDestinationAccount( self, funds_transfer_id ):
+		err_msg = "Failed to unassign element " + str(destinationAccountId) + " for DestinationAccount on FundsTransfer"
 
 		try:
 			# get the FundsTransfer from db
-			fundsTransfer = self.get( fundsTransferId ).first()	
+			funds_transfer = self.get( funds_transfer_id ).first()	
 			
 			# assign to None for unassignment
-			fundsTransfer.account = None			
+			funds_transfer.account = None			
 
 			#save it
-			fundsTransfer.save()
+			funds_transfer.save()
 
 			# reload and return the appropriate version					
-			return self.get( fundsTransferId );
+			return self.get( funds_transfer_id );
 		except FundsTransfer.DoesNotExist:
-			raise ProcessingError(errMsg + " : FundsTransfer with id " + str(fundsTransferId) + " does not exist.")
+			raise ProcessingError(err_msg + " : FundsTransfer with id " + str(funds_transfer_id) + " does not exist.")
 		except Exception:
 			return None;
 		
-	def assignExternalBeneficiary( self, fundsTransferId, externalBeneficiaryId ):
+	def assignExternalBeneficiary( self, funds_transfer_id, externalBeneficiaryId ):
 		# lazy importing avoids circular dependencies
 		from bankingOnDjango.delegates.ExternalAccountDelegate import ExternalAccountDelegate
 
-		errMsg = "Failed to assign element " + str(externalBeneficiaryId) + " for ExternalBeneficiary on FundsTransfer"
+		err_msg = "Failed to assign element " + str(externalBeneficiaryId) + " for ExternalBeneficiary on FundsTransfer"
 
 		try:
 			# get the FundsTransfer from db
-			fundsTransfer = self.get( fundsTransferId ).first()	
+			funds_transfer = self.get( funds_transfer_id ).first()	
 			
 			# get the ExternalAccount from db
 			externalAccount = ExternalAccountDelegate().get(externalBeneficiaryId).first();
 			
 			# assign the ExternalBeneficiary		
-			fundsTransfer.externalBeneficiary = externalAccount
+			funds_transfer.externalBeneficiary = externalAccount
 			
 			#save it
-			fundsTransfer.save()
+			funds_transfer.save()
 
 			# reload and return the appropriate version					
-			return self.get( fundsTransferId );
+			return self.get( funds_transfer_id );
 		except FundsTransfer.DoesNotExist:
-			raise ProcessingError(errMsg + " : FundsTransfer with id " + str(fundsTransferId) + " does not exist.")
+			raise ProcessingError(err_msg + " : FundsTransfer with id " + str(funds_transfer_id) + " does not exist.")
 		except ExternalAccount.DoesNotExist:
-			raise ProcessingError(errMsg + " : ExternalAccount with id " + str(externalBeneficiaryId) + " does not exist.")
+			raise ProcessingError(err_msg + " : ExternalAccount with id " + str(externalBeneficiaryId) + " does not exist.")
 		except Exception:
 			return None;
 				
-	def unassignExternalBeneficiary( self, fundsTransferId ):
-		errMsg = "Failed to unassign element " + str(externalBeneficiaryId) + " for ExternalBeneficiary on FundsTransfer"
+	def unassignExternalBeneficiary( self, funds_transfer_id ):
+		err_msg = "Failed to unassign element " + str(externalBeneficiaryId) + " for ExternalBeneficiary on FundsTransfer"
 
 		try:
 			# get the FundsTransfer from db
-			fundsTransfer = self.get( fundsTransferId ).first()	
+			funds_transfer = self.get( funds_transfer_id ).first()	
 			
 			# assign to None for unassignment
-			fundsTransfer.externalAccount = None			
+			funds_transfer.externalAccount = None			
 
 			#save it
-			fundsTransfer.save()
+			funds_transfer.save()
 
 			# reload and return the appropriate version					
-			return self.get( fundsTransferId );
+			return self.get( funds_transfer_id );
 		except FundsTransfer.DoesNotExist:
-			raise ProcessingError(errMsg + " : FundsTransfer with id " + str(fundsTransferId) + " does not exist.")
+			raise ProcessingError(err_msg + " : FundsTransfer with id " + str(funds_transfer_id) + " does not exist.")
 		except Exception:
 			return None;
 		
-	def assignInitiatedBy( self, fundsTransferId, initiatedById ):
+	def assignInitiatedBy( self, funds_transfer_id, initiatedById ):
 		# lazy importing avoids circular dependencies
 		from bankingOnDjango.delegates.CustomerDelegate import CustomerDelegate
 
-		errMsg = "Failed to assign element " + str(initiatedById) + " for InitiatedBy on FundsTransfer"
+		err_msg = "Failed to assign element " + str(initiatedById) + " for InitiatedBy on FundsTransfer"
 
 		try:
 			# get the FundsTransfer from db
-			fundsTransfer = self.get( fundsTransferId ).first()	
+			funds_transfer = self.get( funds_transfer_id ).first()	
 			
 			# get the Customer from db
 			customer = CustomerDelegate().get(initiatedById).first();
 			
 			# assign the InitiatedBy		
-			fundsTransfer.initiatedBy = customer
+			funds_transfer.initiatedBy = customer
 			
 			#save it
-			fundsTransfer.save()
+			funds_transfer.save()
 
 			# reload and return the appropriate version					
-			return self.get( fundsTransferId );
+			return self.get( funds_transfer_id );
 		except FundsTransfer.DoesNotExist:
-			raise ProcessingError(errMsg + " : FundsTransfer with id " + str(fundsTransferId) + " does not exist.")
+			raise ProcessingError(err_msg + " : FundsTransfer with id " + str(funds_transfer_id) + " does not exist.")
 		except Customer.DoesNotExist:
-			raise ProcessingError(errMsg + " : Customer with id " + str(initiatedById) + " does not exist.")
+			raise ProcessingError(err_msg + " : Customer with id " + str(initiatedById) + " does not exist.")
 		except Exception:
 			return None;
 				
-	def unassignInitiatedBy( self, fundsTransferId ):
-		errMsg = "Failed to unassign element " + str(initiatedById) + " for InitiatedBy on FundsTransfer"
+	def unassignInitiatedBy( self, funds_transfer_id ):
+		err_msg = "Failed to unassign element " + str(initiatedById) + " for InitiatedBy on FundsTransfer"
 
 		try:
 			# get the FundsTransfer from db
-			fundsTransfer = self.get( fundsTransferId ).first()	
+			funds_transfer = self.get( funds_transfer_id ).first()	
 			
 			# assign to None for unassignment
-			fundsTransfer.customer = None			
+			funds_transfer.customer = None			
 
 			#save it
-			fundsTransfer.save()
+			funds_transfer.save()
 
 			# reload and return the appropriate version					
-			return self.get( fundsTransferId );
+			return self.get( funds_transfer_id );
 		except FundsTransfer.DoesNotExist:
-			raise ProcessingError(errMsg + " : FundsTransfer with id " + str(fundsTransferId) + " does not exist.")
+			raise ProcessingError(err_msg + " : FundsTransfer with id " + str(funds_transfer_id) + " does not exist.")
 		except Exception:
 			return None;
 		
-	def addTransactions( self, fundsTransferId, transactionsIds ):
+	def addTransactions( self, funds_transfer_id, transactionsIds ):
 		# lazy importing avoids circular dependencies
 		from bankingOnDjango.delegates.TransactionDelegate import TransactionDelegate
 
-		errMsg = "Failed to add elements " + str(transactionsIds) + " for Transactions on FundsTransfer"
+		err_msg = "Failed to add elements " + str(transactionsIds) + " for Transactions on FundsTransfer"
 
 		try:
 			# get the FundsTransfer
-			fundsTransfer = self.get( fundsTransferId ).first()
+			funds_transfer = self.get( funds_transfer_id ).first()
 				
 			# iterate over ids
 			for id in transactionsIds:
 				# read the Transaction		
 				transaction = TransactionDelegate().get(id).first();	
 				# add the Transaction
-				fundsTransfer.transactions.add(transaction)
+				funds_transfer.transactions.add(transaction)
 				
 			# save it		
-			fundsTransfer.save()
+			funds_transfer.save()
 			
 			# reload and return the appropriate version
-			return self.get( fundsTransferId );
+			return self.get( funds_transfer_id );
 		except FundsTransfer.DoesNotExist:
-			raise ProcessingError(errMsg + " : FundsTransfer with id " + str(fundsTransferId) + " does not exist.")
+			raise ProcessingError(err_msg + " : FundsTransfer with id " + str(funds_transfer_id) + " does not exist.")
 		except Transaction.DoesNotExist:
-			raise ProcessingError(errMsg + " : Transaction does not exist.")
+			raise ProcessingError(err_msg + " : Transaction does not exist.")
 		except Exception:
-			raise ProcessingError(errMsg) 
+			raise ProcessingError(err_msg) 
 		
-	def removeTransactions( self, fundsTransferId, transactionsIds ):
+	def removeTransactions( self, funds_transfer_id, transactionsIds ):
 		# lazy importing avoids circular dependencies
 		from bankingOnDjango.delegates.TransactionDelegate import TransactionDelegate
 
-		errMsg = "Failed to remove elements " + str(transactionsIds) + " for Transactions on FundsTransfer"
+		err_msg = "Failed to remove elements " + str(transactionsIds) + " for Transactions on FundsTransfer"
 
 		try:
 			# get the FundsTransfer
-			fundsTransfer = self.get( fundsTransferId ).first()
+			funds_transfer = self.get( funds_transfer_id ).first()
 				
 			# iterate over ids
 			for id in transactionsIds:
 				# read the Transaction		
 				transaction = TransactionDelegate().get(id).first();	
 				# add the Transaction
-				fundsTransfer.transactions.remove(transaction)
+				funds_transfer.transactions.remove(transaction)
 				
 			# save it		
-			fundsTransfer.save()
+			funds_transfer.save()
 			
 			# reload and return the appropriate version
-			return self.get( fundsTransferId );
+			return self.get( funds_transfer_id );
 		except FundsTransfer.DoesNotExist:
-			raise ProcessingError(errMsg + " : FundsTransfer with id " + str(fundsTransferId) + " does not exist.")
+			raise ProcessingError(err_msg + " : FundsTransfer with id " + str(funds_transfer_id) + " does not exist.")
 		except Transaction.DoesNotExist:
-			raise ProcessingError(errMsg + " : Transaction does not exist.")
+			raise ProcessingError(err_msg + " : Transaction does not exist.")
 		except utils.DatabaseError:
 			raise StorageWriteError()
 		except Exception:
-			raise GeneralError(errMsg) 
+			raise GeneralError(err_msg) 
 		

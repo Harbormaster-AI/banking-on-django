@@ -28,16 +28,16 @@ class ConsentDelegate :
 # Function Declarations
 #======================================================================
 
-	def get(self, consentId ):
+	def get(self, consent_id ):
 		try:	
-			consent = Consent.objects.filter(id=consentId)
+			consent = Consent.objects.filter(id=consent_id)
 			return consent.first();
 		except Consent.DoesNotExist:
-			raise ProcessingError("Consent with id " + str(consentId) + " does not exist.")
+			raise ProcessingError("Consent with id " + str(consent_id) + " does not exist.")
 		except utils.DatabaseError:
 			raise StorageReadError()
 		except Exception:
-			raise GeneralError(errMsg) 
+			raise GeneralError(err_msg) 
 
 	def createFromJson(self, consent):
 		for model in serializers.deserialize("json", consent):
@@ -57,19 +57,19 @@ class ConsentDelegate :
 		consent.save()
 		return consent;
 	
-	def delete(self, consentId ):
-		errMsg = "Failed to delete Consent from db using id " + str(consentId)
+	def delete(self, consent_id ):
+		err_msg = "Failed to delete Consent from db using id " + str(consent_id)
 		
 		try:
-			consent = Consent.objects.get(id=consentId)
+			consent = Consent.objects.get(id=consent_id)
 			consent.delete()
 			return True
 		except Consent.DoesNotExist:
-			raise ProcessingError("Consent with id " + str(consentId) + " does not exist.")
+			raise ProcessingError("Consent with id " + str(consent_id) + " does not exist.")
 		except utils.DatabaseError:
 			raise StorageReadError()
 		except Exception:
-			raise GeneralError(errMsg) 
+			raise GeneralError(err_msg) 
 	
 	def getAll(self):
 		try:
@@ -80,15 +80,15 @@ class ConsentDelegate :
 		except Exception:
 			return None;
 		
-	def assignCustomer( self, consentId, customerId ):
+	def assignCustomer( self, consent_id, customerId ):
 		# lazy importing avoids circular dependencies
 		from bankingOnDjango.delegates.CustomerDelegate import CustomerDelegate
 
-		errMsg = "Failed to assign element " + str(customerId) + " for Customer on Consent"
+		err_msg = "Failed to assign element " + str(customerId) + " for Customer on Consent"
 
 		try:
 			# get the Consent from db
-			consent = self.get( consentId ).first()	
+			consent = self.get( consent_id ).first()	
 			
 			# get the Customer from db
 			customer = CustomerDelegate().get(customerId).first();
@@ -100,20 +100,20 @@ class ConsentDelegate :
 			consent.save()
 
 			# reload and return the appropriate version					
-			return self.get( consentId );
+			return self.get( consent_id );
 		except Consent.DoesNotExist:
-			raise ProcessingError(errMsg + " : Consent with id " + str(consentId) + " does not exist.")
+			raise ProcessingError(err_msg + " : Consent with id " + str(consent_id) + " does not exist.")
 		except Customer.DoesNotExist:
-			raise ProcessingError(errMsg + " : Customer with id " + str(customerId) + " does not exist.")
+			raise ProcessingError(err_msg + " : Customer with id " + str(customerId) + " does not exist.")
 		except Exception:
 			return None;
 				
-	def unassignCustomer( self, consentId ):
-		errMsg = "Failed to unassign element " + str(customerId) + " for Customer on Consent"
+	def unassignCustomer( self, consent_id ):
+		err_msg = "Failed to unassign element " + str(customerId) + " for Customer on Consent"
 
 		try:
 			# get the Consent from db
-			consent = self.get( consentId ).first()	
+			consent = self.get( consent_id ).first()	
 			
 			# assign to None for unassignment
 			consent.customer = None			
@@ -122,21 +122,21 @@ class ConsentDelegate :
 			consent.save()
 
 			# reload and return the appropriate version					
-			return self.get( consentId );
+			return self.get( consent_id );
 		except Consent.DoesNotExist:
-			raise ProcessingError(errMsg + " : Consent with id " + str(consentId) + " does not exist.")
+			raise ProcessingError(err_msg + " : Consent with id " + str(consent_id) + " does not exist.")
 		except Exception:
 			return None;
 		
-	def assignBank( self, consentId, bankId ):
+	def assignBank( self, consent_id, bankId ):
 		# lazy importing avoids circular dependencies
 		from bankingOnDjango.delegates.BankDelegate import BankDelegate
 
-		errMsg = "Failed to assign element " + str(bankId) + " for Bank on Consent"
+		err_msg = "Failed to assign element " + str(bankId) + " for Bank on Consent"
 
 		try:
 			# get the Consent from db
-			consent = self.get( consentId ).first()	
+			consent = self.get( consent_id ).first()	
 			
 			# get the Bank from db
 			bank = BankDelegate().get(bankId).first();
@@ -148,20 +148,20 @@ class ConsentDelegate :
 			consent.save()
 
 			# reload and return the appropriate version					
-			return self.get( consentId );
+			return self.get( consent_id );
 		except Consent.DoesNotExist:
-			raise ProcessingError(errMsg + " : Consent with id " + str(consentId) + " does not exist.")
+			raise ProcessingError(err_msg + " : Consent with id " + str(consent_id) + " does not exist.")
 		except Bank.DoesNotExist:
-			raise ProcessingError(errMsg + " : Bank with id " + str(bankId) + " does not exist.")
+			raise ProcessingError(err_msg + " : Bank with id " + str(bankId) + " does not exist.")
 		except Exception:
 			return None;
 				
-	def unassignBank( self, consentId ):
-		errMsg = "Failed to unassign element " + str(bankId) + " for Bank on Consent"
+	def unassignBank( self, consent_id ):
+		err_msg = "Failed to unassign element " + str(bankId) + " for Bank on Consent"
 
 		try:
 			# get the Consent from db
-			consent = self.get( consentId ).first()	
+			consent = self.get( consent_id ).first()	
 			
 			# assign to None for unassignment
 			consent.bank = None			
@@ -170,21 +170,21 @@ class ConsentDelegate :
 			consent.save()
 
 			# reload and return the appropriate version					
-			return self.get( consentId );
+			return self.get( consent_id );
 		except Consent.DoesNotExist:
-			raise ProcessingError(errMsg + " : Consent with id " + str(consentId) + " does not exist.")
+			raise ProcessingError(err_msg + " : Consent with id " + str(consent_id) + " does not exist.")
 		except Exception:
 			return None;
 		
-	def assignThirdPartyProvider( self, consentId, thirdPartyProviderId ):
+	def assignThirdPartyProvider( self, consent_id, thirdPartyProviderId ):
 		# lazy importing avoids circular dependencies
 		from bankingOnDjango.delegates.ThirdPartyProviderDelegate import ThirdPartyProviderDelegate
 
-		errMsg = "Failed to assign element " + str(thirdPartyProviderId) + " for ThirdPartyProvider on Consent"
+		err_msg = "Failed to assign element " + str(thirdPartyProviderId) + " for ThirdPartyProvider on Consent"
 
 		try:
 			# get the Consent from db
-			consent = self.get( consentId ).first()	
+			consent = self.get( consent_id ).first()	
 			
 			# get the ThirdPartyProvider from db
 			thirdPartyProvider = ThirdPartyProviderDelegate().get(thirdPartyProviderId).first();
@@ -196,20 +196,20 @@ class ConsentDelegate :
 			consent.save()
 
 			# reload and return the appropriate version					
-			return self.get( consentId );
+			return self.get( consent_id );
 		except Consent.DoesNotExist:
-			raise ProcessingError(errMsg + " : Consent with id " + str(consentId) + " does not exist.")
+			raise ProcessingError(err_msg + " : Consent with id " + str(consent_id) + " does not exist.")
 		except ThirdPartyProvider.DoesNotExist:
-			raise ProcessingError(errMsg + " : ThirdPartyProvider with id " + str(thirdPartyProviderId) + " does not exist.")
+			raise ProcessingError(err_msg + " : ThirdPartyProvider with id " + str(thirdPartyProviderId) + " does not exist.")
 		except Exception:
 			return None;
 				
-	def unassignThirdPartyProvider( self, consentId ):
-		errMsg = "Failed to unassign element " + str(thirdPartyProviderId) + " for ThirdPartyProvider on Consent"
+	def unassignThirdPartyProvider( self, consent_id ):
+		err_msg = "Failed to unassign element " + str(thirdPartyProviderId) + " for ThirdPartyProvider on Consent"
 
 		try:
 			# get the Consent from db
-			consent = self.get( consentId ).first()	
+			consent = self.get( consent_id ).first()	
 			
 			# assign to None for unassignment
 			consent.thirdPartyProvider = None			
@@ -218,21 +218,21 @@ class ConsentDelegate :
 			consent.save()
 
 			# reload and return the appropriate version					
-			return self.get( consentId );
+			return self.get( consent_id );
 		except Consent.DoesNotExist:
-			raise ProcessingError(errMsg + " : Consent with id " + str(consentId) + " does not exist.")
+			raise ProcessingError(err_msg + " : Consent with id " + str(consent_id) + " does not exist.")
 		except Exception:
 			return None;
 		
-	def addAuthorizedAccounts( self, consentId, authorizedAccountsIds ):
+	def addAuthorizedAccounts( self, consent_id, authorizedAccountsIds ):
 		# lazy importing avoids circular dependencies
 		from bankingOnDjango.delegates.AccountDelegate import AccountDelegate
 
-		errMsg = "Failed to add elements " + str(authorizedAccountsIds) + " for AuthorizedAccounts on Consent"
+		err_msg = "Failed to add elements " + str(authorizedAccountsIds) + " for AuthorizedAccounts on Consent"
 
 		try:
 			# get the Consent
-			consent = self.get( consentId ).first()
+			consent = self.get( consent_id ).first()
 				
 			# iterate over ids
 			for id in authorizedAccountsIds:
@@ -245,23 +245,23 @@ class ConsentDelegate :
 			consent.save()
 			
 			# reload and return the appropriate version
-			return self.get( consentId );
+			return self.get( consent_id );
 		except Consent.DoesNotExist:
-			raise ProcessingError(errMsg + " : Consent with id " + str(consentId) + " does not exist.")
+			raise ProcessingError(err_msg + " : Consent with id " + str(consent_id) + " does not exist.")
 		except Account.DoesNotExist:
-			raise ProcessingError(errMsg + " : Account does not exist.")
+			raise ProcessingError(err_msg + " : Account does not exist.")
 		except Exception:
-			raise ProcessingError(errMsg) 
+			raise ProcessingError(err_msg) 
 		
-	def removeAuthorizedAccounts( self, consentId, authorizedAccountsIds ):
+	def removeAuthorizedAccounts( self, consent_id, authorizedAccountsIds ):
 		# lazy importing avoids circular dependencies
 		from bankingOnDjango.delegates.AccountDelegate import AccountDelegate
 
-		errMsg = "Failed to remove elements " + str(authorizedAccountsIds) + " for AuthorizedAccounts on Consent"
+		err_msg = "Failed to remove elements " + str(authorizedAccountsIds) + " for AuthorizedAccounts on Consent"
 
 		try:
 			# get the Consent
-			consent = self.get( consentId ).first()
+			consent = self.get( consent_id ).first()
 				
 			# iterate over ids
 			for id in authorizedAccountsIds:
@@ -274,13 +274,13 @@ class ConsentDelegate :
 			consent.save()
 			
 			# reload and return the appropriate version
-			return self.get( consentId );
+			return self.get( consent_id );
 		except Consent.DoesNotExist:
-			raise ProcessingError(errMsg + " : Consent with id " + str(consentId) + " does not exist.")
+			raise ProcessingError(err_msg + " : Consent with id " + str(consent_id) + " does not exist.")
 		except Account.DoesNotExist:
-			raise ProcessingError(errMsg + " : Account does not exist.")
+			raise ProcessingError(err_msg + " : Account does not exist.")
 		except utils.DatabaseError:
 			raise StorageWriteError()
 		except Exception:
-			raise GeneralError(errMsg) 
+			raise GeneralError(err_msg) 
 		

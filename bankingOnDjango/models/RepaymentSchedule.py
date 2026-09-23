@@ -10,15 +10,15 @@ class RepaymentSchedule (models.Model):
 #======================================================================
 # attribute declarations
 #======================================================================
-	installmentNumber = models.IntegerField(null=True)
-	dueDate = models.DateField(null=True)
-	principalDueAmount = models.CharField(max_length=64, null=True)
-	principalDueCurrency = models.CharField(max_length=200, null=True)
-	interestDueAmount = models.CharField(max_length=64, null=True)
-	interestDueCurrency = models.CharField(max_length=200, null=True)
-	totalDueAmount = models.CharField(max_length=64, null=True)
-	totalDueCurrency = models.CharField(max_length=200, null=True)
-	loanAccount = models.ForeignKey('LoanAccount', on_delete=models.CASCADE, null=True, blank=True, related_name='+')
+	installment_number = models.IntegerField(null=True)
+	due_date = models.DateField(null=True)
+	principal_due_amount = models.CharField(max_length=64, null=True)
+	principal_due_currency = models.CharField(max_length=200, null=True)
+	interest_due_amount = models.CharField(max_length=64, null=True)
+	interest_due_currency = models.CharField(max_length=200, null=True)
+	total_due_amount = models.CharField(max_length=64, null=True)
+	total_due_currency = models.CharField(max_length=200, null=True)
+	loan_account = models.ForeignKey('LoanAccount', on_delete=models.CASCADE, null=True, blank=True, related_name='+')
 	payment = models.ForeignKey('LoanPayment', on_delete=models.CASCADE, null=True, blank=True, related_name='+')
 	status = models.CharField(max_length=64, null=True, choices=[(tag.name, tag.value) for tag in InstallmentStatus])
 

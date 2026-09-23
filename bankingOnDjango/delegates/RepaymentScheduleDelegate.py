@@ -26,48 +26,48 @@ class RepaymentScheduleDelegate :
 # Function Declarations
 #======================================================================
 
-	def get(self, repaymentScheduleId ):
+	def get(self, repayment_schedule_id ):
 		try:	
-			repaymentSchedule = RepaymentSchedule.objects.filter(id=repaymentScheduleId)
-			return repaymentSchedule.first();
+			repayment_schedule = RepaymentSchedule.objects.filter(id=repayment_schedule_id)
+			return repayment_schedule.first();
 		except RepaymentSchedule.DoesNotExist:
-			raise ProcessingError("RepaymentSchedule with id " + str(repaymentScheduleId) + " does not exist.")
+			raise ProcessingError("RepaymentSchedule with id " + str(repayment_schedule_id) + " does not exist.")
 		except utils.DatabaseError:
 			raise StorageReadError()
 		except Exception:
-			raise GeneralError(errMsg) 
+			raise GeneralError(err_msg) 
 
-	def createFromJson(self, repaymentSchedule):
-		for model in serializers.deserialize("json", repaymentSchedule):
+	def createFromJson(self, repayment_schedule):
+		for model in serializers.deserialize("json", repayment_schedule):
 			model.save()
 			return model;
 
-	def create(self, repaymentSchedule):
-		repaymentSchedule.save()
-		return repaymentSchedule;
+	def create(self, repayment_schedule):
+		repayment_schedule.save()
+		return repayment_schedule;
 
-	def saveFromJson(self, repaymentSchedule):
-		for model in serializers.deserialize("json", repaymentSchedule):
+	def saveFromJson(self, repayment_schedule):
+		for model in serializers.deserialize("json", repayment_schedule):
 			model.save()
-			return repaymentSchedule;
+			return repayment_schedule;
 	
-	def save(self, repaymentSchedule):
-		repaymentSchedule.save()
-		return repaymentSchedule;
+	def save(self, repayment_schedule):
+		repayment_schedule.save()
+		return repayment_schedule;
 	
-	def delete(self, repaymentScheduleId ):
-		errMsg = "Failed to delete RepaymentSchedule from db using id " + str(repaymentScheduleId)
+	def delete(self, repayment_schedule_id ):
+		err_msg = "Failed to delete RepaymentSchedule from db using id " + str(repayment_schedule_id)
 		
 		try:
-			repaymentSchedule = RepaymentSchedule.objects.get(id=repaymentScheduleId)
-			repaymentSchedule.delete()
+			repayment_schedule = RepaymentSchedule.objects.get(id=repayment_schedule_id)
+			repayment_schedule.delete()
 			return True
 		except RepaymentSchedule.DoesNotExist:
-			raise ProcessingError("RepaymentSchedule with id " + str(repaymentScheduleId) + " does not exist.")
+			raise ProcessingError("RepaymentSchedule with id " + str(repayment_schedule_id) + " does not exist.")
 		except utils.DatabaseError:
 			raise StorageReadError()
 		except Exception:
-			raise GeneralError(errMsg) 
+			raise GeneralError(err_msg) 
 	
 	def getAll(self):
 		try:
@@ -78,99 +78,99 @@ class RepaymentScheduleDelegate :
 		except Exception:
 			return None;
 		
-	def assignLoanAccount( self, repaymentScheduleId, loanAccountId ):
+	def assignLoanAccount( self, repayment_schedule_id, loanAccountId ):
 		# lazy importing avoids circular dependencies
 		from bankingOnDjango.delegates.LoanAccountDelegate import LoanAccountDelegate
 
-		errMsg = "Failed to assign element " + str(loanAccountId) + " for LoanAccount on RepaymentSchedule"
+		err_msg = "Failed to assign element " + str(loanAccountId) + " for LoanAccount on RepaymentSchedule"
 
 		try:
 			# get the RepaymentSchedule from db
-			repaymentSchedule = self.get( repaymentScheduleId ).first()	
+			repayment_schedule = self.get( repayment_schedule_id ).first()	
 			
 			# get the LoanAccount from db
 			loanAccount = LoanAccountDelegate().get(loanAccountId).first();
 			
 			# assign the LoanAccount		
-			repaymentSchedule.loanAccount = loanAccount
+			repayment_schedule.loanAccount = loanAccount
 			
 			#save it
-			repaymentSchedule.save()
+			repayment_schedule.save()
 
 			# reload and return the appropriate version					
-			return self.get( repaymentScheduleId );
+			return self.get( repayment_schedule_id );
 		except RepaymentSchedule.DoesNotExist:
-			raise ProcessingError(errMsg + " : RepaymentSchedule with id " + str(repaymentScheduleId) + " does not exist.")
+			raise ProcessingError(err_msg + " : RepaymentSchedule with id " + str(repayment_schedule_id) + " does not exist.")
 		except LoanAccount.DoesNotExist:
-			raise ProcessingError(errMsg + " : LoanAccount with id " + str(loanAccountId) + " does not exist.")
+			raise ProcessingError(err_msg + " : LoanAccount with id " + str(loanAccountId) + " does not exist.")
 		except Exception:
 			return None;
 				
-	def unassignLoanAccount( self, repaymentScheduleId ):
-		errMsg = "Failed to unassign element " + str(loanAccountId) + " for LoanAccount on RepaymentSchedule"
+	def unassignLoanAccount( self, repayment_schedule_id ):
+		err_msg = "Failed to unassign element " + str(loanAccountId) + " for LoanAccount on RepaymentSchedule"
 
 		try:
 			# get the RepaymentSchedule from db
-			repaymentSchedule = self.get( repaymentScheduleId ).first()	
+			repayment_schedule = self.get( repayment_schedule_id ).first()	
 			
 			# assign to None for unassignment
-			repaymentSchedule.loanAccount = None			
+			repayment_schedule.loanAccount = None			
 
 			#save it
-			repaymentSchedule.save()
+			repayment_schedule.save()
 
 			# reload and return the appropriate version					
-			return self.get( repaymentScheduleId );
+			return self.get( repayment_schedule_id );
 		except RepaymentSchedule.DoesNotExist:
-			raise ProcessingError(errMsg + " : RepaymentSchedule with id " + str(repaymentScheduleId) + " does not exist.")
+			raise ProcessingError(err_msg + " : RepaymentSchedule with id " + str(repayment_schedule_id) + " does not exist.")
 		except Exception:
 			return None;
 		
-	def assignPayment( self, repaymentScheduleId, paymentId ):
+	def assignPayment( self, repayment_schedule_id, paymentId ):
 		# lazy importing avoids circular dependencies
 		from bankingOnDjango.delegates.LoanPaymentDelegate import LoanPaymentDelegate
 
-		errMsg = "Failed to assign element " + str(paymentId) + " for Payment on RepaymentSchedule"
+		err_msg = "Failed to assign element " + str(paymentId) + " for Payment on RepaymentSchedule"
 
 		try:
 			# get the RepaymentSchedule from db
-			repaymentSchedule = self.get( repaymentScheduleId ).first()	
+			repayment_schedule = self.get( repayment_schedule_id ).first()	
 			
 			# get the LoanPayment from db
 			loanPayment = LoanPaymentDelegate().get(paymentId).first();
 			
 			# assign the Payment		
-			repaymentSchedule.payment = loanPayment
+			repayment_schedule.payment = loanPayment
 			
 			#save it
-			repaymentSchedule.save()
+			repayment_schedule.save()
 
 			# reload and return the appropriate version					
-			return self.get( repaymentScheduleId );
+			return self.get( repayment_schedule_id );
 		except RepaymentSchedule.DoesNotExist:
-			raise ProcessingError(errMsg + " : RepaymentSchedule with id " + str(repaymentScheduleId) + " does not exist.")
+			raise ProcessingError(err_msg + " : RepaymentSchedule with id " + str(repayment_schedule_id) + " does not exist.")
 		except LoanPayment.DoesNotExist:
-			raise ProcessingError(errMsg + " : LoanPayment with id " + str(paymentId) + " does not exist.")
+			raise ProcessingError(err_msg + " : LoanPayment with id " + str(paymentId) + " does not exist.")
 		except Exception:
 			return None;
 				
-	def unassignPayment( self, repaymentScheduleId ):
-		errMsg = "Failed to unassign element " + str(paymentId) + " for Payment on RepaymentSchedule"
+	def unassignPayment( self, repayment_schedule_id ):
+		err_msg = "Failed to unassign element " + str(paymentId) + " for Payment on RepaymentSchedule"
 
 		try:
 			# get the RepaymentSchedule from db
-			repaymentSchedule = self.get( repaymentScheduleId ).first()	
+			repayment_schedule = self.get( repayment_schedule_id ).first()	
 			
 			# assign to None for unassignment
-			repaymentSchedule.loanPayment = None			
+			repayment_schedule.loanPayment = None			
 
 			#save it
-			repaymentSchedule.save()
+			repayment_schedule.save()
 
 			# reload and return the appropriate version					
-			return self.get( repaymentScheduleId );
+			return self.get( repayment_schedule_id );
 		except RepaymentSchedule.DoesNotExist:
-			raise ProcessingError(errMsg + " : RepaymentSchedule with id " + str(repaymentScheduleId) + " does not exist.")
+			raise ProcessingError(err_msg + " : RepaymentSchedule with id " + str(repayment_schedule_id) + " does not exist.")
 		except Exception:
 			return None;
 		

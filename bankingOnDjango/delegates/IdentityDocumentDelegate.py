@@ -25,48 +25,48 @@ class IdentityDocumentDelegate :
 # Function Declarations
 #======================================================================
 
-	def get(self, identityDocumentId ):
+	def get(self, identity_document_id ):
 		try:	
-			identityDocument = IdentityDocument.objects.filter(id=identityDocumentId)
-			return identityDocument.first();
+			identity_document = IdentityDocument.objects.filter(id=identity_document_id)
+			return identity_document.first();
 		except IdentityDocument.DoesNotExist:
-			raise ProcessingError("IdentityDocument with id " + str(identityDocumentId) + " does not exist.")
+			raise ProcessingError("IdentityDocument with id " + str(identity_document_id) + " does not exist.")
 		except utils.DatabaseError:
 			raise StorageReadError()
 		except Exception:
-			raise GeneralError(errMsg) 
+			raise GeneralError(err_msg) 
 
-	def createFromJson(self, identityDocument):
-		for model in serializers.deserialize("json", identityDocument):
+	def createFromJson(self, identity_document):
+		for model in serializers.deserialize("json", identity_document):
 			model.save()
 			return model;
 
-	def create(self, identityDocument):
-		identityDocument.save()
-		return identityDocument;
+	def create(self, identity_document):
+		identity_document.save()
+		return identity_document;
 
-	def saveFromJson(self, identityDocument):
-		for model in serializers.deserialize("json", identityDocument):
+	def saveFromJson(self, identity_document):
+		for model in serializers.deserialize("json", identity_document):
 			model.save()
-			return identityDocument;
+			return identity_document;
 	
-	def save(self, identityDocument):
-		identityDocument.save()
-		return identityDocument;
+	def save(self, identity_document):
+		identity_document.save()
+		return identity_document;
 	
-	def delete(self, identityDocumentId ):
-		errMsg = "Failed to delete IdentityDocument from db using id " + str(identityDocumentId)
+	def delete(self, identity_document_id ):
+		err_msg = "Failed to delete IdentityDocument from db using id " + str(identity_document_id)
 		
 		try:
-			identityDocument = IdentityDocument.objects.get(id=identityDocumentId)
-			identityDocument.delete()
+			identity_document = IdentityDocument.objects.get(id=identity_document_id)
+			identity_document.delete()
 			return True
 		except IdentityDocument.DoesNotExist:
-			raise ProcessingError("IdentityDocument with id " + str(identityDocumentId) + " does not exist.")
+			raise ProcessingError("IdentityDocument with id " + str(identity_document_id) + " does not exist.")
 		except utils.DatabaseError:
 			raise StorageReadError()
 		except Exception:
-			raise GeneralError(errMsg) 
+			raise GeneralError(err_msg) 
 	
 	def getAll(self):
 		try:
@@ -77,51 +77,51 @@ class IdentityDocumentDelegate :
 		except Exception:
 			return None;
 		
-	def assignKycProfile( self, identityDocumentId, kycProfileId ):
+	def assignKycProfile( self, identity_document_id, kycProfileId ):
 		# lazy importing avoids circular dependencies
 		from bankingOnDjango.delegates.KycProfileDelegate import KycProfileDelegate
 
-		errMsg = "Failed to assign element " + str(kycProfileId) + " for KycProfile on IdentityDocument"
+		err_msg = "Failed to assign element " + str(kycProfileId) + " for KycProfile on IdentityDocument"
 
 		try:
 			# get the IdentityDocument from db
-			identityDocument = self.get( identityDocumentId ).first()	
+			identity_document = self.get( identity_document_id ).first()	
 			
 			# get the KycProfile from db
 			kycProfile = KycProfileDelegate().get(kycProfileId).first();
 			
 			# assign the KycProfile		
-			identityDocument.kycProfile = kycProfile
+			identity_document.kycProfile = kycProfile
 			
 			#save it
-			identityDocument.save()
+			identity_document.save()
 
 			# reload and return the appropriate version					
-			return self.get( identityDocumentId );
+			return self.get( identity_document_id );
 		except IdentityDocument.DoesNotExist:
-			raise ProcessingError(errMsg + " : IdentityDocument with id " + str(identityDocumentId) + " does not exist.")
+			raise ProcessingError(err_msg + " : IdentityDocument with id " + str(identity_document_id) + " does not exist.")
 		except KycProfile.DoesNotExist:
-			raise ProcessingError(errMsg + " : KycProfile with id " + str(kycProfileId) + " does not exist.")
+			raise ProcessingError(err_msg + " : KycProfile with id " + str(kycProfileId) + " does not exist.")
 		except Exception:
 			return None;
 				
-	def unassignKycProfile( self, identityDocumentId ):
-		errMsg = "Failed to unassign element " + str(kycProfileId) + " for KycProfile on IdentityDocument"
+	def unassignKycProfile( self, identity_document_id ):
+		err_msg = "Failed to unassign element " + str(kycProfileId) + " for KycProfile on IdentityDocument"
 
 		try:
 			# get the IdentityDocument from db
-			identityDocument = self.get( identityDocumentId ).first()	
+			identity_document = self.get( identity_document_id ).first()	
 			
 			# assign to None for unassignment
-			identityDocument.kycProfile = None			
+			identity_document.kycProfile = None			
 
 			#save it
-			identityDocument.save()
+			identity_document.save()
 
 			# reload and return the appropriate version					
-			return self.get( identityDocumentId );
+			return self.get( identity_document_id );
 		except IdentityDocument.DoesNotExist:
-			raise ProcessingError(errMsg + " : IdentityDocument with id " + str(identityDocumentId) + " does not exist.")
+			raise ProcessingError(err_msg + " : IdentityDocument with id " + str(identity_document_id) + " does not exist.")
 		except Exception:
 			return None;
 		

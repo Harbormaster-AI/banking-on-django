@@ -19,23 +19,23 @@ from bankingOnDjango.delegates.StandingInstructionDelegate import StandingInstru
 #======================================================================
 class StandingInstructionTest (TestCase) :
 	def test_crud(self) :
-		standingInstruction = StandingInstruction()
-		standingInstruction.instructionId = "default instructionId field value"
-		standingInstruction.amount = "default amount field value"
-		standingInstruction.nextExecutionDate = datetime.datetime.now()
-		standingInstruction.frequency = "default frequency field value"
-		standingInstruction.status = "default status field value"
+		standing_instruction = StandingInstruction()
+		standing_instruction.instructionId = "default instructionId field value"
+		standing_instruction.amount = "default amount field value"
+		standing_instruction.nextExecutionDate = datetime.datetime.now()
+		standing_instruction.frequency = "default frequency field value"
+		standing_instruction.status = "default status field value"
 		
 		delegate = StandingInstructionDelegate()
-		responseObj = delegate.create(standingInstruction)
+		response_obj = delegate.create(standing_instruction)
 		
-		self.assertEqual(responseObj, delegate.get( responseObj.id ))
+		self.assertEqual(response_obj, delegate.get( response_obj.id ))
 	
-		allObj = delegate.getAll()
-		self.assertEqual(allObj.count(), 1 )		
-		delegate.delete(responseObj.id)
+		all_obj = delegate.getAll()
+		self.assertEqual(all_obj.count(), 1 )		
+		delegate.delete(response_obj.id)
 		
-		allObj = delegate.getAll()
-		self.assertEqual(allObj.count(), 0 )		
+		all_obj = delegate.getAll()
+		self.assertEqual(all_obj.count(), 0 )		
 
 

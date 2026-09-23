@@ -25,16 +25,16 @@ class CollateralDelegate :
 # Function Declarations
 #======================================================================
 
-	def get(self, collateralId ):
+	def get(self, collateral_id ):
 		try:	
-			collateral = Collateral.objects.filter(id=collateralId)
+			collateral = Collateral.objects.filter(id=collateral_id)
 			return collateral.first();
 		except Collateral.DoesNotExist:
-			raise ProcessingError("Collateral with id " + str(collateralId) + " does not exist.")
+			raise ProcessingError("Collateral with id " + str(collateral_id) + " does not exist.")
 		except utils.DatabaseError:
 			raise StorageReadError()
 		except Exception:
-			raise GeneralError(errMsg) 
+			raise GeneralError(err_msg) 
 
 	def createFromJson(self, collateral):
 		for model in serializers.deserialize("json", collateral):
@@ -54,19 +54,19 @@ class CollateralDelegate :
 		collateral.save()
 		return collateral;
 	
-	def delete(self, collateralId ):
-		errMsg = "Failed to delete Collateral from db using id " + str(collateralId)
+	def delete(self, collateral_id ):
+		err_msg = "Failed to delete Collateral from db using id " + str(collateral_id)
 		
 		try:
-			collateral = Collateral.objects.get(id=collateralId)
+			collateral = Collateral.objects.get(id=collateral_id)
 			collateral.delete()
 			return True
 		except Collateral.DoesNotExist:
-			raise ProcessingError("Collateral with id " + str(collateralId) + " does not exist.")
+			raise ProcessingError("Collateral with id " + str(collateral_id) + " does not exist.")
 		except utils.DatabaseError:
 			raise StorageReadError()
 		except Exception:
-			raise GeneralError(errMsg) 
+			raise GeneralError(err_msg) 
 	
 	def getAll(self):
 		try:
@@ -77,15 +77,15 @@ class CollateralDelegate :
 		except Exception:
 			return None;
 		
-	def assignLoanAccount( self, collateralId, loanAccountId ):
+	def assignLoanAccount( self, collateral_id, loanAccountId ):
 		# lazy importing avoids circular dependencies
 		from bankingOnDjango.delegates.LoanAccountDelegate import LoanAccountDelegate
 
-		errMsg = "Failed to assign element " + str(loanAccountId) + " for LoanAccount on Collateral"
+		err_msg = "Failed to assign element " + str(loanAccountId) + " for LoanAccount on Collateral"
 
 		try:
 			# get the Collateral from db
-			collateral = self.get( collateralId ).first()	
+			collateral = self.get( collateral_id ).first()	
 			
 			# get the LoanAccount from db
 			loanAccount = LoanAccountDelegate().get(loanAccountId).first();
@@ -97,20 +97,20 @@ class CollateralDelegate :
 			collateral.save()
 
 			# reload and return the appropriate version					
-			return self.get( collateralId );
+			return self.get( collateral_id );
 		except Collateral.DoesNotExist:
-			raise ProcessingError(errMsg + " : Collateral with id " + str(collateralId) + " does not exist.")
+			raise ProcessingError(err_msg + " : Collateral with id " + str(collateral_id) + " does not exist.")
 		except LoanAccount.DoesNotExist:
-			raise ProcessingError(errMsg + " : LoanAccount with id " + str(loanAccountId) + " does not exist.")
+			raise ProcessingError(err_msg + " : LoanAccount with id " + str(loanAccountId) + " does not exist.")
 		except Exception:
 			return None;
 				
-	def unassignLoanAccount( self, collateralId ):
-		errMsg = "Failed to unassign element " + str(loanAccountId) + " for LoanAccount on Collateral"
+	def unassignLoanAccount( self, collateral_id ):
+		err_msg = "Failed to unassign element " + str(loanAccountId) + " for LoanAccount on Collateral"
 
 		try:
 			# get the Collateral from db
-			collateral = self.get( collateralId ).first()	
+			collateral = self.get( collateral_id ).first()	
 			
 			# assign to None for unassignment
 			collateral.loanAccount = None			
@@ -119,9 +119,9 @@ class CollateralDelegate :
 			collateral.save()
 
 			# reload and return the appropriate version					
-			return self.get( collateralId );
+			return self.get( collateral_id );
 		except Collateral.DoesNotExist:
-			raise ProcessingError(errMsg + " : Collateral with id " + str(collateralId) + " does not exist.")
+			raise ProcessingError(err_msg + " : Collateral with id " + str(collateral_id) + " does not exist.")
 		except Exception:
 			return None;
 		

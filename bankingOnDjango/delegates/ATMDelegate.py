@@ -25,48 +25,48 @@ class ATMDelegate :
 # Function Declarations
 #======================================================================
 
-	def get(self, aTMId ):
+	def get(self, a_t_m_id ):
 		try:	
-			aTM = ATM.objects.filter(id=aTMId)
-			return aTM.first();
+			a_t_m = ATM.objects.filter(id=a_t_m_id)
+			return a_t_m.first();
 		except ATM.DoesNotExist:
-			raise ProcessingError("ATM with id " + str(aTMId) + " does not exist.")
+			raise ProcessingError("ATM with id " + str(a_t_m_id) + " does not exist.")
 		except utils.DatabaseError:
 			raise StorageReadError()
 		except Exception:
-			raise GeneralError(errMsg) 
+			raise GeneralError(err_msg) 
 
-	def createFromJson(self, aTM):
-		for model in serializers.deserialize("json", aTM):
+	def createFromJson(self, a_t_m):
+		for model in serializers.deserialize("json", a_t_m):
 			model.save()
 			return model;
 
-	def create(self, aTM):
-		aTM.save()
-		return aTM;
+	def create(self, a_t_m):
+		a_t_m.save()
+		return a_t_m;
 
-	def saveFromJson(self, aTM):
-		for model in serializers.deserialize("json", aTM):
+	def saveFromJson(self, a_t_m):
+		for model in serializers.deserialize("json", a_t_m):
 			model.save()
-			return aTM;
+			return a_t_m;
 	
-	def save(self, aTM):
-		aTM.save()
-		return aTM;
+	def save(self, a_t_m):
+		a_t_m.save()
+		return a_t_m;
 	
-	def delete(self, aTMId ):
-		errMsg = "Failed to delete ATM from db using id " + str(aTMId)
+	def delete(self, a_t_m_id ):
+		err_msg = "Failed to delete ATM from db using id " + str(a_t_m_id)
 		
 		try:
-			aTM = ATM.objects.get(id=aTMId)
-			aTM.delete()
+			a_t_m = ATM.objects.get(id=a_t_m_id)
+			a_t_m.delete()
 			return True
 		except ATM.DoesNotExist:
-			raise ProcessingError("ATM with id " + str(aTMId) + " does not exist.")
+			raise ProcessingError("ATM with id " + str(a_t_m_id) + " does not exist.")
 		except utils.DatabaseError:
 			raise StorageReadError()
 		except Exception:
-			raise GeneralError(errMsg) 
+			raise GeneralError(err_msg) 
 	
 	def getAll(self):
 		try:
@@ -77,51 +77,51 @@ class ATMDelegate :
 		except Exception:
 			return None;
 		
-	def assignBranch( self, aTMId, branchId ):
+	def assignBranch( self, a_t_m_id, branchId ):
 		# lazy importing avoids circular dependencies
 		from bankingOnDjango.delegates.BranchDelegate import BranchDelegate
 
-		errMsg = "Failed to assign element " + str(branchId) + " for Branch on ATM"
+		err_msg = "Failed to assign element " + str(branchId) + " for Branch on ATM"
 
 		try:
 			# get the ATM from db
-			aTM = self.get( aTMId ).first()	
+			a_t_m = self.get( a_t_m_id ).first()	
 			
 			# get the Branch from db
 			branch = BranchDelegate().get(branchId).first();
 			
 			# assign the Branch		
-			aTM.branch = branch
+			a_t_m.branch = branch
 			
 			#save it
-			aTM.save()
+			a_t_m.save()
 
 			# reload and return the appropriate version					
-			return self.get( aTMId );
+			return self.get( a_t_m_id );
 		except ATM.DoesNotExist:
-			raise ProcessingError(errMsg + " : ATM with id " + str(aTMId) + " does not exist.")
+			raise ProcessingError(err_msg + " : ATM with id " + str(a_t_m_id) + " does not exist.")
 		except Branch.DoesNotExist:
-			raise ProcessingError(errMsg + " : Branch with id " + str(branchId) + " does not exist.")
+			raise ProcessingError(err_msg + " : Branch with id " + str(branchId) + " does not exist.")
 		except Exception:
 			return None;
 				
-	def unassignBranch( self, aTMId ):
-		errMsg = "Failed to unassign element " + str(branchId) + " for Branch on ATM"
+	def unassignBranch( self, a_t_m_id ):
+		err_msg = "Failed to unassign element " + str(branchId) + " for Branch on ATM"
 
 		try:
 			# get the ATM from db
-			aTM = self.get( aTMId ).first()	
+			a_t_m = self.get( a_t_m_id ).first()	
 			
 			# assign to None for unassignment
-			aTM.branch = None			
+			a_t_m.branch = None			
 
 			#save it
-			aTM.save()
+			a_t_m.save()
 
 			# reload and return the appropriate version					
-			return self.get( aTMId );
+			return self.get( a_t_m_id );
 		except ATM.DoesNotExist:
-			raise ProcessingError(errMsg + " : ATM with id " + str(aTMId) + " does not exist.")
+			raise ProcessingError(err_msg + " : ATM with id " + str(a_t_m_id) + " does not exist.")
 		except Exception:
 			return None;
 		

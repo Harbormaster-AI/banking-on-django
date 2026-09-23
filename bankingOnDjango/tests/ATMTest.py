@@ -19,21 +19,21 @@ from bankingOnDjango.delegates.ATMDelegate import ATMDelegate
 #======================================================================
 class ATMTest (TestCase) :
 	def test_crud(self) :
-		aTM = ATM()
-		aTM.terminalId = "default terminalId field value"
-		aTM.location = "default location field value"
-		aTM.status = "default status field value"
+		a_t_m = ATM()
+		a_t_m.terminalId = "default terminalId field value"
+		a_t_m.location = "default location field value"
+		a_t_m.status = "default status field value"
 		
 		delegate = ATMDelegate()
-		responseObj = delegate.create(aTM)
+		response_obj = delegate.create(a_t_m)
 		
-		self.assertEqual(responseObj, delegate.get( responseObj.id ))
+		self.assertEqual(response_obj, delegate.get( response_obj.id ))
 	
-		allObj = delegate.getAll()
-		self.assertEqual(allObj.count(), 1 )		
-		delegate.delete(responseObj.id)
+		all_obj = delegate.getAll()
+		self.assertEqual(all_obj.count(), 1 )		
+		delegate.delete(response_obj.id)
 		
-		allObj = delegate.getAll()
-		self.assertEqual(allObj.count(), 0 )		
+		all_obj = delegate.getAll()
+		self.assertEqual(all_obj.count(), 0 )		
 
 

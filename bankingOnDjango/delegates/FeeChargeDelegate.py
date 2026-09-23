@@ -26,48 +26,48 @@ class FeeChargeDelegate :
 # Function Declarations
 #======================================================================
 
-	def get(self, feeChargeId ):
+	def get(self, fee_charge_id ):
 		try:	
-			feeCharge = FeeCharge.objects.filter(id=feeChargeId)
-			return feeCharge.first();
+			fee_charge = FeeCharge.objects.filter(id=fee_charge_id)
+			return fee_charge.first();
 		except FeeCharge.DoesNotExist:
-			raise ProcessingError("FeeCharge with id " + str(feeChargeId) + " does not exist.")
+			raise ProcessingError("FeeCharge with id " + str(fee_charge_id) + " does not exist.")
 		except utils.DatabaseError:
 			raise StorageReadError()
 		except Exception:
-			raise GeneralError(errMsg) 
+			raise GeneralError(err_msg) 
 
-	def createFromJson(self, feeCharge):
-		for model in serializers.deserialize("json", feeCharge):
+	def createFromJson(self, fee_charge):
+		for model in serializers.deserialize("json", fee_charge):
 			model.save()
 			return model;
 
-	def create(self, feeCharge):
-		feeCharge.save()
-		return feeCharge;
+	def create(self, fee_charge):
+		fee_charge.save()
+		return fee_charge;
 
-	def saveFromJson(self, feeCharge):
-		for model in serializers.deserialize("json", feeCharge):
+	def saveFromJson(self, fee_charge):
+		for model in serializers.deserialize("json", fee_charge):
 			model.save()
-			return feeCharge;
+			return fee_charge;
 	
-	def save(self, feeCharge):
-		feeCharge.save()
-		return feeCharge;
+	def save(self, fee_charge):
+		fee_charge.save()
+		return fee_charge;
 	
-	def delete(self, feeChargeId ):
-		errMsg = "Failed to delete FeeCharge from db using id " + str(feeChargeId)
+	def delete(self, fee_charge_id ):
+		err_msg = "Failed to delete FeeCharge from db using id " + str(fee_charge_id)
 		
 		try:
-			feeCharge = FeeCharge.objects.get(id=feeChargeId)
-			feeCharge.delete()
+			fee_charge = FeeCharge.objects.get(id=fee_charge_id)
+			fee_charge.delete()
 			return True
 		except FeeCharge.DoesNotExist:
-			raise ProcessingError("FeeCharge with id " + str(feeChargeId) + " does not exist.")
+			raise ProcessingError("FeeCharge with id " + str(fee_charge_id) + " does not exist.")
 		except utils.DatabaseError:
 			raise StorageReadError()
 		except Exception:
-			raise GeneralError(errMsg) 
+			raise GeneralError(err_msg) 
 	
 	def getAll(self):
 		try:
@@ -78,99 +78,99 @@ class FeeChargeDelegate :
 		except Exception:
 			return None;
 		
-	def assignAccount( self, feeChargeId, accountId ):
+	def assignAccount( self, fee_charge_id, accountId ):
 		# lazy importing avoids circular dependencies
 		from bankingOnDjango.delegates.AccountDelegate import AccountDelegate
 
-		errMsg = "Failed to assign element " + str(accountId) + " for Account on FeeCharge"
+		err_msg = "Failed to assign element " + str(accountId) + " for Account on FeeCharge"
 
 		try:
 			# get the FeeCharge from db
-			feeCharge = self.get( feeChargeId ).first()	
+			fee_charge = self.get( fee_charge_id ).first()	
 			
 			# get the Account from db
 			account = AccountDelegate().get(accountId).first();
 			
 			# assign the Account		
-			feeCharge.account = account
+			fee_charge.account = account
 			
 			#save it
-			feeCharge.save()
+			fee_charge.save()
 
 			# reload and return the appropriate version					
-			return self.get( feeChargeId );
+			return self.get( fee_charge_id );
 		except FeeCharge.DoesNotExist:
-			raise ProcessingError(errMsg + " : FeeCharge with id " + str(feeChargeId) + " does not exist.")
+			raise ProcessingError(err_msg + " : FeeCharge with id " + str(fee_charge_id) + " does not exist.")
 		except Account.DoesNotExist:
-			raise ProcessingError(errMsg + " : Account with id " + str(accountId) + " does not exist.")
+			raise ProcessingError(err_msg + " : Account with id " + str(accountId) + " does not exist.")
 		except Exception:
 			return None;
 				
-	def unassignAccount( self, feeChargeId ):
-		errMsg = "Failed to unassign element " + str(accountId) + " for Account on FeeCharge"
+	def unassignAccount( self, fee_charge_id ):
+		err_msg = "Failed to unassign element " + str(accountId) + " for Account on FeeCharge"
 
 		try:
 			# get the FeeCharge from db
-			feeCharge = self.get( feeChargeId ).first()	
+			fee_charge = self.get( fee_charge_id ).first()	
 			
 			# assign to None for unassignment
-			feeCharge.account = None			
+			fee_charge.account = None			
 
 			#save it
-			feeCharge.save()
+			fee_charge.save()
 
 			# reload and return the appropriate version					
-			return self.get( feeChargeId );
+			return self.get( fee_charge_id );
 		except FeeCharge.DoesNotExist:
-			raise ProcessingError(errMsg + " : FeeCharge with id " + str(feeChargeId) + " does not exist.")
+			raise ProcessingError(err_msg + " : FeeCharge with id " + str(fee_charge_id) + " does not exist.")
 		except Exception:
 			return None;
 		
-	def assignLoanAccount( self, feeChargeId, loanAccountId ):
+	def assignLoanAccount( self, fee_charge_id, loanAccountId ):
 		# lazy importing avoids circular dependencies
 		from bankingOnDjango.delegates.LoanAccountDelegate import LoanAccountDelegate
 
-		errMsg = "Failed to assign element " + str(loanAccountId) + " for LoanAccount on FeeCharge"
+		err_msg = "Failed to assign element " + str(loanAccountId) + " for LoanAccount on FeeCharge"
 
 		try:
 			# get the FeeCharge from db
-			feeCharge = self.get( feeChargeId ).first()	
+			fee_charge = self.get( fee_charge_id ).first()	
 			
 			# get the LoanAccount from db
 			loanAccount = LoanAccountDelegate().get(loanAccountId).first();
 			
 			# assign the LoanAccount		
-			feeCharge.loanAccount = loanAccount
+			fee_charge.loanAccount = loanAccount
 			
 			#save it
-			feeCharge.save()
+			fee_charge.save()
 
 			# reload and return the appropriate version					
-			return self.get( feeChargeId );
+			return self.get( fee_charge_id );
 		except FeeCharge.DoesNotExist:
-			raise ProcessingError(errMsg + " : FeeCharge with id " + str(feeChargeId) + " does not exist.")
+			raise ProcessingError(err_msg + " : FeeCharge with id " + str(fee_charge_id) + " does not exist.")
 		except LoanAccount.DoesNotExist:
-			raise ProcessingError(errMsg + " : LoanAccount with id " + str(loanAccountId) + " does not exist.")
+			raise ProcessingError(err_msg + " : LoanAccount with id " + str(loanAccountId) + " does not exist.")
 		except Exception:
 			return None;
 				
-	def unassignLoanAccount( self, feeChargeId ):
-		errMsg = "Failed to unassign element " + str(loanAccountId) + " for LoanAccount on FeeCharge"
+	def unassignLoanAccount( self, fee_charge_id ):
+		err_msg = "Failed to unassign element " + str(loanAccountId) + " for LoanAccount on FeeCharge"
 
 		try:
 			# get the FeeCharge from db
-			feeCharge = self.get( feeChargeId ).first()	
+			fee_charge = self.get( fee_charge_id ).first()	
 			
 			# assign to None for unassignment
-			feeCharge.loanAccount = None			
+			fee_charge.loanAccount = None			
 
 			#save it
-			feeCharge.save()
+			fee_charge.save()
 
 			# reload and return the appropriate version					
-			return self.get( feeChargeId );
+			return self.get( fee_charge_id );
 		except FeeCharge.DoesNotExist:
-			raise ProcessingError(errMsg + " : FeeCharge with id " + str(feeChargeId) + " does not exist.")
+			raise ProcessingError(err_msg + " : FeeCharge with id " + str(fee_charge_id) + " does not exist.")
 		except Exception:
 			return None;
 		

@@ -10,17 +10,17 @@ class Collateral (models.Model):
 #======================================================================
 # attribute declarations
 #======================================================================
-	collateralIdentifier = models.CharField(max_length=200, null=True)
-	appraisedValueAmount = models.CharField(max_length=64, null=True)
-	appraisedValueCurrency = models.CharField(max_length=200, null=True)
+	collateral_identifier = models.CharField(max_length=200, null=True)
+	appraised_value_amount = models.CharField(max_length=64, null=True)
+	appraised_value_currency = models.CharField(max_length=200, null=True)
 	description = models.CharField(max_length=200, null=True)
-	locationStreet = models.CharField(max_length=200, null=True)
-	locationCity = models.CharField(max_length=200, null=True)
-	locationState = models.CharField(max_length=200, null=True)
-	locationPostalCode = models.CharField(max_length=200, null=True)
-	locationCountry = models.CharField(max_length=200, null=True)
-	loanAccount = models.ForeignKey('LoanAccount', on_delete=models.CASCADE, null=True, blank=True, related_name='+')
-	collateralType = models.CharField(max_length=64, null=True, choices=[(tag.name, tag.value) for tag in CollateralType])
+	location_street = models.CharField(max_length=200, null=True)
+	location_city = models.CharField(max_length=200, null=True)
+	location_state = models.CharField(max_length=200, null=True)
+	location_postal_code = models.CharField(max_length=200, null=True)
+	location_country = models.CharField(max_length=200, null=True)
+	loan_account = models.ForeignKey('LoanAccount', on_delete=models.CASCADE, null=True, blank=True, related_name='+')
+	collateral_type = models.CharField(max_length=64, null=True, choices=[(tag.name, tag.value) for tag in CollateralType])
 
 #======================================================================
 # function declarations

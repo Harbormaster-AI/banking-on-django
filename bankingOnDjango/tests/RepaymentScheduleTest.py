@@ -19,24 +19,24 @@ from bankingOnDjango.delegates.RepaymentScheduleDelegate import RepaymentSchedul
 #======================================================================
 class RepaymentScheduleTest (TestCase) :
 	def test_crud(self) :
-		repaymentSchedule = RepaymentSchedule()
-		repaymentSchedule.installmentNumber = 22
-		repaymentSchedule.dueDate = datetime.datetime.now()
-		repaymentSchedule.principalDue = "default principalDue field value"
-		repaymentSchedule.interestDue = "default interestDue field value"
-		repaymentSchedule.totalDue = "default totalDue field value"
-		repaymentSchedule.status = "default status field value"
+		repayment_schedule = RepaymentSchedule()
+		repayment_schedule.installmentNumber = 22
+		repayment_schedule.dueDate = datetime.datetime.now()
+		repayment_schedule.principalDue = "default principalDue field value"
+		repayment_schedule.interestDue = "default interestDue field value"
+		repayment_schedule.totalDue = "default totalDue field value"
+		repayment_schedule.status = "default status field value"
 		
 		delegate = RepaymentScheduleDelegate()
-		responseObj = delegate.create(repaymentSchedule)
+		response_obj = delegate.create(repayment_schedule)
 		
-		self.assertEqual(responseObj, delegate.get( responseObj.id ))
+		self.assertEqual(response_obj, delegate.get( response_obj.id ))
 	
-		allObj = delegate.getAll()
-		self.assertEqual(allObj.count(), 1 )		
-		delegate.delete(responseObj.id)
+		all_obj = delegate.getAll()
+		self.assertEqual(all_obj.count(), 1 )		
+		delegate.delete(response_obj.id)
 		
-		allObj = delegate.getAll()
-		self.assertEqual(allObj.count(), 0 )		
+		all_obj = delegate.getAll()
+		self.assertEqual(all_obj.count(), 0 )		
 
 

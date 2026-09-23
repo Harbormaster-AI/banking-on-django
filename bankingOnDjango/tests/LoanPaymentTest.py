@@ -19,23 +19,23 @@ from bankingOnDjango.delegates.LoanPaymentDelegate import LoanPaymentDelegate
 #======================================================================
 class LoanPaymentTest (TestCase) :
 	def test_crud(self) :
-		loanPayment = LoanPayment()
-		loanPayment.paymentReference = "default paymentReference field value"
-		loanPayment.amount = "default amount field value"
-		loanPayment.paymentDate = datetime.datetime.now()
-		loanPayment.method = "default method field value"
-		loanPayment.status = "default status field value"
+		loan_payment = LoanPayment()
+		loan_payment.paymentReference = "default paymentReference field value"
+		loan_payment.amount = "default amount field value"
+		loan_payment.paymentDate = datetime.datetime.now()
+		loan_payment.method = "default method field value"
+		loan_payment.status = "default status field value"
 		
 		delegate = LoanPaymentDelegate()
-		responseObj = delegate.create(loanPayment)
+		response_obj = delegate.create(loan_payment)
 		
-		self.assertEqual(responseObj, delegate.get( responseObj.id ))
+		self.assertEqual(response_obj, delegate.get( response_obj.id ))
 	
-		allObj = delegate.getAll()
-		self.assertEqual(allObj.count(), 1 )		
-		delegate.delete(responseObj.id)
+		all_obj = delegate.getAll()
+		self.assertEqual(all_obj.count(), 1 )		
+		delegate.delete(response_obj.id)
 		
-		allObj = delegate.getAll()
-		self.assertEqual(allObj.count(), 0 )		
+		all_obj = delegate.getAll()
+		self.assertEqual(all_obj.count(), 0 )		
 
 

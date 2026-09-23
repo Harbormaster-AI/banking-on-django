@@ -10,12 +10,12 @@ class ATM (models.Model):
 #======================================================================
 # attribute declarations
 #======================================================================
-	terminalId = models.CharField(max_length=200, null=True)
-	locationStreet = models.CharField(max_length=200, null=True)
-	locationCity = models.CharField(max_length=200, null=True)
-	locationState = models.CharField(max_length=200, null=True)
-	locationPostalCode = models.CharField(max_length=200, null=True)
-	locationCountry = models.CharField(max_length=200, null=True)
+	terminal_id = models.CharField(max_length=200, null=True)
+	location_street = models.CharField(max_length=200, null=True)
+	location_city = models.CharField(max_length=200, null=True)
+	location_state = models.CharField(max_length=200, null=True)
+	location_postal_code = models.CharField(max_length=200, null=True)
+	location_country = models.CharField(max_length=200, null=True)
 	branch = models.ForeignKey('Branch', on_delete=models.CASCADE, null=True, blank=True, related_name='+')
 	status = models.CharField(max_length=64, null=True, choices=[(tag.name, tag.value) for tag in ATMStatus])
 

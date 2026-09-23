@@ -19,24 +19,24 @@ from bankingOnDjango.delegates.AccountStatementDelegate import AccountStatementD
 #======================================================================
 class AccountStatementTest (TestCase) :
 	def test_crud(self) :
-		accountStatement = AccountStatement()
-		accountStatement.statementNumber = "default statementNumber field value"
-		accountStatement.periodStart = datetime.datetime.now()
-		accountStatement.periodEnd = datetime.datetime.now()
-		accountStatement.openingBalance = "default openingBalance field value"
-		accountStatement.closingBalance = "default closingBalance field value"
-		accountStatement.deliveryMethod = "default deliveryMethod field value"
+		account_statement = AccountStatement()
+		account_statement.statementNumber = "default statementNumber field value"
+		account_statement.periodStart = datetime.datetime.now()
+		account_statement.periodEnd = datetime.datetime.now()
+		account_statement.openingBalance = "default openingBalance field value"
+		account_statement.closingBalance = "default closingBalance field value"
+		account_statement.deliveryMethod = "default deliveryMethod field value"
 		
 		delegate = AccountStatementDelegate()
-		responseObj = delegate.create(accountStatement)
+		response_obj = delegate.create(account_statement)
 		
-		self.assertEqual(responseObj, delegate.get( responseObj.id ))
+		self.assertEqual(response_obj, delegate.get( response_obj.id ))
 	
-		allObj = delegate.getAll()
-		self.assertEqual(allObj.count(), 1 )		
-		delegate.delete(responseObj.id)
+		all_obj = delegate.getAll()
+		self.assertEqual(all_obj.count(), 1 )		
+		delegate.delete(response_obj.id)
 		
-		allObj = delegate.getAll()
-		self.assertEqual(allObj.count(), 0 )		
+		all_obj = delegate.getAll()
+		self.assertEqual(all_obj.count(), 0 )		
 
 

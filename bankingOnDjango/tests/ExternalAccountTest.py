@@ -19,24 +19,24 @@ from bankingOnDjango.delegates.ExternalAccountDelegate import ExternalAccountDel
 #======================================================================
 class ExternalAccountTest (TestCase) :
 	def test_crud(self) :
-		externalAccount = ExternalAccount()
-		externalAccount.name = "default name field value"
-		externalAccount.iban = "default iban field value"
-		externalAccount.accountNumber = "default accountNumber field value"
-		externalAccount.bic = "default bic field value"
-		externalAccount.bankName = "default bankName field value"
-		externalAccount.country = "default country field value"
+		external_account = ExternalAccount()
+		external_account.name = "default name field value"
+		external_account.iban = "default iban field value"
+		external_account.accountNumber = "default accountNumber field value"
+		external_account.bic = "default bic field value"
+		external_account.bankName = "default bankName field value"
+		external_account.country = "default country field value"
 		
 		delegate = ExternalAccountDelegate()
-		responseObj = delegate.create(externalAccount)
+		response_obj = delegate.create(external_account)
 		
-		self.assertEqual(responseObj, delegate.get( responseObj.id ))
+		self.assertEqual(response_obj, delegate.get( response_obj.id ))
 	
-		allObj = delegate.getAll()
-		self.assertEqual(allObj.count(), 1 )		
-		delegate.delete(responseObj.id)
+		all_obj = delegate.getAll()
+		self.assertEqual(all_obj.count(), 1 )		
+		delegate.delete(response_obj.id)
 		
-		allObj = delegate.getAll()
-		self.assertEqual(allObj.count(), 0 )		
+		all_obj = delegate.getAll()
+		self.assertEqual(all_obj.count(), 0 )		
 
 

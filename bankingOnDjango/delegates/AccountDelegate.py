@@ -32,16 +32,16 @@ class AccountDelegate :
 # Function Declarations
 #======================================================================
 
-	def get(self, accountId ):
+	def get(self, account_id ):
 		try:	
-			account = Account.objects.filter(id=accountId)
+			account = Account.objects.filter(id=account_id)
 			return account.first();
 		except Account.DoesNotExist:
-			raise ProcessingError("Account with id " + str(accountId) + " does not exist.")
+			raise ProcessingError("Account with id " + str(account_id) + " does not exist.")
 		except utils.DatabaseError:
 			raise StorageReadError()
 		except Exception:
-			raise GeneralError(errMsg) 
+			raise GeneralError(err_msg) 
 
 	def createFromJson(self, account):
 		for model in serializers.deserialize("json", account):
@@ -61,19 +61,19 @@ class AccountDelegate :
 		account.save()
 		return account;
 	
-	def delete(self, accountId ):
-		errMsg = "Failed to delete Account from db using id " + str(accountId)
+	def delete(self, account_id ):
+		err_msg = "Failed to delete Account from db using id " + str(account_id)
 		
 		try:
-			account = Account.objects.get(id=accountId)
+			account = Account.objects.get(id=account_id)
 			account.delete()
 			return True
 		except Account.DoesNotExist:
-			raise ProcessingError("Account with id " + str(accountId) + " does not exist.")
+			raise ProcessingError("Account with id " + str(account_id) + " does not exist.")
 		except utils.DatabaseError:
 			raise StorageReadError()
 		except Exception:
-			raise GeneralError(errMsg) 
+			raise GeneralError(err_msg) 
 	
 	def getAll(self):
 		try:
@@ -84,15 +84,15 @@ class AccountDelegate :
 		except Exception:
 			return None;
 		
-	def assignBank( self, accountId, bankId ):
+	def assignBank( self, account_id, bankId ):
 		# lazy importing avoids circular dependencies
 		from bankingOnDjango.delegates.BankDelegate import BankDelegate
 
-		errMsg = "Failed to assign element " + str(bankId) + " for Bank on Account"
+		err_msg = "Failed to assign element " + str(bankId) + " for Bank on Account"
 
 		try:
 			# get the Account from db
-			account = self.get( accountId ).first()	
+			account = self.get( account_id ).first()	
 			
 			# get the Bank from db
 			bank = BankDelegate().get(bankId).first();
@@ -104,20 +104,20 @@ class AccountDelegate :
 			account.save()
 
 			# reload and return the appropriate version					
-			return self.get( accountId );
+			return self.get( account_id );
 		except Account.DoesNotExist:
-			raise ProcessingError(errMsg + " : Account with id " + str(accountId) + " does not exist.")
+			raise ProcessingError(err_msg + " : Account with id " + str(account_id) + " does not exist.")
 		except Bank.DoesNotExist:
-			raise ProcessingError(errMsg + " : Bank with id " + str(bankId) + " does not exist.")
+			raise ProcessingError(err_msg + " : Bank with id " + str(bankId) + " does not exist.")
 		except Exception:
 			return None;
 				
-	def unassignBank( self, accountId ):
-		errMsg = "Failed to unassign element " + str(bankId) + " for Bank on Account"
+	def unassignBank( self, account_id ):
+		err_msg = "Failed to unassign element " + str(bankId) + " for Bank on Account"
 
 		try:
 			# get the Account from db
-			account = self.get( accountId ).first()	
+			account = self.get( account_id ).first()	
 			
 			# assign to None for unassignment
 			account.bank = None			
@@ -126,21 +126,21 @@ class AccountDelegate :
 			account.save()
 
 			# reload and return the appropriate version					
-			return self.get( accountId );
+			return self.get( account_id );
 		except Account.DoesNotExist:
-			raise ProcessingError(errMsg + " : Account with id " + str(accountId) + " does not exist.")
+			raise ProcessingError(err_msg + " : Account with id " + str(account_id) + " does not exist.")
 		except Exception:
 			return None;
 		
-	def assignBranch( self, accountId, branchId ):
+	def assignBranch( self, account_id, branchId ):
 		# lazy importing avoids circular dependencies
 		from bankingOnDjango.delegates.BranchDelegate import BranchDelegate
 
-		errMsg = "Failed to assign element " + str(branchId) + " for Branch on Account"
+		err_msg = "Failed to assign element " + str(branchId) + " for Branch on Account"
 
 		try:
 			# get the Account from db
-			account = self.get( accountId ).first()	
+			account = self.get( account_id ).first()	
 			
 			# get the Branch from db
 			branch = BranchDelegate().get(branchId).first();
@@ -152,20 +152,20 @@ class AccountDelegate :
 			account.save()
 
 			# reload and return the appropriate version					
-			return self.get( accountId );
+			return self.get( account_id );
 		except Account.DoesNotExist:
-			raise ProcessingError(errMsg + " : Account with id " + str(accountId) + " does not exist.")
+			raise ProcessingError(err_msg + " : Account with id " + str(account_id) + " does not exist.")
 		except Branch.DoesNotExist:
-			raise ProcessingError(errMsg + " : Branch with id " + str(branchId) + " does not exist.")
+			raise ProcessingError(err_msg + " : Branch with id " + str(branchId) + " does not exist.")
 		except Exception:
 			return None;
 				
-	def unassignBranch( self, accountId ):
-		errMsg = "Failed to unassign element " + str(branchId) + " for Branch on Account"
+	def unassignBranch( self, account_id ):
+		err_msg = "Failed to unassign element " + str(branchId) + " for Branch on Account"
 
 		try:
 			# get the Account from db
-			account = self.get( accountId ).first()	
+			account = self.get( account_id ).first()	
 			
 			# assign to None for unassignment
 			account.branch = None			
@@ -174,21 +174,21 @@ class AccountDelegate :
 			account.save()
 
 			# reload and return the appropriate version					
-			return self.get( accountId );
+			return self.get( account_id );
 		except Account.DoesNotExist:
-			raise ProcessingError(errMsg + " : Account with id " + str(accountId) + " does not exist.")
+			raise ProcessingError(err_msg + " : Account with id " + str(account_id) + " does not exist.")
 		except Exception:
 			return None;
 		
-	def assignProduct( self, accountId, productId ):
+	def assignProduct( self, account_id, productId ):
 		# lazy importing avoids circular dependencies
 		from bankingOnDjango.delegates.BankingProductDelegate import BankingProductDelegate
 
-		errMsg = "Failed to assign element " + str(productId) + " for Product on Account"
+		err_msg = "Failed to assign element " + str(productId) + " for Product on Account"
 
 		try:
 			# get the Account from db
-			account = self.get( accountId ).first()	
+			account = self.get( account_id ).first()	
 			
 			# get the BankingProduct from db
 			bankingProduct = BankingProductDelegate().get(productId).first();
@@ -200,20 +200,20 @@ class AccountDelegate :
 			account.save()
 
 			# reload and return the appropriate version					
-			return self.get( accountId );
+			return self.get( account_id );
 		except Account.DoesNotExist:
-			raise ProcessingError(errMsg + " : Account with id " + str(accountId) + " does not exist.")
+			raise ProcessingError(err_msg + " : Account with id " + str(account_id) + " does not exist.")
 		except BankingProduct.DoesNotExist:
-			raise ProcessingError(errMsg + " : BankingProduct with id " + str(productId) + " does not exist.")
+			raise ProcessingError(err_msg + " : BankingProduct with id " + str(productId) + " does not exist.")
 		except Exception:
 			return None;
 				
-	def unassignProduct( self, accountId ):
-		errMsg = "Failed to unassign element " + str(productId) + " for Product on Account"
+	def unassignProduct( self, account_id ):
+		err_msg = "Failed to unassign element " + str(productId) + " for Product on Account"
 
 		try:
 			# get the Account from db
-			account = self.get( accountId ).first()	
+			account = self.get( account_id ).first()	
 			
 			# assign to None for unassignment
 			account.bankingProduct = None			
@@ -222,21 +222,21 @@ class AccountDelegate :
 			account.save()
 
 			# reload and return the appropriate version					
-			return self.get( accountId );
+			return self.get( account_id );
 		except Account.DoesNotExist:
-			raise ProcessingError(errMsg + " : Account with id " + str(accountId) + " does not exist.")
+			raise ProcessingError(err_msg + " : Account with id " + str(account_id) + " does not exist.")
 		except Exception:
 			return None;
 		
-	def addOwners( self, accountId, ownersIds ):
+	def addOwners( self, account_id, ownersIds ):
 		# lazy importing avoids circular dependencies
 		from bankingOnDjango.delegates.CustomerDelegate import CustomerDelegate
 
-		errMsg = "Failed to add elements " + str(ownersIds) + " for Owners on Account"
+		err_msg = "Failed to add elements " + str(ownersIds) + " for Owners on Account"
 
 		try:
 			# get the Account
-			account = self.get( accountId ).first()
+			account = self.get( account_id ).first()
 				
 			# iterate over ids
 			for id in ownersIds:
@@ -249,23 +249,23 @@ class AccountDelegate :
 			account.save()
 			
 			# reload and return the appropriate version
-			return self.get( accountId );
+			return self.get( account_id );
 		except Account.DoesNotExist:
-			raise ProcessingError(errMsg + " : Account with id " + str(accountId) + " does not exist.")
+			raise ProcessingError(err_msg + " : Account with id " + str(account_id) + " does not exist.")
 		except Customer.DoesNotExist:
-			raise ProcessingError(errMsg + " : Customer does not exist.")
+			raise ProcessingError(err_msg + " : Customer does not exist.")
 		except Exception:
-			raise ProcessingError(errMsg) 
+			raise ProcessingError(err_msg) 
 		
-	def removeOwners( self, accountId, ownersIds ):
+	def removeOwners( self, account_id, ownersIds ):
 		# lazy importing avoids circular dependencies
 		from bankingOnDjango.delegates.CustomerDelegate import CustomerDelegate
 
-		errMsg = "Failed to remove elements " + str(ownersIds) + " for Owners on Account"
+		err_msg = "Failed to remove elements " + str(ownersIds) + " for Owners on Account"
 
 		try:
 			# get the Account
-			account = self.get( accountId ).first()
+			account = self.get( account_id ).first()
 				
 			# iterate over ids
 			for id in ownersIds:
@@ -278,25 +278,25 @@ class AccountDelegate :
 			account.save()
 			
 			# reload and return the appropriate version
-			return self.get( accountId );
+			return self.get( account_id );
 		except Account.DoesNotExist:
-			raise ProcessingError(errMsg + " : Account with id " + str(accountId) + " does not exist.")
+			raise ProcessingError(err_msg + " : Account with id " + str(account_id) + " does not exist.")
 		except Customer.DoesNotExist:
-			raise ProcessingError(errMsg + " : Customer does not exist.")
+			raise ProcessingError(err_msg + " : Customer does not exist.")
 		except utils.DatabaseError:
 			raise StorageWriteError()
 		except Exception:
-			raise GeneralError(errMsg) 
+			raise GeneralError(err_msg) 
 		
-	def addTransactions( self, accountId, transactionsIds ):
+	def addTransactions( self, account_id, transactionsIds ):
 		# lazy importing avoids circular dependencies
 		from bankingOnDjango.delegates.TransactionDelegate import TransactionDelegate
 
-		errMsg = "Failed to add elements " + str(transactionsIds) + " for Transactions on Account"
+		err_msg = "Failed to add elements " + str(transactionsIds) + " for Transactions on Account"
 
 		try:
 			# get the Account
-			account = self.get( accountId ).first()
+			account = self.get( account_id ).first()
 				
 			# iterate over ids
 			for id in transactionsIds:
@@ -309,23 +309,23 @@ class AccountDelegate :
 			account.save()
 			
 			# reload and return the appropriate version
-			return self.get( accountId );
+			return self.get( account_id );
 		except Account.DoesNotExist:
-			raise ProcessingError(errMsg + " : Account with id " + str(accountId) + " does not exist.")
+			raise ProcessingError(err_msg + " : Account with id " + str(account_id) + " does not exist.")
 		except Transaction.DoesNotExist:
-			raise ProcessingError(errMsg + " : Transaction does not exist.")
+			raise ProcessingError(err_msg + " : Transaction does not exist.")
 		except Exception:
-			raise ProcessingError(errMsg) 
+			raise ProcessingError(err_msg) 
 		
-	def removeTransactions( self, accountId, transactionsIds ):
+	def removeTransactions( self, account_id, transactionsIds ):
 		# lazy importing avoids circular dependencies
 		from bankingOnDjango.delegates.TransactionDelegate import TransactionDelegate
 
-		errMsg = "Failed to remove elements " + str(transactionsIds) + " for Transactions on Account"
+		err_msg = "Failed to remove elements " + str(transactionsIds) + " for Transactions on Account"
 
 		try:
 			# get the Account
-			account = self.get( accountId ).first()
+			account = self.get( account_id ).first()
 				
 			# iterate over ids
 			for id in transactionsIds:
@@ -338,25 +338,25 @@ class AccountDelegate :
 			account.save()
 			
 			# reload and return the appropriate version
-			return self.get( accountId );
+			return self.get( account_id );
 		except Account.DoesNotExist:
-			raise ProcessingError(errMsg + " : Account with id " + str(accountId) + " does not exist.")
+			raise ProcessingError(err_msg + " : Account with id " + str(account_id) + " does not exist.")
 		except Transaction.DoesNotExist:
-			raise ProcessingError(errMsg + " : Transaction does not exist.")
+			raise ProcessingError(err_msg + " : Transaction does not exist.")
 		except utils.DatabaseError:
 			raise StorageWriteError()
 		except Exception:
-			raise GeneralError(errMsg) 
+			raise GeneralError(err_msg) 
 		
-	def addStatements( self, accountId, statementsIds ):
+	def addStatements( self, account_id, statementsIds ):
 		# lazy importing avoids circular dependencies
 		from bankingOnDjango.delegates.AccountStatementDelegate import AccountStatementDelegate
 
-		errMsg = "Failed to add elements " + str(statementsIds) + " for Statements on Account"
+		err_msg = "Failed to add elements " + str(statementsIds) + " for Statements on Account"
 
 		try:
 			# get the Account
-			account = self.get( accountId ).first()
+			account = self.get( account_id ).first()
 				
 			# iterate over ids
 			for id in statementsIds:
@@ -369,23 +369,23 @@ class AccountDelegate :
 			account.save()
 			
 			# reload and return the appropriate version
-			return self.get( accountId );
+			return self.get( account_id );
 		except Account.DoesNotExist:
-			raise ProcessingError(errMsg + " : Account with id " + str(accountId) + " does not exist.")
+			raise ProcessingError(err_msg + " : Account with id " + str(account_id) + " does not exist.")
 		except AccountStatement.DoesNotExist:
-			raise ProcessingError(errMsg + " : AccountStatement does not exist.")
+			raise ProcessingError(err_msg + " : AccountStatement does not exist.")
 		except Exception:
-			raise ProcessingError(errMsg) 
+			raise ProcessingError(err_msg) 
 		
-	def removeStatements( self, accountId, statementsIds ):
+	def removeStatements( self, account_id, statementsIds ):
 		# lazy importing avoids circular dependencies
 		from bankingOnDjango.delegates.AccountStatementDelegate import AccountStatementDelegate
 
-		errMsg = "Failed to remove elements " + str(statementsIds) + " for Statements on Account"
+		err_msg = "Failed to remove elements " + str(statementsIds) + " for Statements on Account"
 
 		try:
 			# get the Account
-			account = self.get( accountId ).first()
+			account = self.get( account_id ).first()
 				
 			# iterate over ids
 			for id in statementsIds:
@@ -398,25 +398,25 @@ class AccountDelegate :
 			account.save()
 			
 			# reload and return the appropriate version
-			return self.get( accountId );
+			return self.get( account_id );
 		except Account.DoesNotExist:
-			raise ProcessingError(errMsg + " : Account with id " + str(accountId) + " does not exist.")
+			raise ProcessingError(err_msg + " : Account with id " + str(account_id) + " does not exist.")
 		except AccountStatement.DoesNotExist:
-			raise ProcessingError(errMsg + " : AccountStatement does not exist.")
+			raise ProcessingError(err_msg + " : AccountStatement does not exist.")
 		except utils.DatabaseError:
 			raise StorageWriteError()
 		except Exception:
-			raise GeneralError(errMsg) 
+			raise GeneralError(err_msg) 
 		
-	def addStandingInstructions( self, accountId, standingInstructionsIds ):
+	def addStandingInstructions( self, account_id, standingInstructionsIds ):
 		# lazy importing avoids circular dependencies
 		from bankingOnDjango.delegates.StandingInstructionDelegate import StandingInstructionDelegate
 
-		errMsg = "Failed to add elements " + str(standingInstructionsIds) + " for StandingInstructions on Account"
+		err_msg = "Failed to add elements " + str(standingInstructionsIds) + " for StandingInstructions on Account"
 
 		try:
 			# get the Account
-			account = self.get( accountId ).first()
+			account = self.get( account_id ).first()
 				
 			# iterate over ids
 			for id in standingInstructionsIds:
@@ -429,23 +429,23 @@ class AccountDelegate :
 			account.save()
 			
 			# reload and return the appropriate version
-			return self.get( accountId );
+			return self.get( account_id );
 		except Account.DoesNotExist:
-			raise ProcessingError(errMsg + " : Account with id " + str(accountId) + " does not exist.")
+			raise ProcessingError(err_msg + " : Account with id " + str(account_id) + " does not exist.")
 		except StandingInstruction.DoesNotExist:
-			raise ProcessingError(errMsg + " : StandingInstruction does not exist.")
+			raise ProcessingError(err_msg + " : StandingInstruction does not exist.")
 		except Exception:
-			raise ProcessingError(errMsg) 
+			raise ProcessingError(err_msg) 
 		
-	def removeStandingInstructions( self, accountId, standingInstructionsIds ):
+	def removeStandingInstructions( self, account_id, standingInstructionsIds ):
 		# lazy importing avoids circular dependencies
 		from bankingOnDjango.delegates.StandingInstructionDelegate import StandingInstructionDelegate
 
-		errMsg = "Failed to remove elements " + str(standingInstructionsIds) + " for StandingInstructions on Account"
+		err_msg = "Failed to remove elements " + str(standingInstructionsIds) + " for StandingInstructions on Account"
 
 		try:
 			# get the Account
-			account = self.get( accountId ).first()
+			account = self.get( account_id ).first()
 				
 			# iterate over ids
 			for id in standingInstructionsIds:
@@ -458,25 +458,25 @@ class AccountDelegate :
 			account.save()
 			
 			# reload and return the appropriate version
-			return self.get( accountId );
+			return self.get( account_id );
 		except Account.DoesNotExist:
-			raise ProcessingError(errMsg + " : Account with id " + str(accountId) + " does not exist.")
+			raise ProcessingError(err_msg + " : Account with id " + str(account_id) + " does not exist.")
 		except StandingInstruction.DoesNotExist:
-			raise ProcessingError(errMsg + " : StandingInstruction does not exist.")
+			raise ProcessingError(err_msg + " : StandingInstruction does not exist.")
 		except utils.DatabaseError:
 			raise StorageWriteError()
 		except Exception:
-			raise GeneralError(errMsg) 
+			raise GeneralError(err_msg) 
 		
-	def addFeeCharges( self, accountId, feeChargesIds ):
+	def addFeeCharges( self, account_id, feeChargesIds ):
 		# lazy importing avoids circular dependencies
 		from bankingOnDjango.delegates.FeeChargeDelegate import FeeChargeDelegate
 
-		errMsg = "Failed to add elements " + str(feeChargesIds) + " for FeeCharges on Account"
+		err_msg = "Failed to add elements " + str(feeChargesIds) + " for FeeCharges on Account"
 
 		try:
 			# get the Account
-			account = self.get( accountId ).first()
+			account = self.get( account_id ).first()
 				
 			# iterate over ids
 			for id in feeChargesIds:
@@ -489,23 +489,23 @@ class AccountDelegate :
 			account.save()
 			
 			# reload and return the appropriate version
-			return self.get( accountId );
+			return self.get( account_id );
 		except Account.DoesNotExist:
-			raise ProcessingError(errMsg + " : Account with id " + str(accountId) + " does not exist.")
+			raise ProcessingError(err_msg + " : Account with id " + str(account_id) + " does not exist.")
 		except FeeCharge.DoesNotExist:
-			raise ProcessingError(errMsg + " : FeeCharge does not exist.")
+			raise ProcessingError(err_msg + " : FeeCharge does not exist.")
 		except Exception:
-			raise ProcessingError(errMsg) 
+			raise ProcessingError(err_msg) 
 		
-	def removeFeeCharges( self, accountId, feeChargesIds ):
+	def removeFeeCharges( self, account_id, feeChargesIds ):
 		# lazy importing avoids circular dependencies
 		from bankingOnDjango.delegates.FeeChargeDelegate import FeeChargeDelegate
 
-		errMsg = "Failed to remove elements " + str(feeChargesIds) + " for FeeCharges on Account"
+		err_msg = "Failed to remove elements " + str(feeChargesIds) + " for FeeCharges on Account"
 
 		try:
 			# get the Account
-			account = self.get( accountId ).first()
+			account = self.get( account_id ).first()
 				
 			# iterate over ids
 			for id in feeChargesIds:
@@ -518,13 +518,13 @@ class AccountDelegate :
 			account.save()
 			
 			# reload and return the appropriate version
-			return self.get( accountId );
+			return self.get( account_id );
 		except Account.DoesNotExist:
-			raise ProcessingError(errMsg + " : Account with id " + str(accountId) + " does not exist.")
+			raise ProcessingError(err_msg + " : Account with id " + str(account_id) + " does not exist.")
 		except FeeCharge.DoesNotExist:
-			raise ProcessingError(errMsg + " : FeeCharge does not exist.")
+			raise ProcessingError(err_msg + " : FeeCharge does not exist.")
 		except utils.DatabaseError:
 			raise StorageWriteError()
 		except Exception:
-			raise GeneralError(errMsg) 
+			raise GeneralError(err_msg) 
 		

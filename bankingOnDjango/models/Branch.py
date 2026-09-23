@@ -10,17 +10,17 @@ class Branch (models.Model):
 # attribute declarations
 #======================================================================
 	name = models.CharField(max_length=200, null=True)
-	branchCode = models.CharField(max_length=200, null=True)
-	addressStreet = models.CharField(max_length=200, null=True)
-	addressCity = models.CharField(max_length=200, null=True)
-	addressState = models.CharField(max_length=200, null=True)
-	addressPostalCode = models.CharField(max_length=200, null=True)
-	addressCountry = models.CharField(max_length=200, null=True)
+	branch_code = models.CharField(max_length=200, null=True)
+	address_street = models.CharField(max_length=200, null=True)
+	address_city = models.CharField(max_length=200, null=True)
+	address_state = models.CharField(max_length=200, null=True)
+	address_postal_code = models.CharField(max_length=200, null=True)
+	address_country = models.CharField(max_length=200, null=True)
 	phone = models.CharField(max_length=200, null=True)
-	openingHours = models.CharField(max_length=200, null=True)
+	opening_hours = models.CharField(max_length=200, null=True)
 	bank = models.ForeignKey('Bank', on_delete=models.CASCADE, null=True, blank=True, related_name='+')
 	accounts = models.ManyToManyField('Account',  blank=True, related_name='+')
-	loanAccounts = models.ManyToManyField('LoanAccount',  blank=True, related_name='+')
+	loan_accounts = models.ManyToManyField('LoanAccount',  blank=True, related_name='+')
 	atms = models.ManyToManyField('ATM',  blank=True, related_name='+')
 
 #======================================================================
