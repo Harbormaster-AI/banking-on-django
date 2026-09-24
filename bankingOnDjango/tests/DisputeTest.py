@@ -21,7 +21,7 @@ class DisputeTest (TestCase) :
 	def test_crud(self) :
 		dispute = Dispute()
 		dispute.disputeReference = "default disputeReference field value"
-		dispute.raisedOn = datetime.now()
+		dispute.raisedOn = datetime.datetime.now()
 		dispute.reason = "default reason field value"
 		dispute.status = "default status field value"
 		

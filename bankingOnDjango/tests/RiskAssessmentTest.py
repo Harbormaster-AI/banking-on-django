@@ -21,7 +21,7 @@ class RiskAssessmentTest (TestCase) :
 	def test_crud(self) :
 		risk_assessment = RiskAssessment()
 		risk_assessment.score = 22
-		risk_assessment.assessedOn = datetime.now()
+		risk_assessment.assessedOn = datetime.datetime.now()
 		risk_assessment.rating = "default rating field value"
 		
 		delegate = RiskAssessmentDelegate()

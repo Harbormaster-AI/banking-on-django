@@ -82,7 +82,7 @@ class ConsentDelegate :
 		
 	def assignCustomer( self, consent_id, customer_id ):
 		# lazy importing avoids circular dependencies
-		from bankingOnDjango.delegates.CustomerDelegate import CustomerDelegate
+		from bankingOnDjango.delegates.CustomerDelegate import child_delegate
 
 		err_msg = "Failed to assign element " + str(customer_id) + " for Customer on Consent"
 
@@ -91,7 +91,7 @@ class ConsentDelegate :
 			consent = self.get( consent_id ).first()	
 			
 			# get the Customer from db
-			customer = CustomerDelegate().get(customer_id).first();
+			customer = child_delegate.get(customer_id).first();
 			
 			# assign the Customer		
 			consent.customer = customer
@@ -130,7 +130,7 @@ class ConsentDelegate :
 		
 	def assignBank( self, consent_id, bank_id ):
 		# lazy importing avoids circular dependencies
-		from bankingOnDjango.delegates.BankDelegate import BankDelegate
+		from bankingOnDjango.delegates.BankDelegate import child_delegate
 
 		err_msg = "Failed to assign element " + str(bank_id) + " for Bank on Consent"
 
@@ -139,7 +139,7 @@ class ConsentDelegate :
 			consent = self.get( consent_id ).first()	
 			
 			# get the Bank from db
-			bank = BankDelegate().get(bank_id).first();
+			bank = child_delegate.get(bank_id).first();
 			
 			# assign the Bank		
 			consent.bank = bank
@@ -178,7 +178,7 @@ class ConsentDelegate :
 		
 	def assignThirdPartyProvider( self, consent_id, third_party_provider_id ):
 		# lazy importing avoids circular dependencies
-		from bankingOnDjango.delegates.ThirdPartyProviderDelegate import ThirdPartyProviderDelegate
+		from bankingOnDjango.delegates.ThirdPartyProviderDelegate import child_delegate
 
 		err_msg = "Failed to assign element " + str(third_party_provider_id) + " for ThirdPartyProvider on Consent"
 
@@ -187,7 +187,7 @@ class ConsentDelegate :
 			consent = self.get( consent_id ).first()	
 			
 			# get the ThirdPartyProvider from db
-			third_party_provider = ThirdPartyProviderDelegate().get(third_party_provider_id).first();
+			third_party_provider = child_delegate.get(third_party_provider_id).first();
 			
 			# assign the ThirdPartyProvider		
 			consent.third_party_provider = third_party_provider
@@ -225,8 +225,6 @@ class ConsentDelegate :
 			return None;
 		
 	def addAuthorizedAccounts( self, consent_id, authorized_accounts_ids ):
-		# lazy importing avoids circular dependencies
-		from bankingOnDjango.delegates.AccountDelegate import AccountDelegate
 
 		err_msg = "Failed to add elements " + str(authorized_accounts_ids) + " for AuthorizedAccounts on Consent"
 
@@ -253,7 +251,6 @@ class ConsentDelegate :
 
 		err_msg = "Failed to remove elements " + str(authorized_accounts_ids) + " for AuthorizedAccounts on Consent"
 
-		# lazy importing avoids circular dependenciesId
 		try:
 			# remove the children by id
 			consent.authorized_accounts.remove(authorized_accounts_ids)
@@ -266,7 +263,7 @@ class ConsentDelegate :
 		except Consent.DoesNotExist:
 			raise Exceptions.ProcessingError("Consent with id " + str(consent_id) + " does not exist.")
 		except Account.DoesNotExist:
-			raise Exceptions.ProcessingError("Account with id " + str(authorized_accounts_id) + " does not exist.")
+			raise Exceptions.ProcessingError("Account with id " + str(authorized_accounts_ids) + " does not exist.")
 		except utils.Exceptions.DatabaseError:
 			raise Exceptions.StorageWriteError()
 		except Exception:

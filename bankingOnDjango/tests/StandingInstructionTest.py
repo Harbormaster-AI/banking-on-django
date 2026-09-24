@@ -22,7 +22,7 @@ class StandingInstructionTest (TestCase) :
 		standing_instruction = StandingInstruction()
 		standing_instruction.instructionId = "default instructionId field value"
 		standing_instruction.amount = "default amount field value"
-		standing_instruction.nextExecutionDate = datetime.now()
+		standing_instruction.nextExecutionDate = datetime.datetime.now()
 		standing_instruction.frequency = "default frequency field value"
 		standing_instruction.status = "default status field value"
 		

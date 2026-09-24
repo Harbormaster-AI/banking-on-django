@@ -82,7 +82,7 @@ class KycProfileDelegate :
 		
 	def assignCustomer( self, kyc_profile_id, customer_id ):
 		# lazy importing avoids circular dependencies
-		from bankingOnDjango.delegates.CustomerDelegate import CustomerDelegate
+		from bankingOnDjango.delegates.CustomerDelegate import child_delegate
 
 		err_msg = "Failed to assign element " + str(customer_id) + " for Customer on KycProfile"
 
@@ -91,7 +91,7 @@ class KycProfileDelegate :
 			kyc_profile = self.get( kyc_profile_id ).first()	
 			
 			# get the Customer from db
-			customer = CustomerDelegate().get(customer_id).first();
+			customer = child_delegate.get(customer_id).first();
 			
 			# assign the Customer		
 			kyc_profile.customer = customer
@@ -129,8 +129,6 @@ class KycProfileDelegate :
 			return None;
 		
 	def addIdentityDocuments( self, kyc_profile_id, identity_documents_ids ):
-		# lazy importing avoids circular dependencies
-		from bankingOnDjango.delegates.IdentityDocumentDelegate import IdentityDocumentDelegate
 
 		err_msg = "Failed to add elements " + str(identity_documents_ids) + " for IdentityDocuments on KycProfile"
 
@@ -157,7 +155,6 @@ class KycProfileDelegate :
 
 		err_msg = "Failed to remove elements " + str(identity_documents_ids) + " for IdentityDocuments on KycProfile"
 
-		# lazy importing avoids circular dependenciesId
 		try:
 			# remove the children by id
 			kyc_profile.identity_documents.remove(identity_documents_ids)
@@ -170,15 +167,13 @@ class KycProfileDelegate :
 		except KycProfile.DoesNotExist:
 			raise Exceptions.ProcessingError("KycProfile with id " + str(kyc_profile_id) + " does not exist.")
 		except IdentityDocument.DoesNotExist:
-			raise Exceptions.ProcessingError("IdentityDocument with id " + str(identity_documents_id) + " does not exist.")
+			raise Exceptions.ProcessingError("IdentityDocument with id " + str(identity_documents_ids) + " does not exist.")
 		except utils.Exceptions.DatabaseError:
 			raise Exceptions.StorageWriteError()
 		except Exception:
 			raise Exceptions.GeneralError(err_msg) 
 		
 	def addRiskAssessments( self, kyc_profile_id, risk_assessments_ids ):
-		# lazy importing avoids circular dependencies
-		from bankingOnDjango.delegates.RiskAssessmentDelegate import RiskAssessmentDelegate
 
 		err_msg = "Failed to add elements " + str(risk_assessments_ids) + " for RiskAssessments on KycProfile"
 
@@ -205,7 +200,6 @@ class KycProfileDelegate :
 
 		err_msg = "Failed to remove elements " + str(risk_assessments_ids) + " for RiskAssessments on KycProfile"
 
-		# lazy importing avoids circular dependenciesId
 		try:
 			# remove the children by id
 			kyc_profile.risk_assessments.remove(risk_assessments_ids)
@@ -218,15 +212,13 @@ class KycProfileDelegate :
 		except KycProfile.DoesNotExist:
 			raise Exceptions.ProcessingError("KycProfile with id " + str(kyc_profile_id) + " does not exist.")
 		except RiskAssessment.DoesNotExist:
-			raise Exceptions.ProcessingError("RiskAssessment with id " + str(risk_assessments_id) + " does not exist.")
+			raise Exceptions.ProcessingError("RiskAssessment with id " + str(risk_assessments_ids) + " does not exist.")
 		except utils.Exceptions.DatabaseError:
 			raise Exceptions.StorageWriteError()
 		except Exception:
 			raise Exceptions.GeneralError(err_msg) 
 		
 	def addScreenings( self, kyc_profile_id, screenings_ids ):
-		# lazy importing avoids circular dependencies
-		from bankingOnDjango.delegates.ScreeningResultDelegate import ScreeningResultDelegate
 
 		err_msg = "Failed to add elements " + str(screenings_ids) + " for Screenings on KycProfile"
 
@@ -253,7 +245,6 @@ class KycProfileDelegate :
 
 		err_msg = "Failed to remove elements " + str(screenings_ids) + " for Screenings on KycProfile"
 
-		# lazy importing avoids circular dependenciesId
 		try:
 			# remove the children by id
 			kyc_profile.screenings.remove(screenings_ids)
@@ -266,7 +257,7 @@ class KycProfileDelegate :
 		except KycProfile.DoesNotExist:
 			raise Exceptions.ProcessingError("KycProfile with id " + str(kyc_profile_id) + " does not exist.")
 		except ScreeningResult.DoesNotExist:
-			raise Exceptions.ProcessingError("ScreeningResult with id " + str(screenings_id) + " does not exist.")
+			raise Exceptions.ProcessingError("ScreeningResult with id " + str(screenings_ids) + " does not exist.")
 		except utils.Exceptions.DatabaseError:
 			raise Exceptions.StorageWriteError()
 		except Exception:

@@ -82,7 +82,7 @@ class FundsTransferDelegate :
 		
 	def assignSourceAccount( self, funds_transfer_id, source_account_id ):
 		# lazy importing avoids circular dependencies
-		from bankingOnDjango.delegates.AccountDelegate import AccountDelegate
+		from bankingOnDjango.delegates.AccountDelegate import child_delegate
 
 		err_msg = "Failed to assign element " + str(source_account_id) + " for SourceAccount on FundsTransfer"
 
@@ -91,7 +91,7 @@ class FundsTransferDelegate :
 			funds_transfer = self.get( funds_transfer_id ).first()	
 			
 			# get the Account from db
-			account = AccountDelegate().get(source_account_id).first();
+			account = child_delegate.get(source_account_id).first();
 			
 			# assign the SourceAccount		
 			funds_transfer.source_account = account
@@ -130,7 +130,7 @@ class FundsTransferDelegate :
 		
 	def assignDestinationAccount( self, funds_transfer_id, destination_account_id ):
 		# lazy importing avoids circular dependencies
-		from bankingOnDjango.delegates.AccountDelegate import AccountDelegate
+		from bankingOnDjango.delegates.AccountDelegate import child_delegate
 
 		err_msg = "Failed to assign element " + str(destination_account_id) + " for DestinationAccount on FundsTransfer"
 
@@ -139,7 +139,7 @@ class FundsTransferDelegate :
 			funds_transfer = self.get( funds_transfer_id ).first()	
 			
 			# get the Account from db
-			account = AccountDelegate().get(destination_account_id).first();
+			account = child_delegate.get(destination_account_id).first();
 			
 			# assign the DestinationAccount		
 			funds_transfer.destination_account = account
@@ -178,7 +178,7 @@ class FundsTransferDelegate :
 		
 	def assignExternalBeneficiary( self, funds_transfer_id, external_beneficiary_id ):
 		# lazy importing avoids circular dependencies
-		from bankingOnDjango.delegates.ExternalAccountDelegate import ExternalAccountDelegate
+		from bankingOnDjango.delegates.ExternalAccountDelegate import child_delegate
 
 		err_msg = "Failed to assign element " + str(external_beneficiary_id) + " for ExternalBeneficiary on FundsTransfer"
 
@@ -187,7 +187,7 @@ class FundsTransferDelegate :
 			funds_transfer = self.get( funds_transfer_id ).first()	
 			
 			# get the ExternalAccount from db
-			external_account = ExternalAccountDelegate().get(external_beneficiary_id).first();
+			external_account = child_delegate.get(external_beneficiary_id).first();
 			
 			# assign the ExternalBeneficiary		
 			funds_transfer.external_beneficiary = external_account
@@ -226,7 +226,7 @@ class FundsTransferDelegate :
 		
 	def assignInitiatedBy( self, funds_transfer_id, initiated_by_id ):
 		# lazy importing avoids circular dependencies
-		from bankingOnDjango.delegates.CustomerDelegate import CustomerDelegate
+		from bankingOnDjango.delegates.CustomerDelegate import child_delegate
 
 		err_msg = "Failed to assign element " + str(initiated_by_id) + " for InitiatedBy on FundsTransfer"
 
@@ -235,7 +235,7 @@ class FundsTransferDelegate :
 			funds_transfer = self.get( funds_transfer_id ).first()	
 			
 			# get the Customer from db
-			customer = CustomerDelegate().get(initiated_by_id).first();
+			customer = child_delegate.get(initiated_by_id).first();
 			
 			# assign the InitiatedBy		
 			funds_transfer.initiated_by = customer
@@ -273,8 +273,6 @@ class FundsTransferDelegate :
 			return None;
 		
 	def addTransactions( self, funds_transfer_id, transactions_ids ):
-		# lazy importing avoids circular dependencies
-		from bankingOnDjango.delegates.TransactionDelegate import TransactionDelegate
 
 		err_msg = "Failed to add elements " + str(transactions_ids) + " for Transactions on FundsTransfer"
 
@@ -301,7 +299,6 @@ class FundsTransferDelegate :
 
 		err_msg = "Failed to remove elements " + str(transactions_ids) + " for Transactions on FundsTransfer"
 
-		# lazy importing avoids circular dependenciesId
 		try:
 			# remove the children by id
 			funds_transfer.transactions.remove(transactions_ids)
@@ -314,7 +311,7 @@ class FundsTransferDelegate :
 		except FundsTransfer.DoesNotExist:
 			raise Exceptions.ProcessingError("FundsTransfer with id " + str(funds_transfer_id) + " does not exist.")
 		except Transaction.DoesNotExist:
-			raise Exceptions.ProcessingError("Transaction with id " + str(transactions_id) + " does not exist.")
+			raise Exceptions.ProcessingError("Transaction with id " + str(transactions_ids) + " does not exist.")
 		except utils.Exceptions.DatabaseError:
 			raise Exceptions.StorageWriteError()
 		except Exception:

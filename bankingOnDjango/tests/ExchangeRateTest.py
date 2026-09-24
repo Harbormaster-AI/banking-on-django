@@ -23,7 +23,7 @@ class ExchangeRateTest (TestCase) :
 		exchange_rate.baseCurrency = "default baseCurrency field value"
 		exchange_rate.counterCurrency = "default counterCurrency field value"
 		exchange_rate.rate = "default rate field value"
-		exchange_rate.asOf = datetime.now()
+		exchange_rate.asOf = datetime.datetime.now()
 		exchange_rate.source = "default source field value"
 		
 		delegate = ExchangeRateDelegate()

@@ -23,7 +23,7 @@ class CustomerTest (TestCase) :
 		customer.firstName = "default firstName field value"
 		customer.lastName = "default lastName field value"
 		customer.legalName = "default legalName field value"
-		customer.dateOfBirth = datetime.now()
+		customer.dateOfBirth = datetime.datetime.now()
 		customer.taxId = "default taxId field value"
 		customer.email = "default email field value"
 		customer.phone = "default phone field value"

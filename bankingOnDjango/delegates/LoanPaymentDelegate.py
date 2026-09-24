@@ -80,7 +80,7 @@ class LoanPaymentDelegate :
 		
 	def assignLoanAccount( self, loan_payment_id, loan_account_id ):
 		# lazy importing avoids circular dependencies
-		from bankingOnDjango.delegates.LoanAccountDelegate import LoanAccountDelegate
+		from bankingOnDjango.delegates.LoanAccountDelegate import child_delegate
 
 		err_msg = "Failed to assign element " + str(loan_account_id) + " for LoanAccount on LoanPayment"
 
@@ -89,7 +89,7 @@ class LoanPaymentDelegate :
 			loan_payment = self.get( loan_payment_id ).first()	
 			
 			# get the LoanAccount from db
-			loan_account = LoanAccountDelegate().get(loan_account_id).first();
+			loan_account = child_delegate.get(loan_account_id).first();
 			
 			# assign the LoanAccount		
 			loan_payment.loan_account = loan_account
@@ -128,7 +128,7 @@ class LoanPaymentDelegate :
 		
 	def assignTransaction( self, loan_payment_id, transaction_id ):
 		# lazy importing avoids circular dependencies
-		from bankingOnDjango.delegates.TransactionDelegate import TransactionDelegate
+		from bankingOnDjango.delegates.TransactionDelegate import child_delegate
 
 		err_msg = "Failed to assign element " + str(transaction_id) + " for Transaction on LoanPayment"
 
@@ -137,7 +137,7 @@ class LoanPaymentDelegate :
 			loan_payment = self.get( loan_payment_id ).first()	
 			
 			# get the Transaction from db
-			transaction = TransactionDelegate().get(transaction_id).first();
+			transaction = child_delegate.get(transaction_id).first();
 			
 			# assign the Transaction		
 			loan_payment.transaction = transaction

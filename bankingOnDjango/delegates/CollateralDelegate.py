@@ -79,7 +79,7 @@ class CollateralDelegate :
 		
 	def assignLoanAccount( self, collateral_id, loan_account_id ):
 		# lazy importing avoids circular dependencies
-		from bankingOnDjango.delegates.LoanAccountDelegate import LoanAccountDelegate
+		from bankingOnDjango.delegates.LoanAccountDelegate import child_delegate
 
 		err_msg = "Failed to assign element " + str(loan_account_id) + " for LoanAccount on Collateral"
 
@@ -88,7 +88,7 @@ class CollateralDelegate :
 			collateral = self.get( collateral_id ).first()	
 			
 			# get the LoanAccount from db
-			loan_account = LoanAccountDelegate().get(loan_account_id).first();
+			loan_account = child_delegate.get(loan_account_id).first();
 			
 			# assign the LoanAccount		
 			collateral.loan_account = loan_account

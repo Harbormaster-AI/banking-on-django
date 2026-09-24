@@ -22,7 +22,7 @@ class IdentityDocumentTest (TestCase) :
 		identity_document = IdentityDocument()
 		identity_document.documentNumber = "default documentNumber field value"
 		identity_document.issuingCountry = "default issuingCountry field value"
-		identity_document.expirationDate = datetime.now()
+		identity_document.expirationDate = datetime.datetime.now()
 		identity_document.documentType = "default documentType field value"
 		
 		delegate = IdentityDocumentDelegate()

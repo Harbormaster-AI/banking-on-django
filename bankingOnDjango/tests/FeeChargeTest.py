@@ -22,7 +22,7 @@ class FeeChargeTest (TestCase) :
 		fee_charge = FeeCharge()
 		fee_charge.feeCode = "default feeCode field value"
 		fee_charge.amount = "default amount field value"
-		fee_charge.appliedOn = datetime.now()
+		fee_charge.appliedOn = datetime.datetime.now()
 		fee_charge.feeType = "default feeType field value"
 		
 		delegate = FeeChargeDelegate()

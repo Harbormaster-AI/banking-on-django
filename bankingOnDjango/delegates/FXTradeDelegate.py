@@ -83,7 +83,7 @@ class FXTradeDelegate :
 		
 	def assignCustomer( self, f_x_trade_id, customer_id ):
 		# lazy importing avoids circular dependencies
-		from bankingOnDjango.delegates.CustomerDelegate import CustomerDelegate
+		from bankingOnDjango.delegates.CustomerDelegate import child_delegate
 
 		err_msg = "Failed to assign element " + str(customer_id) + " for Customer on FXTrade"
 
@@ -92,7 +92,7 @@ class FXTradeDelegate :
 			f_x_trade = self.get( f_x_trade_id ).first()	
 			
 			# get the Customer from db
-			customer = CustomerDelegate().get(customer_id).first();
+			customer = child_delegate.get(customer_id).first();
 			
 			# assign the Customer		
 			f_x_trade.customer = customer
@@ -131,7 +131,7 @@ class FXTradeDelegate :
 		
 	def assignBank( self, f_x_trade_id, bank_id ):
 		# lazy importing avoids circular dependencies
-		from bankingOnDjango.delegates.BankDelegate import BankDelegate
+		from bankingOnDjango.delegates.BankDelegate import child_delegate
 
 		err_msg = "Failed to assign element " + str(bank_id) + " for Bank on FXTrade"
 
@@ -140,7 +140,7 @@ class FXTradeDelegate :
 			f_x_trade = self.get( f_x_trade_id ).first()	
 			
 			# get the Bank from db
-			bank = BankDelegate().get(bank_id).first();
+			bank = child_delegate.get(bank_id).first();
 			
 			# assign the Bank		
 			f_x_trade.bank = bank
@@ -179,7 +179,7 @@ class FXTradeDelegate :
 		
 	def assignExchangeRate( self, f_x_trade_id, exchange_rate_id ):
 		# lazy importing avoids circular dependencies
-		from bankingOnDjango.delegates.ExchangeRateDelegate import ExchangeRateDelegate
+		from bankingOnDjango.delegates.ExchangeRateDelegate import child_delegate
 
 		err_msg = "Failed to assign element " + str(exchange_rate_id) + " for ExchangeRate on FXTrade"
 
@@ -188,7 +188,7 @@ class FXTradeDelegate :
 			f_x_trade = self.get( f_x_trade_id ).first()	
 			
 			# get the ExchangeRate from db
-			exchange_rate = ExchangeRateDelegate().get(exchange_rate_id).first();
+			exchange_rate = child_delegate.get(exchange_rate_id).first();
 			
 			# assign the ExchangeRate		
 			f_x_trade.exchange_rate = exchange_rate
@@ -227,7 +227,7 @@ class FXTradeDelegate :
 		
 	def assignSourceAccount( self, f_x_trade_id, source_account_id ):
 		# lazy importing avoids circular dependencies
-		from bankingOnDjango.delegates.AccountDelegate import AccountDelegate
+		from bankingOnDjango.delegates.AccountDelegate import child_delegate
 
 		err_msg = "Failed to assign element " + str(source_account_id) + " for SourceAccount on FXTrade"
 
@@ -236,7 +236,7 @@ class FXTradeDelegate :
 			f_x_trade = self.get( f_x_trade_id ).first()	
 			
 			# get the Account from db
-			account = AccountDelegate().get(source_account_id).first();
+			account = child_delegate.get(source_account_id).first();
 			
 			# assign the SourceAccount		
 			f_x_trade.source_account = account
@@ -275,7 +275,7 @@ class FXTradeDelegate :
 		
 	def assignDestinationAccount( self, f_x_trade_id, destination_account_id ):
 		# lazy importing avoids circular dependencies
-		from bankingOnDjango.delegates.AccountDelegate import AccountDelegate
+		from bankingOnDjango.delegates.AccountDelegate import child_delegate
 
 		err_msg = "Failed to assign element " + str(destination_account_id) + " for DestinationAccount on FXTrade"
 
@@ -284,7 +284,7 @@ class FXTradeDelegate :
 			f_x_trade = self.get( f_x_trade_id ).first()	
 			
 			# get the Account from db
-			account = AccountDelegate().get(destination_account_id).first();
+			account = child_delegate.get(destination_account_id).first();
 			
 			# assign the DestinationAccount		
 			f_x_trade.destination_account = account
@@ -323,7 +323,7 @@ class FXTradeDelegate :
 		
 	def assignTransaction( self, f_x_trade_id, transaction_id ):
 		# lazy importing avoids circular dependencies
-		from bankingOnDjango.delegates.TransactionDelegate import TransactionDelegate
+		from bankingOnDjango.delegates.TransactionDelegate import child_delegate
 
 		err_msg = "Failed to assign element " + str(transaction_id) + " for Transaction on FXTrade"
 
@@ -332,7 +332,7 @@ class FXTradeDelegate :
 			f_x_trade = self.get( f_x_trade_id ).first()	
 			
 			# get the Transaction from db
-			transaction = TransactionDelegate().get(transaction_id).first();
+			transaction = child_delegate.get(transaction_id).first();
 			
 			# assign the Transaction		
 			f_x_trade.transaction = transaction

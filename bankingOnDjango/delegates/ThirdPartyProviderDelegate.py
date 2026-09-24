@@ -80,7 +80,7 @@ class ThirdPartyProviderDelegate :
 		
 	def assignBank( self, third_party_provider_id, bank_id ):
 		# lazy importing avoids circular dependencies
-		from bankingOnDjango.delegates.BankDelegate import BankDelegate
+		from bankingOnDjango.delegates.BankDelegate import child_delegate
 
 		err_msg = "Failed to assign element " + str(bank_id) + " for Bank on ThirdPartyProvider"
 
@@ -89,7 +89,7 @@ class ThirdPartyProviderDelegate :
 			third_party_provider = self.get( third_party_provider_id ).first()	
 			
 			# get the Bank from db
-			bank = BankDelegate().get(bank_id).first();
+			bank = child_delegate.get(bank_id).first();
 			
 			# assign the Bank		
 			third_party_provider.bank = bank
@@ -127,8 +127,6 @@ class ThirdPartyProviderDelegate :
 			return None;
 		
 	def addConsents( self, third_party_provider_id, consents_ids ):
-		# lazy importing avoids circular dependencies
-		from bankingOnDjango.delegates.ConsentDelegate import ConsentDelegate
 
 		err_msg = "Failed to add elements " + str(consents_ids) + " for Consents on ThirdPartyProvider"
 
@@ -155,7 +153,6 @@ class ThirdPartyProviderDelegate :
 
 		err_msg = "Failed to remove elements " + str(consents_ids) + " for Consents on ThirdPartyProvider"
 
-		# lazy importing avoids circular dependenciesId
 		try:
 			# remove the children by id
 			third_party_provider.consents.remove(consents_ids)
@@ -168,7 +165,7 @@ class ThirdPartyProviderDelegate :
 		except ThirdPartyProvider.DoesNotExist:
 			raise Exceptions.ProcessingError("ThirdPartyProvider with id " + str(third_party_provider_id) + " does not exist.")
 		except Consent.DoesNotExist:
-			raise Exceptions.ProcessingError("Consent with id " + str(consents_id) + " does not exist.")
+			raise Exceptions.ProcessingError("Consent with id " + str(consents_ids) + " does not exist.")
 		except utils.Exceptions.DatabaseError:
 			raise Exceptions.StorageWriteError()
 		except Exception:

@@ -80,7 +80,7 @@ class ExchangeRateDelegate :
 		
 	def assignBank( self, exchange_rate_id, bank_id ):
 		# lazy importing avoids circular dependencies
-		from bankingOnDjango.delegates.BankDelegate import BankDelegate
+		from bankingOnDjango.delegates.BankDelegate import child_delegate
 
 		err_msg = "Failed to assign element " + str(bank_id) + " for Bank on ExchangeRate"
 
@@ -89,7 +89,7 @@ class ExchangeRateDelegate :
 			exchange_rate = self.get( exchange_rate_id ).first()	
 			
 			# get the Bank from db
-			bank = BankDelegate().get(bank_id).first();
+			bank = child_delegate.get(bank_id).first();
 			
 			# assign the Bank		
 			exchange_rate.bank = bank
@@ -127,8 +127,6 @@ class ExchangeRateDelegate :
 			return None;
 		
 	def addFxTrades( self, exchange_rate_id, fx_trades_ids ):
-		# lazy importing avoids circular dependencies
-		from bankingOnDjango.delegates.FXTradeDelegate import FXTradeDelegate
 
 		err_msg = "Failed to add elements " + str(fx_trades_ids) + " for FxTrades on ExchangeRate"
 
@@ -155,7 +153,6 @@ class ExchangeRateDelegate :
 
 		err_msg = "Failed to remove elements " + str(fx_trades_ids) + " for FxTrades on ExchangeRate"
 
-		# lazy importing avoids circular dependenciesId
 		try:
 			# remove the children by id
 			exchange_rate.fx_trades.remove(fx_trades_ids)
@@ -168,7 +165,7 @@ class ExchangeRateDelegate :
 		except ExchangeRate.DoesNotExist:
 			raise Exceptions.ProcessingError("ExchangeRate with id " + str(exchange_rate_id) + " does not exist.")
 		except FXTrade.DoesNotExist:
-			raise Exceptions.ProcessingError("FXTrade with id " + str(fx_trades_id) + " does not exist.")
+			raise Exceptions.ProcessingError("FXTrade with id " + str(fx_trades_ids) + " does not exist.")
 		except utils.Exceptions.DatabaseError:
 			raise Exceptions.StorageWriteError()
 		except Exception:

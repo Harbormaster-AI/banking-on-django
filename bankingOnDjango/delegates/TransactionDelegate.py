@@ -84,7 +84,7 @@ class TransactionDelegate :
 		
 	def assignAccount( self, transaction_id, account_id ):
 		# lazy importing avoids circular dependencies
-		from bankingOnDjango.delegates.AccountDelegate import AccountDelegate
+		from bankingOnDjango.delegates.AccountDelegate import child_delegate
 
 		err_msg = "Failed to assign element " + str(account_id) + " for Account on Transaction"
 
@@ -93,7 +93,7 @@ class TransactionDelegate :
 			transaction = self.get( transaction_id ).first()	
 			
 			# get the Account from db
-			account = AccountDelegate().get(account_id).first();
+			account = child_delegate.get(account_id).first();
 			
 			# assign the Account		
 			transaction.account = account
@@ -132,7 +132,7 @@ class TransactionDelegate :
 		
 	def assignExternalCounterparty( self, transaction_id, external_counterparty_id ):
 		# lazy importing avoids circular dependencies
-		from bankingOnDjango.delegates.ExternalAccountDelegate import ExternalAccountDelegate
+		from bankingOnDjango.delegates.ExternalAccountDelegate import child_delegate
 
 		err_msg = "Failed to assign element " + str(external_counterparty_id) + " for ExternalCounterparty on Transaction"
 
@@ -141,7 +141,7 @@ class TransactionDelegate :
 			transaction = self.get( transaction_id ).first()	
 			
 			# get the ExternalAccount from db
-			external_account = ExternalAccountDelegate().get(external_counterparty_id).first();
+			external_account = child_delegate.get(external_counterparty_id).first();
 			
 			# assign the ExternalCounterparty		
 			transaction.external_counterparty = external_account
@@ -180,7 +180,7 @@ class TransactionDelegate :
 		
 	def assignPaymentCard( self, transaction_id, payment_card_id ):
 		# lazy importing avoids circular dependencies
-		from bankingOnDjango.delegates.PaymentCardDelegate import PaymentCardDelegate
+		from bankingOnDjango.delegates.PaymentCardDelegate import child_delegate
 
 		err_msg = "Failed to assign element " + str(payment_card_id) + " for PaymentCard on Transaction"
 
@@ -189,7 +189,7 @@ class TransactionDelegate :
 			transaction = self.get( transaction_id ).first()	
 			
 			# get the PaymentCard from db
-			payment_card = PaymentCardDelegate().get(payment_card_id).first();
+			payment_card = child_delegate.get(payment_card_id).first();
 			
 			# assign the PaymentCard		
 			transaction.payment_card = payment_card
@@ -228,7 +228,7 @@ class TransactionDelegate :
 		
 	def assignFundsTransfer( self, transaction_id, funds_transfer_id ):
 		# lazy importing avoids circular dependencies
-		from bankingOnDjango.delegates.FundsTransferDelegate import FundsTransferDelegate
+		from bankingOnDjango.delegates.FundsTransferDelegate import child_delegate
 
 		err_msg = "Failed to assign element " + str(funds_transfer_id) + " for FundsTransfer on Transaction"
 
@@ -237,7 +237,7 @@ class TransactionDelegate :
 			transaction = self.get( transaction_id ).first()	
 			
 			# get the FundsTransfer from db
-			funds_transfer = FundsTransferDelegate().get(funds_transfer_id).first();
+			funds_transfer = child_delegate.get(funds_transfer_id).first();
 			
 			# assign the FundsTransfer		
 			transaction.funds_transfer = funds_transfer
@@ -276,7 +276,7 @@ class TransactionDelegate :
 		
 	def assignFxTrade( self, transaction_id, fx_trade_id ):
 		# lazy importing avoids circular dependencies
-		from bankingOnDjango.delegates.FXTradeDelegate import FXTradeDelegate
+		from bankingOnDjango.delegates.FXTradeDelegate import child_delegate
 
 		err_msg = "Failed to assign element " + str(fx_trade_id) + " for FxTrade on Transaction"
 
@@ -285,7 +285,7 @@ class TransactionDelegate :
 			transaction = self.get( transaction_id ).first()	
 			
 			# get the FXTrade from db
-			f_x_trade = FXTradeDelegate().get(fx_trade_id).first();
+			f_x_trade = child_delegate.get(fx_trade_id).first();
 			
 			# assign the FxTrade		
 			transaction.fx_trade = f_x_trade
@@ -324,7 +324,7 @@ class TransactionDelegate :
 		
 	def assignDispute( self, transaction_id, dispute_id ):
 		# lazy importing avoids circular dependencies
-		from bankingOnDjango.delegates.DisputeDelegate import DisputeDelegate
+		from bankingOnDjango.delegates.DisputeDelegate import child_delegate
 
 		err_msg = "Failed to assign element " + str(dispute_id) + " for Dispute on Transaction"
 
@@ -333,7 +333,7 @@ class TransactionDelegate :
 			transaction = self.get( transaction_id ).first()	
 			
 			# get the Dispute from db
-			dispute = DisputeDelegate().get(dispute_id).first();
+			dispute = child_delegate.get(dispute_id).first();
 			
 			# assign the Dispute		
 			transaction.dispute = dispute

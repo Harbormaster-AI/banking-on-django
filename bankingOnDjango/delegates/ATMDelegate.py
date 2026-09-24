@@ -79,7 +79,7 @@ class ATMDelegate :
 		
 	def assignBranch( self, a_t_m_id, branch_id ):
 		# lazy importing avoids circular dependencies
-		from bankingOnDjango.delegates.BranchDelegate import BranchDelegate
+		from bankingOnDjango.delegates.BranchDelegate import child_delegate
 
 		err_msg = "Failed to assign element " + str(branch_id) + " for Branch on ATM"
 
@@ -88,7 +88,7 @@ class ATMDelegate :
 			a_t_m = self.get( a_t_m_id ).first()	
 			
 			# get the Branch from db
-			branch = BranchDelegate().get(branch_id).first();
+			branch = child_delegate.get(branch_id).first();
 			
 			# assign the Branch		
 			a_t_m.branch = branch

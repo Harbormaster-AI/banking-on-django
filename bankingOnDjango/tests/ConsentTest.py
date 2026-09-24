@@ -20,8 +20,8 @@ from bankingOnDjango.delegates.ConsentDelegate import ConsentDelegate
 class ConsentTest (TestCase) :
 	def test_crud(self) :
 		consent = Consent()
-		consent.grantedOn = datetime.now()
-		consent.expiresOn = datetime.now()
+		consent.grantedOn = datetime.datetime.now()
+		consent.expiresOn = datetime.datetime.now()
 		consent.consentType = "default consentType field value"
 		consent.status = "default status field value"
 		

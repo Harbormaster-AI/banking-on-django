@@ -80,7 +80,7 @@ class FeeChargeDelegate :
 		
 	def assignAccount( self, fee_charge_id, account_id ):
 		# lazy importing avoids circular dependencies
-		from bankingOnDjango.delegates.AccountDelegate import AccountDelegate
+		from bankingOnDjango.delegates.AccountDelegate import child_delegate
 
 		err_msg = "Failed to assign element " + str(account_id) + " for Account on FeeCharge"
 
@@ -89,7 +89,7 @@ class FeeChargeDelegate :
 			fee_charge = self.get( fee_charge_id ).first()	
 			
 			# get the Account from db
-			account = AccountDelegate().get(account_id).first();
+			account = child_delegate.get(account_id).first();
 			
 			# assign the Account		
 			fee_charge.account = account
@@ -128,7 +128,7 @@ class FeeChargeDelegate :
 		
 	def assignLoanAccount( self, fee_charge_id, loan_account_id ):
 		# lazy importing avoids circular dependencies
-		from bankingOnDjango.delegates.LoanAccountDelegate import LoanAccountDelegate
+		from bankingOnDjango.delegates.LoanAccountDelegate import child_delegate
 
 		err_msg = "Failed to assign element " + str(loan_account_id) + " for LoanAccount on FeeCharge"
 
@@ -137,7 +137,7 @@ class FeeChargeDelegate :
 			fee_charge = self.get( fee_charge_id ).first()	
 			
 			# get the LoanAccount from db
-			loan_account = LoanAccountDelegate().get(loan_account_id).first();
+			loan_account = child_delegate.get(loan_account_id).first();
 			
 			# assign the LoanAccount		
 			fee_charge.loan_account = loan_account

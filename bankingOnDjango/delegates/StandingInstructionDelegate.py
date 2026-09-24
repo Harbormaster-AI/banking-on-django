@@ -80,7 +80,7 @@ class StandingInstructionDelegate :
 		
 	def assignAccount( self, standing_instruction_id, account_id ):
 		# lazy importing avoids circular dependencies
-		from bankingOnDjango.delegates.AccountDelegate import AccountDelegate
+		from bankingOnDjango.delegates.AccountDelegate import child_delegate
 
 		err_msg = "Failed to assign element " + str(account_id) + " for Account on StandingInstruction"
 
@@ -89,7 +89,7 @@ class StandingInstructionDelegate :
 			standing_instruction = self.get( standing_instruction_id ).first()	
 			
 			# get the Account from db
-			account = AccountDelegate().get(account_id).first();
+			account = child_delegate.get(account_id).first();
 			
 			# assign the Account		
 			standing_instruction.account = account
@@ -128,7 +128,7 @@ class StandingInstructionDelegate :
 		
 	def assignBeneficiary( self, standing_instruction_id, beneficiary_id ):
 		# lazy importing avoids circular dependencies
-		from bankingOnDjango.delegates.ExternalAccountDelegate import ExternalAccountDelegate
+		from bankingOnDjango.delegates.ExternalAccountDelegate import child_delegate
 
 		err_msg = "Failed to assign element " + str(beneficiary_id) + " for Beneficiary on StandingInstruction"
 
@@ -137,7 +137,7 @@ class StandingInstructionDelegate :
 			standing_instruction = self.get( standing_instruction_id ).first()	
 			
 			# get the ExternalAccount from db
-			external_account = ExternalAccountDelegate().get(beneficiary_id).first();
+			external_account = child_delegate.get(beneficiary_id).first();
 			
 			# assign the Beneficiary		
 			standing_instruction.beneficiary = external_account

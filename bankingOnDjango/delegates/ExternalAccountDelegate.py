@@ -80,7 +80,7 @@ class ExternalAccountDelegate :
 		
 	def assignCustomer( self, external_account_id, customer_id ):
 		# lazy importing avoids circular dependencies
-		from bankingOnDjango.delegates.CustomerDelegate import CustomerDelegate
+		from bankingOnDjango.delegates.CustomerDelegate import child_delegate
 
 		err_msg = "Failed to assign element " + str(customer_id) + " for Customer on ExternalAccount"
 
@@ -89,7 +89,7 @@ class ExternalAccountDelegate :
 			external_account = self.get( external_account_id ).first()	
 			
 			# get the Customer from db
-			customer = CustomerDelegate().get(customer_id).first();
+			customer = child_delegate.get(customer_id).first();
 			
 			# assign the Customer		
 			external_account.customer = customer
@@ -127,8 +127,6 @@ class ExternalAccountDelegate :
 			return None;
 		
 	def addTransactions( self, external_account_id, transactions_ids ):
-		# lazy importing avoids circular dependencies
-		from bankingOnDjango.delegates.TransactionDelegate import TransactionDelegate
 
 		err_msg = "Failed to add elements " + str(transactions_ids) + " for Transactions on ExternalAccount"
 
@@ -155,7 +153,6 @@ class ExternalAccountDelegate :
 
 		err_msg = "Failed to remove elements " + str(transactions_ids) + " for Transactions on ExternalAccount"
 
-		# lazy importing avoids circular dependenciesId
 		try:
 			# remove the children by id
 			external_account.transactions.remove(transactions_ids)
@@ -168,7 +165,7 @@ class ExternalAccountDelegate :
 		except ExternalAccount.DoesNotExist:
 			raise Exceptions.ProcessingError("ExternalAccount with id " + str(external_account_id) + " does not exist.")
 		except Transaction.DoesNotExist:
-			raise Exceptions.ProcessingError("Transaction with id " + str(transactions_id) + " does not exist.")
+			raise Exceptions.ProcessingError("Transaction with id " + str(transactions_ids) + " does not exist.")
 		except utils.Exceptions.DatabaseError:
 			raise Exceptions.StorageWriteError()
 		except Exception:

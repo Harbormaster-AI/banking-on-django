@@ -24,8 +24,8 @@ class LoanAccountTest (TestCase) :
 		loan_account.principalAmount = "default principalAmount field value"
 		loan_account.outstandingPrincipal = "default outstandingPrincipal field value"
 		loan_account.interestRate = "default interestRate field value"
-		loan_account.originationDate = datetime.now()
-		loan_account.maturityDate = datetime.now()
+		loan_account.originationDate = datetime.datetime.now()
+		loan_account.maturityDate = datetime.datetime.now()
 		loan_account.paymentDayOfMonth = 22
 		loan_account.currency = "default currency field value"
 		loan_account.loanType = "default loanType field value"

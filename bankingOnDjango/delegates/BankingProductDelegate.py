@@ -82,7 +82,7 @@ class BankingProductDelegate :
 		
 	def assignBank( self, banking_product_id, bank_id ):
 		# lazy importing avoids circular dependencies
-		from bankingOnDjango.delegates.BankDelegate import BankDelegate
+		from bankingOnDjango.delegates.BankDelegate import child_delegate
 
 		err_msg = "Failed to assign element " + str(bank_id) + " for Bank on BankingProduct"
 
@@ -91,7 +91,7 @@ class BankingProductDelegate :
 			banking_product = self.get( banking_product_id ).first()	
 			
 			# get the Bank from db
-			bank = BankDelegate().get(bank_id).first();
+			bank = child_delegate.get(bank_id).first();
 			
 			# assign the Bank		
 			banking_product.bank = bank
@@ -129,8 +129,6 @@ class BankingProductDelegate :
 			return None;
 		
 	def addAccounts( self, banking_product_id, accounts_ids ):
-		# lazy importing avoids circular dependencies
-		from bankingOnDjango.delegates.AccountDelegate import AccountDelegate
 
 		err_msg = "Failed to add elements " + str(accounts_ids) + " for Accounts on BankingProduct"
 
@@ -157,7 +155,6 @@ class BankingProductDelegate :
 
 		err_msg = "Failed to remove elements " + str(accounts_ids) + " for Accounts on BankingProduct"
 
-		# lazy importing avoids circular dependenciesId
 		try:
 			# remove the children by id
 			banking_product.accounts.remove(accounts_ids)
@@ -170,15 +167,13 @@ class BankingProductDelegate :
 		except BankingProduct.DoesNotExist:
 			raise Exceptions.ProcessingError("BankingProduct with id " + str(banking_product_id) + " does not exist.")
 		except Account.DoesNotExist:
-			raise Exceptions.ProcessingError("Account with id " + str(accounts_id) + " does not exist.")
+			raise Exceptions.ProcessingError("Account with id " + str(accounts_ids) + " does not exist.")
 		except utils.Exceptions.DatabaseError:
 			raise Exceptions.StorageWriteError()
 		except Exception:
 			raise Exceptions.GeneralError(err_msg) 
 		
 	def addLoanAccounts( self, banking_product_id, loan_accounts_ids ):
-		# lazy importing avoids circular dependencies
-		from bankingOnDjango.delegates.LoanAccountDelegate import LoanAccountDelegate
 
 		err_msg = "Failed to add elements " + str(loan_accounts_ids) + " for LoanAccounts on BankingProduct"
 
@@ -205,7 +200,6 @@ class BankingProductDelegate :
 
 		err_msg = "Failed to remove elements " + str(loan_accounts_ids) + " for LoanAccounts on BankingProduct"
 
-		# lazy importing avoids circular dependenciesId
 		try:
 			# remove the children by id
 			banking_product.loan_accounts.remove(loan_accounts_ids)
@@ -218,15 +212,13 @@ class BankingProductDelegate :
 		except BankingProduct.DoesNotExist:
 			raise Exceptions.ProcessingError("BankingProduct with id " + str(banking_product_id) + " does not exist.")
 		except LoanAccount.DoesNotExist:
-			raise Exceptions.ProcessingError("LoanAccount with id " + str(loan_accounts_id) + " does not exist.")
+			raise Exceptions.ProcessingError("LoanAccount with id " + str(loan_accounts_ids) + " does not exist.")
 		except utils.Exceptions.DatabaseError:
 			raise Exceptions.StorageWriteError()
 		except Exception:
 			raise Exceptions.GeneralError(err_msg) 
 		
 	def addPaymentCards( self, banking_product_id, payment_cards_ids ):
-		# lazy importing avoids circular dependencies
-		from bankingOnDjango.delegates.PaymentCardDelegate import PaymentCardDelegate
 
 		err_msg = "Failed to add elements " + str(payment_cards_ids) + " for PaymentCards on BankingProduct"
 
@@ -253,7 +245,6 @@ class BankingProductDelegate :
 
 		err_msg = "Failed to remove elements " + str(payment_cards_ids) + " for PaymentCards on BankingProduct"
 
-		# lazy importing avoids circular dependenciesId
 		try:
 			# remove the children by id
 			banking_product.payment_cards.remove(payment_cards_ids)
@@ -266,7 +257,7 @@ class BankingProductDelegate :
 		except BankingProduct.DoesNotExist:
 			raise Exceptions.ProcessingError("BankingProduct with id " + str(banking_product_id) + " does not exist.")
 		except PaymentCard.DoesNotExist:
-			raise Exceptions.ProcessingError("PaymentCard with id " + str(payment_cards_id) + " does not exist.")
+			raise Exceptions.ProcessingError("PaymentCard with id " + str(payment_cards_ids) + " does not exist.")
 		except utils.Exceptions.DatabaseError:
 			raise Exceptions.StorageWriteError()
 		except Exception:

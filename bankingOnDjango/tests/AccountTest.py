@@ -24,8 +24,8 @@ class AccountTest (TestCase) :
 		account.iban = "default iban field value"
 		account.accountName = "default accountName field value"
 		account.currency = "default currency field value"
-		account.openedOn = datetime.now()
-		account.closedOn = datetime.now()
+		account.openedOn = datetime.datetime.now()
+		account.closedOn = datetime.datetime.now()
 		account.accountType = "default accountType field value"
 		account.ownershipType = "default ownershipType field value"
 		account.status = "default status field value"

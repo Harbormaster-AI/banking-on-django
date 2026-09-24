@@ -79,7 +79,7 @@ class ScreeningResultDelegate :
 		
 	def assignKycProfile( self, screening_result_id, kyc_profile_id ):
 		# lazy importing avoids circular dependencies
-		from bankingOnDjango.delegates.KycProfileDelegate import KycProfileDelegate
+		from bankingOnDjango.delegates.KycProfileDelegate import child_delegate
 
 		err_msg = "Failed to assign element " + str(kyc_profile_id) + " for KycProfile on ScreeningResult"
 
@@ -88,7 +88,7 @@ class ScreeningResultDelegate :
 			screening_result = self.get( screening_result_id ).first()	
 			
 			# get the KycProfile from db
-			kyc_profile = KycProfileDelegate().get(kyc_profile_id).first();
+			kyc_profile = child_delegate.get(kyc_profile_id).first();
 			
 			# assign the KycProfile		
 			screening_result.kyc_profile = kyc_profile

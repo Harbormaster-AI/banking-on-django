@@ -80,7 +80,7 @@ class RepaymentScheduleDelegate :
 		
 	def assignLoanAccount( self, repayment_schedule_id, loan_account_id ):
 		# lazy importing avoids circular dependencies
-		from bankingOnDjango.delegates.LoanAccountDelegate import LoanAccountDelegate
+		from bankingOnDjango.delegates.LoanAccountDelegate import child_delegate
 
 		err_msg = "Failed to assign element " + str(loan_account_id) + " for LoanAccount on RepaymentSchedule"
 
@@ -89,7 +89,7 @@ class RepaymentScheduleDelegate :
 			repayment_schedule = self.get( repayment_schedule_id ).first()	
 			
 			# get the LoanAccount from db
-			loan_account = LoanAccountDelegate().get(loan_account_id).first();
+			loan_account = child_delegate.get(loan_account_id).first();
 			
 			# assign the LoanAccount		
 			repayment_schedule.loan_account = loan_account
@@ -128,7 +128,7 @@ class RepaymentScheduleDelegate :
 		
 	def assignPayment( self, repayment_schedule_id, payment_id ):
 		# lazy importing avoids circular dependencies
-		from bankingOnDjango.delegates.LoanPaymentDelegate import LoanPaymentDelegate
+		from bankingOnDjango.delegates.LoanPaymentDelegate import child_delegate
 
 		err_msg = "Failed to assign element " + str(payment_id) + " for Payment on RepaymentSchedule"
 
@@ -137,7 +137,7 @@ class RepaymentScheduleDelegate :
 			repayment_schedule = self.get( repayment_schedule_id ).first()	
 			
 			# get the LoanPayment from db
-			loan_payment = LoanPaymentDelegate().get(payment_id).first();
+			loan_payment = child_delegate.get(payment_id).first();
 			
 			# assign the Payment		
 			repayment_schedule.payment = loan_payment

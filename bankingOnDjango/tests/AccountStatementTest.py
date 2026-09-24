@@ -21,8 +21,8 @@ class AccountStatementTest (TestCase) :
 	def test_crud(self) :
 		account_statement = AccountStatement()
 		account_statement.statementNumber = "default statementNumber field value"
-		account_statement.periodStart = datetime.now()
-		account_statement.periodEnd = datetime.now()
+		account_statement.periodStart = datetime.datetime.now()
+		account_statement.periodEnd = datetime.datetime.now()
 		account_statement.openingBalance = "default openingBalance field value"
 		account_statement.closingBalance = "default closingBalance field value"
 		account_statement.deliveryMethod = "default deliveryMethod field value"
