@@ -156,6 +156,9 @@ class KycProfileDelegate :
 		err_msg = "Failed to remove elements " + str(identity_documents_ids) + " for IdentityDocuments on KycProfile"
 
 		try:
+			# get the KycProfile
+			kyc_profile = self.get( kyc_profile_id ).first()
+
 			# remove the children by id
 			kyc_profile.identity_documents.remove(identity_documents_ids)
 
@@ -201,6 +204,9 @@ class KycProfileDelegate :
 		err_msg = "Failed to remove elements " + str(risk_assessments_ids) + " for RiskAssessments on KycProfile"
 
 		try:
+			# get the KycProfile
+			kyc_profile = self.get( kyc_profile_id ).first()
+
 			# remove the children by id
 			kyc_profile.risk_assessments.remove(risk_assessments_ids)
 
@@ -246,6 +252,9 @@ class KycProfileDelegate :
 		err_msg = "Failed to remove elements " + str(screenings_ids) + " for Screenings on KycProfile"
 
 		try:
+			# get the KycProfile
+			kyc_profile = self.get( kyc_profile_id ).first()
+
 			# remove the children by id
 			kyc_profile.screenings.remove(screenings_ids)
 

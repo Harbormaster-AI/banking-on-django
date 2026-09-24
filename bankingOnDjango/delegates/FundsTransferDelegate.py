@@ -300,6 +300,9 @@ class FundsTransferDelegate :
 		err_msg = "Failed to remove elements " + str(transactions_ids) + " for Transactions on FundsTransfer"
 
 		try:
+			# get the FundsTransfer
+			funds_transfer = self.get( funds_transfer_id ).first()
+
 			# remove the children by id
 			funds_transfer.transactions.remove(transactions_ids)
 

@@ -154,6 +154,9 @@ class ExchangeRateDelegate :
 		err_msg = "Failed to remove elements " + str(fx_trades_ids) + " for FxTrades on ExchangeRate"
 
 		try:
+			# get the ExchangeRate
+			exchange_rate = self.get( exchange_rate_id ).first()
+
 			# remove the children by id
 			exchange_rate.fx_trades.remove(fx_trades_ids)
 

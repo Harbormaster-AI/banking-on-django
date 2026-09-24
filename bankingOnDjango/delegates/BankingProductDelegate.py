@@ -156,6 +156,9 @@ class BankingProductDelegate :
 		err_msg = "Failed to remove elements " + str(accounts_ids) + " for Accounts on BankingProduct"
 
 		try:
+			# get the BankingProduct
+			banking_product = self.get( banking_product_id ).first()
+
 			# remove the children by id
 			banking_product.accounts.remove(accounts_ids)
 
@@ -201,6 +204,9 @@ class BankingProductDelegate :
 		err_msg = "Failed to remove elements " + str(loan_accounts_ids) + " for LoanAccounts on BankingProduct"
 
 		try:
+			# get the BankingProduct
+			banking_product = self.get( banking_product_id ).first()
+
 			# remove the children by id
 			banking_product.loan_accounts.remove(loan_accounts_ids)
 
@@ -246,6 +252,9 @@ class BankingProductDelegate :
 		err_msg = "Failed to remove elements " + str(payment_cards_ids) + " for PaymentCards on BankingProduct"
 
 		try:
+			# get the BankingProduct
+			banking_product = self.get( banking_product_id ).first()
+
 			# remove the children by id
 			banking_product.payment_cards.remove(payment_cards_ids)
 

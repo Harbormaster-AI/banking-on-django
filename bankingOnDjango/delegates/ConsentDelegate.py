@@ -252,6 +252,9 @@ class ConsentDelegate :
 		err_msg = "Failed to remove elements " + str(authorized_accounts_ids) + " for AuthorizedAccounts on Consent"
 
 		try:
+			# get the Consent
+			consent = self.get( consent_id ).first()
+
 			# remove the children by id
 			consent.authorized_accounts.remove(authorized_accounts_ids)
 

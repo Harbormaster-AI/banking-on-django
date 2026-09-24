@@ -154,6 +154,9 @@ class ThirdPartyProviderDelegate :
 		err_msg = "Failed to remove elements " + str(consents_ids) + " for Consents on ThirdPartyProvider"
 
 		try:
+			# get the ThirdPartyProvider
+			third_party_provider = self.get( third_party_provider_id ).first()
+
 			# remove the children by id
 			third_party_provider.consents.remove(consents_ids)
 

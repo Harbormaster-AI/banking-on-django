@@ -113,6 +113,9 @@ class BankDelegate :
 		err_msg = "Failed to remove elements " + str(branches_ids) + " for Branches on Bank"
 
 		try:
+			# get the Bank
+			bank = self.get( bank_id ).first()
+
 			# remove the children by id
 			bank.branches.remove(branches_ids)
 
@@ -158,6 +161,9 @@ class BankDelegate :
 		err_msg = "Failed to remove elements " + str(products_ids) + " for Products on Bank"
 
 		try:
+			# get the Bank
+			bank = self.get( bank_id ).first()
+
 			# remove the children by id
 			bank.products.remove(products_ids)
 
@@ -203,6 +209,9 @@ class BankDelegate :
 		err_msg = "Failed to remove elements " + str(customers_ids) + " for Customers on Bank"
 
 		try:
+			# get the Bank
+			bank = self.get( bank_id ).first()
+
 			# remove the children by id
 			bank.customers.remove(customers_ids)
 
@@ -248,6 +257,9 @@ class BankDelegate :
 		err_msg = "Failed to remove elements " + str(accounts_ids) + " for Accounts on Bank"
 
 		try:
+			# get the Bank
+			bank = self.get( bank_id ).first()
+
 			# remove the children by id
 			bank.accounts.remove(accounts_ids)
 
@@ -293,6 +305,9 @@ class BankDelegate :
 		err_msg = "Failed to remove elements " + str(payment_cards_ids) + " for PaymentCards on Bank"
 
 		try:
+			# get the Bank
+			bank = self.get( bank_id ).first()
+
 			# remove the children by id
 			bank.payment_cards.remove(payment_cards_ids)
 
@@ -338,6 +353,9 @@ class BankDelegate :
 		err_msg = "Failed to remove elements " + str(loan_accounts_ids) + " for LoanAccounts on Bank"
 
 		try:
+			# get the Bank
+			bank = self.get( bank_id ).first()
+
 			# remove the children by id
 			bank.loan_accounts.remove(loan_accounts_ids)
 
@@ -383,6 +401,9 @@ class BankDelegate :
 		err_msg = "Failed to remove elements " + str(exchange_rates_ids) + " for ExchangeRates on Bank"
 
 		try:
+			# get the Bank
+			bank = self.get( bank_id ).first()
+
 			# remove the children by id
 			bank.exchange_rates.remove(exchange_rates_ids)
 
@@ -428,6 +449,9 @@ class BankDelegate :
 		err_msg = "Failed to remove elements " + str(consents_ids) + " for Consents on Bank"
 
 		try:
+			# get the Bank
+			bank = self.get( bank_id ).first()
+
 			# remove the children by id
 			bank.consents.remove(consents_ids)
 
@@ -473,6 +497,9 @@ class BankDelegate :
 		err_msg = "Failed to remove elements " + str(third_party_providers_ids) + " for ThirdPartyProviders on Bank"
 
 		try:
+			# get the Bank
+			bank = self.get( bank_id ).first()
+
 			# remove the children by id
 			bank.third_party_providers.remove(third_party_providers_ids)
 

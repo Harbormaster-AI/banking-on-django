@@ -161,6 +161,9 @@ class CustomerDelegate :
 		err_msg = "Failed to remove elements " + str(accounts_ids) + " for Accounts on Customer"
 
 		try:
+			# get the Customer
+			customer = self.get( customer_id ).first()
+
 			# remove the children by id
 			customer.accounts.remove(accounts_ids)
 
@@ -206,6 +209,9 @@ class CustomerDelegate :
 		err_msg = "Failed to remove elements " + str(loan_accounts_ids) + " for LoanAccounts on Customer"
 
 		try:
+			# get the Customer
+			customer = self.get( customer_id ).first()
+
 			# remove the children by id
 			customer.loan_accounts.remove(loan_accounts_ids)
 
@@ -251,6 +257,9 @@ class CustomerDelegate :
 		err_msg = "Failed to remove elements " + str(payment_cards_ids) + " for PaymentCards on Customer"
 
 		try:
+			# get the Customer
+			customer = self.get( customer_id ).first()
+
 			# remove the children by id
 			customer.payment_cards.remove(payment_cards_ids)
 
@@ -296,6 +305,9 @@ class CustomerDelegate :
 		err_msg = "Failed to remove elements " + str(external_accounts_ids) + " for ExternalAccounts on Customer"
 
 		try:
+			# get the Customer
+			customer = self.get( customer_id ).first()
+
 			# remove the children by id
 			customer.external_accounts.remove(external_accounts_ids)
 
@@ -341,6 +353,9 @@ class CustomerDelegate :
 		err_msg = "Failed to remove elements " + str(funds_transfers_ids) + " for FundsTransfers on Customer"
 
 		try:
+			# get the Customer
+			customer = self.get( customer_id ).first()
+
 			# remove the children by id
 			customer.funds_transfers.remove(funds_transfers_ids)
 
@@ -386,6 +401,9 @@ class CustomerDelegate :
 		err_msg = "Failed to remove elements " + str(disputes_ids) + " for Disputes on Customer"
 
 		try:
+			# get the Customer
+			customer = self.get( customer_id ).first()
+
 			# remove the children by id
 			customer.disputes.remove(disputes_ids)
 
@@ -431,6 +449,9 @@ class CustomerDelegate :
 		err_msg = "Failed to remove elements " + str(kyc_profiles_ids) + " for KycProfiles on Customer"
 
 		try:
+			# get the Customer
+			customer = self.get( customer_id ).first()
+
 			# remove the children by id
 			customer.kyc_profiles.remove(kyc_profiles_ids)
 
@@ -476,6 +497,9 @@ class CustomerDelegate :
 		err_msg = "Failed to remove elements " + str(consents_ids) + " for Consents on Customer"
 
 		try:
+			# get the Customer
+			customer = self.get( customer_id ).first()
+
 			# remove the children by id
 			customer.consents.remove(consents_ids)
 

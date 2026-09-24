@@ -154,6 +154,9 @@ class ExternalAccountDelegate :
 		err_msg = "Failed to remove elements " + str(transactions_ids) + " for Transactions on ExternalAccount"
 
 		try:
+			# get the ExternalAccount
+			external_account = self.get( external_account_id ).first()
+
 			# remove the children by id
 			external_account.transactions.remove(transactions_ids)
 

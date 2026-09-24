@@ -252,6 +252,9 @@ class PaymentCardDelegate :
 		err_msg = "Failed to remove elements " + str(transactions_ids) + " for Transactions on PaymentCard"
 
 		try:
+			# get the PaymentCard
+			payment_card = self.get( payment_card_id ).first()
+
 			# remove the children by id
 			payment_card.transactions.remove(transactions_ids)
 

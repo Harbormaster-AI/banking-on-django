@@ -156,6 +156,9 @@ class BranchDelegate :
 		err_msg = "Failed to remove elements " + str(accounts_ids) + " for Accounts on Branch"
 
 		try:
+			# get the Branch
+			branch = self.get( branch_id ).first()
+
 			# remove the children by id
 			branch.accounts.remove(accounts_ids)
 
@@ -201,6 +204,9 @@ class BranchDelegate :
 		err_msg = "Failed to remove elements " + str(loan_accounts_ids) + " for LoanAccounts on Branch"
 
 		try:
+			# get the Branch
+			branch = self.get( branch_id ).first()
+
 			# remove the children by id
 			branch.loan_accounts.remove(loan_accounts_ids)
 
@@ -246,6 +252,9 @@ class BranchDelegate :
 		err_msg = "Failed to remove elements " + str(atms_ids) + " for Atms on Branch"
 
 		try:
+			# get the Branch
+			branch = self.get( branch_id ).first()
+
 			# remove the children by id
 			branch.atms.remove(atms_ids)
 

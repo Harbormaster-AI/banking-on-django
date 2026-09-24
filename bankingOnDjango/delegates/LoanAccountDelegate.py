@@ -256,6 +256,9 @@ class LoanAccountDelegate :
 		err_msg = "Failed to remove elements " + str(borrowers_ids) + " for Borrowers on LoanAccount"
 
 		try:
+			# get the LoanAccount
+			loan_account = self.get( loan_account_id ).first()
+
 			# remove the children by id
 			loan_account.borrowers.remove(borrowers_ids)
 
@@ -301,6 +304,9 @@ class LoanAccountDelegate :
 		err_msg = "Failed to remove elements " + str(repayment_schedule_ids) + " for RepaymentSchedule on LoanAccount"
 
 		try:
+			# get the LoanAccount
+			loan_account = self.get( loan_account_id ).first()
+
 			# remove the children by id
 			loan_account.repayment_schedule.remove(repayment_schedule_ids)
 
@@ -346,6 +352,9 @@ class LoanAccountDelegate :
 		err_msg = "Failed to remove elements " + str(payments_ids) + " for Payments on LoanAccount"
 
 		try:
+			# get the LoanAccount
+			loan_account = self.get( loan_account_id ).first()
+
 			# remove the children by id
 			loan_account.payments.remove(payments_ids)
 
@@ -391,6 +400,9 @@ class LoanAccountDelegate :
 		err_msg = "Failed to remove elements " + str(collateral_ids) + " for Collateral on LoanAccount"
 
 		try:
+			# get the LoanAccount
+			loan_account = self.get( loan_account_id ).first()
+
 			# remove the children by id
 			loan_account.collateral.remove(collateral_ids)
 
@@ -436,6 +448,9 @@ class LoanAccountDelegate :
 		err_msg = "Failed to remove elements " + str(fee_charges_ids) + " for FeeCharges on LoanAccount"
 
 		try:
+			# get the LoanAccount
+			loan_account = self.get( loan_account_id ).first()
+
 			# remove the children by id
 			loan_account.fee_charges.remove(fee_charges_ids)
 

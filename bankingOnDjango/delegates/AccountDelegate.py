@@ -256,6 +256,9 @@ class AccountDelegate :
 		err_msg = "Failed to remove elements " + str(owners_ids) + " for Owners on Account"
 
 		try:
+			# get the Account
+			account = self.get( account_id ).first()
+
 			# remove the children by id
 			account.owners.remove(owners_ids)
 
@@ -301,6 +304,9 @@ class AccountDelegate :
 		err_msg = "Failed to remove elements " + str(transactions_ids) + " for Transactions on Account"
 
 		try:
+			# get the Account
+			account = self.get( account_id ).first()
+
 			# remove the children by id
 			account.transactions.remove(transactions_ids)
 
@@ -346,6 +352,9 @@ class AccountDelegate :
 		err_msg = "Failed to remove elements " + str(statements_ids) + " for Statements on Account"
 
 		try:
+			# get the Account
+			account = self.get( account_id ).first()
+
 			# remove the children by id
 			account.statements.remove(statements_ids)
 
@@ -391,6 +400,9 @@ class AccountDelegate :
 		err_msg = "Failed to remove elements " + str(standing_instructions_ids) + " for StandingInstructions on Account"
 
 		try:
+			# get the Account
+			account = self.get( account_id ).first()
+
 			# remove the children by id
 			account.standing_instructions.remove(standing_instructions_ids)
 
@@ -436,6 +448,9 @@ class AccountDelegate :
 		err_msg = "Failed to remove elements " + str(fee_charges_ids) + " for FeeCharges on Account"
 
 		try:
+			# get the Account
+			account = self.get( account_id ).first()
+
 			# remove the children by id
 			account.fee_charges.remove(fee_charges_ids)
 
