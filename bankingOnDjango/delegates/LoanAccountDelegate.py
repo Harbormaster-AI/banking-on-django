@@ -192,10 +192,10 @@ class LoanAccountDelegate :
 			loan_account = self.get( loan_account_id ).first()	
 			
 			# get the BankingProduct from db
-			bankingProduct = BankingProductDelegate().get(product_id).first();
+			banking_product = BankingProductDelegate().get(product_id).first();
 			
 			# assign the Product		
-			loan_account.product = bankingProduct
+			loan_account.product = banking_product
 			
 			#save it
 			loan_account.save()
@@ -217,7 +217,7 @@ class LoanAccountDelegate :
 			loan_account = self.get( loan_account_id ).first()	
 			
 			# assign to None for unassignment
-			loan_account.bankingProduct = None			
+			loan_account.banking_product = None			
 
 			#save it
 			loan_account.save()
@@ -264,30 +264,30 @@ class LoanAccountDelegate :
 			# reload and return the appropriate version
 			return self.get( loan_account_id );
 		except LoanAccount.DoesNotExist:
-			raise Exceptions.ProcessingError(err_msg + " : LoanAccount with id " + str(loan_account_id) + " does not exist.")
+			raise Exceptions.ProcessingError("LoanAccount with id " + str(loan_account_id) + " does not exist.")
 		except Customer.DoesNotExist:
-			raise Exceptions.ProcessingError(err_msg + " : Customer does not exist.")
+			raise Exceptions.ProcessingError("Customer with id " + str(borrowers_id) + " does not exist.")
 		except utils.Exceptions.DatabaseError:
 			raise Exceptions.StorageWriteError()
 		except Exception:
 			raise Exceptions.GeneralError(err_msg) 
 		
-	def addRepaymentSchedule( self, loan_account_id, repaymentSchedule_ids ):
+	def addRepaymentSchedule( self, loan_account_id, repayment_schedule_ids ):
 		# lazy importing avoids circular dependencies
 		from bankingOnDjango.delegates.RepaymentScheduleDelegate import RepaymentScheduleDelegate
 
-		err_msg = "Failed to add elements " + str(repaymentSchedule_ids) + " for RepaymentSchedule on LoanAccount"
+		err_msg = "Failed to add elements " + str(repayment_schedule_ids) + " for RepaymentSchedule on LoanAccount"
 
 		try:
 			# get the LoanAccount
 			loan_account = self.get( loan_account_id ).first()
 				
 			# iterate over ids
-			for id in repaymentSchedule_ids:
+			for id in repayment_schedule_ids:
 				# read the RepaymentSchedule		
-				repaymentSchedule = RepaymentScheduleDelegate().get(id).first();	
+				repayment_schedule = RepaymentScheduleDelegate().get(id).first();	
 				# add the RepaymentSchedule
-				loan_account.repaymentSchedule.add(repaymentSchedule)
+				loan_account.repayment_schedule.add(repayment_schedule)
 				
 			# save it		
 			loan_account.save()
@@ -301,15 +301,15 @@ class LoanAccountDelegate :
 		except Exception:
 			raise Exceptions.ProcessingError(err_msg) 
 		
-	def removeRepaymentSchedule( self, loan_account_id, repaymentSchedule_ids ):
+	def removeRepaymentSchedule( self, loan_account_id, repayment_schedule_ids ):
 		# lazy importing avoids circular dependenciesId
 		try:
 			# reload and return the appropriate version
 			return self.get( loan_account_id );
 		except LoanAccount.DoesNotExist:
-			raise Exceptions.ProcessingError(err_msg + " : LoanAccount with id " + str(loan_account_id) + " does not exist.")
+			raise Exceptions.ProcessingError("LoanAccount with id " + str(loan_account_id) + " does not exist.")
 		except RepaymentSchedule.DoesNotExist:
-			raise Exceptions.ProcessingError(err_msg + " : RepaymentSchedule does not exist.")
+			raise Exceptions.ProcessingError("RepaymentSchedule with id " + str(repayment_schedule_id) + " does not exist.")
 		except utils.Exceptions.DatabaseError:
 			raise Exceptions.StorageWriteError()
 		except Exception:
@@ -328,9 +328,9 @@ class LoanAccountDelegate :
 			# iterate over ids
 			for id in payments_ids:
 				# read the LoanPayment		
-				loanPayment = LoanPaymentDelegate().get(id).first();	
+				loan_payment = LoanPaymentDelegate().get(id).first();	
 				# add the LoanPayment
-				loan_account.payments.add(loanPayment)
+				loan_account.payments.add(loan_payment)
 				
 			# save it		
 			loan_account.save()
@@ -350,9 +350,9 @@ class LoanAccountDelegate :
 			# reload and return the appropriate version
 			return self.get( loan_account_id );
 		except LoanAccount.DoesNotExist:
-			raise Exceptions.ProcessingError(err_msg + " : LoanAccount with id " + str(loan_account_id) + " does not exist.")
+			raise Exceptions.ProcessingError("LoanAccount with id " + str(loan_account_id) + " does not exist.")
 		except LoanPayment.DoesNotExist:
-			raise Exceptions.ProcessingError(err_msg + " : LoanPayment does not exist.")
+			raise Exceptions.ProcessingError("LoanPayment with id " + str(payments_id) + " does not exist.")
 		except utils.Exceptions.DatabaseError:
 			raise Exceptions.StorageWriteError()
 		except Exception:
@@ -393,30 +393,30 @@ class LoanAccountDelegate :
 			# reload and return the appropriate version
 			return self.get( loan_account_id );
 		except LoanAccount.DoesNotExist:
-			raise Exceptions.ProcessingError(err_msg + " : LoanAccount with id " + str(loan_account_id) + " does not exist.")
+			raise Exceptions.ProcessingError("LoanAccount with id " + str(loan_account_id) + " does not exist.")
 		except Collateral.DoesNotExist:
-			raise Exceptions.ProcessingError(err_msg + " : Collateral does not exist.")
+			raise Exceptions.ProcessingError("Collateral with id " + str(collateral_id) + " does not exist.")
 		except utils.Exceptions.DatabaseError:
 			raise Exceptions.StorageWriteError()
 		except Exception:
 			raise Exceptions.GeneralError(err_msg) 
 		
-	def addFeeCharges( self, loan_account_id, feeCharges_ids ):
+	def addFeeCharges( self, loan_account_id, fee_charges_ids ):
 		# lazy importing avoids circular dependencies
 		from bankingOnDjango.delegates.FeeChargeDelegate import FeeChargeDelegate
 
-		err_msg = "Failed to add elements " + str(feeCharges_ids) + " for FeeCharges on LoanAccount"
+		err_msg = "Failed to add elements " + str(fee_charges_ids) + " for FeeCharges on LoanAccount"
 
 		try:
 			# get the LoanAccount
 			loan_account = self.get( loan_account_id ).first()
 				
 			# iterate over ids
-			for id in feeCharges_ids:
+			for id in fee_charges_ids:
 				# read the FeeCharge		
-				feeCharge = FeeChargeDelegate().get(id).first();	
+				fee_charge = FeeChargeDelegate().get(id).first();	
 				# add the FeeCharge
-				loan_account.feeCharges.add(feeCharge)
+				loan_account.fee_charges.add(fee_charge)
 				
 			# save it		
 			loan_account.save()
@@ -430,15 +430,15 @@ class LoanAccountDelegate :
 		except Exception:
 			raise Exceptions.ProcessingError(err_msg) 
 		
-	def removeFeeCharges( self, loan_account_id, feeCharges_ids ):
+	def removeFeeCharges( self, loan_account_id, fee_charges_ids ):
 		# lazy importing avoids circular dependenciesId
 		try:
 			# reload and return the appropriate version
 			return self.get( loan_account_id );
 		except LoanAccount.DoesNotExist:
-			raise Exceptions.ProcessingError(err_msg + " : LoanAccount with id " + str(loan_account_id) + " does not exist.")
+			raise Exceptions.ProcessingError("LoanAccount with id " + str(loan_account_id) + " does not exist.")
 		except FeeCharge.DoesNotExist:
-			raise Exceptions.ProcessingError(err_msg + " : FeeCharge does not exist.")
+			raise Exceptions.ProcessingError("FeeCharge with id " + str(fee_charges_id) + " does not exist.")
 		except utils.Exceptions.DatabaseError:
 			raise Exceptions.StorageWriteError()
 		except Exception:

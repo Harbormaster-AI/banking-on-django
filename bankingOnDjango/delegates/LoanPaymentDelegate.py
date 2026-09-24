@@ -79,21 +79,21 @@ class LoanPaymentDelegate :
 		except Exception:
 			return None;
 		
-	def assignLoanAccount( self, loan_payment_id, loanAccount_id ):
+	def assignLoanAccount( self, loan_payment_id, loan_account_id ):
 		# lazy importing avoids circular dependencies
 		from bankingOnDjango.delegates.LoanAccountDelegate import LoanAccountDelegate
 
-		err_msg = "Failed to assign element " + str(loanAccount_id) + " for LoanAccount on LoanPayment"
+		err_msg = "Failed to assign element " + str(loan_account_id) + " for LoanAccount on LoanPayment"
 
 		try:
 			# get the LoanPayment from db
 			loan_payment = self.get( loan_payment_id ).first()	
 			
 			# get the LoanAccount from db
-			loanAccount = LoanAccountDelegate().get(loanAccount_id).first();
+			loan_account = LoanAccountDelegate().get(loan_account_id).first();
 			
 			# assign the LoanAccount		
-			loan_payment.loanAccount = loanAccount
+			loan_payment.loan_account = loan_account
 			
 			#save it
 			loan_payment.save()
@@ -103,19 +103,19 @@ class LoanPaymentDelegate :
 		except LoanPayment.DoesNotExist:
 			raise Exceptions.ProcessingError(err_msg + " : LoanPayment with id " + str(loan_payment_id) + " does not exist.")
 		except LoanAccount.DoesNotExist:
-			raise Exceptions.ProcessingError(err_msg + " : LoanAccount with id " + str(loanAccount_id) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : LoanAccount with id " + str(loan_account_id) + " does not exist.")
 		except Exception:
 			return None;
 				
 	def unassignLoanAccount( self, loan_payment_id ):
-		err_msg = "Failed to unassign element " + str(loanAccount_id) + " for LoanAccount on LoanPayment"
+		err_msg = "Failed to unassign element " + str(loan_account_id) + " for LoanAccount on LoanPayment"
 
 		try:
 			# get the LoanPayment from db
 			loan_payment = self.get( loan_payment_id ).first()	
 			
 			# assign to None for unassignment
-			loan_payment.loanAccount = None			
+			loan_payment.loan_account = None			
 
 			#save it
 			loan_payment.save()

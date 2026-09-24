@@ -178,21 +178,21 @@ class FXTradeDelegate :
 		except Exception:
 			return None;
 		
-	def assignExchangeRate( self, f_x_trade_id, exchangeRate_id ):
+	def assignExchangeRate( self, f_x_trade_id, exchange_rate_id ):
 		# lazy importing avoids circular dependencies
 		from bankingOnDjango.delegates.ExchangeRateDelegate import ExchangeRateDelegate
 
-		err_msg = "Failed to assign element " + str(exchangeRate_id) + " for ExchangeRate on FXTrade"
+		err_msg = "Failed to assign element " + str(exchange_rate_id) + " for ExchangeRate on FXTrade"
 
 		try:
 			# get the FXTrade from db
 			f_x_trade = self.get( f_x_trade_id ).first()	
 			
 			# get the ExchangeRate from db
-			exchangeRate = ExchangeRateDelegate().get(exchangeRate_id).first();
+			exchange_rate = ExchangeRateDelegate().get(exchange_rate_id).first();
 			
 			# assign the ExchangeRate		
-			f_x_trade.exchangeRate = exchangeRate
+			f_x_trade.exchange_rate = exchange_rate
 			
 			#save it
 			f_x_trade.save()
@@ -202,19 +202,19 @@ class FXTradeDelegate :
 		except FXTrade.DoesNotExist:
 			raise Exceptions.ProcessingError(err_msg + " : FXTrade with id " + str(f_x_trade_id) + " does not exist.")
 		except ExchangeRate.DoesNotExist:
-			raise Exceptions.ProcessingError(err_msg + " : ExchangeRate with id " + str(exchangeRate_id) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : ExchangeRate with id " + str(exchange_rate_id) + " does not exist.")
 		except Exception:
 			return None;
 				
 	def unassignExchangeRate( self, f_x_trade_id ):
-		err_msg = "Failed to unassign element " + str(exchangeRate_id) + " for ExchangeRate on FXTrade"
+		err_msg = "Failed to unassign element " + str(exchange_rate_id) + " for ExchangeRate on FXTrade"
 
 		try:
 			# get the FXTrade from db
 			f_x_trade = self.get( f_x_trade_id ).first()	
 			
 			# assign to None for unassignment
-			f_x_trade.exchangeRate = None			
+			f_x_trade.exchange_rate = None			
 
 			#save it
 			f_x_trade.save()
@@ -226,21 +226,21 @@ class FXTradeDelegate :
 		except Exception:
 			return None;
 		
-	def assignSourceAccount( self, f_x_trade_id, sourceAccount_id ):
+	def assignSourceAccount( self, f_x_trade_id, source_account_id ):
 		# lazy importing avoids circular dependencies
 		from bankingOnDjango.delegates.AccountDelegate import AccountDelegate
 
-		err_msg = "Failed to assign element " + str(sourceAccount_id) + " for SourceAccount on FXTrade"
+		err_msg = "Failed to assign element " + str(source_account_id) + " for SourceAccount on FXTrade"
 
 		try:
 			# get the FXTrade from db
 			f_x_trade = self.get( f_x_trade_id ).first()	
 			
 			# get the Account from db
-			account = AccountDelegate().get(sourceAccount_id).first();
+			account = AccountDelegate().get(source_account_id).first();
 			
 			# assign the SourceAccount		
-			f_x_trade.sourceAccount = account
+			f_x_trade.source_account = account
 			
 			#save it
 			f_x_trade.save()
@@ -250,12 +250,12 @@ class FXTradeDelegate :
 		except FXTrade.DoesNotExist:
 			raise Exceptions.ProcessingError(err_msg + " : FXTrade with id " + str(f_x_trade_id) + " does not exist.")
 		except Account.DoesNotExist:
-			raise Exceptions.ProcessingError(err_msg + " : Account with id " + str(sourceAccount_id) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : Account with id " + str(source_account_id) + " does not exist.")
 		except Exception:
 			return None;
 				
 	def unassignSourceAccount( self, f_x_trade_id ):
-		err_msg = "Failed to unassign element " + str(sourceAccount_id) + " for SourceAccount on FXTrade"
+		err_msg = "Failed to unassign element " + str(source_account_id) + " for SourceAccount on FXTrade"
 
 		try:
 			# get the FXTrade from db
@@ -274,21 +274,21 @@ class FXTradeDelegate :
 		except Exception:
 			return None;
 		
-	def assignDestinationAccount( self, f_x_trade_id, destinationAccount_id ):
+	def assignDestinationAccount( self, f_x_trade_id, destination_account_id ):
 		# lazy importing avoids circular dependencies
 		from bankingOnDjango.delegates.AccountDelegate import AccountDelegate
 
-		err_msg = "Failed to assign element " + str(destinationAccount_id) + " for DestinationAccount on FXTrade"
+		err_msg = "Failed to assign element " + str(destination_account_id) + " for DestinationAccount on FXTrade"
 
 		try:
 			# get the FXTrade from db
 			f_x_trade = self.get( f_x_trade_id ).first()	
 			
 			# get the Account from db
-			account = AccountDelegate().get(destinationAccount_id).first();
+			account = AccountDelegate().get(destination_account_id).first();
 			
 			# assign the DestinationAccount		
-			f_x_trade.destinationAccount = account
+			f_x_trade.destination_account = account
 			
 			#save it
 			f_x_trade.save()
@@ -298,12 +298,12 @@ class FXTradeDelegate :
 		except FXTrade.DoesNotExist:
 			raise Exceptions.ProcessingError(err_msg + " : FXTrade with id " + str(f_x_trade_id) + " does not exist.")
 		except Account.DoesNotExist:
-			raise Exceptions.ProcessingError(err_msg + " : Account with id " + str(destinationAccount_id) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : Account with id " + str(destination_account_id) + " does not exist.")
 		except Exception:
 			return None;
 				
 	def unassignDestinationAccount( self, f_x_trade_id ):
-		err_msg = "Failed to unassign element " + str(destinationAccount_id) + " for DestinationAccount on FXTrade"
+		err_msg = "Failed to unassign element " + str(destination_account_id) + " for DestinationAccount on FXTrade"
 
 		try:
 			# get the FXTrade from db

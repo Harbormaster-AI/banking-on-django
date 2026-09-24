@@ -177,21 +177,21 @@ class ConsentDelegate :
 		except Exception:
 			return None;
 		
-	def assignThirdPartyProvider( self, consent_id, thirdPartyProvider_id ):
+	def assignThirdPartyProvider( self, consent_id, third_party_provider_id ):
 		# lazy importing avoids circular dependencies
 		from bankingOnDjango.delegates.ThirdPartyProviderDelegate import ThirdPartyProviderDelegate
 
-		err_msg = "Failed to assign element " + str(thirdPartyProvider_id) + " for ThirdPartyProvider on Consent"
+		err_msg = "Failed to assign element " + str(third_party_provider_id) + " for ThirdPartyProvider on Consent"
 
 		try:
 			# get the Consent from db
 			consent = self.get( consent_id ).first()	
 			
 			# get the ThirdPartyProvider from db
-			thirdPartyProvider = ThirdPartyProviderDelegate().get(thirdPartyProvider_id).first();
+			third_party_provider = ThirdPartyProviderDelegate().get(third_party_provider_id).first();
 			
 			# assign the ThirdPartyProvider		
-			consent.thirdPartyProvider = thirdPartyProvider
+			consent.third_party_provider = third_party_provider
 			
 			#save it
 			consent.save()
@@ -201,19 +201,19 @@ class ConsentDelegate :
 		except Consent.DoesNotExist:
 			raise Exceptions.ProcessingError(err_msg + " : Consent with id " + str(consent_id) + " does not exist.")
 		except ThirdPartyProvider.DoesNotExist:
-			raise Exceptions.ProcessingError(err_msg + " : ThirdPartyProvider with id " + str(thirdPartyProvider_id) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : ThirdPartyProvider with id " + str(third_party_provider_id) + " does not exist.")
 		except Exception:
 			return None;
 				
 	def unassignThirdPartyProvider( self, consent_id ):
-		err_msg = "Failed to unassign element " + str(thirdPartyProvider_id) + " for ThirdPartyProvider on Consent"
+		err_msg = "Failed to unassign element " + str(third_party_provider_id) + " for ThirdPartyProvider on Consent"
 
 		try:
 			# get the Consent from db
 			consent = self.get( consent_id ).first()	
 			
 			# assign to None for unassignment
-			consent.thirdPartyProvider = None			
+			consent.third_party_provider = None			
 
 			#save it
 			consent.save()
@@ -225,22 +225,22 @@ class ConsentDelegate :
 		except Exception:
 			return None;
 		
-	def addAuthorizedAccounts( self, consent_id, authorizedAccounts_ids ):
+	def addAuthorizedAccounts( self, consent_id, authorized_accounts_ids ):
 		# lazy importing avoids circular dependencies
 		from bankingOnDjango.delegates.AccountDelegate import AccountDelegate
 
-		err_msg = "Failed to add elements " + str(authorizedAccounts_ids) + " for AuthorizedAccounts on Consent"
+		err_msg = "Failed to add elements " + str(authorized_accounts_ids) + " for AuthorizedAccounts on Consent"
 
 		try:
 			# get the Consent
 			consent = self.get( consent_id ).first()
 				
 			# iterate over ids
-			for id in authorizedAccounts_ids:
+			for id in authorized_accounts_ids:
 				# read the Account		
 				account = AccountDelegate().get(id).first();	
 				# add the Account
-				consent.authorizedAccounts.add(account)
+				consent.authorized_accounts.add(account)
 				
 			# save it		
 			consent.save()
@@ -254,15 +254,15 @@ class ConsentDelegate :
 		except Exception:
 			raise Exceptions.ProcessingError(err_msg) 
 		
-	def removeAuthorizedAccounts( self, consent_id, authorizedAccounts_ids ):
+	def removeAuthorizedAccounts( self, consent_id, authorized_accounts_ids ):
 		# lazy importing avoids circular dependenciesId
 		try:
 			# reload and return the appropriate version
 			return self.get( consent_id );
 		except Consent.DoesNotExist:
-			raise Exceptions.ProcessingError(err_msg + " : Consent with id " + str(consent_id) + " does not exist.")
+			raise Exceptions.ProcessingError("Consent with id " + str(consent_id) + " does not exist.")
 		except Account.DoesNotExist:
-			raise Exceptions.ProcessingError(err_msg + " : Account does not exist.")
+			raise Exceptions.ProcessingError("Account with id " + str(authorized_accounts_id) + " does not exist.")
 		except utils.Exceptions.DatabaseError:
 			raise Exceptions.StorageWriteError()
 		except Exception:

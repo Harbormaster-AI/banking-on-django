@@ -78,21 +78,21 @@ class IdentityDocumentDelegate :
 		except Exception:
 			return None;
 		
-	def assignKycProfile( self, identity_document_id, kycProfile_id ):
+	def assignKycProfile( self, identity_document_id, kyc_profile_id ):
 		# lazy importing avoids circular dependencies
 		from bankingOnDjango.delegates.KycProfileDelegate import KycProfileDelegate
 
-		err_msg = "Failed to assign element " + str(kycProfile_id) + " for KycProfile on IdentityDocument"
+		err_msg = "Failed to assign element " + str(kyc_profile_id) + " for KycProfile on IdentityDocument"
 
 		try:
 			# get the IdentityDocument from db
 			identity_document = self.get( identity_document_id ).first()	
 			
 			# get the KycProfile from db
-			kycProfile = KycProfileDelegate().get(kycProfile_id).first();
+			kyc_profile = KycProfileDelegate().get(kyc_profile_id).first();
 			
 			# assign the KycProfile		
-			identity_document.kycProfile = kycProfile
+			identity_document.kyc_profile = kyc_profile
 			
 			#save it
 			identity_document.save()
@@ -102,19 +102,19 @@ class IdentityDocumentDelegate :
 		except IdentityDocument.DoesNotExist:
 			raise Exceptions.ProcessingError(err_msg + " : IdentityDocument with id " + str(identity_document_id) + " does not exist.")
 		except KycProfile.DoesNotExist:
-			raise Exceptions.ProcessingError(err_msg + " : KycProfile with id " + str(kycProfile_id) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : KycProfile with id " + str(kyc_profile_id) + " does not exist.")
 		except Exception:
 			return None;
 				
 	def unassignKycProfile( self, identity_document_id ):
-		err_msg = "Failed to unassign element " + str(kycProfile_id) + " for KycProfile on IdentityDocument"
+		err_msg = "Failed to unassign element " + str(kyc_profile_id) + " for KycProfile on IdentityDocument"
 
 		try:
 			# get the IdentityDocument from db
 			identity_document = self.get( identity_document_id ).first()	
 			
 			# assign to None for unassignment
-			identity_document.kycProfile = None			
+			identity_document.kyc_profile = None			
 
 			#save it
 			identity_document.save()

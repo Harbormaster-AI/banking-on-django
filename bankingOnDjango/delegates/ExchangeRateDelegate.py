@@ -127,22 +127,22 @@ class ExchangeRateDelegate :
 		except Exception:
 			return None;
 		
-	def addFxTrades( self, exchange_rate_id, fxTrades_ids ):
+	def addFxTrades( self, exchange_rate_id, fx_trades_ids ):
 		# lazy importing avoids circular dependencies
 		from bankingOnDjango.delegates.FXTradeDelegate import FXTradeDelegate
 
-		err_msg = "Failed to add elements " + str(fxTrades_ids) + " for FxTrades on ExchangeRate"
+		err_msg = "Failed to add elements " + str(fx_trades_ids) + " for FxTrades on ExchangeRate"
 
 		try:
 			# get the ExchangeRate
 			exchange_rate = self.get( exchange_rate_id ).first()
 				
 			# iterate over ids
-			for id in fxTrades_ids:
+			for id in fx_trades_ids:
 				# read the FXTrade		
-				fXTrade = FXTradeDelegate().get(id).first();	
+				f_x_trade = FXTradeDelegate().get(id).first();	
 				# add the FXTrade
-				exchange_rate.fxTrades.add(fXTrade)
+				exchange_rate.fx_trades.add(f_x_trade)
 				
 			# save it		
 			exchange_rate.save()
@@ -156,15 +156,15 @@ class ExchangeRateDelegate :
 		except Exception:
 			raise Exceptions.ProcessingError(err_msg) 
 		
-	def removeFxTrades( self, exchange_rate_id, fxTrades_ids ):
+	def removeFxTrades( self, exchange_rate_id, fx_trades_ids ):
 		# lazy importing avoids circular dependenciesId
 		try:
 			# reload and return the appropriate version
 			return self.get( exchange_rate_id );
 		except ExchangeRate.DoesNotExist:
-			raise Exceptions.ProcessingError(err_msg + " : ExchangeRate with id " + str(exchange_rate_id) + " does not exist.")
+			raise Exceptions.ProcessingError("ExchangeRate with id " + str(exchange_rate_id) + " does not exist.")
 		except FXTrade.DoesNotExist:
-			raise Exceptions.ProcessingError(err_msg + " : FXTrade does not exist.")
+			raise Exceptions.ProcessingError("FXTrade with id " + str(fx_trades_id) + " does not exist.")
 		except utils.Exceptions.DatabaseError:
 			raise Exceptions.StorageWriteError()
 		except Exception:

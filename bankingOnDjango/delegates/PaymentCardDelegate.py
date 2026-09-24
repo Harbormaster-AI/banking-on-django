@@ -260,9 +260,9 @@ class PaymentCardDelegate :
 			# reload and return the appropriate version
 			return self.get( payment_card_id );
 		except PaymentCard.DoesNotExist:
-			raise Exceptions.ProcessingError(err_msg + " : PaymentCard with id " + str(payment_card_id) + " does not exist.")
+			raise Exceptions.ProcessingError("PaymentCard with id " + str(payment_card_id) + " does not exist.")
 		except Transaction.DoesNotExist:
-			raise Exceptions.ProcessingError(err_msg + " : Transaction does not exist.")
+			raise Exceptions.ProcessingError("Transaction with id " + str(transactions_id) + " does not exist.")
 		except utils.Exceptions.DatabaseError:
 			raise Exceptions.StorageWriteError()
 		except Exception:

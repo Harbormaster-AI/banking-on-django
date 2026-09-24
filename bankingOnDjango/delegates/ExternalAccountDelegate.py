@@ -162,9 +162,9 @@ class ExternalAccountDelegate :
 			# reload and return the appropriate version
 			return self.get( external_account_id );
 		except ExternalAccount.DoesNotExist:
-			raise Exceptions.ProcessingError(err_msg + " : ExternalAccount with id " + str(external_account_id) + " does not exist.")
+			raise Exceptions.ProcessingError("ExternalAccount with id " + str(external_account_id) + " does not exist.")
 		except Transaction.DoesNotExist:
-			raise Exceptions.ProcessingError(err_msg + " : Transaction does not exist.")
+			raise Exceptions.ProcessingError("Transaction with id " + str(transactions_id) + " does not exist.")
 		except utils.Exceptions.DatabaseError:
 			raise Exceptions.StorageWriteError()
 		except Exception:

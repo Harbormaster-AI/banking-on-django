@@ -225,21 +225,21 @@ class DisputeDelegate :
 		except Exception:
 			return None;
 		
-	def assignPaymentCard( self, dispute_id, paymentCard_id ):
+	def assignPaymentCard( self, dispute_id, payment_card_id ):
 		# lazy importing avoids circular dependencies
 		from bankingOnDjango.delegates.PaymentCardDelegate import PaymentCardDelegate
 
-		err_msg = "Failed to assign element " + str(paymentCard_id) + " for PaymentCard on Dispute"
+		err_msg = "Failed to assign element " + str(payment_card_id) + " for PaymentCard on Dispute"
 
 		try:
 			# get the Dispute from db
 			dispute = self.get( dispute_id ).first()	
 			
 			# get the PaymentCard from db
-			paymentCard = PaymentCardDelegate().get(paymentCard_id).first();
+			payment_card = PaymentCardDelegate().get(payment_card_id).first();
 			
 			# assign the PaymentCard		
-			dispute.paymentCard = paymentCard
+			dispute.payment_card = payment_card
 			
 			#save it
 			dispute.save()
@@ -249,19 +249,19 @@ class DisputeDelegate :
 		except Dispute.DoesNotExist:
 			raise Exceptions.ProcessingError(err_msg + " : Dispute with id " + str(dispute_id) + " does not exist.")
 		except PaymentCard.DoesNotExist:
-			raise Exceptions.ProcessingError(err_msg + " : PaymentCard with id " + str(paymentCard_id) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : PaymentCard with id " + str(payment_card_id) + " does not exist.")
 		except Exception:
 			return None;
 				
 	def unassignPaymentCard( self, dispute_id ):
-		err_msg = "Failed to unassign element " + str(paymentCard_id) + " for PaymentCard on Dispute"
+		err_msg = "Failed to unassign element " + str(payment_card_id) + " for PaymentCard on Dispute"
 
 		try:
 			# get the Dispute from db
 			dispute = self.get( dispute_id ).first()	
 			
 			# assign to None for unassignment
-			dispute.paymentCard = None			
+			dispute.payment_card = None			
 
 			#save it
 			dispute.save()

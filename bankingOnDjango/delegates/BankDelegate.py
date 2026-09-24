@@ -121,9 +121,9 @@ class BankDelegate :
 			# reload and return the appropriate version
 			return self.get( bank_id );
 		except Bank.DoesNotExist:
-			raise Exceptions.ProcessingError(err_msg + " : Bank with id " + str(bank_id) + " does not exist.")
+			raise Exceptions.ProcessingError("Bank with id " + str(bank_id) + " does not exist.")
 		except Branch.DoesNotExist:
-			raise Exceptions.ProcessingError(err_msg + " : Branch does not exist.")
+			raise Exceptions.ProcessingError("Branch with id " + str(branches_id) + " does not exist.")
 		except utils.Exceptions.DatabaseError:
 			raise Exceptions.StorageWriteError()
 		except Exception:
@@ -142,9 +142,9 @@ class BankDelegate :
 			# iterate over ids
 			for id in products_ids:
 				# read the BankingProduct		
-				bankingProduct = BankingProductDelegate().get(id).first();	
+				banking_product = BankingProductDelegate().get(id).first();	
 				# add the BankingProduct
-				bank.products.add(bankingProduct)
+				bank.products.add(banking_product)
 				
 			# save it		
 			bank.save()
@@ -164,9 +164,9 @@ class BankDelegate :
 			# reload and return the appropriate version
 			return self.get( bank_id );
 		except Bank.DoesNotExist:
-			raise Exceptions.ProcessingError(err_msg + " : Bank with id " + str(bank_id) + " does not exist.")
+			raise Exceptions.ProcessingError("Bank with id " + str(bank_id) + " does not exist.")
 		except BankingProduct.DoesNotExist:
-			raise Exceptions.ProcessingError(err_msg + " : BankingProduct does not exist.")
+			raise Exceptions.ProcessingError("BankingProduct with id " + str(products_id) + " does not exist.")
 		except utils.Exceptions.DatabaseError:
 			raise Exceptions.StorageWriteError()
 		except Exception:
@@ -207,9 +207,9 @@ class BankDelegate :
 			# reload and return the appropriate version
 			return self.get( bank_id );
 		except Bank.DoesNotExist:
-			raise Exceptions.ProcessingError(err_msg + " : Bank with id " + str(bank_id) + " does not exist.")
+			raise Exceptions.ProcessingError("Bank with id " + str(bank_id) + " does not exist.")
 		except Customer.DoesNotExist:
-			raise Exceptions.ProcessingError(err_msg + " : Customer does not exist.")
+			raise Exceptions.ProcessingError("Customer with id " + str(customers_id) + " does not exist.")
 		except utils.Exceptions.DatabaseError:
 			raise Exceptions.StorageWriteError()
 		except Exception:
@@ -250,30 +250,30 @@ class BankDelegate :
 			# reload and return the appropriate version
 			return self.get( bank_id );
 		except Bank.DoesNotExist:
-			raise Exceptions.ProcessingError(err_msg + " : Bank with id " + str(bank_id) + " does not exist.")
+			raise Exceptions.ProcessingError("Bank with id " + str(bank_id) + " does not exist.")
 		except Account.DoesNotExist:
-			raise Exceptions.ProcessingError(err_msg + " : Account does not exist.")
+			raise Exceptions.ProcessingError("Account with id " + str(accounts_id) + " does not exist.")
 		except utils.Exceptions.DatabaseError:
 			raise Exceptions.StorageWriteError()
 		except Exception:
 			raise Exceptions.GeneralError(err_msg) 
 		
-	def addPaymentCards( self, bank_id, paymentCards_ids ):
+	def addPaymentCards( self, bank_id, payment_cards_ids ):
 		# lazy importing avoids circular dependencies
 		from bankingOnDjango.delegates.PaymentCardDelegate import PaymentCardDelegate
 
-		err_msg = "Failed to add elements " + str(paymentCards_ids) + " for PaymentCards on Bank"
+		err_msg = "Failed to add elements " + str(payment_cards_ids) + " for PaymentCards on Bank"
 
 		try:
 			# get the Bank
 			bank = self.get( bank_id ).first()
 				
 			# iterate over ids
-			for id in paymentCards_ids:
+			for id in payment_cards_ids:
 				# read the PaymentCard		
-				paymentCard = PaymentCardDelegate().get(id).first();	
+				payment_card = PaymentCardDelegate().get(id).first();	
 				# add the PaymentCard
-				bank.paymentCards.add(paymentCard)
+				bank.payment_cards.add(payment_card)
 				
 			# save it		
 			bank.save()
@@ -287,36 +287,36 @@ class BankDelegate :
 		except Exception:
 			raise Exceptions.ProcessingError(err_msg) 
 		
-	def removePaymentCards( self, bank_id, paymentCards_ids ):
+	def removePaymentCards( self, bank_id, payment_cards_ids ):
 		# lazy importing avoids circular dependenciesId
 		try:
 			# reload and return the appropriate version
 			return self.get( bank_id );
 		except Bank.DoesNotExist:
-			raise Exceptions.ProcessingError(err_msg + " : Bank with id " + str(bank_id) + " does not exist.")
+			raise Exceptions.ProcessingError("Bank with id " + str(bank_id) + " does not exist.")
 		except PaymentCard.DoesNotExist:
-			raise Exceptions.ProcessingError(err_msg + " : PaymentCard does not exist.")
+			raise Exceptions.ProcessingError("PaymentCard with id " + str(payment_cards_id) + " does not exist.")
 		except utils.Exceptions.DatabaseError:
 			raise Exceptions.StorageWriteError()
 		except Exception:
 			raise Exceptions.GeneralError(err_msg) 
 		
-	def addLoanAccounts( self, bank_id, loanAccounts_ids ):
+	def addLoanAccounts( self, bank_id, loan_accounts_ids ):
 		# lazy importing avoids circular dependencies
 		from bankingOnDjango.delegates.LoanAccountDelegate import LoanAccountDelegate
 
-		err_msg = "Failed to add elements " + str(loanAccounts_ids) + " for LoanAccounts on Bank"
+		err_msg = "Failed to add elements " + str(loan_accounts_ids) + " for LoanAccounts on Bank"
 
 		try:
 			# get the Bank
 			bank = self.get( bank_id ).first()
 				
 			# iterate over ids
-			for id in loanAccounts_ids:
+			for id in loan_accounts_ids:
 				# read the LoanAccount		
-				loanAccount = LoanAccountDelegate().get(id).first();	
+				loan_account = LoanAccountDelegate().get(id).first();	
 				# add the LoanAccount
-				bank.loanAccounts.add(loanAccount)
+				bank.loan_accounts.add(loan_account)
 				
 			# save it		
 			bank.save()
@@ -330,36 +330,36 @@ class BankDelegate :
 		except Exception:
 			raise Exceptions.ProcessingError(err_msg) 
 		
-	def removeLoanAccounts( self, bank_id, loanAccounts_ids ):
+	def removeLoanAccounts( self, bank_id, loan_accounts_ids ):
 		# lazy importing avoids circular dependenciesId
 		try:
 			# reload and return the appropriate version
 			return self.get( bank_id );
 		except Bank.DoesNotExist:
-			raise Exceptions.ProcessingError(err_msg + " : Bank with id " + str(bank_id) + " does not exist.")
+			raise Exceptions.ProcessingError("Bank with id " + str(bank_id) + " does not exist.")
 		except LoanAccount.DoesNotExist:
-			raise Exceptions.ProcessingError(err_msg + " : LoanAccount does not exist.")
+			raise Exceptions.ProcessingError("LoanAccount with id " + str(loan_accounts_id) + " does not exist.")
 		except utils.Exceptions.DatabaseError:
 			raise Exceptions.StorageWriteError()
 		except Exception:
 			raise Exceptions.GeneralError(err_msg) 
 		
-	def addExchangeRates( self, bank_id, exchangeRates_ids ):
+	def addExchangeRates( self, bank_id, exchange_rates_ids ):
 		# lazy importing avoids circular dependencies
 		from bankingOnDjango.delegates.ExchangeRateDelegate import ExchangeRateDelegate
 
-		err_msg = "Failed to add elements " + str(exchangeRates_ids) + " for ExchangeRates on Bank"
+		err_msg = "Failed to add elements " + str(exchange_rates_ids) + " for ExchangeRates on Bank"
 
 		try:
 			# get the Bank
 			bank = self.get( bank_id ).first()
 				
 			# iterate over ids
-			for id in exchangeRates_ids:
+			for id in exchange_rates_ids:
 				# read the ExchangeRate		
-				exchangeRate = ExchangeRateDelegate().get(id).first();	
+				exchange_rate = ExchangeRateDelegate().get(id).first();	
 				# add the ExchangeRate
-				bank.exchangeRates.add(exchangeRate)
+				bank.exchange_rates.add(exchange_rate)
 				
 			# save it		
 			bank.save()
@@ -373,15 +373,15 @@ class BankDelegate :
 		except Exception:
 			raise Exceptions.ProcessingError(err_msg) 
 		
-	def removeExchangeRates( self, bank_id, exchangeRates_ids ):
+	def removeExchangeRates( self, bank_id, exchange_rates_ids ):
 		# lazy importing avoids circular dependenciesId
 		try:
 			# reload and return the appropriate version
 			return self.get( bank_id );
 		except Bank.DoesNotExist:
-			raise Exceptions.ProcessingError(err_msg + " : Bank with id " + str(bank_id) + " does not exist.")
+			raise Exceptions.ProcessingError("Bank with id " + str(bank_id) + " does not exist.")
 		except ExchangeRate.DoesNotExist:
-			raise Exceptions.ProcessingError(err_msg + " : ExchangeRate does not exist.")
+			raise Exceptions.ProcessingError("ExchangeRate with id " + str(exchange_rates_id) + " does not exist.")
 		except utils.Exceptions.DatabaseError:
 			raise Exceptions.StorageWriteError()
 		except Exception:
@@ -422,30 +422,30 @@ class BankDelegate :
 			# reload and return the appropriate version
 			return self.get( bank_id );
 		except Bank.DoesNotExist:
-			raise Exceptions.ProcessingError(err_msg + " : Bank with id " + str(bank_id) + " does not exist.")
+			raise Exceptions.ProcessingError("Bank with id " + str(bank_id) + " does not exist.")
 		except Consent.DoesNotExist:
-			raise Exceptions.ProcessingError(err_msg + " : Consent does not exist.")
+			raise Exceptions.ProcessingError("Consent with id " + str(consents_id) + " does not exist.")
 		except utils.Exceptions.DatabaseError:
 			raise Exceptions.StorageWriteError()
 		except Exception:
 			raise Exceptions.GeneralError(err_msg) 
 		
-	def addThirdPartyProviders( self, bank_id, thirdPartyProviders_ids ):
+	def addThirdPartyProviders( self, bank_id, third_party_providers_ids ):
 		# lazy importing avoids circular dependencies
 		from bankingOnDjango.delegates.ThirdPartyProviderDelegate import ThirdPartyProviderDelegate
 
-		err_msg = "Failed to add elements " + str(thirdPartyProviders_ids) + " for ThirdPartyProviders on Bank"
+		err_msg = "Failed to add elements " + str(third_party_providers_ids) + " for ThirdPartyProviders on Bank"
 
 		try:
 			# get the Bank
 			bank = self.get( bank_id ).first()
 				
 			# iterate over ids
-			for id in thirdPartyProviders_ids:
+			for id in third_party_providers_ids:
 				# read the ThirdPartyProvider		
-				thirdPartyProvider = ThirdPartyProviderDelegate().get(id).first();	
+				third_party_provider = ThirdPartyProviderDelegate().get(id).first();	
 				# add the ThirdPartyProvider
-				bank.thirdPartyProviders.add(thirdPartyProvider)
+				bank.third_party_providers.add(third_party_provider)
 				
 			# save it		
 			bank.save()
@@ -459,15 +459,15 @@ class BankDelegate :
 		except Exception:
 			raise Exceptions.ProcessingError(err_msg) 
 		
-	def removeThirdPartyProviders( self, bank_id, thirdPartyProviders_ids ):
+	def removeThirdPartyProviders( self, bank_id, third_party_providers_ids ):
 		# lazy importing avoids circular dependenciesId
 		try:
 			# reload and return the appropriate version
 			return self.get( bank_id );
 		except Bank.DoesNotExist:
-			raise Exceptions.ProcessingError(err_msg + " : Bank with id " + str(bank_id) + " does not exist.")
+			raise Exceptions.ProcessingError("Bank with id " + str(bank_id) + " does not exist.")
 		except ThirdPartyProvider.DoesNotExist:
-			raise Exceptions.ProcessingError(err_msg + " : ThirdPartyProvider does not exist.")
+			raise Exceptions.ProcessingError("ThirdPartyProvider with id " + str(third_party_providers_id) + " does not exist.")
 		except utils.Exceptions.DatabaseError:
 			raise Exceptions.StorageWriteError()
 		except Exception:

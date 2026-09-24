@@ -162,9 +162,9 @@ class ThirdPartyProviderDelegate :
 			# reload and return the appropriate version
 			return self.get( third_party_provider_id );
 		except ThirdPartyProvider.DoesNotExist:
-			raise Exceptions.ProcessingError(err_msg + " : ThirdPartyProvider with id " + str(third_party_provider_id) + " does not exist.")
+			raise Exceptions.ProcessingError("ThirdPartyProvider with id " + str(third_party_provider_id) + " does not exist.")
 		except Consent.DoesNotExist:
-			raise Exceptions.ProcessingError(err_msg + " : Consent does not exist.")
+			raise Exceptions.ProcessingError("Consent with id " + str(consents_id) + " does not exist.")
 		except utils.Exceptions.DatabaseError:
 			raise Exceptions.StorageWriteError()
 		except Exception:

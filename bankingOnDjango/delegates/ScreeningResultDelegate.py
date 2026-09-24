@@ -78,21 +78,21 @@ class ScreeningResultDelegate :
 		except Exception:
 			return None;
 		
-	def assignKycProfile( self, screening_result_id, kycProfile_id ):
+	def assignKycProfile( self, screening_result_id, kyc_profile_id ):
 		# lazy importing avoids circular dependencies
 		from bankingOnDjango.delegates.KycProfileDelegate import KycProfileDelegate
 
-		err_msg = "Failed to assign element " + str(kycProfile_id) + " for KycProfile on ScreeningResult"
+		err_msg = "Failed to assign element " + str(kyc_profile_id) + " for KycProfile on ScreeningResult"
 
 		try:
 			# get the ScreeningResult from db
 			screening_result = self.get( screening_result_id ).first()	
 			
 			# get the KycProfile from db
-			kycProfile = KycProfileDelegate().get(kycProfile_id).first();
+			kyc_profile = KycProfileDelegate().get(kyc_profile_id).first();
 			
 			# assign the KycProfile		
-			screening_result.kycProfile = kycProfile
+			screening_result.kyc_profile = kyc_profile
 			
 			#save it
 			screening_result.save()
@@ -102,19 +102,19 @@ class ScreeningResultDelegate :
 		except ScreeningResult.DoesNotExist:
 			raise Exceptions.ProcessingError(err_msg + " : ScreeningResult with id " + str(screening_result_id) + " does not exist.")
 		except KycProfile.DoesNotExist:
-			raise Exceptions.ProcessingError(err_msg + " : KycProfile with id " + str(kycProfile_id) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : KycProfile with id " + str(kyc_profile_id) + " does not exist.")
 		except Exception:
 			return None;
 				
 	def unassignKycProfile( self, screening_result_id ):
-		err_msg = "Failed to unassign element " + str(kycProfile_id) + " for KycProfile on ScreeningResult"
+		err_msg = "Failed to unassign element " + str(kyc_profile_id) + " for KycProfile on ScreeningResult"
 
 		try:
 			# get the ScreeningResult from db
 			screening_result = self.get( screening_result_id ).first()	
 			
 			# assign to None for unassignment
-			screening_result.kycProfile = None			
+			screening_result.kyc_profile = None			
 
 			#save it
 			screening_result.save()

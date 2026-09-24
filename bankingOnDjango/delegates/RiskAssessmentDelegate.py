@@ -78,21 +78,21 @@ class RiskAssessmentDelegate :
 		except Exception:
 			return None;
 		
-	def assignKycProfile( self, risk_assessment_id, kycProfile_id ):
+	def assignKycProfile( self, risk_assessment_id, kyc_profile_id ):
 		# lazy importing avoids circular dependencies
 		from bankingOnDjango.delegates.KycProfileDelegate import KycProfileDelegate
 
-		err_msg = "Failed to assign element " + str(kycProfile_id) + " for KycProfile on RiskAssessment"
+		err_msg = "Failed to assign element " + str(kyc_profile_id) + " for KycProfile on RiskAssessment"
 
 		try:
 			# get the RiskAssessment from db
 			risk_assessment = self.get( risk_assessment_id ).first()	
 			
 			# get the KycProfile from db
-			kycProfile = KycProfileDelegate().get(kycProfile_id).first();
+			kyc_profile = KycProfileDelegate().get(kyc_profile_id).first();
 			
 			# assign the KycProfile		
-			risk_assessment.kycProfile = kycProfile
+			risk_assessment.kyc_profile = kyc_profile
 			
 			#save it
 			risk_assessment.save()
@@ -102,19 +102,19 @@ class RiskAssessmentDelegate :
 		except RiskAssessment.DoesNotExist:
 			raise Exceptions.ProcessingError(err_msg + " : RiskAssessment with id " + str(risk_assessment_id) + " does not exist.")
 		except KycProfile.DoesNotExist:
-			raise Exceptions.ProcessingError(err_msg + " : KycProfile with id " + str(kycProfile_id) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : KycProfile with id " + str(kyc_profile_id) + " does not exist.")
 		except Exception:
 			return None;
 				
 	def unassignKycProfile( self, risk_assessment_id ):
-		err_msg = "Failed to unassign element " + str(kycProfile_id) + " for KycProfile on RiskAssessment"
+		err_msg = "Failed to unassign element " + str(kyc_profile_id) + " for KycProfile on RiskAssessment"
 
 		try:
 			# get the RiskAssessment from db
 			risk_assessment = self.get( risk_assessment_id ).first()	
 			
 			# assign to None for unassignment
-			risk_assessment.kycProfile = None			
+			risk_assessment.kyc_profile = None			
 
 			#save it
 			risk_assessment.save()

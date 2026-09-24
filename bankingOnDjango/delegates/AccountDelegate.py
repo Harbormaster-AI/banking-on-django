@@ -192,10 +192,10 @@ class AccountDelegate :
 			account = self.get( account_id ).first()	
 			
 			# get the BankingProduct from db
-			bankingProduct = BankingProductDelegate().get(product_id).first();
+			banking_product = BankingProductDelegate().get(product_id).first();
 			
 			# assign the Product		
-			account.product = bankingProduct
+			account.product = banking_product
 			
 			#save it
 			account.save()
@@ -217,7 +217,7 @@ class AccountDelegate :
 			account = self.get( account_id ).first()	
 			
 			# assign to None for unassignment
-			account.bankingProduct = None			
+			account.banking_product = None			
 
 			#save it
 			account.save()
@@ -264,9 +264,9 @@ class AccountDelegate :
 			# reload and return the appropriate version
 			return self.get( account_id );
 		except Account.DoesNotExist:
-			raise Exceptions.ProcessingError(err_msg + " : Account with id " + str(account_id) + " does not exist.")
+			raise Exceptions.ProcessingError("Account with id " + str(account_id) + " does not exist.")
 		except Customer.DoesNotExist:
-			raise Exceptions.ProcessingError(err_msg + " : Customer does not exist.")
+			raise Exceptions.ProcessingError("Customer with id " + str(owners_id) + " does not exist.")
 		except utils.Exceptions.DatabaseError:
 			raise Exceptions.StorageWriteError()
 		except Exception:
@@ -307,9 +307,9 @@ class AccountDelegate :
 			# reload and return the appropriate version
 			return self.get( account_id );
 		except Account.DoesNotExist:
-			raise Exceptions.ProcessingError(err_msg + " : Account with id " + str(account_id) + " does not exist.")
+			raise Exceptions.ProcessingError("Account with id " + str(account_id) + " does not exist.")
 		except Transaction.DoesNotExist:
-			raise Exceptions.ProcessingError(err_msg + " : Transaction does not exist.")
+			raise Exceptions.ProcessingError("Transaction with id " + str(transactions_id) + " does not exist.")
 		except utils.Exceptions.DatabaseError:
 			raise Exceptions.StorageWriteError()
 		except Exception:
@@ -328,9 +328,9 @@ class AccountDelegate :
 			# iterate over ids
 			for id in statements_ids:
 				# read the AccountStatement		
-				accountStatement = AccountStatementDelegate().get(id).first();	
+				account_statement = AccountStatementDelegate().get(id).first();	
 				# add the AccountStatement
-				account.statements.add(accountStatement)
+				account.statements.add(account_statement)
 				
 			# save it		
 			account.save()
@@ -350,30 +350,30 @@ class AccountDelegate :
 			# reload and return the appropriate version
 			return self.get( account_id );
 		except Account.DoesNotExist:
-			raise Exceptions.ProcessingError(err_msg + " : Account with id " + str(account_id) + " does not exist.")
+			raise Exceptions.ProcessingError("Account with id " + str(account_id) + " does not exist.")
 		except AccountStatement.DoesNotExist:
-			raise Exceptions.ProcessingError(err_msg + " : AccountStatement does not exist.")
+			raise Exceptions.ProcessingError("AccountStatement with id " + str(statements_id) + " does not exist.")
 		except utils.Exceptions.DatabaseError:
 			raise Exceptions.StorageWriteError()
 		except Exception:
 			raise Exceptions.GeneralError(err_msg) 
 		
-	def addStandingInstructions( self, account_id, standingInstructions_ids ):
+	def addStandingInstructions( self, account_id, standing_instructions_ids ):
 		# lazy importing avoids circular dependencies
 		from bankingOnDjango.delegates.StandingInstructionDelegate import StandingInstructionDelegate
 
-		err_msg = "Failed to add elements " + str(standingInstructions_ids) + " for StandingInstructions on Account"
+		err_msg = "Failed to add elements " + str(standing_instructions_ids) + " for StandingInstructions on Account"
 
 		try:
 			# get the Account
 			account = self.get( account_id ).first()
 				
 			# iterate over ids
-			for id in standingInstructions_ids:
+			for id in standing_instructions_ids:
 				# read the StandingInstruction		
-				standingInstruction = StandingInstructionDelegate().get(id).first();	
+				standing_instruction = StandingInstructionDelegate().get(id).first();	
 				# add the StandingInstruction
-				account.standingInstructions.add(standingInstruction)
+				account.standing_instructions.add(standing_instruction)
 				
 			# save it		
 			account.save()
@@ -387,36 +387,36 @@ class AccountDelegate :
 		except Exception:
 			raise Exceptions.ProcessingError(err_msg) 
 		
-	def removeStandingInstructions( self, account_id, standingInstructions_ids ):
+	def removeStandingInstructions( self, account_id, standing_instructions_ids ):
 		# lazy importing avoids circular dependenciesId
 		try:
 			# reload and return the appropriate version
 			return self.get( account_id );
 		except Account.DoesNotExist:
-			raise Exceptions.ProcessingError(err_msg + " : Account with id " + str(account_id) + " does not exist.")
+			raise Exceptions.ProcessingError("Account with id " + str(account_id) + " does not exist.")
 		except StandingInstruction.DoesNotExist:
-			raise Exceptions.ProcessingError(err_msg + " : StandingInstruction does not exist.")
+			raise Exceptions.ProcessingError("StandingInstruction with id " + str(standing_instructions_id) + " does not exist.")
 		except utils.Exceptions.DatabaseError:
 			raise Exceptions.StorageWriteError()
 		except Exception:
 			raise Exceptions.GeneralError(err_msg) 
 		
-	def addFeeCharges( self, account_id, feeCharges_ids ):
+	def addFeeCharges( self, account_id, fee_charges_ids ):
 		# lazy importing avoids circular dependencies
 		from bankingOnDjango.delegates.FeeChargeDelegate import FeeChargeDelegate
 
-		err_msg = "Failed to add elements " + str(feeCharges_ids) + " for FeeCharges on Account"
+		err_msg = "Failed to add elements " + str(fee_charges_ids) + " for FeeCharges on Account"
 
 		try:
 			# get the Account
 			account = self.get( account_id ).first()
 				
 			# iterate over ids
-			for id in feeCharges_ids:
+			for id in fee_charges_ids:
 				# read the FeeCharge		
-				feeCharge = FeeChargeDelegate().get(id).first();	
+				fee_charge = FeeChargeDelegate().get(id).first();	
 				# add the FeeCharge
-				account.feeCharges.add(feeCharge)
+				account.fee_charges.add(fee_charge)
 				
 			# save it		
 			account.save()
@@ -430,15 +430,15 @@ class AccountDelegate :
 		except Exception:
 			raise Exceptions.ProcessingError(err_msg) 
 		
-	def removeFeeCharges( self, account_id, feeCharges_ids ):
+	def removeFeeCharges( self, account_id, fee_charges_ids ):
 		# lazy importing avoids circular dependenciesId
 		try:
 			# reload and return the appropriate version
 			return self.get( account_id );
 		except Account.DoesNotExist:
-			raise Exceptions.ProcessingError(err_msg + " : Account with id " + str(account_id) + " does not exist.")
+			raise Exceptions.ProcessingError("Account with id " + str(account_id) + " does not exist.")
 		except FeeCharge.DoesNotExist:
-			raise Exceptions.ProcessingError(err_msg + " : FeeCharge does not exist.")
+			raise Exceptions.ProcessingError("FeeCharge with id " + str(fee_charges_id) + " does not exist.")
 		except utils.Exceptions.DatabaseError:
 			raise Exceptions.StorageWriteError()
 		except Exception:

@@ -164,30 +164,30 @@ class BankingProductDelegate :
 			# reload and return the appropriate version
 			return self.get( banking_product_id );
 		except BankingProduct.DoesNotExist:
-			raise Exceptions.ProcessingError(err_msg + " : BankingProduct with id " + str(banking_product_id) + " does not exist.")
+			raise Exceptions.ProcessingError("BankingProduct with id " + str(banking_product_id) + " does not exist.")
 		except Account.DoesNotExist:
-			raise Exceptions.ProcessingError(err_msg + " : Account does not exist.")
+			raise Exceptions.ProcessingError("Account with id " + str(accounts_id) + " does not exist.")
 		except utils.Exceptions.DatabaseError:
 			raise Exceptions.StorageWriteError()
 		except Exception:
 			raise Exceptions.GeneralError(err_msg) 
 		
-	def addLoanAccounts( self, banking_product_id, loanAccounts_ids ):
+	def addLoanAccounts( self, banking_product_id, loan_accounts_ids ):
 		# lazy importing avoids circular dependencies
 		from bankingOnDjango.delegates.LoanAccountDelegate import LoanAccountDelegate
 
-		err_msg = "Failed to add elements " + str(loanAccounts_ids) + " for LoanAccounts on BankingProduct"
+		err_msg = "Failed to add elements " + str(loan_accounts_ids) + " for LoanAccounts on BankingProduct"
 
 		try:
 			# get the BankingProduct
 			banking_product = self.get( banking_product_id ).first()
 				
 			# iterate over ids
-			for id in loanAccounts_ids:
+			for id in loan_accounts_ids:
 				# read the LoanAccount		
-				loanAccount = LoanAccountDelegate().get(id).first();	
+				loan_account = LoanAccountDelegate().get(id).first();	
 				# add the LoanAccount
-				banking_product.loanAccounts.add(loanAccount)
+				banking_product.loan_accounts.add(loan_account)
 				
 			# save it		
 			banking_product.save()
@@ -201,36 +201,36 @@ class BankingProductDelegate :
 		except Exception:
 			raise Exceptions.ProcessingError(err_msg) 
 		
-	def removeLoanAccounts( self, banking_product_id, loanAccounts_ids ):
+	def removeLoanAccounts( self, banking_product_id, loan_accounts_ids ):
 		# lazy importing avoids circular dependenciesId
 		try:
 			# reload and return the appropriate version
 			return self.get( banking_product_id );
 		except BankingProduct.DoesNotExist:
-			raise Exceptions.ProcessingError(err_msg + " : BankingProduct with id " + str(banking_product_id) + " does not exist.")
+			raise Exceptions.ProcessingError("BankingProduct with id " + str(banking_product_id) + " does not exist.")
 		except LoanAccount.DoesNotExist:
-			raise Exceptions.ProcessingError(err_msg + " : LoanAccount does not exist.")
+			raise Exceptions.ProcessingError("LoanAccount with id " + str(loan_accounts_id) + " does not exist.")
 		except utils.Exceptions.DatabaseError:
 			raise Exceptions.StorageWriteError()
 		except Exception:
 			raise Exceptions.GeneralError(err_msg) 
 		
-	def addPaymentCards( self, banking_product_id, paymentCards_ids ):
+	def addPaymentCards( self, banking_product_id, payment_cards_ids ):
 		# lazy importing avoids circular dependencies
 		from bankingOnDjango.delegates.PaymentCardDelegate import PaymentCardDelegate
 
-		err_msg = "Failed to add elements " + str(paymentCards_ids) + " for PaymentCards on BankingProduct"
+		err_msg = "Failed to add elements " + str(payment_cards_ids) + " for PaymentCards on BankingProduct"
 
 		try:
 			# get the BankingProduct
 			banking_product = self.get( banking_product_id ).first()
 				
 			# iterate over ids
-			for id in paymentCards_ids:
+			for id in payment_cards_ids:
 				# read the PaymentCard		
-				paymentCard = PaymentCardDelegate().get(id).first();	
+				payment_card = PaymentCardDelegate().get(id).first();	
 				# add the PaymentCard
-				banking_product.paymentCards.add(paymentCard)
+				banking_product.payment_cards.add(payment_card)
 				
 			# save it		
 			banking_product.save()
@@ -244,15 +244,15 @@ class BankingProductDelegate :
 		except Exception:
 			raise Exceptions.ProcessingError(err_msg) 
 		
-	def removePaymentCards( self, banking_product_id, paymentCards_ids ):
+	def removePaymentCards( self, banking_product_id, payment_cards_ids ):
 		# lazy importing avoids circular dependenciesId
 		try:
 			# reload and return the appropriate version
 			return self.get( banking_product_id );
 		except BankingProduct.DoesNotExist:
-			raise Exceptions.ProcessingError(err_msg + " : BankingProduct with id " + str(banking_product_id) + " does not exist.")
+			raise Exceptions.ProcessingError("BankingProduct with id " + str(banking_product_id) + " does not exist.")
 		except PaymentCard.DoesNotExist:
-			raise Exceptions.ProcessingError(err_msg + " : PaymentCard does not exist.")
+			raise Exceptions.ProcessingError("PaymentCard with id " + str(payment_cards_id) + " does not exist.")
 		except utils.Exceptions.DatabaseError:
 			raise Exceptions.StorageWriteError()
 		except Exception:

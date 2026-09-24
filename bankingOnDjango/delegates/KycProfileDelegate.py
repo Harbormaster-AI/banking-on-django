@@ -129,22 +129,22 @@ class KycProfileDelegate :
 		except Exception:
 			return None;
 		
-	def addIdentityDocuments( self, kyc_profile_id, identityDocuments_ids ):
+	def addIdentityDocuments( self, kyc_profile_id, identity_documents_ids ):
 		# lazy importing avoids circular dependencies
 		from bankingOnDjango.delegates.IdentityDocumentDelegate import IdentityDocumentDelegate
 
-		err_msg = "Failed to add elements " + str(identityDocuments_ids) + " for IdentityDocuments on KycProfile"
+		err_msg = "Failed to add elements " + str(identity_documents_ids) + " for IdentityDocuments on KycProfile"
 
 		try:
 			# get the KycProfile
 			kyc_profile = self.get( kyc_profile_id ).first()
 				
 			# iterate over ids
-			for id in identityDocuments_ids:
+			for id in identity_documents_ids:
 				# read the IdentityDocument		
-				identityDocument = IdentityDocumentDelegate().get(id).first();	
+				identity_document = IdentityDocumentDelegate().get(id).first();	
 				# add the IdentityDocument
-				kyc_profile.identityDocuments.add(identityDocument)
+				kyc_profile.identity_documents.add(identity_document)
 				
 			# save it		
 			kyc_profile.save()
@@ -158,36 +158,36 @@ class KycProfileDelegate :
 		except Exception:
 			raise Exceptions.ProcessingError(err_msg) 
 		
-	def removeIdentityDocuments( self, kyc_profile_id, identityDocuments_ids ):
+	def removeIdentityDocuments( self, kyc_profile_id, identity_documents_ids ):
 		# lazy importing avoids circular dependenciesId
 		try:
 			# reload and return the appropriate version
 			return self.get( kyc_profile_id );
 		except KycProfile.DoesNotExist:
-			raise Exceptions.ProcessingError(err_msg + " : KycProfile with id " + str(kyc_profile_id) + " does not exist.")
+			raise Exceptions.ProcessingError("KycProfile with id " + str(kyc_profile_id) + " does not exist.")
 		except IdentityDocument.DoesNotExist:
-			raise Exceptions.ProcessingError(err_msg + " : IdentityDocument does not exist.")
+			raise Exceptions.ProcessingError("IdentityDocument with id " + str(identity_documents_id) + " does not exist.")
 		except utils.Exceptions.DatabaseError:
 			raise Exceptions.StorageWriteError()
 		except Exception:
 			raise Exceptions.GeneralError(err_msg) 
 		
-	def addRiskAssessments( self, kyc_profile_id, riskAssessments_ids ):
+	def addRiskAssessments( self, kyc_profile_id, risk_assessments_ids ):
 		# lazy importing avoids circular dependencies
 		from bankingOnDjango.delegates.RiskAssessmentDelegate import RiskAssessmentDelegate
 
-		err_msg = "Failed to add elements " + str(riskAssessments_ids) + " for RiskAssessments on KycProfile"
+		err_msg = "Failed to add elements " + str(risk_assessments_ids) + " for RiskAssessments on KycProfile"
 
 		try:
 			# get the KycProfile
 			kyc_profile = self.get( kyc_profile_id ).first()
 				
 			# iterate over ids
-			for id in riskAssessments_ids:
+			for id in risk_assessments_ids:
 				# read the RiskAssessment		
-				riskAssessment = RiskAssessmentDelegate().get(id).first();	
+				risk_assessment = RiskAssessmentDelegate().get(id).first();	
 				# add the RiskAssessment
-				kyc_profile.riskAssessments.add(riskAssessment)
+				kyc_profile.risk_assessments.add(risk_assessment)
 				
 			# save it		
 			kyc_profile.save()
@@ -201,15 +201,15 @@ class KycProfileDelegate :
 		except Exception:
 			raise Exceptions.ProcessingError(err_msg) 
 		
-	def removeRiskAssessments( self, kyc_profile_id, riskAssessments_ids ):
+	def removeRiskAssessments( self, kyc_profile_id, risk_assessments_ids ):
 		# lazy importing avoids circular dependenciesId
 		try:
 			# reload and return the appropriate version
 			return self.get( kyc_profile_id );
 		except KycProfile.DoesNotExist:
-			raise Exceptions.ProcessingError(err_msg + " : KycProfile with id " + str(kyc_profile_id) + " does not exist.")
+			raise Exceptions.ProcessingError("KycProfile with id " + str(kyc_profile_id) + " does not exist.")
 		except RiskAssessment.DoesNotExist:
-			raise Exceptions.ProcessingError(err_msg + " : RiskAssessment does not exist.")
+			raise Exceptions.ProcessingError("RiskAssessment with id " + str(risk_assessments_id) + " does not exist.")
 		except utils.Exceptions.DatabaseError:
 			raise Exceptions.StorageWriteError()
 		except Exception:
@@ -228,9 +228,9 @@ class KycProfileDelegate :
 			# iterate over ids
 			for id in screenings_ids:
 				# read the ScreeningResult		
-				screeningResult = ScreeningResultDelegate().get(id).first();	
+				screening_result = ScreeningResultDelegate().get(id).first();	
 				# add the ScreeningResult
-				kyc_profile.screenings.add(screeningResult)
+				kyc_profile.screenings.add(screening_result)
 				
 			# save it		
 			kyc_profile.save()
@@ -250,9 +250,9 @@ class KycProfileDelegate :
 			# reload and return the appropriate version
 			return self.get( kyc_profile_id );
 		except KycProfile.DoesNotExist:
-			raise Exceptions.ProcessingError(err_msg + " : KycProfile with id " + str(kyc_profile_id) + " does not exist.")
+			raise Exceptions.ProcessingError("KycProfile with id " + str(kyc_profile_id) + " does not exist.")
 		except ScreeningResult.DoesNotExist:
-			raise Exceptions.ProcessingError(err_msg + " : ScreeningResult does not exist.")
+			raise Exceptions.ProcessingError("ScreeningResult with id " + str(screenings_id) + " does not exist.")
 		except utils.Exceptions.DatabaseError:
 			raise Exceptions.StorageWriteError()
 		except Exception:

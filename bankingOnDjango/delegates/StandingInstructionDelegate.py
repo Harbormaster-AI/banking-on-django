@@ -138,10 +138,10 @@ class StandingInstructionDelegate :
 			standing_instruction = self.get( standing_instruction_id ).first()	
 			
 			# get the ExternalAccount from db
-			externalAccount = ExternalAccountDelegate().get(beneficiary_id).first();
+			external_account = ExternalAccountDelegate().get(beneficiary_id).first();
 			
 			# assign the Beneficiary		
-			standing_instruction.beneficiary = externalAccount
+			standing_instruction.beneficiary = external_account
 			
 			#save it
 			standing_instruction.save()
@@ -163,7 +163,7 @@ class StandingInstructionDelegate :
 			standing_instruction = self.get( standing_instruction_id ).first()	
 			
 			# assign to None for unassignment
-			standing_instruction.externalAccount = None			
+			standing_instruction.external_account = None			
 
 			#save it
 			standing_instruction.save()

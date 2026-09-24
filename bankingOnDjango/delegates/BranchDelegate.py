@@ -164,30 +164,30 @@ class BranchDelegate :
 			# reload and return the appropriate version
 			return self.get( branch_id );
 		except Branch.DoesNotExist:
-			raise Exceptions.ProcessingError(err_msg + " : Branch with id " + str(branch_id) + " does not exist.")
+			raise Exceptions.ProcessingError("Branch with id " + str(branch_id) + " does not exist.")
 		except Account.DoesNotExist:
-			raise Exceptions.ProcessingError(err_msg + " : Account does not exist.")
+			raise Exceptions.ProcessingError("Account with id " + str(accounts_id) + " does not exist.")
 		except utils.Exceptions.DatabaseError:
 			raise Exceptions.StorageWriteError()
 		except Exception:
 			raise Exceptions.GeneralError(err_msg) 
 		
-	def addLoanAccounts( self, branch_id, loanAccounts_ids ):
+	def addLoanAccounts( self, branch_id, loan_accounts_ids ):
 		# lazy importing avoids circular dependencies
 		from bankingOnDjango.delegates.LoanAccountDelegate import LoanAccountDelegate
 
-		err_msg = "Failed to add elements " + str(loanAccounts_ids) + " for LoanAccounts on Branch"
+		err_msg = "Failed to add elements " + str(loan_accounts_ids) + " for LoanAccounts on Branch"
 
 		try:
 			# get the Branch
 			branch = self.get( branch_id ).first()
 				
 			# iterate over ids
-			for id in loanAccounts_ids:
+			for id in loan_accounts_ids:
 				# read the LoanAccount		
-				loanAccount = LoanAccountDelegate().get(id).first();	
+				loan_account = LoanAccountDelegate().get(id).first();	
 				# add the LoanAccount
-				branch.loanAccounts.add(loanAccount)
+				branch.loan_accounts.add(loan_account)
 				
 			# save it		
 			branch.save()
@@ -201,15 +201,15 @@ class BranchDelegate :
 		except Exception:
 			raise Exceptions.ProcessingError(err_msg) 
 		
-	def removeLoanAccounts( self, branch_id, loanAccounts_ids ):
+	def removeLoanAccounts( self, branch_id, loan_accounts_ids ):
 		# lazy importing avoids circular dependenciesId
 		try:
 			# reload and return the appropriate version
 			return self.get( branch_id );
 		except Branch.DoesNotExist:
-			raise Exceptions.ProcessingError(err_msg + " : Branch with id " + str(branch_id) + " does not exist.")
+			raise Exceptions.ProcessingError("Branch with id " + str(branch_id) + " does not exist.")
 		except LoanAccount.DoesNotExist:
-			raise Exceptions.ProcessingError(err_msg + " : LoanAccount does not exist.")
+			raise Exceptions.ProcessingError("LoanAccount with id " + str(loan_accounts_id) + " does not exist.")
 		except utils.Exceptions.DatabaseError:
 			raise Exceptions.StorageWriteError()
 		except Exception:
@@ -228,9 +228,9 @@ class BranchDelegate :
 			# iterate over ids
 			for id in atms_ids:
 				# read the ATM		
-				aTM = ATMDelegate().get(id).first();	
+				a_t_m = ATMDelegate().get(id).first();	
 				# add the ATM
-				branch.atms.add(aTM)
+				branch.atms.add(a_t_m)
 				
 			# save it		
 			branch.save()
@@ -250,9 +250,9 @@ class BranchDelegate :
 			# reload and return the appropriate version
 			return self.get( branch_id );
 		except Branch.DoesNotExist:
-			raise Exceptions.ProcessingError(err_msg + " : Branch with id " + str(branch_id) + " does not exist.")
+			raise Exceptions.ProcessingError("Branch with id " + str(branch_id) + " does not exist.")
 		except ATM.DoesNotExist:
-			raise Exceptions.ProcessingError(err_msg + " : ATM does not exist.")
+			raise Exceptions.ProcessingError("ATM with id " + str(atms_id) + " does not exist.")
 		except utils.Exceptions.DatabaseError:
 			raise Exceptions.StorageWriteError()
 		except Exception:

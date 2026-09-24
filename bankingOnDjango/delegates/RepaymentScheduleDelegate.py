@@ -79,21 +79,21 @@ class RepaymentScheduleDelegate :
 		except Exception:
 			return None;
 		
-	def assignLoanAccount( self, repayment_schedule_id, loanAccount_id ):
+	def assignLoanAccount( self, repayment_schedule_id, loan_account_id ):
 		# lazy importing avoids circular dependencies
 		from bankingOnDjango.delegates.LoanAccountDelegate import LoanAccountDelegate
 
-		err_msg = "Failed to assign element " + str(loanAccount_id) + " for LoanAccount on RepaymentSchedule"
+		err_msg = "Failed to assign element " + str(loan_account_id) + " for LoanAccount on RepaymentSchedule"
 
 		try:
 			# get the RepaymentSchedule from db
 			repayment_schedule = self.get( repayment_schedule_id ).first()	
 			
 			# get the LoanAccount from db
-			loanAccount = LoanAccountDelegate().get(loanAccount_id).first();
+			loan_account = LoanAccountDelegate().get(loan_account_id).first();
 			
 			# assign the LoanAccount		
-			repayment_schedule.loanAccount = loanAccount
+			repayment_schedule.loan_account = loan_account
 			
 			#save it
 			repayment_schedule.save()
@@ -103,19 +103,19 @@ class RepaymentScheduleDelegate :
 		except RepaymentSchedule.DoesNotExist:
 			raise Exceptions.ProcessingError(err_msg + " : RepaymentSchedule with id " + str(repayment_schedule_id) + " does not exist.")
 		except LoanAccount.DoesNotExist:
-			raise Exceptions.ProcessingError(err_msg + " : LoanAccount with id " + str(loanAccount_id) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : LoanAccount with id " + str(loan_account_id) + " does not exist.")
 		except Exception:
 			return None;
 				
 	def unassignLoanAccount( self, repayment_schedule_id ):
-		err_msg = "Failed to unassign element " + str(loanAccount_id) + " for LoanAccount on RepaymentSchedule"
+		err_msg = "Failed to unassign element " + str(loan_account_id) + " for LoanAccount on RepaymentSchedule"
 
 		try:
 			# get the RepaymentSchedule from db
 			repayment_schedule = self.get( repayment_schedule_id ).first()	
 			
 			# assign to None for unassignment
-			repayment_schedule.loanAccount = None			
+			repayment_schedule.loan_account = None			
 
 			#save it
 			repayment_schedule.save()
@@ -138,10 +138,10 @@ class RepaymentScheduleDelegate :
 			repayment_schedule = self.get( repayment_schedule_id ).first()	
 			
 			# get the LoanPayment from db
-			loanPayment = LoanPaymentDelegate().get(payment_id).first();
+			loan_payment = LoanPaymentDelegate().get(payment_id).first();
 			
 			# assign the Payment		
-			repayment_schedule.payment = loanPayment
+			repayment_schedule.payment = loan_payment
 			
 			#save it
 			repayment_schedule.save()
@@ -163,7 +163,7 @@ class RepaymentScheduleDelegate :
 			repayment_schedule = self.get( repayment_schedule_id ).first()	
 			
 			# assign to None for unassignment
-			repayment_schedule.loanPayment = None			
+			repayment_schedule.loan_payment = None			
 
 			#save it
 			repayment_schedule.save()
