@@ -110,7 +110,7 @@ class ConsentDelegate :
 			return None;
 				
 	def unassignCustomer( self, consent_id ):
-		err_msg = "Failed to unassign element " + str(customer_id) + " for Customer on Consent"
+		err_msg = "Failed to unassign element " + str(consent_id) + " for Customer on Consent"
 
 		try:
 			# get the Consent from db
@@ -158,7 +158,7 @@ class ConsentDelegate :
 			return None;
 				
 	def unassignBank( self, consent_id ):
-		err_msg = "Failed to unassign element " + str(bank_id) + " for Bank on Consent"
+		err_msg = "Failed to unassign element " + str(consent_id) + " for Bank on Consent"
 
 		try:
 			# get the Consent from db
@@ -206,7 +206,7 @@ class ConsentDelegate :
 			return None;
 				
 	def unassignThirdPartyProvider( self, consent_id ):
-		err_msg = "Failed to unassign element " + str(third_party_provider_id) + " for ThirdPartyProvider on Consent"
+		err_msg = "Failed to unassign element " + str(consent_id) + " for ThirdPartyProvider on Consent"
 
 		try:
 			# get the Consent from db

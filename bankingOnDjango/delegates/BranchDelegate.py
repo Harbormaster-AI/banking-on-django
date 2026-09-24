@@ -110,7 +110,7 @@ class BranchDelegate :
 			return None;
 				
 	def unassignBank( self, branch_id ):
-		err_msg = "Failed to unassign element " + str(bank_id) + " for Bank on Branch"
+		err_msg = "Failed to unassign element " + str(branch_id) + " for Bank on Branch"
 
 		try:
 			# get the Branch from db

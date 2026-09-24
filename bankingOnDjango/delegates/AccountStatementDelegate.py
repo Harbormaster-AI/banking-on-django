@@ -107,7 +107,7 @@ class AccountStatementDelegate :
 			return None;
 				
 	def unassignAccount( self, account_statement_id ):
-		err_msg = "Failed to unassign element " + str(account_id) + " for Account on AccountStatement"
+		err_msg = "Failed to unassign element " + str(account_statement_id) + " for Account on AccountStatement"
 
 		try:
 			# get the AccountStatement from db

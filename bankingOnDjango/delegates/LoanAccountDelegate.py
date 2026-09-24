@@ -114,7 +114,7 @@ class LoanAccountDelegate :
 			return None;
 				
 	def unassignBank( self, loan_account_id ):
-		err_msg = "Failed to unassign element " + str(bank_id) + " for Bank on LoanAccount"
+		err_msg = "Failed to unassign element " + str(loan_account_id) + " for Bank on LoanAccount"
 
 		try:
 			# get the LoanAccount from db
@@ -162,7 +162,7 @@ class LoanAccountDelegate :
 			return None;
 				
 	def unassignBranch( self, loan_account_id ):
-		err_msg = "Failed to unassign element " + str(branch_id) + " for Branch on LoanAccount"
+		err_msg = "Failed to unassign element " + str(loan_account_id) + " for Branch on LoanAccount"
 
 		try:
 			# get the LoanAccount from db
@@ -210,7 +210,7 @@ class LoanAccountDelegate :
 			return None;
 				
 	def unassignProduct( self, loan_account_id ):
-		err_msg = "Failed to unassign element " + str(product_id) + " for Product on LoanAccount"
+		err_msg = "Failed to unassign element " + str(loan_account_id) + " for Product on LoanAccount"
 
 		try:
 			# get the LoanAccount from db

@@ -110,7 +110,7 @@ class BankingProductDelegate :
 			return None;
 				
 	def unassignBank( self, banking_product_id ):
-		err_msg = "Failed to unassign element " + str(bank_id) + " for Bank on BankingProduct"
+		err_msg = "Failed to unassign element " + str(banking_product_id) + " for Bank on BankingProduct"
 
 		try:
 			# get the BankingProduct from db

@@ -108,7 +108,7 @@ class ExchangeRateDelegate :
 			return None;
 				
 	def unassignBank( self, exchange_rate_id ):
-		err_msg = "Failed to unassign element " + str(bank_id) + " for Bank on ExchangeRate"
+		err_msg = "Failed to unassign element " + str(exchange_rate_id) + " for Bank on ExchangeRate"
 
 		try:
 			# get the ExchangeRate from db

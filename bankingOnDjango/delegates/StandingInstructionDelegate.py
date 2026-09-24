@@ -108,7 +108,7 @@ class StandingInstructionDelegate :
 			return None;
 				
 	def unassignAccount( self, standing_instruction_id ):
-		err_msg = "Failed to unassign element " + str(account_id) + " for Account on StandingInstruction"
+		err_msg = "Failed to unassign element " + str(standing_instruction_id) + " for Account on StandingInstruction"
 
 		try:
 			# get the StandingInstruction from db
@@ -156,7 +156,7 @@ class StandingInstructionDelegate :
 			return None;
 				
 	def unassignBeneficiary( self, standing_instruction_id ):
-		err_msg = "Failed to unassign element " + str(beneficiary_id) + " for Beneficiary on StandingInstruction"
+		err_msg = "Failed to unassign element " + str(standing_instruction_id) + " for Beneficiary on StandingInstruction"
 
 		try:
 			# get the StandingInstruction from db

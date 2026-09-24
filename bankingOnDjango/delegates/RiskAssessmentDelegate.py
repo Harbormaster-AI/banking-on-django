@@ -107,7 +107,7 @@ class RiskAssessmentDelegate :
 			return None;
 				
 	def unassignKycProfile( self, risk_assessment_id ):
-		err_msg = "Failed to unassign element " + str(kyc_profile_id) + " for KycProfile on RiskAssessment"
+		err_msg = "Failed to unassign element " + str(risk_assessment_id) + " for KycProfile on RiskAssessment"
 
 		try:
 			# get the RiskAssessment from db

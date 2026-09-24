@@ -107,7 +107,7 @@ class IdentityDocumentDelegate :
 			return None;
 				
 	def unassignKycProfile( self, identity_document_id ):
-		err_msg = "Failed to unassign element " + str(kyc_profile_id) + " for KycProfile on IdentityDocument"
+		err_msg = "Failed to unassign element " + str(identity_document_id) + " for KycProfile on IdentityDocument"
 
 		try:
 			# get the IdentityDocument from db

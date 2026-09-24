@@ -107,7 +107,7 @@ class ScreeningResultDelegate :
 			return None;
 				
 	def unassignKycProfile( self, screening_result_id ):
-		err_msg = "Failed to unassign element " + str(kyc_profile_id) + " for KycProfile on ScreeningResult"
+		err_msg = "Failed to unassign element " + str(screening_result_id) + " for KycProfile on ScreeningResult"
 
 		try:
 			# get the ScreeningResult from db

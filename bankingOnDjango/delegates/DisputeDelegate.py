@@ -110,7 +110,7 @@ class DisputeDelegate :
 			return None;
 				
 	def unassignTransaction( self, dispute_id ):
-		err_msg = "Failed to unassign element " + str(transaction_id) + " for Transaction on Dispute"
+		err_msg = "Failed to unassign element " + str(dispute_id) + " for Transaction on Dispute"
 
 		try:
 			# get the Dispute from db
@@ -158,7 +158,7 @@ class DisputeDelegate :
 			return None;
 				
 	def unassignCustomer( self, dispute_id ):
-		err_msg = "Failed to unassign element " + str(customer_id) + " for Customer on Dispute"
+		err_msg = "Failed to unassign element " + str(dispute_id) + " for Customer on Dispute"
 
 		try:
 			# get the Dispute from db
@@ -206,7 +206,7 @@ class DisputeDelegate :
 			return None;
 				
 	def unassignAccount( self, dispute_id ):
-		err_msg = "Failed to unassign element " + str(account_id) + " for Account on Dispute"
+		err_msg = "Failed to unassign element " + str(dispute_id) + " for Account on Dispute"
 
 		try:
 			# get the Dispute from db
@@ -254,7 +254,7 @@ class DisputeDelegate :
 			return None;
 				
 	def unassignPaymentCard( self, dispute_id ):
-		err_msg = "Failed to unassign element " + str(payment_card_id) + " for PaymentCard on Dispute"
+		err_msg = "Failed to unassign element " + str(dispute_id) + " for PaymentCard on Dispute"
 
 		try:
 			# get the Dispute from db

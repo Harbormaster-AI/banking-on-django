@@ -107,7 +107,7 @@ class CollateralDelegate :
 			return None;
 				
 	def unassignLoanAccount( self, collateral_id ):
-		err_msg = "Failed to unassign element " + str(loan_account_id) + " for LoanAccount on Collateral"
+		err_msg = "Failed to unassign element " + str(collateral_id) + " for LoanAccount on Collateral"
 
 		try:
 			# get the Collateral from db

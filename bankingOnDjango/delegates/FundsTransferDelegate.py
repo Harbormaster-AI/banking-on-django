@@ -110,7 +110,7 @@ class FundsTransferDelegate :
 			return None;
 				
 	def unassignSourceAccount( self, funds_transfer_id ):
-		err_msg = "Failed to unassign element " + str(source_account_id) + " for SourceAccount on FundsTransfer"
+		err_msg = "Failed to unassign element " + str(funds_transfer_id) + " for SourceAccount on FundsTransfer"
 
 		try:
 			# get the FundsTransfer from db
@@ -158,7 +158,7 @@ class FundsTransferDelegate :
 			return None;
 				
 	def unassignDestinationAccount( self, funds_transfer_id ):
-		err_msg = "Failed to unassign element " + str(destination_account_id) + " for DestinationAccount on FundsTransfer"
+		err_msg = "Failed to unassign element " + str(funds_transfer_id) + " for DestinationAccount on FundsTransfer"
 
 		try:
 			# get the FundsTransfer from db
@@ -206,7 +206,7 @@ class FundsTransferDelegate :
 			return None;
 				
 	def unassignExternalBeneficiary( self, funds_transfer_id ):
-		err_msg = "Failed to unassign element " + str(external_beneficiary_id) + " for ExternalBeneficiary on FundsTransfer"
+		err_msg = "Failed to unassign element " + str(funds_transfer_id) + " for ExternalBeneficiary on FundsTransfer"
 
 		try:
 			# get the FundsTransfer from db
@@ -254,7 +254,7 @@ class FundsTransferDelegate :
 			return None;
 				
 	def unassignInitiatedBy( self, funds_transfer_id ):
-		err_msg = "Failed to unassign element " + str(initiated_by_id) + " for InitiatedBy on FundsTransfer"
+		err_msg = "Failed to unassign element " + str(funds_transfer_id) + " for InitiatedBy on FundsTransfer"
 
 		try:
 			# get the FundsTransfer from db

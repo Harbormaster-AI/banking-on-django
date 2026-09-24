@@ -108,7 +108,7 @@ class FeeChargeDelegate :
 			return None;
 				
 	def unassignAccount( self, fee_charge_id ):
-		err_msg = "Failed to unassign element " + str(account_id) + " for Account on FeeCharge"
+		err_msg = "Failed to unassign element " + str(fee_charge_id) + " for Account on FeeCharge"
 
 		try:
 			# get the FeeCharge from db
@@ -156,7 +156,7 @@ class FeeChargeDelegate :
 			return None;
 				
 	def unassignLoanAccount( self, fee_charge_id ):
-		err_msg = "Failed to unassign element " + str(loan_account_id) + " for LoanAccount on FeeCharge"
+		err_msg = "Failed to unassign element " + str(fee_charge_id) + " for LoanAccount on FeeCharge"
 
 		try:
 			# get the FeeCharge from db

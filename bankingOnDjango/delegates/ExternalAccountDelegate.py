@@ -108,7 +108,7 @@ class ExternalAccountDelegate :
 			return None;
 				
 	def unassignCustomer( self, external_account_id ):
-		err_msg = "Failed to unassign element " + str(customer_id) + " for Customer on ExternalAccount"
+		err_msg = "Failed to unassign element " + str(external_account_id) + " for Customer on ExternalAccount"
 
 		try:
 			# get the ExternalAccount from db

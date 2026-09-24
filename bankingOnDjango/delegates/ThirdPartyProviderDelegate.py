@@ -108,7 +108,7 @@ class ThirdPartyProviderDelegate :
 			return None;
 				
 	def unassignBank( self, third_party_provider_id ):
-		err_msg = "Failed to unassign element " + str(bank_id) + " for Bank on ThirdPartyProvider"
+		err_msg = "Failed to unassign element " + str(third_party_provider_id) + " for Bank on ThirdPartyProvider"
 
 		try:
 			# get the ThirdPartyProvider from db

@@ -108,7 +108,7 @@ class LoanPaymentDelegate :
 			return None;
 				
 	def unassignLoanAccount( self, loan_payment_id ):
-		err_msg = "Failed to unassign element " + str(loan_account_id) + " for LoanAccount on LoanPayment"
+		err_msg = "Failed to unassign element " + str(loan_payment_id) + " for LoanAccount on LoanPayment"
 
 		try:
 			# get the LoanPayment from db
@@ -156,7 +156,7 @@ class LoanPaymentDelegate :
 			return None;
 				
 	def unassignTransaction( self, loan_payment_id ):
-		err_msg = "Failed to unassign element " + str(transaction_id) + " for Transaction on LoanPayment"
+		err_msg = "Failed to unassign element " + str(loan_payment_id) + " for Transaction on LoanPayment"
 
 		try:
 			# get the LoanPayment from db

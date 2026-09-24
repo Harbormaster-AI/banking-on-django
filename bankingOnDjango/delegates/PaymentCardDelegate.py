@@ -110,7 +110,7 @@ class PaymentCardDelegate :
 			return None;
 				
 	def unassignBank( self, payment_card_id ):
-		err_msg = "Failed to unassign element " + str(bank_id) + " for Bank on PaymentCard"
+		err_msg = "Failed to unassign element " + str(payment_card_id) + " for Bank on PaymentCard"
 
 		try:
 			# get the PaymentCard from db
@@ -158,7 +158,7 @@ class PaymentCardDelegate :
 			return None;
 				
 	def unassignAccount( self, payment_card_id ):
-		err_msg = "Failed to unassign element " + str(account_id) + " for Account on PaymentCard"
+		err_msg = "Failed to unassign element " + str(payment_card_id) + " for Account on PaymentCard"
 
 		try:
 			# get the PaymentCard from db
@@ -206,7 +206,7 @@ class PaymentCardDelegate :
 			return None;
 				
 	def unassignCustomer( self, payment_card_id ):
-		err_msg = "Failed to unassign element " + str(customer_id) + " for Customer on PaymentCard"
+		err_msg = "Failed to unassign element " + str(payment_card_id) + " for Customer on PaymentCard"
 
 		try:
 			# get the PaymentCard from db

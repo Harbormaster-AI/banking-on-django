@@ -112,7 +112,7 @@ class TransactionDelegate :
 			return None;
 				
 	def unassignAccount( self, transaction_id ):
-		err_msg = "Failed to unassign element " + str(account_id) + " for Account on Transaction"
+		err_msg = "Failed to unassign element " + str(transaction_id) + " for Account on Transaction"
 
 		try:
 			# get the Transaction from db
@@ -160,7 +160,7 @@ class TransactionDelegate :
 			return None;
 				
 	def unassignExternalCounterparty( self, transaction_id ):
-		err_msg = "Failed to unassign element " + str(external_counterparty_id) + " for ExternalCounterparty on Transaction"
+		err_msg = "Failed to unassign element " + str(transaction_id) + " for ExternalCounterparty on Transaction"
 
 		try:
 			# get the Transaction from db
@@ -208,7 +208,7 @@ class TransactionDelegate :
 			return None;
 				
 	def unassignPaymentCard( self, transaction_id ):
-		err_msg = "Failed to unassign element " + str(payment_card_id) + " for PaymentCard on Transaction"
+		err_msg = "Failed to unassign element " + str(transaction_id) + " for PaymentCard on Transaction"
 
 		try:
 			# get the Transaction from db
@@ -256,7 +256,7 @@ class TransactionDelegate :
 			return None;
 				
 	def unassignFundsTransfer( self, transaction_id ):
-		err_msg = "Failed to unassign element " + str(funds_transfer_id) + " for FundsTransfer on Transaction"
+		err_msg = "Failed to unassign element " + str(transaction_id) + " for FundsTransfer on Transaction"
 
 		try:
 			# get the Transaction from db
@@ -304,7 +304,7 @@ class TransactionDelegate :
 			return None;
 				
 	def unassignFxTrade( self, transaction_id ):
-		err_msg = "Failed to unassign element " + str(fx_trade_id) + " for FxTrade on Transaction"
+		err_msg = "Failed to unassign element " + str(transaction_id) + " for FxTrade on Transaction"
 
 		try:
 			# get the Transaction from db
@@ -352,7 +352,7 @@ class TransactionDelegate :
 			return None;
 				
 	def unassignDispute( self, transaction_id ):
-		err_msg = "Failed to unassign element " + str(dispute_id) + " for Dispute on Transaction"
+		err_msg = "Failed to unassign element " + str(transaction_id) + " for Dispute on Transaction"
 
 		try:
 			# get the Transaction from db

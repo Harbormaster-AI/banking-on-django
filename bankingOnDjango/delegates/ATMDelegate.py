@@ -107,7 +107,7 @@ class ATMDelegate :
 			return None;
 				
 	def unassignBranch( self, a_t_m_id ):
-		err_msg = "Failed to unassign element " + str(branch_id) + " for Branch on ATM"
+		err_msg = "Failed to unassign element " + str(a_t_m_id) + " for Branch on ATM"
 
 		try:
 			# get the ATM from db

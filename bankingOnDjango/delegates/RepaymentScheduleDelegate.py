@@ -108,7 +108,7 @@ class RepaymentScheduleDelegate :
 			return None;
 				
 	def unassignLoanAccount( self, repayment_schedule_id ):
-		err_msg = "Failed to unassign element " + str(loan_account_id) + " for LoanAccount on RepaymentSchedule"
+		err_msg = "Failed to unassign element " + str(repayment_schedule_id) + " for LoanAccount on RepaymentSchedule"
 
 		try:
 			# get the RepaymentSchedule from db
@@ -156,7 +156,7 @@ class RepaymentScheduleDelegate :
 			return None;
 				
 	def unassignPayment( self, repayment_schedule_id ):
-		err_msg = "Failed to unassign element " + str(payment_id) + " for Payment on RepaymentSchedule"
+		err_msg = "Failed to unassign element " + str(repayment_schedule_id) + " for Payment on RepaymentSchedule"
 
 		try:
 			# get the RepaymentSchedule from db

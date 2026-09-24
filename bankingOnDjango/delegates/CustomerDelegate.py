@@ -115,7 +115,7 @@ class CustomerDelegate :
 			return None;
 				
 	def unassignBank( self, customer_id ):
-		err_msg = "Failed to unassign element " + str(bank_id) + " for Bank on Customer"
+		err_msg = "Failed to unassign element " + str(customer_id) + " for Bank on Customer"
 
 		try:
 			# get the Customer from db

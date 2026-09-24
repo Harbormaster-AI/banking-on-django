@@ -110,7 +110,7 @@ class KycProfileDelegate :
 			return None;
 				
 	def unassignCustomer( self, kyc_profile_id ):
-		err_msg = "Failed to unassign element " + str(customer_id) + " for Customer on KycProfile"
+		err_msg = "Failed to unassign element " + str(kyc_profile_id) + " for Customer on KycProfile"
 
 		try:
 			# get the KycProfile from db

@@ -111,7 +111,7 @@ class FXTradeDelegate :
 			return None;
 				
 	def unassignCustomer( self, f_x_trade_id ):
-		err_msg = "Failed to unassign element " + str(customer_id) + " for Customer on FXTrade"
+		err_msg = "Failed to unassign element " + str(f_x_trade_id) + " for Customer on FXTrade"
 
 		try:
 			# get the FXTrade from db
@@ -159,7 +159,7 @@ class FXTradeDelegate :
 			return None;
 				
 	def unassignBank( self, f_x_trade_id ):
-		err_msg = "Failed to unassign element " + str(bank_id) + " for Bank on FXTrade"
+		err_msg = "Failed to unassign element " + str(f_x_trade_id) + " for Bank on FXTrade"
 
 		try:
 			# get the FXTrade from db
@@ -207,7 +207,7 @@ class FXTradeDelegate :
 			return None;
 				
 	def unassignExchangeRate( self, f_x_trade_id ):
-		err_msg = "Failed to unassign element " + str(exchange_rate_id) + " for ExchangeRate on FXTrade"
+		err_msg = "Failed to unassign element " + str(f_x_trade_id) + " for ExchangeRate on FXTrade"
 
 		try:
 			# get the FXTrade from db
@@ -255,7 +255,7 @@ class FXTradeDelegate :
 			return None;
 				
 	def unassignSourceAccount( self, f_x_trade_id ):
-		err_msg = "Failed to unassign element " + str(source_account_id) + " for SourceAccount on FXTrade"
+		err_msg = "Failed to unassign element " + str(f_x_trade_id) + " for SourceAccount on FXTrade"
 
 		try:
 			# get the FXTrade from db
@@ -303,7 +303,7 @@ class FXTradeDelegate :
 			return None;
 				
 	def unassignDestinationAccount( self, f_x_trade_id ):
-		err_msg = "Failed to unassign element " + str(destination_account_id) + " for DestinationAccount on FXTrade"
+		err_msg = "Failed to unassign element " + str(f_x_trade_id) + " for DestinationAccount on FXTrade"
 
 		try:
 			# get the FXTrade from db
@@ -351,7 +351,7 @@ class FXTradeDelegate :
 			return None;
 				
 	def unassignTransaction( self, f_x_trade_id ):
-		err_msg = "Failed to unassign element " + str(transaction_id) + " for Transaction on FXTrade"
+		err_msg = "Failed to unassign element " + str(f_x_trade_id) + " for Transaction on FXTrade"
 
 		try:
 			# get the FXTrade from db
