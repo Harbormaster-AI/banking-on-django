@@ -1,4 +1,3 @@
-from django.db import models
  #======================================================================
 # 
 # Encapsulates data for model TransactionDirection
