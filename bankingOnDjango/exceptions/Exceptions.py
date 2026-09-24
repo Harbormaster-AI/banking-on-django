@@ -18,10 +18,6 @@ class GeneralError(Exception):
 	def __init__(self, detail):
 		self.detail = detail
 
-	def __init__(self, type, detail):
-		self.type = type
-		self.detail = detail
-
 class InputError(GeneralError):
 
 	def __init__(self, detail):
