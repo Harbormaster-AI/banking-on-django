@@ -5,6 +5,7 @@ from django.test import TestCase
 from bankingOnDjango.models.FXTrade import FXTrade
 from bankingOnDjango.delegates.FXTradeDelegate import FXTradeDelegate
 
+import datetime
 
  #======================================================================
 # 

@@ -5,6 +5,7 @@ from django.test import TestCase
 from bankingOnDjango.models.KycProfile import KycProfile
 from bankingOnDjango.delegates.KycProfileDelegate import KycProfileDelegate
 
+import datetime
 
  #======================================================================
 # 

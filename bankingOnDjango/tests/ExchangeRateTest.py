@@ -5,6 +5,7 @@ from django.test import TestCase
 from bankingOnDjango.models.ExchangeRate import ExchangeRate
 from bankingOnDjango.delegates.ExchangeRateDelegate import ExchangeRateDelegate
 
+import datetime
 
  #======================================================================
 # 

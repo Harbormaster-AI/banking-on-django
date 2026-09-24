@@ -5,6 +5,7 @@ from django.test import TestCase
 from bankingOnDjango.models.IdentityDocument import IdentityDocument
 from bankingOnDjango.delegates.IdentityDocumentDelegate import IdentityDocumentDelegate
 
+import datetime
 
  #======================================================================
 # 

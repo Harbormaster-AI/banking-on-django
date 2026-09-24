@@ -5,6 +5,7 @@ from django.test import TestCase
 from bankingOnDjango.models.StandingInstruction import StandingInstruction
 from bankingOnDjango.delegates.StandingInstructionDelegate import StandingInstructionDelegate
 
+import datetime
 
  #======================================================================
 # 

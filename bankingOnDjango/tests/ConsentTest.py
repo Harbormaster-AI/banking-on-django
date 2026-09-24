@@ -5,6 +5,7 @@ from django.test import TestCase
 from bankingOnDjango.models.Consent import Consent
 from bankingOnDjango.delegates.ConsentDelegate import ConsentDelegate
 
+import datetime
 
  #======================================================================
 # 

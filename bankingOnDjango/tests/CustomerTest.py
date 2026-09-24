@@ -5,6 +5,7 @@ from django.test import TestCase
 from bankingOnDjango.models.Customer import Customer
 from bankingOnDjango.delegates.CustomerDelegate import CustomerDelegate
 
+import datetime
 
  #======================================================================
 # 
