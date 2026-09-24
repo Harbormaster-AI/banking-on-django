@@ -256,7 +256,7 @@ class PaymentCardDelegate :
 		
 	def removeTransactions( self, payment_card_id, transactions_ids ):
 		# lazy importing avoids circular dependenciesId
-			
+		try:
 			# reload and return the appropriate version
 			return self.get( payment_card_id );
 		except PaymentCard.DoesNotExist:

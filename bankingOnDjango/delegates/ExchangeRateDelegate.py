@@ -158,7 +158,7 @@ class ExchangeRateDelegate :
 		
 	def removeFxTrades( self, exchange_rate_id, fxTrades_ids ):
 		# lazy importing avoids circular dependenciesId
-			
+		try:
 			# reload and return the appropriate version
 			return self.get( exchange_rate_id );
 		except ExchangeRate.DoesNotExist:

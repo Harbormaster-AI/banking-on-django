@@ -158,7 +158,7 @@ class ExternalAccountDelegate :
 		
 	def removeTransactions( self, external_account_id, transactions_ids ):
 		# lazy importing avoids circular dependenciesId
-			
+		try:
 			# reload and return the appropriate version
 			return self.get( external_account_id );
 		except ExternalAccount.DoesNotExist:

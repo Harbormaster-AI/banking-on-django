@@ -158,7 +158,7 @@ class ThirdPartyProviderDelegate :
 		
 	def removeConsents( self, third_party_provider_id, consents_ids ):
 		# lazy importing avoids circular dependenciesId
-			
+		try:
 			# reload and return the appropriate version
 			return self.get( third_party_provider_id );
 		except ThirdPartyProvider.DoesNotExist:

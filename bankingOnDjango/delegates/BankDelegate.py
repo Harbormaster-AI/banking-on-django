@@ -117,7 +117,7 @@ class BankDelegate :
 		
 	def removeBranches( self, bank_id, branches_ids ):
 		# lazy importing avoids circular dependenciesId
-			
+		try:
 			# reload and return the appropriate version
 			return self.get( bank_id );
 		except Bank.DoesNotExist:
@@ -160,7 +160,7 @@ class BankDelegate :
 		
 	def removeProducts( self, bank_id, products_ids ):
 		# lazy importing avoids circular dependenciesId
-			
+		try:
 			# reload and return the appropriate version
 			return self.get( bank_id );
 		except Bank.DoesNotExist:
@@ -203,7 +203,7 @@ class BankDelegate :
 		
 	def removeCustomers( self, bank_id, customers_ids ):
 		# lazy importing avoids circular dependenciesId
-			
+		try:
 			# reload and return the appropriate version
 			return self.get( bank_id );
 		except Bank.DoesNotExist:
@@ -246,7 +246,7 @@ class BankDelegate :
 		
 	def removeAccounts( self, bank_id, accounts_ids ):
 		# lazy importing avoids circular dependenciesId
-			
+		try:
 			# reload and return the appropriate version
 			return self.get( bank_id );
 		except Bank.DoesNotExist:
@@ -289,7 +289,7 @@ class BankDelegate :
 		
 	def removePaymentCards( self, bank_id, paymentCards_ids ):
 		# lazy importing avoids circular dependenciesId
-			
+		try:
 			# reload and return the appropriate version
 			return self.get( bank_id );
 		except Bank.DoesNotExist:
@@ -332,7 +332,7 @@ class BankDelegate :
 		
 	def removeLoanAccounts( self, bank_id, loanAccounts_ids ):
 		# lazy importing avoids circular dependenciesId
-			
+		try:
 			# reload and return the appropriate version
 			return self.get( bank_id );
 		except Bank.DoesNotExist:
@@ -375,7 +375,7 @@ class BankDelegate :
 		
 	def removeExchangeRates( self, bank_id, exchangeRates_ids ):
 		# lazy importing avoids circular dependenciesId
-			
+		try:
 			# reload and return the appropriate version
 			return self.get( bank_id );
 		except Bank.DoesNotExist:
@@ -418,7 +418,7 @@ class BankDelegate :
 		
 	def removeConsents( self, bank_id, consents_ids ):
 		# lazy importing avoids circular dependenciesId
-			
+		try:
 			# reload and return the appropriate version
 			return self.get( bank_id );
 		except Bank.DoesNotExist:
@@ -461,7 +461,7 @@ class BankDelegate :
 		
 	def removeThirdPartyProviders( self, bank_id, thirdPartyProviders_ids ):
 		# lazy importing avoids circular dependenciesId
-			
+		try:
 			# reload and return the appropriate version
 			return self.get( bank_id );
 		except Bank.DoesNotExist:

@@ -260,7 +260,7 @@ class AccountDelegate :
 		
 	def removeOwners( self, account_id, owners_ids ):
 		# lazy importing avoids circular dependenciesId
-			
+		try:
 			# reload and return the appropriate version
 			return self.get( account_id );
 		except Account.DoesNotExist:
@@ -303,7 +303,7 @@ class AccountDelegate :
 		
 	def removeTransactions( self, account_id, transactions_ids ):
 		# lazy importing avoids circular dependenciesId
-			
+		try:
 			# reload and return the appropriate version
 			return self.get( account_id );
 		except Account.DoesNotExist:
@@ -346,7 +346,7 @@ class AccountDelegate :
 		
 	def removeStatements( self, account_id, statements_ids ):
 		# lazy importing avoids circular dependenciesId
-			
+		try:
 			# reload and return the appropriate version
 			return self.get( account_id );
 		except Account.DoesNotExist:
@@ -389,7 +389,7 @@ class AccountDelegate :
 		
 	def removeStandingInstructions( self, account_id, standingInstructions_ids ):
 		# lazy importing avoids circular dependenciesId
-			
+		try:
 			# reload and return the appropriate version
 			return self.get( account_id );
 		except Account.DoesNotExist:
@@ -432,7 +432,7 @@ class AccountDelegate :
 		
 	def removeFeeCharges( self, account_id, feeCharges_ids ):
 		# lazy importing avoids circular dependenciesId
-			
+		try:
 			# reload and return the appropriate version
 			return self.get( account_id );
 		except Account.DoesNotExist:

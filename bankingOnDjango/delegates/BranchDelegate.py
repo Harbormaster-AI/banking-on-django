@@ -160,7 +160,7 @@ class BranchDelegate :
 		
 	def removeAccounts( self, branch_id, accounts_ids ):
 		# lazy importing avoids circular dependenciesId
-			
+		try:
 			# reload and return the appropriate version
 			return self.get( branch_id );
 		except Branch.DoesNotExist:
@@ -203,7 +203,7 @@ class BranchDelegate :
 		
 	def removeLoanAccounts( self, branch_id, loanAccounts_ids ):
 		# lazy importing avoids circular dependenciesId
-			
+		try:
 			# reload and return the appropriate version
 			return self.get( branch_id );
 		except Branch.DoesNotExist:
@@ -246,7 +246,7 @@ class BranchDelegate :
 		
 	def removeAtms( self, branch_id, atms_ids ):
 		# lazy importing avoids circular dependenciesId
-			
+		try:
 			# reload and return the appropriate version
 			return self.get( branch_id );
 		except Branch.DoesNotExist:

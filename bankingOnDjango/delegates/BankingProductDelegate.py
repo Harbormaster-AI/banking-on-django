@@ -160,7 +160,7 @@ class BankingProductDelegate :
 		
 	def removeAccounts( self, banking_product_id, accounts_ids ):
 		# lazy importing avoids circular dependenciesId
-			
+		try:
 			# reload and return the appropriate version
 			return self.get( banking_product_id );
 		except BankingProduct.DoesNotExist:
@@ -203,7 +203,7 @@ class BankingProductDelegate :
 		
 	def removeLoanAccounts( self, banking_product_id, loanAccounts_ids ):
 		# lazy importing avoids circular dependenciesId
-			
+		try:
 			# reload and return the appropriate version
 			return self.get( banking_product_id );
 		except BankingProduct.DoesNotExist:
@@ -246,7 +246,7 @@ class BankingProductDelegate :
 		
 	def removePaymentCards( self, banking_product_id, paymentCards_ids ):
 		# lazy importing avoids circular dependenciesId
-			
+		try:
 			# reload and return the appropriate version
 			return self.get( banking_product_id );
 		except BankingProduct.DoesNotExist:

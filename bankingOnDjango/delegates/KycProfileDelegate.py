@@ -160,7 +160,7 @@ class KycProfileDelegate :
 		
 	def removeIdentityDocuments( self, kyc_profile_id, identityDocuments_ids ):
 		# lazy importing avoids circular dependenciesId
-			
+		try:
 			# reload and return the appropriate version
 			return self.get( kyc_profile_id );
 		except KycProfile.DoesNotExist:
@@ -203,7 +203,7 @@ class KycProfileDelegate :
 		
 	def removeRiskAssessments( self, kyc_profile_id, riskAssessments_ids ):
 		# lazy importing avoids circular dependenciesId
-			
+		try:
 			# reload and return the appropriate version
 			return self.get( kyc_profile_id );
 		except KycProfile.DoesNotExist:
@@ -246,7 +246,7 @@ class KycProfileDelegate :
 		
 	def removeScreenings( self, kyc_profile_id, screenings_ids ):
 		# lazy importing avoids circular dependenciesId
-			
+		try:
 			# reload and return the appropriate version
 			return self.get( kyc_profile_id );
 		except KycProfile.DoesNotExist:

@@ -165,7 +165,7 @@ class CustomerDelegate :
 		
 	def removeAccounts( self, customer_id, accounts_ids ):
 		# lazy importing avoids circular dependenciesId
-			
+		try:
 			# reload and return the appropriate version
 			return self.get( customer_id );
 		except Customer.DoesNotExist:
@@ -208,7 +208,7 @@ class CustomerDelegate :
 		
 	def removeLoanAccounts( self, customer_id, loanAccounts_ids ):
 		# lazy importing avoids circular dependenciesId
-			
+		try:
 			# reload and return the appropriate version
 			return self.get( customer_id );
 		except Customer.DoesNotExist:
@@ -251,7 +251,7 @@ class CustomerDelegate :
 		
 	def removePaymentCards( self, customer_id, paymentCards_ids ):
 		# lazy importing avoids circular dependenciesId
-			
+		try:
 			# reload and return the appropriate version
 			return self.get( customer_id );
 		except Customer.DoesNotExist:
@@ -294,7 +294,7 @@ class CustomerDelegate :
 		
 	def removeExternalAccounts( self, customer_id, externalAccounts_ids ):
 		# lazy importing avoids circular dependenciesId
-			
+		try:
 			# reload and return the appropriate version
 			return self.get( customer_id );
 		except Customer.DoesNotExist:
@@ -337,7 +337,7 @@ class CustomerDelegate :
 		
 	def removeFundsTransfers( self, customer_id, fundsTransfers_ids ):
 		# lazy importing avoids circular dependenciesId
-			
+		try:
 			# reload and return the appropriate version
 			return self.get( customer_id );
 		except Customer.DoesNotExist:
@@ -380,7 +380,7 @@ class CustomerDelegate :
 		
 	def removeDisputes( self, customer_id, disputes_ids ):
 		# lazy importing avoids circular dependenciesId
-			
+		try:
 			# reload and return the appropriate version
 			return self.get( customer_id );
 		except Customer.DoesNotExist:
@@ -423,7 +423,7 @@ class CustomerDelegate :
 		
 	def removeKycProfiles( self, customer_id, kycProfiles_ids ):
 		# lazy importing avoids circular dependenciesId
-			
+		try:
 			# reload and return the appropriate version
 			return self.get( customer_id );
 		except Customer.DoesNotExist:
@@ -466,7 +466,7 @@ class CustomerDelegate :
 		
 	def removeConsents( self, customer_id, consents_ids ):
 		# lazy importing avoids circular dependenciesId
-			
+		try:
 			# reload and return the appropriate version
 			return self.get( customer_id );
 		except Customer.DoesNotExist:

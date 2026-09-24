@@ -260,7 +260,7 @@ class LoanAccountDelegate :
 		
 	def removeBorrowers( self, loan_account_id, borrowers_ids ):
 		# lazy importing avoids circular dependenciesId
-			
+		try:
 			# reload and return the appropriate version
 			return self.get( loan_account_id );
 		except LoanAccount.DoesNotExist:
@@ -303,7 +303,7 @@ class LoanAccountDelegate :
 		
 	def removeRepaymentSchedule( self, loan_account_id, repaymentSchedule_ids ):
 		# lazy importing avoids circular dependenciesId
-			
+		try:
 			# reload and return the appropriate version
 			return self.get( loan_account_id );
 		except LoanAccount.DoesNotExist:
@@ -346,7 +346,7 @@ class LoanAccountDelegate :
 		
 	def removePayments( self, loan_account_id, payments_ids ):
 		# lazy importing avoids circular dependenciesId
-			
+		try:
 			# reload and return the appropriate version
 			return self.get( loan_account_id );
 		except LoanAccount.DoesNotExist:
@@ -389,7 +389,7 @@ class LoanAccountDelegate :
 		
 	def removeCollateral( self, loan_account_id, collateral_ids ):
 		# lazy importing avoids circular dependenciesId
-			
+		try:
 			# reload and return the appropriate version
 			return self.get( loan_account_id );
 		except LoanAccount.DoesNotExist:
@@ -432,7 +432,7 @@ class LoanAccountDelegate :
 		
 	def removeFeeCharges( self, loan_account_id, feeCharges_ids ):
 		# lazy importing avoids circular dependenciesId
-			
+		try:
 			# reload and return the appropriate version
 			return self.get( loan_account_id );
 		except LoanAccount.DoesNotExist:

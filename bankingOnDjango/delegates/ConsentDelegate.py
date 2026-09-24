@@ -256,7 +256,7 @@ class ConsentDelegate :
 		
 	def removeAuthorizedAccounts( self, consent_id, authorizedAccounts_ids ):
 		# lazy importing avoids circular dependenciesId
-			
+		try:
 			# reload and return the appropriate version
 			return self.get( consent_id );
 		except Consent.DoesNotExist:

@@ -304,7 +304,7 @@ class FundsTransferDelegate :
 		
 	def removeTransactions( self, funds_transfer_id, transactions_ids ):
 		# lazy importing avoids circular dependenciesId
-			
+		try:
 			# reload and return the appropriate version
 			return self.get( funds_transfer_id );
 		except FundsTransfer.DoesNotExist:
