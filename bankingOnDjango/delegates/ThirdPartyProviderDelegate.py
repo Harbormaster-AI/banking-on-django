@@ -1,7 +1,6 @@
 
 
 from django.core import serializers
-from django.db import models
 from django.db import utils
 
 from bankingOnDjango.models.ThirdPartyProvider import ThirdPartyProvider
@@ -137,12 +136,8 @@ class ThirdPartyProviderDelegate :
 			# get the ThirdPartyProvider
 			third_party_provider = self.get( third_party_provider_id ).first()
 				
-			# iterate over ids
-			for id in consents_ids:
-				# read the Consent		
-				consent = ConsentDelegate().get(id).first();	
-				# add the Consent
-				third_party_provider.consents.add(consent)
+			# add the children ids
+			third_party_provider.consents.add(consents_ids)
 				
 			# save it		
 			third_party_provider.save()
@@ -157,8 +152,16 @@ class ThirdPartyProviderDelegate :
 			raise Exceptions.ProcessingError(err_msg) 
 		
 	def removeConsents( self, third_party_provider_id, consents_ids ):
+
+		err_msg = "Failed to remove elements " + str(consents_ids) + " for Consents on ThirdPartyProvider"
+
 		# lazy importing avoids circular dependenciesId
 		try:
+			third_party_provider.consents.remove(consents_ids)
+
+			# save it
+			third_party_provider.save()
+
 			# reload and return the appropriate version
 			return self.get( third_party_provider_id );
 		except ThirdPartyProvider.DoesNotExist:

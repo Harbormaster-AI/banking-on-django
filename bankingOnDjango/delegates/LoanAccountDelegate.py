@@ -1,7 +1,6 @@
 
 
 from django.core import serializers
-from django.db import models
 from django.db import utils
 
 from bankingOnDjango.models.LoanAccount import LoanAccount
@@ -239,12 +238,8 @@ class LoanAccountDelegate :
 			# get the LoanAccount
 			loan_account = self.get( loan_account_id ).first()
 				
-			# iterate over ids
-			for id in borrowers_ids:
-				# read the Customer		
-				customer = CustomerDelegate().get(id).first();	
-				# add the Customer
-				loan_account.borrowers.add(customer)
+			# add the children ids
+			loan_account.borrowers.add(borrowers_ids)
 				
 			# save it		
 			loan_account.save()
@@ -259,8 +254,16 @@ class LoanAccountDelegate :
 			raise Exceptions.ProcessingError(err_msg) 
 		
 	def removeBorrowers( self, loan_account_id, borrowers_ids ):
+
+		err_msg = "Failed to remove elements " + str(borrowers_ids) + " for Borrowers on LoanAccount"
+
 		# lazy importing avoids circular dependenciesId
 		try:
+			loan_account.borrowers.remove(borrowers_ids)
+
+			# save it
+			loan_account.save()
+
 			# reload and return the appropriate version
 			return self.get( loan_account_id );
 		except LoanAccount.DoesNotExist:
@@ -282,12 +285,8 @@ class LoanAccountDelegate :
 			# get the LoanAccount
 			loan_account = self.get( loan_account_id ).first()
 				
-			# iterate over ids
-			for id in repayment_schedule_ids:
-				# read the RepaymentSchedule		
-				repayment_schedule = RepaymentScheduleDelegate().get(id).first();	
-				# add the RepaymentSchedule
-				loan_account.repayment_schedule.add(repayment_schedule)
+			# add the children ids
+			loan_account.repayment_schedule.add(repayment_schedule_ids)
 				
 			# save it		
 			loan_account.save()
@@ -302,8 +301,16 @@ class LoanAccountDelegate :
 			raise Exceptions.ProcessingError(err_msg) 
 		
 	def removeRepaymentSchedule( self, loan_account_id, repayment_schedule_ids ):
+
+		err_msg = "Failed to remove elements " + str(repayment_schedule_ids) + " for RepaymentSchedule on LoanAccount"
+
 		# lazy importing avoids circular dependenciesId
 		try:
+			loan_account.repayment_schedule.remove(repayment_schedule_ids)
+
+			# save it
+			loan_account.save()
+
 			# reload and return the appropriate version
 			return self.get( loan_account_id );
 		except LoanAccount.DoesNotExist:
@@ -325,12 +332,8 @@ class LoanAccountDelegate :
 			# get the LoanAccount
 			loan_account = self.get( loan_account_id ).first()
 				
-			# iterate over ids
-			for id in payments_ids:
-				# read the LoanPayment		
-				loan_payment = LoanPaymentDelegate().get(id).first();	
-				# add the LoanPayment
-				loan_account.payments.add(loan_payment)
+			# add the children ids
+			loan_account.payments.add(payments_ids)
 				
 			# save it		
 			loan_account.save()
@@ -345,8 +348,16 @@ class LoanAccountDelegate :
 			raise Exceptions.ProcessingError(err_msg) 
 		
 	def removePayments( self, loan_account_id, payments_ids ):
+
+		err_msg = "Failed to remove elements " + str(payments_ids) + " for Payments on LoanAccount"
+
 		# lazy importing avoids circular dependenciesId
 		try:
+			loan_account.payments.remove(payments_ids)
+
+			# save it
+			loan_account.save()
+
 			# reload and return the appropriate version
 			return self.get( loan_account_id );
 		except LoanAccount.DoesNotExist:
@@ -368,12 +379,8 @@ class LoanAccountDelegate :
 			# get the LoanAccount
 			loan_account = self.get( loan_account_id ).first()
 				
-			# iterate over ids
-			for id in collateral_ids:
-				# read the Collateral		
-				collateral = CollateralDelegate().get(id).first();	
-				# add the Collateral
-				loan_account.collateral.add(collateral)
+			# add the children ids
+			loan_account.collateral.add(collateral_ids)
 				
 			# save it		
 			loan_account.save()
@@ -388,8 +395,16 @@ class LoanAccountDelegate :
 			raise Exceptions.ProcessingError(err_msg) 
 		
 	def removeCollateral( self, loan_account_id, collateral_ids ):
+
+		err_msg = "Failed to remove elements " + str(collateral_ids) + " for Collateral on LoanAccount"
+
 		# lazy importing avoids circular dependenciesId
 		try:
+			loan_account.collateral.remove(collateral_ids)
+
+			# save it
+			loan_account.save()
+
 			# reload and return the appropriate version
 			return self.get( loan_account_id );
 		except LoanAccount.DoesNotExist:
@@ -411,12 +426,8 @@ class LoanAccountDelegate :
 			# get the LoanAccount
 			loan_account = self.get( loan_account_id ).first()
 				
-			# iterate over ids
-			for id in fee_charges_ids:
-				# read the FeeCharge		
-				fee_charge = FeeChargeDelegate().get(id).first();	
-				# add the FeeCharge
-				loan_account.fee_charges.add(fee_charge)
+			# add the children ids
+			loan_account.fee_charges.add(fee_charges_ids)
 				
 			# save it		
 			loan_account.save()
@@ -431,8 +442,16 @@ class LoanAccountDelegate :
 			raise Exceptions.ProcessingError(err_msg) 
 		
 	def removeFeeCharges( self, loan_account_id, fee_charges_ids ):
+
+		err_msg = "Failed to remove elements " + str(fee_charges_ids) + " for FeeCharges on LoanAccount"
+
 		# lazy importing avoids circular dependenciesId
 		try:
+			loan_account.fee_charges.remove(fee_charges_ids)
+
+			# save it
+			loan_account.save()
+
 			# reload and return the appropriate version
 			return self.get( loan_account_id );
 		except LoanAccount.DoesNotExist:

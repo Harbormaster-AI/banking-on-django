@@ -1,7 +1,6 @@
 
 
 from django.core import serializers
-from django.db import models
 from django.db import utils
 
 from bankingOnDjango.models.BankingProduct import BankingProduct
@@ -139,12 +138,8 @@ class BankingProductDelegate :
 			# get the BankingProduct
 			banking_product = self.get( banking_product_id ).first()
 				
-			# iterate over ids
-			for id in accounts_ids:
-				# read the Account		
-				account = AccountDelegate().get(id).first();	
-				# add the Account
-				banking_product.accounts.add(account)
+			# add the children ids
+			banking_product.accounts.add(accounts_ids)
 				
 			# save it		
 			banking_product.save()
@@ -159,8 +154,16 @@ class BankingProductDelegate :
 			raise Exceptions.ProcessingError(err_msg) 
 		
 	def removeAccounts( self, banking_product_id, accounts_ids ):
+
+		err_msg = "Failed to remove elements " + str(accounts_ids) + " for Accounts on BankingProduct"
+
 		# lazy importing avoids circular dependenciesId
 		try:
+			banking_product.accounts.remove(accounts_ids)
+
+			# save it
+			banking_product.save()
+
 			# reload and return the appropriate version
 			return self.get( banking_product_id );
 		except BankingProduct.DoesNotExist:
@@ -182,12 +185,8 @@ class BankingProductDelegate :
 			# get the BankingProduct
 			banking_product = self.get( banking_product_id ).first()
 				
-			# iterate over ids
-			for id in loan_accounts_ids:
-				# read the LoanAccount		
-				loan_account = LoanAccountDelegate().get(id).first();	
-				# add the LoanAccount
-				banking_product.loan_accounts.add(loan_account)
+			# add the children ids
+			banking_product.loan_accounts.add(loan_accounts_ids)
 				
 			# save it		
 			banking_product.save()
@@ -202,8 +201,16 @@ class BankingProductDelegate :
 			raise Exceptions.ProcessingError(err_msg) 
 		
 	def removeLoanAccounts( self, banking_product_id, loan_accounts_ids ):
+
+		err_msg = "Failed to remove elements " + str(loan_accounts_ids) + " for LoanAccounts on BankingProduct"
+
 		# lazy importing avoids circular dependenciesId
 		try:
+			banking_product.loan_accounts.remove(loan_accounts_ids)
+
+			# save it
+			banking_product.save()
+
 			# reload and return the appropriate version
 			return self.get( banking_product_id );
 		except BankingProduct.DoesNotExist:
@@ -225,12 +232,8 @@ class BankingProductDelegate :
 			# get the BankingProduct
 			banking_product = self.get( banking_product_id ).first()
 				
-			# iterate over ids
-			for id in payment_cards_ids:
-				# read the PaymentCard		
-				payment_card = PaymentCardDelegate().get(id).first();	
-				# add the PaymentCard
-				banking_product.payment_cards.add(payment_card)
+			# add the children ids
+			banking_product.payment_cards.add(payment_cards_ids)
 				
 			# save it		
 			banking_product.save()
@@ -245,8 +248,16 @@ class BankingProductDelegate :
 			raise Exceptions.ProcessingError(err_msg) 
 		
 	def removePaymentCards( self, banking_product_id, payment_cards_ids ):
+
+		err_msg = "Failed to remove elements " + str(payment_cards_ids) + " for PaymentCards on BankingProduct"
+
 		# lazy importing avoids circular dependenciesId
 		try:
+			banking_product.payment_cards.remove(payment_cards_ids)
+
+			# save it
+			banking_product.save()
+
 			# reload and return the appropriate version
 			return self.get( banking_product_id );
 		except BankingProduct.DoesNotExist:

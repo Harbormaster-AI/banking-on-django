@@ -1,7 +1,6 @@
 
 
 from django.core import serializers
-from django.db import models
 from django.db import utils
 
 from bankingOnDjango.models.FundsTransfer import FundsTransfer
@@ -283,12 +282,8 @@ class FundsTransferDelegate :
 			# get the FundsTransfer
 			funds_transfer = self.get( funds_transfer_id ).first()
 				
-			# iterate over ids
-			for id in transactions_ids:
-				# read the Transaction		
-				transaction = TransactionDelegate().get(id).first();	
-				# add the Transaction
-				funds_transfer.transactions.add(transaction)
+			# add the children ids
+			funds_transfer.transactions.add(transactions_ids)
 				
 			# save it		
 			funds_transfer.save()
@@ -303,8 +298,16 @@ class FundsTransferDelegate :
 			raise Exceptions.ProcessingError(err_msg) 
 		
 	def removeTransactions( self, funds_transfer_id, transactions_ids ):
+
+		err_msg = "Failed to remove elements " + str(transactions_ids) + " for Transactions on FundsTransfer"
+
 		# lazy importing avoids circular dependenciesId
 		try:
+			funds_transfer.transactions.remove(transactions_ids)
+
+			# save it
+			funds_transfer.save()
+
 			# reload and return the appropriate version
 			return self.get( funds_transfer_id );
 		except FundsTransfer.DoesNotExist:

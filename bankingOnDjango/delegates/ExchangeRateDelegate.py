@@ -1,7 +1,6 @@
 
 
 from django.core import serializers
-from django.db import models
 from django.db import utils
 
 from bankingOnDjango.models.ExchangeRate import ExchangeRate
@@ -137,12 +136,8 @@ class ExchangeRateDelegate :
 			# get the ExchangeRate
 			exchange_rate = self.get( exchange_rate_id ).first()
 				
-			# iterate over ids
-			for id in fx_trades_ids:
-				# read the FXTrade		
-				f_x_trade = FXTradeDelegate().get(id).first();	
-				# add the FXTrade
-				exchange_rate.fx_trades.add(f_x_trade)
+			# add the children ids
+			exchange_rate.fx_trades.add(fx_trades_ids)
 				
 			# save it		
 			exchange_rate.save()
@@ -157,8 +152,16 @@ class ExchangeRateDelegate :
 			raise Exceptions.ProcessingError(err_msg) 
 		
 	def removeFxTrades( self, exchange_rate_id, fx_trades_ids ):
+
+		err_msg = "Failed to remove elements " + str(fx_trades_ids) + " for FxTrades on ExchangeRate"
+
 		# lazy importing avoids circular dependenciesId
 		try:
+			exchange_rate.fx_trades.remove(fx_trades_ids)
+
+			# save it
+			exchange_rate.save()
+
 			# reload and return the appropriate version
 			return self.get( exchange_rate_id );
 		except ExchangeRate.DoesNotExist:

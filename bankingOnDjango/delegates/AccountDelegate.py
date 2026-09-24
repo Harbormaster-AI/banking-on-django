@@ -1,7 +1,6 @@
 
 
 from django.core import serializers
-from django.db import models
 from django.db import utils
 
 from bankingOnDjango.models.Account import Account
@@ -239,12 +238,8 @@ class AccountDelegate :
 			# get the Account
 			account = self.get( account_id ).first()
 				
-			# iterate over ids
-			for id in owners_ids:
-				# read the Customer		
-				customer = CustomerDelegate().get(id).first();	
-				# add the Customer
-				account.owners.add(customer)
+			# add the children ids
+			account.owners.add(owners_ids)
 				
 			# save it		
 			account.save()
@@ -259,8 +254,16 @@ class AccountDelegate :
 			raise Exceptions.ProcessingError(err_msg) 
 		
 	def removeOwners( self, account_id, owners_ids ):
+
+		err_msg = "Failed to remove elements " + str(owners_ids) + " for Owners on Account"
+
 		# lazy importing avoids circular dependenciesId
 		try:
+			account.owners.remove(owners_ids)
+
+			# save it
+			account.save()
+
 			# reload and return the appropriate version
 			return self.get( account_id );
 		except Account.DoesNotExist:
@@ -282,12 +285,8 @@ class AccountDelegate :
 			# get the Account
 			account = self.get( account_id ).first()
 				
-			# iterate over ids
-			for id in transactions_ids:
-				# read the Transaction		
-				transaction = TransactionDelegate().get(id).first();	
-				# add the Transaction
-				account.transactions.add(transaction)
+			# add the children ids
+			account.transactions.add(transactions_ids)
 				
 			# save it		
 			account.save()
@@ -302,8 +301,16 @@ class AccountDelegate :
 			raise Exceptions.ProcessingError(err_msg) 
 		
 	def removeTransactions( self, account_id, transactions_ids ):
+
+		err_msg = "Failed to remove elements " + str(transactions_ids) + " for Transactions on Account"
+
 		# lazy importing avoids circular dependenciesId
 		try:
+			account.transactions.remove(transactions_ids)
+
+			# save it
+			account.save()
+
 			# reload and return the appropriate version
 			return self.get( account_id );
 		except Account.DoesNotExist:
@@ -325,12 +332,8 @@ class AccountDelegate :
 			# get the Account
 			account = self.get( account_id ).first()
 				
-			# iterate over ids
-			for id in statements_ids:
-				# read the AccountStatement		
-				account_statement = AccountStatementDelegate().get(id).first();	
-				# add the AccountStatement
-				account.statements.add(account_statement)
+			# add the children ids
+			account.statements.add(statements_ids)
 				
 			# save it		
 			account.save()
@@ -345,8 +348,16 @@ class AccountDelegate :
 			raise Exceptions.ProcessingError(err_msg) 
 		
 	def removeStatements( self, account_id, statements_ids ):
+
+		err_msg = "Failed to remove elements " + str(statements_ids) + " for Statements on Account"
+
 		# lazy importing avoids circular dependenciesId
 		try:
+			account.statements.remove(statements_ids)
+
+			# save it
+			account.save()
+
 			# reload and return the appropriate version
 			return self.get( account_id );
 		except Account.DoesNotExist:
@@ -368,12 +379,8 @@ class AccountDelegate :
 			# get the Account
 			account = self.get( account_id ).first()
 				
-			# iterate over ids
-			for id in standing_instructions_ids:
-				# read the StandingInstruction		
-				standing_instruction = StandingInstructionDelegate().get(id).first();	
-				# add the StandingInstruction
-				account.standing_instructions.add(standing_instruction)
+			# add the children ids
+			account.standing_instructions.add(standing_instructions_ids)
 				
 			# save it		
 			account.save()
@@ -388,8 +395,16 @@ class AccountDelegate :
 			raise Exceptions.ProcessingError(err_msg) 
 		
 	def removeStandingInstructions( self, account_id, standing_instructions_ids ):
+
+		err_msg = "Failed to remove elements " + str(standing_instructions_ids) + " for StandingInstructions on Account"
+
 		# lazy importing avoids circular dependenciesId
 		try:
+			account.standing_instructions.remove(standing_instructions_ids)
+
+			# save it
+			account.save()
+
 			# reload and return the appropriate version
 			return self.get( account_id );
 		except Account.DoesNotExist:
@@ -411,12 +426,8 @@ class AccountDelegate :
 			# get the Account
 			account = self.get( account_id ).first()
 				
-			# iterate over ids
-			for id in fee_charges_ids:
-				# read the FeeCharge		
-				fee_charge = FeeChargeDelegate().get(id).first();	
-				# add the FeeCharge
-				account.fee_charges.add(fee_charge)
+			# add the children ids
+			account.fee_charges.add(fee_charges_ids)
 				
 			# save it		
 			account.save()
@@ -431,8 +442,16 @@ class AccountDelegate :
 			raise Exceptions.ProcessingError(err_msg) 
 		
 	def removeFeeCharges( self, account_id, fee_charges_ids ):
+
+		err_msg = "Failed to remove elements " + str(fee_charges_ids) + " for FeeCharges on Account"
+
 		# lazy importing avoids circular dependenciesId
 		try:
+			account.fee_charges.remove(fee_charges_ids)
+
+			# save it
+			account.save()
+
 			# reload and return the appropriate version
 			return self.get( account_id );
 		except Account.DoesNotExist:

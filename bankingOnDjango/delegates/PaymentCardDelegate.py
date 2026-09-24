@@ -1,7 +1,6 @@
 
 
 from django.core import serializers
-from django.db import models
 from django.db import utils
 
 from bankingOnDjango.models.PaymentCard import PaymentCard
@@ -235,12 +234,8 @@ class PaymentCardDelegate :
 			# get the PaymentCard
 			payment_card = self.get( payment_card_id ).first()
 				
-			# iterate over ids
-			for id in transactions_ids:
-				# read the Transaction		
-				transaction = TransactionDelegate().get(id).first();	
-				# add the Transaction
-				payment_card.transactions.add(transaction)
+			# add the children ids
+			payment_card.transactions.add(transactions_ids)
 				
 			# save it		
 			payment_card.save()
@@ -255,8 +250,16 @@ class PaymentCardDelegate :
 			raise Exceptions.ProcessingError(err_msg) 
 		
 	def removeTransactions( self, payment_card_id, transactions_ids ):
+
+		err_msg = "Failed to remove elements " + str(transactions_ids) + " for Transactions on PaymentCard"
+
 		# lazy importing avoids circular dependenciesId
 		try:
+			payment_card.transactions.remove(transactions_ids)
+
+			# save it
+			payment_card.save()
+
 			# reload and return the appropriate version
 			return self.get( payment_card_id );
 		except PaymentCard.DoesNotExist:

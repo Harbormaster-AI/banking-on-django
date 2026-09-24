@@ -1,7 +1,6 @@
 
 
 from django.core import serializers
-from django.db import models
 from django.db import utils
 
 from bankingOnDjango.models.Consent import Consent
@@ -235,12 +234,8 @@ class ConsentDelegate :
 			# get the Consent
 			consent = self.get( consent_id ).first()
 				
-			# iterate over ids
-			for id in authorized_accounts_ids:
-				# read the Account		
-				account = AccountDelegate().get(id).first();	
-				# add the Account
-				consent.authorized_accounts.add(account)
+			# add the children ids
+			consent.authorized_accounts.add(authorized_accounts_ids)
 				
 			# save it		
 			consent.save()
@@ -255,8 +250,16 @@ class ConsentDelegate :
 			raise Exceptions.ProcessingError(err_msg) 
 		
 	def removeAuthorizedAccounts( self, consent_id, authorized_accounts_ids ):
+
+		err_msg = "Failed to remove elements " + str(authorized_accounts_ids) + " for AuthorizedAccounts on Consent"
+
 		# lazy importing avoids circular dependenciesId
 		try:
+			consent.authorized_accounts.remove(authorized_accounts_ids)
+
+			# save it
+			consent.save()
+
 			# reload and return the appropriate version
 			return self.get( consent_id );
 		except Consent.DoesNotExist:

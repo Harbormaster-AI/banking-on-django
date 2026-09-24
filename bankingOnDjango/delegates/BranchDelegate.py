@@ -1,7 +1,6 @@
 
 
 from django.core import serializers
-from django.db import models
 from django.db import utils
 
 from bankingOnDjango.models.Branch import Branch
@@ -139,12 +138,8 @@ class BranchDelegate :
 			# get the Branch
 			branch = self.get( branch_id ).first()
 				
-			# iterate over ids
-			for id in accounts_ids:
-				# read the Account		
-				account = AccountDelegate().get(id).first();	
-				# add the Account
-				branch.accounts.add(account)
+			# add the children ids
+			branch.accounts.add(accounts_ids)
 				
 			# save it		
 			branch.save()
@@ -159,8 +154,16 @@ class BranchDelegate :
 			raise Exceptions.ProcessingError(err_msg) 
 		
 	def removeAccounts( self, branch_id, accounts_ids ):
+
+		err_msg = "Failed to remove elements " + str(accounts_ids) + " for Accounts on Branch"
+
 		# lazy importing avoids circular dependenciesId
 		try:
+			branch.accounts.remove(accounts_ids)
+
+			# save it
+			branch.save()
+
 			# reload and return the appropriate version
 			return self.get( branch_id );
 		except Branch.DoesNotExist:
@@ -182,12 +185,8 @@ class BranchDelegate :
 			# get the Branch
 			branch = self.get( branch_id ).first()
 				
-			# iterate over ids
-			for id in loan_accounts_ids:
-				# read the LoanAccount		
-				loan_account = LoanAccountDelegate().get(id).first();	
-				# add the LoanAccount
-				branch.loan_accounts.add(loan_account)
+			# add the children ids
+			branch.loan_accounts.add(loan_accounts_ids)
 				
 			# save it		
 			branch.save()
@@ -202,8 +201,16 @@ class BranchDelegate :
 			raise Exceptions.ProcessingError(err_msg) 
 		
 	def removeLoanAccounts( self, branch_id, loan_accounts_ids ):
+
+		err_msg = "Failed to remove elements " + str(loan_accounts_ids) + " for LoanAccounts on Branch"
+
 		# lazy importing avoids circular dependenciesId
 		try:
+			branch.loan_accounts.remove(loan_accounts_ids)
+
+			# save it
+			branch.save()
+
 			# reload and return the appropriate version
 			return self.get( branch_id );
 		except Branch.DoesNotExist:
@@ -225,12 +232,8 @@ class BranchDelegate :
 			# get the Branch
 			branch = self.get( branch_id ).first()
 				
-			# iterate over ids
-			for id in atms_ids:
-				# read the ATM		
-				a_t_m = ATMDelegate().get(id).first();	
-				# add the ATM
-				branch.atms.add(a_t_m)
+			# add the children ids
+			branch.atms.add(atms_ids)
 				
 			# save it		
 			branch.save()
@@ -245,8 +248,16 @@ class BranchDelegate :
 			raise Exceptions.ProcessingError(err_msg) 
 		
 	def removeAtms( self, branch_id, atms_ids ):
+
+		err_msg = "Failed to remove elements " + str(atms_ids) + " for Atms on Branch"
+
 		# lazy importing avoids circular dependenciesId
 		try:
+			branch.atms.remove(atms_ids)
+
+			# save it
+			branch.save()
+
 			# reload and return the appropriate version
 			return self.get( branch_id );
 		except Branch.DoesNotExist:

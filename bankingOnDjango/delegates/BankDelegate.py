@@ -1,7 +1,6 @@
 
 
 from django.core import serializers
-from django.db import models
 from django.db import utils
 
 from bankingOnDjango.models.Bank import Bank
@@ -96,12 +95,8 @@ class BankDelegate :
 			# get the Bank
 			bank = self.get( bank_id ).first()
 				
-			# iterate over ids
-			for id in branches_ids:
-				# read the Branch		
-				branch = BranchDelegate().get(id).first();	
-				# add the Branch
-				bank.branches.add(branch)
+			# add the children ids
+			bank.branches.add(branches_ids)
 				
 			# save it		
 			bank.save()
@@ -116,8 +111,16 @@ class BankDelegate :
 			raise Exceptions.ProcessingError(err_msg) 
 		
 	def removeBranches( self, bank_id, branches_ids ):
+
+		err_msg = "Failed to remove elements " + str(branches_ids) + " for Branches on Bank"
+
 		# lazy importing avoids circular dependenciesId
 		try:
+			bank.branches.remove(branches_ids)
+
+			# save it
+			bank.save()
+
 			# reload and return the appropriate version
 			return self.get( bank_id );
 		except Bank.DoesNotExist:
@@ -139,12 +142,8 @@ class BankDelegate :
 			# get the Bank
 			bank = self.get( bank_id ).first()
 				
-			# iterate over ids
-			for id in products_ids:
-				# read the BankingProduct		
-				banking_product = BankingProductDelegate().get(id).first();	
-				# add the BankingProduct
-				bank.products.add(banking_product)
+			# add the children ids
+			bank.products.add(products_ids)
 				
 			# save it		
 			bank.save()
@@ -159,8 +158,16 @@ class BankDelegate :
 			raise Exceptions.ProcessingError(err_msg) 
 		
 	def removeProducts( self, bank_id, products_ids ):
+
+		err_msg = "Failed to remove elements " + str(products_ids) + " for Products on Bank"
+
 		# lazy importing avoids circular dependenciesId
 		try:
+			bank.products.remove(products_ids)
+
+			# save it
+			bank.save()
+
 			# reload and return the appropriate version
 			return self.get( bank_id );
 		except Bank.DoesNotExist:
@@ -182,12 +189,8 @@ class BankDelegate :
 			# get the Bank
 			bank = self.get( bank_id ).first()
 				
-			# iterate over ids
-			for id in customers_ids:
-				# read the Customer		
-				customer = CustomerDelegate().get(id).first();	
-				# add the Customer
-				bank.customers.add(customer)
+			# add the children ids
+			bank.customers.add(customers_ids)
 				
 			# save it		
 			bank.save()
@@ -202,8 +205,16 @@ class BankDelegate :
 			raise Exceptions.ProcessingError(err_msg) 
 		
 	def removeCustomers( self, bank_id, customers_ids ):
+
+		err_msg = "Failed to remove elements " + str(customers_ids) + " for Customers on Bank"
+
 		# lazy importing avoids circular dependenciesId
 		try:
+			bank.customers.remove(customers_ids)
+
+			# save it
+			bank.save()
+
 			# reload and return the appropriate version
 			return self.get( bank_id );
 		except Bank.DoesNotExist:
@@ -225,12 +236,8 @@ class BankDelegate :
 			# get the Bank
 			bank = self.get( bank_id ).first()
 				
-			# iterate over ids
-			for id in accounts_ids:
-				# read the Account		
-				account = AccountDelegate().get(id).first();	
-				# add the Account
-				bank.accounts.add(account)
+			# add the children ids
+			bank.accounts.add(accounts_ids)
 				
 			# save it		
 			bank.save()
@@ -245,8 +252,16 @@ class BankDelegate :
 			raise Exceptions.ProcessingError(err_msg) 
 		
 	def removeAccounts( self, bank_id, accounts_ids ):
+
+		err_msg = "Failed to remove elements " + str(accounts_ids) + " for Accounts on Bank"
+
 		# lazy importing avoids circular dependenciesId
 		try:
+			bank.accounts.remove(accounts_ids)
+
+			# save it
+			bank.save()
+
 			# reload and return the appropriate version
 			return self.get( bank_id );
 		except Bank.DoesNotExist:
@@ -268,12 +283,8 @@ class BankDelegate :
 			# get the Bank
 			bank = self.get( bank_id ).first()
 				
-			# iterate over ids
-			for id in payment_cards_ids:
-				# read the PaymentCard		
-				payment_card = PaymentCardDelegate().get(id).first();	
-				# add the PaymentCard
-				bank.payment_cards.add(payment_card)
+			# add the children ids
+			bank.payment_cards.add(payment_cards_ids)
 				
 			# save it		
 			bank.save()
@@ -288,8 +299,16 @@ class BankDelegate :
 			raise Exceptions.ProcessingError(err_msg) 
 		
 	def removePaymentCards( self, bank_id, payment_cards_ids ):
+
+		err_msg = "Failed to remove elements " + str(payment_cards_ids) + " for PaymentCards on Bank"
+
 		# lazy importing avoids circular dependenciesId
 		try:
+			bank.payment_cards.remove(payment_cards_ids)
+
+			# save it
+			bank.save()
+
 			# reload and return the appropriate version
 			return self.get( bank_id );
 		except Bank.DoesNotExist:
@@ -311,12 +330,8 @@ class BankDelegate :
 			# get the Bank
 			bank = self.get( bank_id ).first()
 				
-			# iterate over ids
-			for id in loan_accounts_ids:
-				# read the LoanAccount		
-				loan_account = LoanAccountDelegate().get(id).first();	
-				# add the LoanAccount
-				bank.loan_accounts.add(loan_account)
+			# add the children ids
+			bank.loan_accounts.add(loan_accounts_ids)
 				
 			# save it		
 			bank.save()
@@ -331,8 +346,16 @@ class BankDelegate :
 			raise Exceptions.ProcessingError(err_msg) 
 		
 	def removeLoanAccounts( self, bank_id, loan_accounts_ids ):
+
+		err_msg = "Failed to remove elements " + str(loan_accounts_ids) + " for LoanAccounts on Bank"
+
 		# lazy importing avoids circular dependenciesId
 		try:
+			bank.loan_accounts.remove(loan_accounts_ids)
+
+			# save it
+			bank.save()
+
 			# reload and return the appropriate version
 			return self.get( bank_id );
 		except Bank.DoesNotExist:
@@ -354,12 +377,8 @@ class BankDelegate :
 			# get the Bank
 			bank = self.get( bank_id ).first()
 				
-			# iterate over ids
-			for id in exchange_rates_ids:
-				# read the ExchangeRate		
-				exchange_rate = ExchangeRateDelegate().get(id).first();	
-				# add the ExchangeRate
-				bank.exchange_rates.add(exchange_rate)
+			# add the children ids
+			bank.exchange_rates.add(exchange_rates_ids)
 				
 			# save it		
 			bank.save()
@@ -374,8 +393,16 @@ class BankDelegate :
 			raise Exceptions.ProcessingError(err_msg) 
 		
 	def removeExchangeRates( self, bank_id, exchange_rates_ids ):
+
+		err_msg = "Failed to remove elements " + str(exchange_rates_ids) + " for ExchangeRates on Bank"
+
 		# lazy importing avoids circular dependenciesId
 		try:
+			bank.exchange_rates.remove(exchange_rates_ids)
+
+			# save it
+			bank.save()
+
 			# reload and return the appropriate version
 			return self.get( bank_id );
 		except Bank.DoesNotExist:
@@ -397,12 +424,8 @@ class BankDelegate :
 			# get the Bank
 			bank = self.get( bank_id ).first()
 				
-			# iterate over ids
-			for id in consents_ids:
-				# read the Consent		
-				consent = ConsentDelegate().get(id).first();	
-				# add the Consent
-				bank.consents.add(consent)
+			# add the children ids
+			bank.consents.add(consents_ids)
 				
 			# save it		
 			bank.save()
@@ -417,8 +440,16 @@ class BankDelegate :
 			raise Exceptions.ProcessingError(err_msg) 
 		
 	def removeConsents( self, bank_id, consents_ids ):
+
+		err_msg = "Failed to remove elements " + str(consents_ids) + " for Consents on Bank"
+
 		# lazy importing avoids circular dependenciesId
 		try:
+			bank.consents.remove(consents_ids)
+
+			# save it
+			bank.save()
+
 			# reload and return the appropriate version
 			return self.get( bank_id );
 		except Bank.DoesNotExist:
@@ -440,12 +471,8 @@ class BankDelegate :
 			# get the Bank
 			bank = self.get( bank_id ).first()
 				
-			# iterate over ids
-			for id in third_party_providers_ids:
-				# read the ThirdPartyProvider		
-				third_party_provider = ThirdPartyProviderDelegate().get(id).first();	
-				# add the ThirdPartyProvider
-				bank.third_party_providers.add(third_party_provider)
+			# add the children ids
+			bank.third_party_providers.add(third_party_providers_ids)
 				
 			# save it		
 			bank.save()
@@ -460,8 +487,16 @@ class BankDelegate :
 			raise Exceptions.ProcessingError(err_msg) 
 		
 	def removeThirdPartyProviders( self, bank_id, third_party_providers_ids ):
+
+		err_msg = "Failed to remove elements " + str(third_party_providers_ids) + " for ThirdPartyProviders on Bank"
+
 		# lazy importing avoids circular dependenciesId
 		try:
+			bank.third_party_providers.remove(third_party_providers_ids)
+
+			# save it
+			bank.save()
+
 			# reload and return the appropriate version
 			return self.get( bank_id );
 		except Bank.DoesNotExist:

@@ -1,7 +1,6 @@
 
 
 from django.core import serializers
-from django.db import models
 from django.db import utils
 
 from bankingOnDjango.models.KycProfile import KycProfile
@@ -139,12 +138,8 @@ class KycProfileDelegate :
 			# get the KycProfile
 			kyc_profile = self.get( kyc_profile_id ).first()
 				
-			# iterate over ids
-			for id in identity_documents_ids:
-				# read the IdentityDocument		
-				identity_document = IdentityDocumentDelegate().get(id).first();	
-				# add the IdentityDocument
-				kyc_profile.identity_documents.add(identity_document)
+			# add the children ids
+			kyc_profile.identity_documents.add(identity_documents_ids)
 				
 			# save it		
 			kyc_profile.save()
@@ -159,8 +154,16 @@ class KycProfileDelegate :
 			raise Exceptions.ProcessingError(err_msg) 
 		
 	def removeIdentityDocuments( self, kyc_profile_id, identity_documents_ids ):
+
+		err_msg = "Failed to remove elements " + str(identity_documents_ids) + " for IdentityDocuments on KycProfile"
+
 		# lazy importing avoids circular dependenciesId
 		try:
+			kyc_profile.identity_documents.remove(identity_documents_ids)
+
+			# save it
+			kyc_profile.save()
+
 			# reload and return the appropriate version
 			return self.get( kyc_profile_id );
 		except KycProfile.DoesNotExist:
@@ -182,12 +185,8 @@ class KycProfileDelegate :
 			# get the KycProfile
 			kyc_profile = self.get( kyc_profile_id ).first()
 				
-			# iterate over ids
-			for id in risk_assessments_ids:
-				# read the RiskAssessment		
-				risk_assessment = RiskAssessmentDelegate().get(id).first();	
-				# add the RiskAssessment
-				kyc_profile.risk_assessments.add(risk_assessment)
+			# add the children ids
+			kyc_profile.risk_assessments.add(risk_assessments_ids)
 				
 			# save it		
 			kyc_profile.save()
@@ -202,8 +201,16 @@ class KycProfileDelegate :
 			raise Exceptions.ProcessingError(err_msg) 
 		
 	def removeRiskAssessments( self, kyc_profile_id, risk_assessments_ids ):
+
+		err_msg = "Failed to remove elements " + str(risk_assessments_ids) + " for RiskAssessments on KycProfile"
+
 		# lazy importing avoids circular dependenciesId
 		try:
+			kyc_profile.risk_assessments.remove(risk_assessments_ids)
+
+			# save it
+			kyc_profile.save()
+
 			# reload and return the appropriate version
 			return self.get( kyc_profile_id );
 		except KycProfile.DoesNotExist:
@@ -225,12 +232,8 @@ class KycProfileDelegate :
 			# get the KycProfile
 			kyc_profile = self.get( kyc_profile_id ).first()
 				
-			# iterate over ids
-			for id in screenings_ids:
-				# read the ScreeningResult		
-				screening_result = ScreeningResultDelegate().get(id).first();	
-				# add the ScreeningResult
-				kyc_profile.screenings.add(screening_result)
+			# add the children ids
+			kyc_profile.screenings.add(screenings_ids)
 				
 			# save it		
 			kyc_profile.save()
@@ -245,8 +248,16 @@ class KycProfileDelegate :
 			raise Exceptions.ProcessingError(err_msg) 
 		
 	def removeScreenings( self, kyc_profile_id, screenings_ids ):
+
+		err_msg = "Failed to remove elements " + str(screenings_ids) + " for Screenings on KycProfile"
+
 		# lazy importing avoids circular dependenciesId
 		try:
+			kyc_profile.screenings.remove(screenings_ids)
+
+			# save it
+			kyc_profile.save()
+
 			# reload and return the appropriate version
 			return self.get( kyc_profile_id );
 		except KycProfile.DoesNotExist:
