@@ -1,6 +1,5 @@
 
 
-from django.core import exceptions
 from django.core import serializers
 from django.db import models
 from django.db import utils
@@ -87,18 +86,18 @@ class BankDelegate :
 		except Exception:
 			return None;
 		
-	def addBranches( self, bank_id, branchesIds ):
+	def addBranches( self, bank_id, branches_ids ):
 		# lazy importing avoids circular dependencies
 		from bankingOnDjango.delegates.BranchDelegate import BranchDelegate
 
-		err_msg = "Failed to add elements " + str(branchesIds) + " for Branches on Bank"
+		err_msg = "Failed to add elements " + str(branches_ids) + " for Branches on Bank"
 
 		try:
 			# get the Bank
 			bank = self.get( bank_id ).first()
 				
 			# iterate over ids
-			for id in branchesIds:
+			for id in branches_ids:
 				# read the Branch		
 				branch = BranchDelegate().get(id).first();	
 				# add the Branch
@@ -116,25 +115,8 @@ class BankDelegate :
 		except Exception:
 			raise Exceptions.ProcessingError(err_msg) 
 		
-	def removeBranches( self, bank_id, branchesIds ):
-		# lazy importing avoids circular dependencies
-		from bankingOnDjango.delegates.BranchDelegate import BranchDelegate
-
-		err_msg = "Failed to remove elements " + str(branchesIds) + " for Branches on Bank"
-
-		try:
-			# get the Bank
-			bank = self.get( bank_id ).first()
-				
-			# iterate over ids
-			for id in branchesIds:
-				# read the Branch		
-				branch = BranchDelegate().get(id).first();	
-				# add the Branch
-				bank.branches.remove(branch)
-				
-			# save it		
-			bank.save()
+	def removeBranches( self, bank_id, branches_ids ):
+		# lazy importing avoids circular dependenciesId
 			
 			# reload and return the appropriate version
 			return self.get( bank_id );
@@ -143,22 +125,22 @@ class BankDelegate :
 		except Branch.DoesNotExist:
 			raise Exceptions.ProcessingError(err_msg + " : Branch does not exist.")
 		except utils.Exceptions.DatabaseError:
-			raise StorageWriteError()
+			raise Exceptions.StorageWriteError()
 		except Exception:
 			raise Exceptions.GeneralError(err_msg) 
 		
-	def addProducts( self, bank_id, productsIds ):
+	def addProducts( self, bank_id, products_ids ):
 		# lazy importing avoids circular dependencies
 		from bankingOnDjango.delegates.BankingProductDelegate import BankingProductDelegate
 
-		err_msg = "Failed to add elements " + str(productsIds) + " for Products on Bank"
+		err_msg = "Failed to add elements " + str(products_ids) + " for Products on Bank"
 
 		try:
 			# get the Bank
 			bank = self.get( bank_id ).first()
 				
 			# iterate over ids
-			for id in productsIds:
+			for id in products_ids:
 				# read the BankingProduct		
 				bankingProduct = BankingProductDelegate().get(id).first();	
 				# add the BankingProduct
@@ -176,25 +158,8 @@ class BankDelegate :
 		except Exception:
 			raise Exceptions.ProcessingError(err_msg) 
 		
-	def removeProducts( self, bank_id, productsIds ):
-		# lazy importing avoids circular dependencies
-		from bankingOnDjango.delegates.BankingProductDelegate import BankingProductDelegate
-
-		err_msg = "Failed to remove elements " + str(productsIds) + " for Products on Bank"
-
-		try:
-			# get the Bank
-			bank = self.get( bank_id ).first()
-				
-			# iterate over ids
-			for id in productsIds:
-				# read the BankingProduct		
-				bankingProduct = BankingProductDelegate().get(id).first();	
-				# add the BankingProduct
-				bank.products.remove(bankingProduct)
-				
-			# save it		
-			bank.save()
+	def removeProducts( self, bank_id, products_ids ):
+		# lazy importing avoids circular dependenciesId
 			
 			# reload and return the appropriate version
 			return self.get( bank_id );
@@ -203,22 +168,22 @@ class BankDelegate :
 		except BankingProduct.DoesNotExist:
 			raise Exceptions.ProcessingError(err_msg + " : BankingProduct does not exist.")
 		except utils.Exceptions.DatabaseError:
-			raise StorageWriteError()
+			raise Exceptions.StorageWriteError()
 		except Exception:
 			raise Exceptions.GeneralError(err_msg) 
 		
-	def addCustomers( self, bank_id, customersIds ):
+	def addCustomers( self, bank_id, customers_ids ):
 		# lazy importing avoids circular dependencies
 		from bankingOnDjango.delegates.CustomerDelegate import CustomerDelegate
 
-		err_msg = "Failed to add elements " + str(customersIds) + " for Customers on Bank"
+		err_msg = "Failed to add elements " + str(customers_ids) + " for Customers on Bank"
 
 		try:
 			# get the Bank
 			bank = self.get( bank_id ).first()
 				
 			# iterate over ids
-			for id in customersIds:
+			for id in customers_ids:
 				# read the Customer		
 				customer = CustomerDelegate().get(id).first();	
 				# add the Customer
@@ -236,25 +201,8 @@ class BankDelegate :
 		except Exception:
 			raise Exceptions.ProcessingError(err_msg) 
 		
-	def removeCustomers( self, bank_id, customersIds ):
-		# lazy importing avoids circular dependencies
-		from bankingOnDjango.delegates.CustomerDelegate import CustomerDelegate
-
-		err_msg = "Failed to remove elements " + str(customersIds) + " for Customers on Bank"
-
-		try:
-			# get the Bank
-			bank = self.get( bank_id ).first()
-				
-			# iterate over ids
-			for id in customersIds:
-				# read the Customer		
-				customer = CustomerDelegate().get(id).first();	
-				# add the Customer
-				bank.customers.remove(customer)
-				
-			# save it		
-			bank.save()
+	def removeCustomers( self, bank_id, customers_ids ):
+		# lazy importing avoids circular dependenciesId
 			
 			# reload and return the appropriate version
 			return self.get( bank_id );
@@ -263,22 +211,22 @@ class BankDelegate :
 		except Customer.DoesNotExist:
 			raise Exceptions.ProcessingError(err_msg + " : Customer does not exist.")
 		except utils.Exceptions.DatabaseError:
-			raise StorageWriteError()
+			raise Exceptions.StorageWriteError()
 		except Exception:
 			raise Exceptions.GeneralError(err_msg) 
 		
-	def addAccounts( self, bank_id, accountsIds ):
+	def addAccounts( self, bank_id, accounts_ids ):
 		# lazy importing avoids circular dependencies
 		from bankingOnDjango.delegates.AccountDelegate import AccountDelegate
 
-		err_msg = "Failed to add elements " + str(accountsIds) + " for Accounts on Bank"
+		err_msg = "Failed to add elements " + str(accounts_ids) + " for Accounts on Bank"
 
 		try:
 			# get the Bank
 			bank = self.get( bank_id ).first()
 				
 			# iterate over ids
-			for id in accountsIds:
+			for id in accounts_ids:
 				# read the Account		
 				account = AccountDelegate().get(id).first();	
 				# add the Account
@@ -296,25 +244,8 @@ class BankDelegate :
 		except Exception:
 			raise Exceptions.ProcessingError(err_msg) 
 		
-	def removeAccounts( self, bank_id, accountsIds ):
-		# lazy importing avoids circular dependencies
-		from bankingOnDjango.delegates.AccountDelegate import AccountDelegate
-
-		err_msg = "Failed to remove elements " + str(accountsIds) + " for Accounts on Bank"
-
-		try:
-			# get the Bank
-			bank = self.get( bank_id ).first()
-				
-			# iterate over ids
-			for id in accountsIds:
-				# read the Account		
-				account = AccountDelegate().get(id).first();	
-				# add the Account
-				bank.accounts.remove(account)
-				
-			# save it		
-			bank.save()
+	def removeAccounts( self, bank_id, accounts_ids ):
+		# lazy importing avoids circular dependenciesId
 			
 			# reload and return the appropriate version
 			return self.get( bank_id );
@@ -323,22 +254,22 @@ class BankDelegate :
 		except Account.DoesNotExist:
 			raise Exceptions.ProcessingError(err_msg + " : Account does not exist.")
 		except utils.Exceptions.DatabaseError:
-			raise StorageWriteError()
+			raise Exceptions.StorageWriteError()
 		except Exception:
 			raise Exceptions.GeneralError(err_msg) 
 		
-	def addPaymentCards( self, bank_id, paymentCardsIds ):
+	def addPaymentCards( self, bank_id, paymentCards_ids ):
 		# lazy importing avoids circular dependencies
 		from bankingOnDjango.delegates.PaymentCardDelegate import PaymentCardDelegate
 
-		err_msg = "Failed to add elements " + str(paymentCardsIds) + " for PaymentCards on Bank"
+		err_msg = "Failed to add elements " + str(paymentCards_ids) + " for PaymentCards on Bank"
 
 		try:
 			# get the Bank
 			bank = self.get( bank_id ).first()
 				
 			# iterate over ids
-			for id in paymentCardsIds:
+			for id in paymentCards_ids:
 				# read the PaymentCard		
 				paymentCard = PaymentCardDelegate().get(id).first();	
 				# add the PaymentCard
@@ -356,25 +287,8 @@ class BankDelegate :
 		except Exception:
 			raise Exceptions.ProcessingError(err_msg) 
 		
-	def removePaymentCards( self, bank_id, paymentCardsIds ):
-		# lazy importing avoids circular dependencies
-		from bankingOnDjango.delegates.PaymentCardDelegate import PaymentCardDelegate
-
-		err_msg = "Failed to remove elements " + str(paymentCardsIds) + " for PaymentCards on Bank"
-
-		try:
-			# get the Bank
-			bank = self.get( bank_id ).first()
-				
-			# iterate over ids
-			for id in paymentCardsIds:
-				# read the PaymentCard		
-				paymentCard = PaymentCardDelegate().get(id).first();	
-				# add the PaymentCard
-				bank.paymentCards.remove(paymentCard)
-				
-			# save it		
-			bank.save()
+	def removePaymentCards( self, bank_id, paymentCards_ids ):
+		# lazy importing avoids circular dependenciesId
 			
 			# reload and return the appropriate version
 			return self.get( bank_id );
@@ -383,22 +297,22 @@ class BankDelegate :
 		except PaymentCard.DoesNotExist:
 			raise Exceptions.ProcessingError(err_msg + " : PaymentCard does not exist.")
 		except utils.Exceptions.DatabaseError:
-			raise StorageWriteError()
+			raise Exceptions.StorageWriteError()
 		except Exception:
 			raise Exceptions.GeneralError(err_msg) 
 		
-	def addLoanAccounts( self, bank_id, loanAccountsIds ):
+	def addLoanAccounts( self, bank_id, loanAccounts_ids ):
 		# lazy importing avoids circular dependencies
 		from bankingOnDjango.delegates.LoanAccountDelegate import LoanAccountDelegate
 
-		err_msg = "Failed to add elements " + str(loanAccountsIds) + " for LoanAccounts on Bank"
+		err_msg = "Failed to add elements " + str(loanAccounts_ids) + " for LoanAccounts on Bank"
 
 		try:
 			# get the Bank
 			bank = self.get( bank_id ).first()
 				
 			# iterate over ids
-			for id in loanAccountsIds:
+			for id in loanAccounts_ids:
 				# read the LoanAccount		
 				loanAccount = LoanAccountDelegate().get(id).first();	
 				# add the LoanAccount
@@ -416,25 +330,8 @@ class BankDelegate :
 		except Exception:
 			raise Exceptions.ProcessingError(err_msg) 
 		
-	def removeLoanAccounts( self, bank_id, loanAccountsIds ):
-		# lazy importing avoids circular dependencies
-		from bankingOnDjango.delegates.LoanAccountDelegate import LoanAccountDelegate
-
-		err_msg = "Failed to remove elements " + str(loanAccountsIds) + " for LoanAccounts on Bank"
-
-		try:
-			# get the Bank
-			bank = self.get( bank_id ).first()
-				
-			# iterate over ids
-			for id in loanAccountsIds:
-				# read the LoanAccount		
-				loanAccount = LoanAccountDelegate().get(id).first();	
-				# add the LoanAccount
-				bank.loanAccounts.remove(loanAccount)
-				
-			# save it		
-			bank.save()
+	def removeLoanAccounts( self, bank_id, loanAccounts_ids ):
+		# lazy importing avoids circular dependenciesId
 			
 			# reload and return the appropriate version
 			return self.get( bank_id );
@@ -443,22 +340,22 @@ class BankDelegate :
 		except LoanAccount.DoesNotExist:
 			raise Exceptions.ProcessingError(err_msg + " : LoanAccount does not exist.")
 		except utils.Exceptions.DatabaseError:
-			raise StorageWriteError()
+			raise Exceptions.StorageWriteError()
 		except Exception:
 			raise Exceptions.GeneralError(err_msg) 
 		
-	def addExchangeRates( self, bank_id, exchangeRatesIds ):
+	def addExchangeRates( self, bank_id, exchangeRates_ids ):
 		# lazy importing avoids circular dependencies
 		from bankingOnDjango.delegates.ExchangeRateDelegate import ExchangeRateDelegate
 
-		err_msg = "Failed to add elements " + str(exchangeRatesIds) + " for ExchangeRates on Bank"
+		err_msg = "Failed to add elements " + str(exchangeRates_ids) + " for ExchangeRates on Bank"
 
 		try:
 			# get the Bank
 			bank = self.get( bank_id ).first()
 				
 			# iterate over ids
-			for id in exchangeRatesIds:
+			for id in exchangeRates_ids:
 				# read the ExchangeRate		
 				exchangeRate = ExchangeRateDelegate().get(id).first();	
 				# add the ExchangeRate
@@ -476,25 +373,8 @@ class BankDelegate :
 		except Exception:
 			raise Exceptions.ProcessingError(err_msg) 
 		
-	def removeExchangeRates( self, bank_id, exchangeRatesIds ):
-		# lazy importing avoids circular dependencies
-		from bankingOnDjango.delegates.ExchangeRateDelegate import ExchangeRateDelegate
-
-		err_msg = "Failed to remove elements " + str(exchangeRatesIds) + " for ExchangeRates on Bank"
-
-		try:
-			# get the Bank
-			bank = self.get( bank_id ).first()
-				
-			# iterate over ids
-			for id in exchangeRatesIds:
-				# read the ExchangeRate		
-				exchangeRate = ExchangeRateDelegate().get(id).first();	
-				# add the ExchangeRate
-				bank.exchangeRates.remove(exchangeRate)
-				
-			# save it		
-			bank.save()
+	def removeExchangeRates( self, bank_id, exchangeRates_ids ):
+		# lazy importing avoids circular dependenciesId
 			
 			# reload and return the appropriate version
 			return self.get( bank_id );
@@ -503,22 +383,22 @@ class BankDelegate :
 		except ExchangeRate.DoesNotExist:
 			raise Exceptions.ProcessingError(err_msg + " : ExchangeRate does not exist.")
 		except utils.Exceptions.DatabaseError:
-			raise StorageWriteError()
+			raise Exceptions.StorageWriteError()
 		except Exception:
 			raise Exceptions.GeneralError(err_msg) 
 		
-	def addConsents( self, bank_id, consentsIds ):
+	def addConsents( self, bank_id, consents_ids ):
 		# lazy importing avoids circular dependencies
 		from bankingOnDjango.delegates.ConsentDelegate import ConsentDelegate
 
-		err_msg = "Failed to add elements " + str(consentsIds) + " for Consents on Bank"
+		err_msg = "Failed to add elements " + str(consents_ids) + " for Consents on Bank"
 
 		try:
 			# get the Bank
 			bank = self.get( bank_id ).first()
 				
 			# iterate over ids
-			for id in consentsIds:
+			for id in consents_ids:
 				# read the Consent		
 				consent = ConsentDelegate().get(id).first();	
 				# add the Consent
@@ -536,25 +416,8 @@ class BankDelegate :
 		except Exception:
 			raise Exceptions.ProcessingError(err_msg) 
 		
-	def removeConsents( self, bank_id, consentsIds ):
-		# lazy importing avoids circular dependencies
-		from bankingOnDjango.delegates.ConsentDelegate import ConsentDelegate
-
-		err_msg = "Failed to remove elements " + str(consentsIds) + " for Consents on Bank"
-
-		try:
-			# get the Bank
-			bank = self.get( bank_id ).first()
-				
-			# iterate over ids
-			for id in consentsIds:
-				# read the Consent		
-				consent = ConsentDelegate().get(id).first();	
-				# add the Consent
-				bank.consents.remove(consent)
-				
-			# save it		
-			bank.save()
+	def removeConsents( self, bank_id, consents_ids ):
+		# lazy importing avoids circular dependenciesId
 			
 			# reload and return the appropriate version
 			return self.get( bank_id );
@@ -563,22 +426,22 @@ class BankDelegate :
 		except Consent.DoesNotExist:
 			raise Exceptions.ProcessingError(err_msg + " : Consent does not exist.")
 		except utils.Exceptions.DatabaseError:
-			raise StorageWriteError()
+			raise Exceptions.StorageWriteError()
 		except Exception:
 			raise Exceptions.GeneralError(err_msg) 
 		
-	def addThirdPartyProviders( self, bank_id, thirdPartyProvidersIds ):
+	def addThirdPartyProviders( self, bank_id, thirdPartyProviders_ids ):
 		# lazy importing avoids circular dependencies
 		from bankingOnDjango.delegates.ThirdPartyProviderDelegate import ThirdPartyProviderDelegate
 
-		err_msg = "Failed to add elements " + str(thirdPartyProvidersIds) + " for ThirdPartyProviders on Bank"
+		err_msg = "Failed to add elements " + str(thirdPartyProviders_ids) + " for ThirdPartyProviders on Bank"
 
 		try:
 			# get the Bank
 			bank = self.get( bank_id ).first()
 				
 			# iterate over ids
-			for id in thirdPartyProvidersIds:
+			for id in thirdPartyProviders_ids:
 				# read the ThirdPartyProvider		
 				thirdPartyProvider = ThirdPartyProviderDelegate().get(id).first();	
 				# add the ThirdPartyProvider
@@ -596,25 +459,8 @@ class BankDelegate :
 		except Exception:
 			raise Exceptions.ProcessingError(err_msg) 
 		
-	def removeThirdPartyProviders( self, bank_id, thirdPartyProvidersIds ):
-		# lazy importing avoids circular dependencies
-		from bankingOnDjango.delegates.ThirdPartyProviderDelegate import ThirdPartyProviderDelegate
-
-		err_msg = "Failed to remove elements " + str(thirdPartyProvidersIds) + " for ThirdPartyProviders on Bank"
-
-		try:
-			# get the Bank
-			bank = self.get( bank_id ).first()
-				
-			# iterate over ids
-			for id in thirdPartyProvidersIds:
-				# read the ThirdPartyProvider		
-				thirdPartyProvider = ThirdPartyProviderDelegate().get(id).first();	
-				# add the ThirdPartyProvider
-				bank.thirdPartyProviders.remove(thirdPartyProvider)
-				
-			# save it		
-			bank.save()
+	def removeThirdPartyProviders( self, bank_id, thirdPartyProviders_ids ):
+		# lazy importing avoids circular dependenciesId
 			
 			# reload and return the appropriate version
 			return self.get( bank_id );
@@ -623,7 +469,7 @@ class BankDelegate :
 		except ThirdPartyProvider.DoesNotExist:
 			raise Exceptions.ProcessingError(err_msg + " : ThirdPartyProvider does not exist.")
 		except utils.Exceptions.DatabaseError:
-			raise StorageWriteError()
+			raise Exceptions.StorageWriteError()
 		except Exception:
 			raise Exceptions.GeneralError(err_msg) 
 		

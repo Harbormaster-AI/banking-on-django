@@ -1,6 +1,5 @@
 
 
-from django.core import exceptions
 from django.core import serializers
 from django.db import models
 from django.db import utils
@@ -84,18 +83,18 @@ class TransactionDelegate :
 		except Exception:
 			return None;
 		
-	def assignAccount( self, transaction_id, accountId ):
+	def assignAccount( self, transaction_id, account_id ):
 		# lazy importing avoids circular dependencies
 		from bankingOnDjango.delegates.AccountDelegate import AccountDelegate
 
-		err_msg = "Failed to assign element " + str(accountId) + " for Account on Transaction"
+		err_msg = "Failed to assign element " + str(account_id) + " for Account on Transaction"
 
 		try:
 			# get the Transaction from db
 			transaction = self.get( transaction_id ).first()	
 			
 			# get the Account from db
-			account = AccountDelegate().get(accountId).first();
+			account = AccountDelegate().get(account_id).first();
 			
 			# assign the Account		
 			transaction.account = account
@@ -108,12 +107,12 @@ class TransactionDelegate :
 		except Transaction.DoesNotExist:
 			raise Exceptions.ProcessingError(err_msg + " : Transaction with id " + str(transaction_id) + " does not exist.")
 		except Account.DoesNotExist:
-			raise Exceptions.ProcessingError(err_msg + " : Account with id " + str(accountId) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : Account with id " + str(account_id) + " does not exist.")
 		except Exception:
 			return None;
 				
 	def unassignAccount( self, transaction_id ):
-		err_msg = "Failed to unassign element " + str(accountId) + " for Account on Transaction"
+		err_msg = "Failed to unassign element " + str(account_id) + " for Account on Transaction"
 
 		try:
 			# get the Transaction from db
@@ -132,18 +131,18 @@ class TransactionDelegate :
 		except Exception:
 			return None;
 		
-	def assignExternalCounterparty( self, transaction_id, externalCounterpartyId ):
+	def assignExternalCounterparty( self, transaction_id, externalCounterparty_id ):
 		# lazy importing avoids circular dependencies
 		from bankingOnDjango.delegates.ExternalAccountDelegate import ExternalAccountDelegate
 
-		err_msg = "Failed to assign element " + str(externalCounterpartyId) + " for ExternalCounterparty on Transaction"
+		err_msg = "Failed to assign element " + str(externalCounterparty_id) + " for ExternalCounterparty on Transaction"
 
 		try:
 			# get the Transaction from db
 			transaction = self.get( transaction_id ).first()	
 			
 			# get the ExternalAccount from db
-			externalAccount = ExternalAccountDelegate().get(externalCounterpartyId).first();
+			externalAccount = ExternalAccountDelegate().get(externalCounterparty_id).first();
 			
 			# assign the ExternalCounterparty		
 			transaction.externalCounterparty = externalAccount
@@ -156,12 +155,12 @@ class TransactionDelegate :
 		except Transaction.DoesNotExist:
 			raise Exceptions.ProcessingError(err_msg + " : Transaction with id " + str(transaction_id) + " does not exist.")
 		except ExternalAccount.DoesNotExist:
-			raise Exceptions.ProcessingError(err_msg + " : ExternalAccount with id " + str(externalCounterpartyId) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : ExternalAccount with id " + str(externalCounterparty_id) + " does not exist.")
 		except Exception:
 			return None;
 				
 	def unassignExternalCounterparty( self, transaction_id ):
-		err_msg = "Failed to unassign element " + str(externalCounterpartyId) + " for ExternalCounterparty on Transaction"
+		err_msg = "Failed to unassign element " + str(externalCounterparty_id) + " for ExternalCounterparty on Transaction"
 
 		try:
 			# get the Transaction from db
@@ -180,18 +179,18 @@ class TransactionDelegate :
 		except Exception:
 			return None;
 		
-	def assignPaymentCard( self, transaction_id, paymentCardId ):
+	def assignPaymentCard( self, transaction_id, paymentCard_id ):
 		# lazy importing avoids circular dependencies
 		from bankingOnDjango.delegates.PaymentCardDelegate import PaymentCardDelegate
 
-		err_msg = "Failed to assign element " + str(paymentCardId) + " for PaymentCard on Transaction"
+		err_msg = "Failed to assign element " + str(paymentCard_id) + " for PaymentCard on Transaction"
 
 		try:
 			# get the Transaction from db
 			transaction = self.get( transaction_id ).first()	
 			
 			# get the PaymentCard from db
-			paymentCard = PaymentCardDelegate().get(paymentCardId).first();
+			paymentCard = PaymentCardDelegate().get(paymentCard_id).first();
 			
 			# assign the PaymentCard		
 			transaction.paymentCard = paymentCard
@@ -204,12 +203,12 @@ class TransactionDelegate :
 		except Transaction.DoesNotExist:
 			raise Exceptions.ProcessingError(err_msg + " : Transaction with id " + str(transaction_id) + " does not exist.")
 		except PaymentCard.DoesNotExist:
-			raise Exceptions.ProcessingError(err_msg + " : PaymentCard with id " + str(paymentCardId) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : PaymentCard with id " + str(paymentCard_id) + " does not exist.")
 		except Exception:
 			return None;
 				
 	def unassignPaymentCard( self, transaction_id ):
-		err_msg = "Failed to unassign element " + str(paymentCardId) + " for PaymentCard on Transaction"
+		err_msg = "Failed to unassign element " + str(paymentCard_id) + " for PaymentCard on Transaction"
 
 		try:
 			# get the Transaction from db
@@ -228,18 +227,18 @@ class TransactionDelegate :
 		except Exception:
 			return None;
 		
-	def assignFundsTransfer( self, transaction_id, fundsTransferId ):
+	def assignFundsTransfer( self, transaction_id, fundsTransfer_id ):
 		# lazy importing avoids circular dependencies
 		from bankingOnDjango.delegates.FundsTransferDelegate import FundsTransferDelegate
 
-		err_msg = "Failed to assign element " + str(fundsTransferId) + " for FundsTransfer on Transaction"
+		err_msg = "Failed to assign element " + str(fundsTransfer_id) + " for FundsTransfer on Transaction"
 
 		try:
 			# get the Transaction from db
 			transaction = self.get( transaction_id ).first()	
 			
 			# get the FundsTransfer from db
-			fundsTransfer = FundsTransferDelegate().get(fundsTransferId).first();
+			fundsTransfer = FundsTransferDelegate().get(fundsTransfer_id).first();
 			
 			# assign the FundsTransfer		
 			transaction.fundsTransfer = fundsTransfer
@@ -252,12 +251,12 @@ class TransactionDelegate :
 		except Transaction.DoesNotExist:
 			raise Exceptions.ProcessingError(err_msg + " : Transaction with id " + str(transaction_id) + " does not exist.")
 		except FundsTransfer.DoesNotExist:
-			raise Exceptions.ProcessingError(err_msg + " : FundsTransfer with id " + str(fundsTransferId) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : FundsTransfer with id " + str(fundsTransfer_id) + " does not exist.")
 		except Exception:
 			return None;
 				
 	def unassignFundsTransfer( self, transaction_id ):
-		err_msg = "Failed to unassign element " + str(fundsTransferId) + " for FundsTransfer on Transaction"
+		err_msg = "Failed to unassign element " + str(fundsTransfer_id) + " for FundsTransfer on Transaction"
 
 		try:
 			# get the Transaction from db
@@ -276,18 +275,18 @@ class TransactionDelegate :
 		except Exception:
 			return None;
 		
-	def assignFxTrade( self, transaction_id, fxTradeId ):
+	def assignFxTrade( self, transaction_id, fxTrade_id ):
 		# lazy importing avoids circular dependencies
 		from bankingOnDjango.delegates.FXTradeDelegate import FXTradeDelegate
 
-		err_msg = "Failed to assign element " + str(fxTradeId) + " for FxTrade on Transaction"
+		err_msg = "Failed to assign element " + str(fxTrade_id) + " for FxTrade on Transaction"
 
 		try:
 			# get the Transaction from db
 			transaction = self.get( transaction_id ).first()	
 			
 			# get the FXTrade from db
-			fXTrade = FXTradeDelegate().get(fxTradeId).first();
+			fXTrade = FXTradeDelegate().get(fxTrade_id).first();
 			
 			# assign the FxTrade		
 			transaction.fxTrade = fXTrade
@@ -300,12 +299,12 @@ class TransactionDelegate :
 		except Transaction.DoesNotExist:
 			raise Exceptions.ProcessingError(err_msg + " : Transaction with id " + str(transaction_id) + " does not exist.")
 		except FXTrade.DoesNotExist:
-			raise Exceptions.ProcessingError(err_msg + " : FXTrade with id " + str(fxTradeId) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : FXTrade with id " + str(fxTrade_id) + " does not exist.")
 		except Exception:
 			return None;
 				
 	def unassignFxTrade( self, transaction_id ):
-		err_msg = "Failed to unassign element " + str(fxTradeId) + " for FxTrade on Transaction"
+		err_msg = "Failed to unassign element " + str(fxTrade_id) + " for FxTrade on Transaction"
 
 		try:
 			# get the Transaction from db
@@ -324,18 +323,18 @@ class TransactionDelegate :
 		except Exception:
 			return None;
 		
-	def assignDispute( self, transaction_id, disputeId ):
+	def assignDispute( self, transaction_id, dispute_id ):
 		# lazy importing avoids circular dependencies
 		from bankingOnDjango.delegates.DisputeDelegate import DisputeDelegate
 
-		err_msg = "Failed to assign element " + str(disputeId) + " for Dispute on Transaction"
+		err_msg = "Failed to assign element " + str(dispute_id) + " for Dispute on Transaction"
 
 		try:
 			# get the Transaction from db
 			transaction = self.get( transaction_id ).first()	
 			
 			# get the Dispute from db
-			dispute = DisputeDelegate().get(disputeId).first();
+			dispute = DisputeDelegate().get(dispute_id).first();
 			
 			# assign the Dispute		
 			transaction.dispute = dispute
@@ -348,12 +347,12 @@ class TransactionDelegate :
 		except Transaction.DoesNotExist:
 			raise Exceptions.ProcessingError(err_msg + " : Transaction with id " + str(transaction_id) + " does not exist.")
 		except Dispute.DoesNotExist:
-			raise Exceptions.ProcessingError(err_msg + " : Dispute with id " + str(disputeId) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : Dispute with id " + str(dispute_id) + " does not exist.")
 		except Exception:
 			return None;
 				
 	def unassignDispute( self, transaction_id ):
-		err_msg = "Failed to unassign element " + str(disputeId) + " for Dispute on Transaction"
+		err_msg = "Failed to unassign element " + str(dispute_id) + " for Dispute on Transaction"
 
 		try:
 			# get the Transaction from db

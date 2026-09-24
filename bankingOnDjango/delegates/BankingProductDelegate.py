@@ -1,6 +1,5 @@
 
 
-from django.core import exceptions
 from django.core import serializers
 from django.db import models
 from django.db import utils
@@ -82,18 +81,18 @@ class BankingProductDelegate :
 		except Exception:
 			return None;
 		
-	def assignBank( self, banking_product_id, bankId ):
+	def assignBank( self, banking_product_id, bank_id ):
 		# lazy importing avoids circular dependencies
 		from bankingOnDjango.delegates.BankDelegate import BankDelegate
 
-		err_msg = "Failed to assign element " + str(bankId) + " for Bank on BankingProduct"
+		err_msg = "Failed to assign element " + str(bank_id) + " for Bank on BankingProduct"
 
 		try:
 			# get the BankingProduct from db
 			banking_product = self.get( banking_product_id ).first()	
 			
 			# get the Bank from db
-			bank = BankDelegate().get(bankId).first();
+			bank = BankDelegate().get(bank_id).first();
 			
 			# assign the Bank		
 			banking_product.bank = bank
@@ -106,12 +105,12 @@ class BankingProductDelegate :
 		except BankingProduct.DoesNotExist:
 			raise Exceptions.ProcessingError(err_msg + " : BankingProduct with id " + str(banking_product_id) + " does not exist.")
 		except Bank.DoesNotExist:
-			raise Exceptions.ProcessingError(err_msg + " : Bank with id " + str(bankId) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : Bank with id " + str(bank_id) + " does not exist.")
 		except Exception:
 			return None;
 				
 	def unassignBank( self, banking_product_id ):
-		err_msg = "Failed to unassign element " + str(bankId) + " for Bank on BankingProduct"
+		err_msg = "Failed to unassign element " + str(bank_id) + " for Bank on BankingProduct"
 
 		try:
 			# get the BankingProduct from db
@@ -130,18 +129,18 @@ class BankingProductDelegate :
 		except Exception:
 			return None;
 		
-	def addAccounts( self, banking_product_id, accountsIds ):
+	def addAccounts( self, banking_product_id, accounts_ids ):
 		# lazy importing avoids circular dependencies
 		from bankingOnDjango.delegates.AccountDelegate import AccountDelegate
 
-		err_msg = "Failed to add elements " + str(accountsIds) + " for Accounts on BankingProduct"
+		err_msg = "Failed to add elements " + str(accounts_ids) + " for Accounts on BankingProduct"
 
 		try:
 			# get the BankingProduct
 			banking_product = self.get( banking_product_id ).first()
 				
 			# iterate over ids
-			for id in accountsIds:
+			for id in accounts_ids:
 				# read the Account		
 				account = AccountDelegate().get(id).first();	
 				# add the Account
@@ -159,25 +158,8 @@ class BankingProductDelegate :
 		except Exception:
 			raise Exceptions.ProcessingError(err_msg) 
 		
-	def removeAccounts( self, banking_product_id, accountsIds ):
-		# lazy importing avoids circular dependencies
-		from bankingOnDjango.delegates.AccountDelegate import AccountDelegate
-
-		err_msg = "Failed to remove elements " + str(accountsIds) + " for Accounts on BankingProduct"
-
-		try:
-			# get the BankingProduct
-			banking_product = self.get( banking_product_id ).first()
-				
-			# iterate over ids
-			for id in accountsIds:
-				# read the Account		
-				account = AccountDelegate().get(id).first();	
-				# add the Account
-				banking_product.accounts.remove(account)
-				
-			# save it		
-			banking_product.save()
+	def removeAccounts( self, banking_product_id, accounts_ids ):
+		# lazy importing avoids circular dependenciesId
 			
 			# reload and return the appropriate version
 			return self.get( banking_product_id );
@@ -186,22 +168,22 @@ class BankingProductDelegate :
 		except Account.DoesNotExist:
 			raise Exceptions.ProcessingError(err_msg + " : Account does not exist.")
 		except utils.Exceptions.DatabaseError:
-			raise StorageWriteError()
+			raise Exceptions.StorageWriteError()
 		except Exception:
 			raise Exceptions.GeneralError(err_msg) 
 		
-	def addLoanAccounts( self, banking_product_id, loanAccountsIds ):
+	def addLoanAccounts( self, banking_product_id, loanAccounts_ids ):
 		# lazy importing avoids circular dependencies
 		from bankingOnDjango.delegates.LoanAccountDelegate import LoanAccountDelegate
 
-		err_msg = "Failed to add elements " + str(loanAccountsIds) + " for LoanAccounts on BankingProduct"
+		err_msg = "Failed to add elements " + str(loanAccounts_ids) + " for LoanAccounts on BankingProduct"
 
 		try:
 			# get the BankingProduct
 			banking_product = self.get( banking_product_id ).first()
 				
 			# iterate over ids
-			for id in loanAccountsIds:
+			for id in loanAccounts_ids:
 				# read the LoanAccount		
 				loanAccount = LoanAccountDelegate().get(id).first();	
 				# add the LoanAccount
@@ -219,25 +201,8 @@ class BankingProductDelegate :
 		except Exception:
 			raise Exceptions.ProcessingError(err_msg) 
 		
-	def removeLoanAccounts( self, banking_product_id, loanAccountsIds ):
-		# lazy importing avoids circular dependencies
-		from bankingOnDjango.delegates.LoanAccountDelegate import LoanAccountDelegate
-
-		err_msg = "Failed to remove elements " + str(loanAccountsIds) + " for LoanAccounts on BankingProduct"
-
-		try:
-			# get the BankingProduct
-			banking_product = self.get( banking_product_id ).first()
-				
-			# iterate over ids
-			for id in loanAccountsIds:
-				# read the LoanAccount		
-				loanAccount = LoanAccountDelegate().get(id).first();	
-				# add the LoanAccount
-				banking_product.loanAccounts.remove(loanAccount)
-				
-			# save it		
-			banking_product.save()
+	def removeLoanAccounts( self, banking_product_id, loanAccounts_ids ):
+		# lazy importing avoids circular dependenciesId
 			
 			# reload and return the appropriate version
 			return self.get( banking_product_id );
@@ -246,22 +211,22 @@ class BankingProductDelegate :
 		except LoanAccount.DoesNotExist:
 			raise Exceptions.ProcessingError(err_msg + " : LoanAccount does not exist.")
 		except utils.Exceptions.DatabaseError:
-			raise StorageWriteError()
+			raise Exceptions.StorageWriteError()
 		except Exception:
 			raise Exceptions.GeneralError(err_msg) 
 		
-	def addPaymentCards( self, banking_product_id, paymentCardsIds ):
+	def addPaymentCards( self, banking_product_id, paymentCards_ids ):
 		# lazy importing avoids circular dependencies
 		from bankingOnDjango.delegates.PaymentCardDelegate import PaymentCardDelegate
 
-		err_msg = "Failed to add elements " + str(paymentCardsIds) + " for PaymentCards on BankingProduct"
+		err_msg = "Failed to add elements " + str(paymentCards_ids) + " for PaymentCards on BankingProduct"
 
 		try:
 			# get the BankingProduct
 			banking_product = self.get( banking_product_id ).first()
 				
 			# iterate over ids
-			for id in paymentCardsIds:
+			for id in paymentCards_ids:
 				# read the PaymentCard		
 				paymentCard = PaymentCardDelegate().get(id).first();	
 				# add the PaymentCard
@@ -279,25 +244,8 @@ class BankingProductDelegate :
 		except Exception:
 			raise Exceptions.ProcessingError(err_msg) 
 		
-	def removePaymentCards( self, banking_product_id, paymentCardsIds ):
-		# lazy importing avoids circular dependencies
-		from bankingOnDjango.delegates.PaymentCardDelegate import PaymentCardDelegate
-
-		err_msg = "Failed to remove elements " + str(paymentCardsIds) + " for PaymentCards on BankingProduct"
-
-		try:
-			# get the BankingProduct
-			banking_product = self.get( banking_product_id ).first()
-				
-			# iterate over ids
-			for id in paymentCardsIds:
-				# read the PaymentCard		
-				paymentCard = PaymentCardDelegate().get(id).first();	
-				# add the PaymentCard
-				banking_product.paymentCards.remove(paymentCard)
-				
-			# save it		
-			banking_product.save()
+	def removePaymentCards( self, banking_product_id, paymentCards_ids ):
+		# lazy importing avoids circular dependenciesId
 			
 			# reload and return the appropriate version
 			return self.get( banking_product_id );
@@ -306,7 +254,7 @@ class BankingProductDelegate :
 		except PaymentCard.DoesNotExist:
 			raise Exceptions.ProcessingError(err_msg + " : PaymentCard does not exist.")
 		except utils.Exceptions.DatabaseError:
-			raise StorageWriteError()
+			raise Exceptions.StorageWriteError()
 		except Exception:
 			raise Exceptions.GeneralError(err_msg) 
 		

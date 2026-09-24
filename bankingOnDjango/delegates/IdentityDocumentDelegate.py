@@ -1,6 +1,5 @@
 
 
-from django.core import exceptions
 from django.core import serializers
 from django.db import models
 from django.db import utils
@@ -79,18 +78,18 @@ class IdentityDocumentDelegate :
 		except Exception:
 			return None;
 		
-	def assignKycProfile( self, identity_document_id, kycProfileId ):
+	def assignKycProfile( self, identity_document_id, kycProfile_id ):
 		# lazy importing avoids circular dependencies
 		from bankingOnDjango.delegates.KycProfileDelegate import KycProfileDelegate
 
-		err_msg = "Failed to assign element " + str(kycProfileId) + " for KycProfile on IdentityDocument"
+		err_msg = "Failed to assign element " + str(kycProfile_id) + " for KycProfile on IdentityDocument"
 
 		try:
 			# get the IdentityDocument from db
 			identity_document = self.get( identity_document_id ).first()	
 			
 			# get the KycProfile from db
-			kycProfile = KycProfileDelegate().get(kycProfileId).first();
+			kycProfile = KycProfileDelegate().get(kycProfile_id).first();
 			
 			# assign the KycProfile		
 			identity_document.kycProfile = kycProfile
@@ -103,12 +102,12 @@ class IdentityDocumentDelegate :
 		except IdentityDocument.DoesNotExist:
 			raise Exceptions.ProcessingError(err_msg + " : IdentityDocument with id " + str(identity_document_id) + " does not exist.")
 		except KycProfile.DoesNotExist:
-			raise Exceptions.ProcessingError(err_msg + " : KycProfile with id " + str(kycProfileId) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : KycProfile with id " + str(kycProfile_id) + " does not exist.")
 		except Exception:
 			return None;
 				
 	def unassignKycProfile( self, identity_document_id ):
-		err_msg = "Failed to unassign element " + str(kycProfileId) + " for KycProfile on IdentityDocument"
+		err_msg = "Failed to unassign element " + str(kycProfile_id) + " for KycProfile on IdentityDocument"
 
 		try:
 			# get the IdentityDocument from db

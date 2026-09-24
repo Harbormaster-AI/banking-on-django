@@ -1,6 +1,5 @@
 
 
-from django.core import exceptions
 from django.core import serializers
 from django.db import models
 from django.db import utils
@@ -82,18 +81,18 @@ class PaymentCardDelegate :
 		except Exception:
 			return None;
 		
-	def assignBank( self, payment_card_id, bankId ):
+	def assignBank( self, payment_card_id, bank_id ):
 		# lazy importing avoids circular dependencies
 		from bankingOnDjango.delegates.BankDelegate import BankDelegate
 
-		err_msg = "Failed to assign element " + str(bankId) + " for Bank on PaymentCard"
+		err_msg = "Failed to assign element " + str(bank_id) + " for Bank on PaymentCard"
 
 		try:
 			# get the PaymentCard from db
 			payment_card = self.get( payment_card_id ).first()	
 			
 			# get the Bank from db
-			bank = BankDelegate().get(bankId).first();
+			bank = BankDelegate().get(bank_id).first();
 			
 			# assign the Bank		
 			payment_card.bank = bank
@@ -106,12 +105,12 @@ class PaymentCardDelegate :
 		except PaymentCard.DoesNotExist:
 			raise Exceptions.ProcessingError(err_msg + " : PaymentCard with id " + str(payment_card_id) + " does not exist.")
 		except Bank.DoesNotExist:
-			raise Exceptions.ProcessingError(err_msg + " : Bank with id " + str(bankId) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : Bank with id " + str(bank_id) + " does not exist.")
 		except Exception:
 			return None;
 				
 	def unassignBank( self, payment_card_id ):
-		err_msg = "Failed to unassign element " + str(bankId) + " for Bank on PaymentCard"
+		err_msg = "Failed to unassign element " + str(bank_id) + " for Bank on PaymentCard"
 
 		try:
 			# get the PaymentCard from db
@@ -130,18 +129,18 @@ class PaymentCardDelegate :
 		except Exception:
 			return None;
 		
-	def assignAccount( self, payment_card_id, accountId ):
+	def assignAccount( self, payment_card_id, account_id ):
 		# lazy importing avoids circular dependencies
 		from bankingOnDjango.delegates.AccountDelegate import AccountDelegate
 
-		err_msg = "Failed to assign element " + str(accountId) + " for Account on PaymentCard"
+		err_msg = "Failed to assign element " + str(account_id) + " for Account on PaymentCard"
 
 		try:
 			# get the PaymentCard from db
 			payment_card = self.get( payment_card_id ).first()	
 			
 			# get the Account from db
-			account = AccountDelegate().get(accountId).first();
+			account = AccountDelegate().get(account_id).first();
 			
 			# assign the Account		
 			payment_card.account = account
@@ -154,12 +153,12 @@ class PaymentCardDelegate :
 		except PaymentCard.DoesNotExist:
 			raise Exceptions.ProcessingError(err_msg + " : PaymentCard with id " + str(payment_card_id) + " does not exist.")
 		except Account.DoesNotExist:
-			raise Exceptions.ProcessingError(err_msg + " : Account with id " + str(accountId) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : Account with id " + str(account_id) + " does not exist.")
 		except Exception:
 			return None;
 				
 	def unassignAccount( self, payment_card_id ):
-		err_msg = "Failed to unassign element " + str(accountId) + " for Account on PaymentCard"
+		err_msg = "Failed to unassign element " + str(account_id) + " for Account on PaymentCard"
 
 		try:
 			# get the PaymentCard from db
@@ -178,18 +177,18 @@ class PaymentCardDelegate :
 		except Exception:
 			return None;
 		
-	def assignCustomer( self, payment_card_id, customerId ):
+	def assignCustomer( self, payment_card_id, customer_id ):
 		# lazy importing avoids circular dependencies
 		from bankingOnDjango.delegates.CustomerDelegate import CustomerDelegate
 
-		err_msg = "Failed to assign element " + str(customerId) + " for Customer on PaymentCard"
+		err_msg = "Failed to assign element " + str(customer_id) + " for Customer on PaymentCard"
 
 		try:
 			# get the PaymentCard from db
 			payment_card = self.get( payment_card_id ).first()	
 			
 			# get the Customer from db
-			customer = CustomerDelegate().get(customerId).first();
+			customer = CustomerDelegate().get(customer_id).first();
 			
 			# assign the Customer		
 			payment_card.customer = customer
@@ -202,12 +201,12 @@ class PaymentCardDelegate :
 		except PaymentCard.DoesNotExist:
 			raise Exceptions.ProcessingError(err_msg + " : PaymentCard with id " + str(payment_card_id) + " does not exist.")
 		except Customer.DoesNotExist:
-			raise Exceptions.ProcessingError(err_msg + " : Customer with id " + str(customerId) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : Customer with id " + str(customer_id) + " does not exist.")
 		except Exception:
 			return None;
 				
 	def unassignCustomer( self, payment_card_id ):
-		err_msg = "Failed to unassign element " + str(customerId) + " for Customer on PaymentCard"
+		err_msg = "Failed to unassign element " + str(customer_id) + " for Customer on PaymentCard"
 
 		try:
 			# get the PaymentCard from db
@@ -226,18 +225,18 @@ class PaymentCardDelegate :
 		except Exception:
 			return None;
 		
-	def addTransactions( self, payment_card_id, transactionsIds ):
+	def addTransactions( self, payment_card_id, transactions_ids ):
 		# lazy importing avoids circular dependencies
 		from bankingOnDjango.delegates.TransactionDelegate import TransactionDelegate
 
-		err_msg = "Failed to add elements " + str(transactionsIds) + " for Transactions on PaymentCard"
+		err_msg = "Failed to add elements " + str(transactions_ids) + " for Transactions on PaymentCard"
 
 		try:
 			# get the PaymentCard
 			payment_card = self.get( payment_card_id ).first()
 				
 			# iterate over ids
-			for id in transactionsIds:
+			for id in transactions_ids:
 				# read the Transaction		
 				transaction = TransactionDelegate().get(id).first();	
 				# add the Transaction
@@ -255,25 +254,8 @@ class PaymentCardDelegate :
 		except Exception:
 			raise Exceptions.ProcessingError(err_msg) 
 		
-	def removeTransactions( self, payment_card_id, transactionsIds ):
-		# lazy importing avoids circular dependencies
-		from bankingOnDjango.delegates.TransactionDelegate import TransactionDelegate
-
-		err_msg = "Failed to remove elements " + str(transactionsIds) + " for Transactions on PaymentCard"
-
-		try:
-			# get the PaymentCard
-			payment_card = self.get( payment_card_id ).first()
-				
-			# iterate over ids
-			for id in transactionsIds:
-				# read the Transaction		
-				transaction = TransactionDelegate().get(id).first();	
-				# add the Transaction
-				payment_card.transactions.remove(transaction)
-				
-			# save it		
-			payment_card.save()
+	def removeTransactions( self, payment_card_id, transactions_ids ):
+		# lazy importing avoids circular dependenciesId
 			
 			# reload and return the appropriate version
 			return self.get( payment_card_id );
@@ -282,7 +264,7 @@ class PaymentCardDelegate :
 		except Transaction.DoesNotExist:
 			raise Exceptions.ProcessingError(err_msg + " : Transaction does not exist.")
 		except utils.Exceptions.DatabaseError:
-			raise StorageWriteError()
+			raise Exceptions.StorageWriteError()
 		except Exception:
 			raise Exceptions.GeneralError(err_msg) 
 		

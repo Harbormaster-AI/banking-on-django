@@ -1,6 +1,5 @@
 
 
-from django.core import exceptions
 from django.core import serializers
 from django.db import models
 from django.db import utils
@@ -82,18 +81,18 @@ class KycProfileDelegate :
 		except Exception:
 			return None;
 		
-	def assignCustomer( self, kyc_profile_id, customerId ):
+	def assignCustomer( self, kyc_profile_id, customer_id ):
 		# lazy importing avoids circular dependencies
 		from bankingOnDjango.delegates.CustomerDelegate import CustomerDelegate
 
-		err_msg = "Failed to assign element " + str(customerId) + " for Customer on KycProfile"
+		err_msg = "Failed to assign element " + str(customer_id) + " for Customer on KycProfile"
 
 		try:
 			# get the KycProfile from db
 			kyc_profile = self.get( kyc_profile_id ).first()	
 			
 			# get the Customer from db
-			customer = CustomerDelegate().get(customerId).first();
+			customer = CustomerDelegate().get(customer_id).first();
 			
 			# assign the Customer		
 			kyc_profile.customer = customer
@@ -106,12 +105,12 @@ class KycProfileDelegate :
 		except KycProfile.DoesNotExist:
 			raise Exceptions.ProcessingError(err_msg + " : KycProfile with id " + str(kyc_profile_id) + " does not exist.")
 		except Customer.DoesNotExist:
-			raise Exceptions.ProcessingError(err_msg + " : Customer with id " + str(customerId) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : Customer with id " + str(customer_id) + " does not exist.")
 		except Exception:
 			return None;
 				
 	def unassignCustomer( self, kyc_profile_id ):
-		err_msg = "Failed to unassign element " + str(customerId) + " for Customer on KycProfile"
+		err_msg = "Failed to unassign element " + str(customer_id) + " for Customer on KycProfile"
 
 		try:
 			# get the KycProfile from db
@@ -130,18 +129,18 @@ class KycProfileDelegate :
 		except Exception:
 			return None;
 		
-	def addIdentityDocuments( self, kyc_profile_id, identityDocumentsIds ):
+	def addIdentityDocuments( self, kyc_profile_id, identityDocuments_ids ):
 		# lazy importing avoids circular dependencies
 		from bankingOnDjango.delegates.IdentityDocumentDelegate import IdentityDocumentDelegate
 
-		err_msg = "Failed to add elements " + str(identityDocumentsIds) + " for IdentityDocuments on KycProfile"
+		err_msg = "Failed to add elements " + str(identityDocuments_ids) + " for IdentityDocuments on KycProfile"
 
 		try:
 			# get the KycProfile
 			kyc_profile = self.get( kyc_profile_id ).first()
 				
 			# iterate over ids
-			for id in identityDocumentsIds:
+			for id in identityDocuments_ids:
 				# read the IdentityDocument		
 				identityDocument = IdentityDocumentDelegate().get(id).first();	
 				# add the IdentityDocument
@@ -159,25 +158,8 @@ class KycProfileDelegate :
 		except Exception:
 			raise Exceptions.ProcessingError(err_msg) 
 		
-	def removeIdentityDocuments( self, kyc_profile_id, identityDocumentsIds ):
-		# lazy importing avoids circular dependencies
-		from bankingOnDjango.delegates.IdentityDocumentDelegate import IdentityDocumentDelegate
-
-		err_msg = "Failed to remove elements " + str(identityDocumentsIds) + " for IdentityDocuments on KycProfile"
-
-		try:
-			# get the KycProfile
-			kyc_profile = self.get( kyc_profile_id ).first()
-				
-			# iterate over ids
-			for id in identityDocumentsIds:
-				# read the IdentityDocument		
-				identityDocument = IdentityDocumentDelegate().get(id).first();	
-				# add the IdentityDocument
-				kyc_profile.identityDocuments.remove(identityDocument)
-				
-			# save it		
-			kyc_profile.save()
+	def removeIdentityDocuments( self, kyc_profile_id, identityDocuments_ids ):
+		# lazy importing avoids circular dependenciesId
 			
 			# reload and return the appropriate version
 			return self.get( kyc_profile_id );
@@ -186,22 +168,22 @@ class KycProfileDelegate :
 		except IdentityDocument.DoesNotExist:
 			raise Exceptions.ProcessingError(err_msg + " : IdentityDocument does not exist.")
 		except utils.Exceptions.DatabaseError:
-			raise StorageWriteError()
+			raise Exceptions.StorageWriteError()
 		except Exception:
 			raise Exceptions.GeneralError(err_msg) 
 		
-	def addRiskAssessments( self, kyc_profile_id, riskAssessmentsIds ):
+	def addRiskAssessments( self, kyc_profile_id, riskAssessments_ids ):
 		# lazy importing avoids circular dependencies
 		from bankingOnDjango.delegates.RiskAssessmentDelegate import RiskAssessmentDelegate
 
-		err_msg = "Failed to add elements " + str(riskAssessmentsIds) + " for RiskAssessments on KycProfile"
+		err_msg = "Failed to add elements " + str(riskAssessments_ids) + " for RiskAssessments on KycProfile"
 
 		try:
 			# get the KycProfile
 			kyc_profile = self.get( kyc_profile_id ).first()
 				
 			# iterate over ids
-			for id in riskAssessmentsIds:
+			for id in riskAssessments_ids:
 				# read the RiskAssessment		
 				riskAssessment = RiskAssessmentDelegate().get(id).first();	
 				# add the RiskAssessment
@@ -219,25 +201,8 @@ class KycProfileDelegate :
 		except Exception:
 			raise Exceptions.ProcessingError(err_msg) 
 		
-	def removeRiskAssessments( self, kyc_profile_id, riskAssessmentsIds ):
-		# lazy importing avoids circular dependencies
-		from bankingOnDjango.delegates.RiskAssessmentDelegate import RiskAssessmentDelegate
-
-		err_msg = "Failed to remove elements " + str(riskAssessmentsIds) + " for RiskAssessments on KycProfile"
-
-		try:
-			# get the KycProfile
-			kyc_profile = self.get( kyc_profile_id ).first()
-				
-			# iterate over ids
-			for id in riskAssessmentsIds:
-				# read the RiskAssessment		
-				riskAssessment = RiskAssessmentDelegate().get(id).first();	
-				# add the RiskAssessment
-				kyc_profile.riskAssessments.remove(riskAssessment)
-				
-			# save it		
-			kyc_profile.save()
+	def removeRiskAssessments( self, kyc_profile_id, riskAssessments_ids ):
+		# lazy importing avoids circular dependenciesId
 			
 			# reload and return the appropriate version
 			return self.get( kyc_profile_id );
@@ -246,22 +211,22 @@ class KycProfileDelegate :
 		except RiskAssessment.DoesNotExist:
 			raise Exceptions.ProcessingError(err_msg + " : RiskAssessment does not exist.")
 		except utils.Exceptions.DatabaseError:
-			raise StorageWriteError()
+			raise Exceptions.StorageWriteError()
 		except Exception:
 			raise Exceptions.GeneralError(err_msg) 
 		
-	def addScreenings( self, kyc_profile_id, screeningsIds ):
+	def addScreenings( self, kyc_profile_id, screenings_ids ):
 		# lazy importing avoids circular dependencies
 		from bankingOnDjango.delegates.ScreeningResultDelegate import ScreeningResultDelegate
 
-		err_msg = "Failed to add elements " + str(screeningsIds) + " for Screenings on KycProfile"
+		err_msg = "Failed to add elements " + str(screenings_ids) + " for Screenings on KycProfile"
 
 		try:
 			# get the KycProfile
 			kyc_profile = self.get( kyc_profile_id ).first()
 				
 			# iterate over ids
-			for id in screeningsIds:
+			for id in screenings_ids:
 				# read the ScreeningResult		
 				screeningResult = ScreeningResultDelegate().get(id).first();	
 				# add the ScreeningResult
@@ -279,25 +244,8 @@ class KycProfileDelegate :
 		except Exception:
 			raise Exceptions.ProcessingError(err_msg) 
 		
-	def removeScreenings( self, kyc_profile_id, screeningsIds ):
-		# lazy importing avoids circular dependencies
-		from bankingOnDjango.delegates.ScreeningResultDelegate import ScreeningResultDelegate
-
-		err_msg = "Failed to remove elements " + str(screeningsIds) + " for Screenings on KycProfile"
-
-		try:
-			# get the KycProfile
-			kyc_profile = self.get( kyc_profile_id ).first()
-				
-			# iterate over ids
-			for id in screeningsIds:
-				# read the ScreeningResult		
-				screeningResult = ScreeningResultDelegate().get(id).first();	
-				# add the ScreeningResult
-				kyc_profile.screenings.remove(screeningResult)
-				
-			# save it		
-			kyc_profile.save()
+	def removeScreenings( self, kyc_profile_id, screenings_ids ):
+		# lazy importing avoids circular dependenciesId
 			
 			# reload and return the appropriate version
 			return self.get( kyc_profile_id );
@@ -306,7 +254,7 @@ class KycProfileDelegate :
 		except ScreeningResult.DoesNotExist:
 			raise Exceptions.ProcessingError(err_msg + " : ScreeningResult does not exist.")
 		except utils.Exceptions.DatabaseError:
-			raise StorageWriteError()
+			raise Exceptions.StorageWriteError()
 		except Exception:
 			raise Exceptions.GeneralError(err_msg) 
 		

@@ -1,6 +1,5 @@
 
 
-from django.core import exceptions
 from django.core import serializers
 from django.db import models
 from django.db import utils
@@ -79,18 +78,18 @@ class ScreeningResultDelegate :
 		except Exception:
 			return None;
 		
-	def assignKycProfile( self, screening_result_id, kycProfileId ):
+	def assignKycProfile( self, screening_result_id, kycProfile_id ):
 		# lazy importing avoids circular dependencies
 		from bankingOnDjango.delegates.KycProfileDelegate import KycProfileDelegate
 
-		err_msg = "Failed to assign element " + str(kycProfileId) + " for KycProfile on ScreeningResult"
+		err_msg = "Failed to assign element " + str(kycProfile_id) + " for KycProfile on ScreeningResult"
 
 		try:
 			# get the ScreeningResult from db
 			screening_result = self.get( screening_result_id ).first()	
 			
 			# get the KycProfile from db
-			kycProfile = KycProfileDelegate().get(kycProfileId).first();
+			kycProfile = KycProfileDelegate().get(kycProfile_id).first();
 			
 			# assign the KycProfile		
 			screening_result.kycProfile = kycProfile
@@ -103,12 +102,12 @@ class ScreeningResultDelegate :
 		except ScreeningResult.DoesNotExist:
 			raise Exceptions.ProcessingError(err_msg + " : ScreeningResult with id " + str(screening_result_id) + " does not exist.")
 		except KycProfile.DoesNotExist:
-			raise Exceptions.ProcessingError(err_msg + " : KycProfile with id " + str(kycProfileId) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : KycProfile with id " + str(kycProfile_id) + " does not exist.")
 		except Exception:
 			return None;
 				
 	def unassignKycProfile( self, screening_result_id ):
-		err_msg = "Failed to unassign element " + str(kycProfileId) + " for KycProfile on ScreeningResult"
+		err_msg = "Failed to unassign element " + str(kycProfile_id) + " for KycProfile on ScreeningResult"
 
 		try:
 			# get the ScreeningResult from db

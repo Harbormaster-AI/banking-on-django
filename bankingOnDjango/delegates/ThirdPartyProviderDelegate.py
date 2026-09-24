@@ -1,6 +1,5 @@
 
 
-from django.core import exceptions
 from django.core import serializers
 from django.db import models
 from django.db import utils
@@ -80,18 +79,18 @@ class ThirdPartyProviderDelegate :
 		except Exception:
 			return None;
 		
-	def assignBank( self, third_party_provider_id, bankId ):
+	def assignBank( self, third_party_provider_id, bank_id ):
 		# lazy importing avoids circular dependencies
 		from bankingOnDjango.delegates.BankDelegate import BankDelegate
 
-		err_msg = "Failed to assign element " + str(bankId) + " for Bank on ThirdPartyProvider"
+		err_msg = "Failed to assign element " + str(bank_id) + " for Bank on ThirdPartyProvider"
 
 		try:
 			# get the ThirdPartyProvider from db
 			third_party_provider = self.get( third_party_provider_id ).first()	
 			
 			# get the Bank from db
-			bank = BankDelegate().get(bankId).first();
+			bank = BankDelegate().get(bank_id).first();
 			
 			# assign the Bank		
 			third_party_provider.bank = bank
@@ -104,12 +103,12 @@ class ThirdPartyProviderDelegate :
 		except ThirdPartyProvider.DoesNotExist:
 			raise Exceptions.ProcessingError(err_msg + " : ThirdPartyProvider with id " + str(third_party_provider_id) + " does not exist.")
 		except Bank.DoesNotExist:
-			raise Exceptions.ProcessingError(err_msg + " : Bank with id " + str(bankId) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : Bank with id " + str(bank_id) + " does not exist.")
 		except Exception:
 			return None;
 				
 	def unassignBank( self, third_party_provider_id ):
-		err_msg = "Failed to unassign element " + str(bankId) + " for Bank on ThirdPartyProvider"
+		err_msg = "Failed to unassign element " + str(bank_id) + " for Bank on ThirdPartyProvider"
 
 		try:
 			# get the ThirdPartyProvider from db
@@ -128,18 +127,18 @@ class ThirdPartyProviderDelegate :
 		except Exception:
 			return None;
 		
-	def addConsents( self, third_party_provider_id, consentsIds ):
+	def addConsents( self, third_party_provider_id, consents_ids ):
 		# lazy importing avoids circular dependencies
 		from bankingOnDjango.delegates.ConsentDelegate import ConsentDelegate
 
-		err_msg = "Failed to add elements " + str(consentsIds) + " for Consents on ThirdPartyProvider"
+		err_msg = "Failed to add elements " + str(consents_ids) + " for Consents on ThirdPartyProvider"
 
 		try:
 			# get the ThirdPartyProvider
 			third_party_provider = self.get( third_party_provider_id ).first()
 				
 			# iterate over ids
-			for id in consentsIds:
+			for id in consents_ids:
 				# read the Consent		
 				consent = ConsentDelegate().get(id).first();	
 				# add the Consent
@@ -157,25 +156,8 @@ class ThirdPartyProviderDelegate :
 		except Exception:
 			raise Exceptions.ProcessingError(err_msg) 
 		
-	def removeConsents( self, third_party_provider_id, consentsIds ):
-		# lazy importing avoids circular dependencies
-		from bankingOnDjango.delegates.ConsentDelegate import ConsentDelegate
-
-		err_msg = "Failed to remove elements " + str(consentsIds) + " for Consents on ThirdPartyProvider"
-
-		try:
-			# get the ThirdPartyProvider
-			third_party_provider = self.get( third_party_provider_id ).first()
-				
-			# iterate over ids
-			for id in consentsIds:
-				# read the Consent		
-				consent = ConsentDelegate().get(id).first();	
-				# add the Consent
-				third_party_provider.consents.remove(consent)
-				
-			# save it		
-			third_party_provider.save()
+	def removeConsents( self, third_party_provider_id, consents_ids ):
+		# lazy importing avoids circular dependenciesId
 			
 			# reload and return the appropriate version
 			return self.get( third_party_provider_id );
@@ -184,7 +166,7 @@ class ThirdPartyProviderDelegate :
 		except Consent.DoesNotExist:
 			raise Exceptions.ProcessingError(err_msg + " : Consent does not exist.")
 		except utils.Exceptions.DatabaseError:
-			raise StorageWriteError()
+			raise Exceptions.StorageWriteError()
 		except Exception:
 			raise Exceptions.GeneralError(err_msg) 
 		

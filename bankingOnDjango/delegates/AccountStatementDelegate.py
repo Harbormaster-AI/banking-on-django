@@ -1,6 +1,5 @@
 
 
-from django.core import exceptions
 from django.core import serializers
 from django.db import models
 from django.db import utils
@@ -79,18 +78,18 @@ class AccountStatementDelegate :
 		except Exception:
 			return None;
 		
-	def assignAccount( self, account_statement_id, accountId ):
+	def assignAccount( self, account_statement_id, account_id ):
 		# lazy importing avoids circular dependencies
 		from bankingOnDjango.delegates.AccountDelegate import AccountDelegate
 
-		err_msg = "Failed to assign element " + str(accountId) + " for Account on AccountStatement"
+		err_msg = "Failed to assign element " + str(account_id) + " for Account on AccountStatement"
 
 		try:
 			# get the AccountStatement from db
 			account_statement = self.get( account_statement_id ).first()	
 			
 			# get the Account from db
-			account = AccountDelegate().get(accountId).first();
+			account = AccountDelegate().get(account_id).first();
 			
 			# assign the Account		
 			account_statement.account = account
@@ -103,12 +102,12 @@ class AccountStatementDelegate :
 		except AccountStatement.DoesNotExist:
 			raise Exceptions.ProcessingError(err_msg + " : AccountStatement with id " + str(account_statement_id) + " does not exist.")
 		except Account.DoesNotExist:
-			raise Exceptions.ProcessingError(err_msg + " : Account with id " + str(accountId) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : Account with id " + str(account_id) + " does not exist.")
 		except Exception:
 			return None;
 				
 	def unassignAccount( self, account_statement_id ):
-		err_msg = "Failed to unassign element " + str(accountId) + " for Account on AccountStatement"
+		err_msg = "Failed to unassign element " + str(account_id) + " for Account on AccountStatement"
 
 		try:
 			# get the AccountStatement from db

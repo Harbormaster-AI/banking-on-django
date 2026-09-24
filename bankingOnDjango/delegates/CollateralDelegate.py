@@ -1,6 +1,5 @@
 
 
-from django.core import exceptions
 from django.core import serializers
 from django.db import models
 from django.db import utils
@@ -79,18 +78,18 @@ class CollateralDelegate :
 		except Exception:
 			return None;
 		
-	def assignLoanAccount( self, collateral_id, loanAccountId ):
+	def assignLoanAccount( self, collateral_id, loanAccount_id ):
 		# lazy importing avoids circular dependencies
 		from bankingOnDjango.delegates.LoanAccountDelegate import LoanAccountDelegate
 
-		err_msg = "Failed to assign element " + str(loanAccountId) + " for LoanAccount on Collateral"
+		err_msg = "Failed to assign element " + str(loanAccount_id) + " for LoanAccount on Collateral"
 
 		try:
 			# get the Collateral from db
 			collateral = self.get( collateral_id ).first()	
 			
 			# get the LoanAccount from db
-			loanAccount = LoanAccountDelegate().get(loanAccountId).first();
+			loanAccount = LoanAccountDelegate().get(loanAccount_id).first();
 			
 			# assign the LoanAccount		
 			collateral.loanAccount = loanAccount
@@ -103,12 +102,12 @@ class CollateralDelegate :
 		except Collateral.DoesNotExist:
 			raise Exceptions.ProcessingError(err_msg + " : Collateral with id " + str(collateral_id) + " does not exist.")
 		except LoanAccount.DoesNotExist:
-			raise Exceptions.ProcessingError(err_msg + " : LoanAccount with id " + str(loanAccountId) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : LoanAccount with id " + str(loanAccount_id) + " does not exist.")
 		except Exception:
 			return None;
 				
 	def unassignLoanAccount( self, collateral_id ):
-		err_msg = "Failed to unassign element " + str(loanAccountId) + " for LoanAccount on Collateral"
+		err_msg = "Failed to unassign element " + str(loanAccount_id) + " for LoanAccount on Collateral"
 
 		try:
 			# get the Collateral from db

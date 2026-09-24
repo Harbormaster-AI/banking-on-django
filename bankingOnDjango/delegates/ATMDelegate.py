@@ -1,6 +1,5 @@
 
 
-from django.core import exceptions
 from django.core import serializers
 from django.db import models
 from django.db import utils
@@ -79,18 +78,18 @@ class ATMDelegate :
 		except Exception:
 			return None;
 		
-	def assignBranch( self, a_t_m_id, branchId ):
+	def assignBranch( self, a_t_m_id, branch_id ):
 		# lazy importing avoids circular dependencies
 		from bankingOnDjango.delegates.BranchDelegate import BranchDelegate
 
-		err_msg = "Failed to assign element " + str(branchId) + " for Branch on ATM"
+		err_msg = "Failed to assign element " + str(branch_id) + " for Branch on ATM"
 
 		try:
 			# get the ATM from db
 			a_t_m = self.get( a_t_m_id ).first()	
 			
 			# get the Branch from db
-			branch = BranchDelegate().get(branchId).first();
+			branch = BranchDelegate().get(branch_id).first();
 			
 			# assign the Branch		
 			a_t_m.branch = branch
@@ -103,12 +102,12 @@ class ATMDelegate :
 		except ATM.DoesNotExist:
 			raise Exceptions.ProcessingError(err_msg + " : ATM with id " + str(a_t_m_id) + " does not exist.")
 		except Branch.DoesNotExist:
-			raise Exceptions.ProcessingError(err_msg + " : Branch with id " + str(branchId) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : Branch with id " + str(branch_id) + " does not exist.")
 		except Exception:
 			return None;
 				
 	def unassignBranch( self, a_t_m_id ):
-		err_msg = "Failed to unassign element " + str(branchId) + " for Branch on ATM"
+		err_msg = "Failed to unassign element " + str(branch_id) + " for Branch on ATM"
 
 		try:
 			# get the ATM from db

@@ -1,6 +1,5 @@
 
 
-from django.core import exceptions
 from django.core import serializers
 from django.db import models
 from django.db import utils
@@ -80,18 +79,18 @@ class ExchangeRateDelegate :
 		except Exception:
 			return None;
 		
-	def assignBank( self, exchange_rate_id, bankId ):
+	def assignBank( self, exchange_rate_id, bank_id ):
 		# lazy importing avoids circular dependencies
 		from bankingOnDjango.delegates.BankDelegate import BankDelegate
 
-		err_msg = "Failed to assign element " + str(bankId) + " for Bank on ExchangeRate"
+		err_msg = "Failed to assign element " + str(bank_id) + " for Bank on ExchangeRate"
 
 		try:
 			# get the ExchangeRate from db
 			exchange_rate = self.get( exchange_rate_id ).first()	
 			
 			# get the Bank from db
-			bank = BankDelegate().get(bankId).first();
+			bank = BankDelegate().get(bank_id).first();
 			
 			# assign the Bank		
 			exchange_rate.bank = bank
@@ -104,12 +103,12 @@ class ExchangeRateDelegate :
 		except ExchangeRate.DoesNotExist:
 			raise Exceptions.ProcessingError(err_msg + " : ExchangeRate with id " + str(exchange_rate_id) + " does not exist.")
 		except Bank.DoesNotExist:
-			raise Exceptions.ProcessingError(err_msg + " : Bank with id " + str(bankId) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : Bank with id " + str(bank_id) + " does not exist.")
 		except Exception:
 			return None;
 				
 	def unassignBank( self, exchange_rate_id ):
-		err_msg = "Failed to unassign element " + str(bankId) + " for Bank on ExchangeRate"
+		err_msg = "Failed to unassign element " + str(bank_id) + " for Bank on ExchangeRate"
 
 		try:
 			# get the ExchangeRate from db
@@ -128,18 +127,18 @@ class ExchangeRateDelegate :
 		except Exception:
 			return None;
 		
-	def addFxTrades( self, exchange_rate_id, fxTradesIds ):
+	def addFxTrades( self, exchange_rate_id, fxTrades_ids ):
 		# lazy importing avoids circular dependencies
 		from bankingOnDjango.delegates.FXTradeDelegate import FXTradeDelegate
 
-		err_msg = "Failed to add elements " + str(fxTradesIds) + " for FxTrades on ExchangeRate"
+		err_msg = "Failed to add elements " + str(fxTrades_ids) + " for FxTrades on ExchangeRate"
 
 		try:
 			# get the ExchangeRate
 			exchange_rate = self.get( exchange_rate_id ).first()
 				
 			# iterate over ids
-			for id in fxTradesIds:
+			for id in fxTrades_ids:
 				# read the FXTrade		
 				fXTrade = FXTradeDelegate().get(id).first();	
 				# add the FXTrade
@@ -157,25 +156,8 @@ class ExchangeRateDelegate :
 		except Exception:
 			raise Exceptions.ProcessingError(err_msg) 
 		
-	def removeFxTrades( self, exchange_rate_id, fxTradesIds ):
-		# lazy importing avoids circular dependencies
-		from bankingOnDjango.delegates.FXTradeDelegate import FXTradeDelegate
-
-		err_msg = "Failed to remove elements " + str(fxTradesIds) + " for FxTrades on ExchangeRate"
-
-		try:
-			# get the ExchangeRate
-			exchange_rate = self.get( exchange_rate_id ).first()
-				
-			# iterate over ids
-			for id in fxTradesIds:
-				# read the FXTrade		
-				fXTrade = FXTradeDelegate().get(id).first();	
-				# add the FXTrade
-				exchange_rate.fxTrades.remove(fXTrade)
-				
-			# save it		
-			exchange_rate.save()
+	def removeFxTrades( self, exchange_rate_id, fxTrades_ids ):
+		# lazy importing avoids circular dependenciesId
 			
 			# reload and return the appropriate version
 			return self.get( exchange_rate_id );
@@ -184,7 +166,7 @@ class ExchangeRateDelegate :
 		except FXTrade.DoesNotExist:
 			raise Exceptions.ProcessingError(err_msg + " : FXTrade does not exist.")
 		except utils.Exceptions.DatabaseError:
-			raise StorageWriteError()
+			raise Exceptions.StorageWriteError()
 		except Exception:
 			raise Exceptions.GeneralError(err_msg) 
 		

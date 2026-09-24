@@ -1,6 +1,5 @@
 
 
-from django.core import exceptions
 from django.core import serializers
 from django.db import models
 from django.db import utils
@@ -80,18 +79,18 @@ class ExternalAccountDelegate :
 		except Exception:
 			return None;
 		
-	def assignCustomer( self, external_account_id, customerId ):
+	def assignCustomer( self, external_account_id, customer_id ):
 		# lazy importing avoids circular dependencies
 		from bankingOnDjango.delegates.CustomerDelegate import CustomerDelegate
 
-		err_msg = "Failed to assign element " + str(customerId) + " for Customer on ExternalAccount"
+		err_msg = "Failed to assign element " + str(customer_id) + " for Customer on ExternalAccount"
 
 		try:
 			# get the ExternalAccount from db
 			external_account = self.get( external_account_id ).first()	
 			
 			# get the Customer from db
-			customer = CustomerDelegate().get(customerId).first();
+			customer = CustomerDelegate().get(customer_id).first();
 			
 			# assign the Customer		
 			external_account.customer = customer
@@ -104,12 +103,12 @@ class ExternalAccountDelegate :
 		except ExternalAccount.DoesNotExist:
 			raise Exceptions.ProcessingError(err_msg + " : ExternalAccount with id " + str(external_account_id) + " does not exist.")
 		except Customer.DoesNotExist:
-			raise Exceptions.ProcessingError(err_msg + " : Customer with id " + str(customerId) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : Customer with id " + str(customer_id) + " does not exist.")
 		except Exception:
 			return None;
 				
 	def unassignCustomer( self, external_account_id ):
-		err_msg = "Failed to unassign element " + str(customerId) + " for Customer on ExternalAccount"
+		err_msg = "Failed to unassign element " + str(customer_id) + " for Customer on ExternalAccount"
 
 		try:
 			# get the ExternalAccount from db
@@ -128,18 +127,18 @@ class ExternalAccountDelegate :
 		except Exception:
 			return None;
 		
-	def addTransactions( self, external_account_id, transactionsIds ):
+	def addTransactions( self, external_account_id, transactions_ids ):
 		# lazy importing avoids circular dependencies
 		from bankingOnDjango.delegates.TransactionDelegate import TransactionDelegate
 
-		err_msg = "Failed to add elements " + str(transactionsIds) + " for Transactions on ExternalAccount"
+		err_msg = "Failed to add elements " + str(transactions_ids) + " for Transactions on ExternalAccount"
 
 		try:
 			# get the ExternalAccount
 			external_account = self.get( external_account_id ).first()
 				
 			# iterate over ids
-			for id in transactionsIds:
+			for id in transactions_ids:
 				# read the Transaction		
 				transaction = TransactionDelegate().get(id).first();	
 				# add the Transaction
@@ -157,25 +156,8 @@ class ExternalAccountDelegate :
 		except Exception:
 			raise Exceptions.ProcessingError(err_msg) 
 		
-	def removeTransactions( self, external_account_id, transactionsIds ):
-		# lazy importing avoids circular dependencies
-		from bankingOnDjango.delegates.TransactionDelegate import TransactionDelegate
-
-		err_msg = "Failed to remove elements " + str(transactionsIds) + " for Transactions on ExternalAccount"
-
-		try:
-			# get the ExternalAccount
-			external_account = self.get( external_account_id ).first()
-				
-			# iterate over ids
-			for id in transactionsIds:
-				# read the Transaction		
-				transaction = TransactionDelegate().get(id).first();	
-				# add the Transaction
-				external_account.transactions.remove(transaction)
-				
-			# save it		
-			external_account.save()
+	def removeTransactions( self, external_account_id, transactions_ids ):
+		# lazy importing avoids circular dependenciesId
 			
 			# reload and return the appropriate version
 			return self.get( external_account_id );
@@ -184,7 +166,7 @@ class ExternalAccountDelegate :
 		except Transaction.DoesNotExist:
 			raise Exceptions.ProcessingError(err_msg + " : Transaction does not exist.")
 		except utils.Exceptions.DatabaseError:
-			raise StorageWriteError()
+			raise Exceptions.StorageWriteError()
 		except Exception:
 			raise Exceptions.GeneralError(err_msg) 
 		

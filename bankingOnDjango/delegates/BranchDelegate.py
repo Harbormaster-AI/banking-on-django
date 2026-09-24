@@ -1,6 +1,5 @@
 
 
-from django.core import exceptions
 from django.core import serializers
 from django.db import models
 from django.db import utils
@@ -82,18 +81,18 @@ class BranchDelegate :
 		except Exception:
 			return None;
 		
-	def assignBank( self, branch_id, bankId ):
+	def assignBank( self, branch_id, bank_id ):
 		# lazy importing avoids circular dependencies
 		from bankingOnDjango.delegates.BankDelegate import BankDelegate
 
-		err_msg = "Failed to assign element " + str(bankId) + " for Bank on Branch"
+		err_msg = "Failed to assign element " + str(bank_id) + " for Bank on Branch"
 
 		try:
 			# get the Branch from db
 			branch = self.get( branch_id ).first()	
 			
 			# get the Bank from db
-			bank = BankDelegate().get(bankId).first();
+			bank = BankDelegate().get(bank_id).first();
 			
 			# assign the Bank		
 			branch.bank = bank
@@ -106,12 +105,12 @@ class BranchDelegate :
 		except Branch.DoesNotExist:
 			raise Exceptions.ProcessingError(err_msg + " : Branch with id " + str(branch_id) + " does not exist.")
 		except Bank.DoesNotExist:
-			raise Exceptions.ProcessingError(err_msg + " : Bank with id " + str(bankId) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : Bank with id " + str(bank_id) + " does not exist.")
 		except Exception:
 			return None;
 				
 	def unassignBank( self, branch_id ):
-		err_msg = "Failed to unassign element " + str(bankId) + " for Bank on Branch"
+		err_msg = "Failed to unassign element " + str(bank_id) + " for Bank on Branch"
 
 		try:
 			# get the Branch from db
@@ -130,18 +129,18 @@ class BranchDelegate :
 		except Exception:
 			return None;
 		
-	def addAccounts( self, branch_id, accountsIds ):
+	def addAccounts( self, branch_id, accounts_ids ):
 		# lazy importing avoids circular dependencies
 		from bankingOnDjango.delegates.AccountDelegate import AccountDelegate
 
-		err_msg = "Failed to add elements " + str(accountsIds) + " for Accounts on Branch"
+		err_msg = "Failed to add elements " + str(accounts_ids) + " for Accounts on Branch"
 
 		try:
 			# get the Branch
 			branch = self.get( branch_id ).first()
 				
 			# iterate over ids
-			for id in accountsIds:
+			for id in accounts_ids:
 				# read the Account		
 				account = AccountDelegate().get(id).first();	
 				# add the Account
@@ -159,25 +158,8 @@ class BranchDelegate :
 		except Exception:
 			raise Exceptions.ProcessingError(err_msg) 
 		
-	def removeAccounts( self, branch_id, accountsIds ):
-		# lazy importing avoids circular dependencies
-		from bankingOnDjango.delegates.AccountDelegate import AccountDelegate
-
-		err_msg = "Failed to remove elements " + str(accountsIds) + " for Accounts on Branch"
-
-		try:
-			# get the Branch
-			branch = self.get( branch_id ).first()
-				
-			# iterate over ids
-			for id in accountsIds:
-				# read the Account		
-				account = AccountDelegate().get(id).first();	
-				# add the Account
-				branch.accounts.remove(account)
-				
-			# save it		
-			branch.save()
+	def removeAccounts( self, branch_id, accounts_ids ):
+		# lazy importing avoids circular dependenciesId
 			
 			# reload and return the appropriate version
 			return self.get( branch_id );
@@ -186,22 +168,22 @@ class BranchDelegate :
 		except Account.DoesNotExist:
 			raise Exceptions.ProcessingError(err_msg + " : Account does not exist.")
 		except utils.Exceptions.DatabaseError:
-			raise StorageWriteError()
+			raise Exceptions.StorageWriteError()
 		except Exception:
 			raise Exceptions.GeneralError(err_msg) 
 		
-	def addLoanAccounts( self, branch_id, loanAccountsIds ):
+	def addLoanAccounts( self, branch_id, loanAccounts_ids ):
 		# lazy importing avoids circular dependencies
 		from bankingOnDjango.delegates.LoanAccountDelegate import LoanAccountDelegate
 
-		err_msg = "Failed to add elements " + str(loanAccountsIds) + " for LoanAccounts on Branch"
+		err_msg = "Failed to add elements " + str(loanAccounts_ids) + " for LoanAccounts on Branch"
 
 		try:
 			# get the Branch
 			branch = self.get( branch_id ).first()
 				
 			# iterate over ids
-			for id in loanAccountsIds:
+			for id in loanAccounts_ids:
 				# read the LoanAccount		
 				loanAccount = LoanAccountDelegate().get(id).first();	
 				# add the LoanAccount
@@ -219,25 +201,8 @@ class BranchDelegate :
 		except Exception:
 			raise Exceptions.ProcessingError(err_msg) 
 		
-	def removeLoanAccounts( self, branch_id, loanAccountsIds ):
-		# lazy importing avoids circular dependencies
-		from bankingOnDjango.delegates.LoanAccountDelegate import LoanAccountDelegate
-
-		err_msg = "Failed to remove elements " + str(loanAccountsIds) + " for LoanAccounts on Branch"
-
-		try:
-			# get the Branch
-			branch = self.get( branch_id ).first()
-				
-			# iterate over ids
-			for id in loanAccountsIds:
-				# read the LoanAccount		
-				loanAccount = LoanAccountDelegate().get(id).first();	
-				# add the LoanAccount
-				branch.loanAccounts.remove(loanAccount)
-				
-			# save it		
-			branch.save()
+	def removeLoanAccounts( self, branch_id, loanAccounts_ids ):
+		# lazy importing avoids circular dependenciesId
 			
 			# reload and return the appropriate version
 			return self.get( branch_id );
@@ -246,22 +211,22 @@ class BranchDelegate :
 		except LoanAccount.DoesNotExist:
 			raise Exceptions.ProcessingError(err_msg + " : LoanAccount does not exist.")
 		except utils.Exceptions.DatabaseError:
-			raise StorageWriteError()
+			raise Exceptions.StorageWriteError()
 		except Exception:
 			raise Exceptions.GeneralError(err_msg) 
 		
-	def addAtms( self, branch_id, atmsIds ):
+	def addAtms( self, branch_id, atms_ids ):
 		# lazy importing avoids circular dependencies
 		from bankingOnDjango.delegates.ATMDelegate import ATMDelegate
 
-		err_msg = "Failed to add elements " + str(atmsIds) + " for Atms on Branch"
+		err_msg = "Failed to add elements " + str(atms_ids) + " for Atms on Branch"
 
 		try:
 			# get the Branch
 			branch = self.get( branch_id ).first()
 				
 			# iterate over ids
-			for id in atmsIds:
+			for id in atms_ids:
 				# read the ATM		
 				aTM = ATMDelegate().get(id).first();	
 				# add the ATM
@@ -279,25 +244,8 @@ class BranchDelegate :
 		except Exception:
 			raise Exceptions.ProcessingError(err_msg) 
 		
-	def removeAtms( self, branch_id, atmsIds ):
-		# lazy importing avoids circular dependencies
-		from bankingOnDjango.delegates.ATMDelegate import ATMDelegate
-
-		err_msg = "Failed to remove elements " + str(atmsIds) + " for Atms on Branch"
-
-		try:
-			# get the Branch
-			branch = self.get( branch_id ).first()
-				
-			# iterate over ids
-			for id in atmsIds:
-				# read the ATM		
-				aTM = ATMDelegate().get(id).first();	
-				# add the ATM
-				branch.atms.remove(aTM)
-				
-			# save it		
-			branch.save()
+	def removeAtms( self, branch_id, atms_ids ):
+		# lazy importing avoids circular dependenciesId
 			
 			# reload and return the appropriate version
 			return self.get( branch_id );
@@ -306,7 +254,7 @@ class BranchDelegate :
 		except ATM.DoesNotExist:
 			raise Exceptions.ProcessingError(err_msg + " : ATM does not exist.")
 		except utils.Exceptions.DatabaseError:
-			raise StorageWriteError()
+			raise Exceptions.StorageWriteError()
 		except Exception:
 			raise Exceptions.GeneralError(err_msg) 
 		

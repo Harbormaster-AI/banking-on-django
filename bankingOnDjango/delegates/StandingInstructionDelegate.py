@@ -1,6 +1,5 @@
 
 
-from django.core import exceptions
 from django.core import serializers
 from django.db import models
 from django.db import utils
@@ -80,18 +79,18 @@ class StandingInstructionDelegate :
 		except Exception:
 			return None;
 		
-	def assignAccount( self, standing_instruction_id, accountId ):
+	def assignAccount( self, standing_instruction_id, account_id ):
 		# lazy importing avoids circular dependencies
 		from bankingOnDjango.delegates.AccountDelegate import AccountDelegate
 
-		err_msg = "Failed to assign element " + str(accountId) + " for Account on StandingInstruction"
+		err_msg = "Failed to assign element " + str(account_id) + " for Account on StandingInstruction"
 
 		try:
 			# get the StandingInstruction from db
 			standing_instruction = self.get( standing_instruction_id ).first()	
 			
 			# get the Account from db
-			account = AccountDelegate().get(accountId).first();
+			account = AccountDelegate().get(account_id).first();
 			
 			# assign the Account		
 			standing_instruction.account = account
@@ -104,12 +103,12 @@ class StandingInstructionDelegate :
 		except StandingInstruction.DoesNotExist:
 			raise Exceptions.ProcessingError(err_msg + " : StandingInstruction with id " + str(standing_instruction_id) + " does not exist.")
 		except Account.DoesNotExist:
-			raise Exceptions.ProcessingError(err_msg + " : Account with id " + str(accountId) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : Account with id " + str(account_id) + " does not exist.")
 		except Exception:
 			return None;
 				
 	def unassignAccount( self, standing_instruction_id ):
-		err_msg = "Failed to unassign element " + str(accountId) + " for Account on StandingInstruction"
+		err_msg = "Failed to unassign element " + str(account_id) + " for Account on StandingInstruction"
 
 		try:
 			# get the StandingInstruction from db
@@ -128,18 +127,18 @@ class StandingInstructionDelegate :
 		except Exception:
 			return None;
 		
-	def assignBeneficiary( self, standing_instruction_id, beneficiaryId ):
+	def assignBeneficiary( self, standing_instruction_id, beneficiary_id ):
 		# lazy importing avoids circular dependencies
 		from bankingOnDjango.delegates.ExternalAccountDelegate import ExternalAccountDelegate
 
-		err_msg = "Failed to assign element " + str(beneficiaryId) + " for Beneficiary on StandingInstruction"
+		err_msg = "Failed to assign element " + str(beneficiary_id) + " for Beneficiary on StandingInstruction"
 
 		try:
 			# get the StandingInstruction from db
 			standing_instruction = self.get( standing_instruction_id ).first()	
 			
 			# get the ExternalAccount from db
-			externalAccount = ExternalAccountDelegate().get(beneficiaryId).first();
+			externalAccount = ExternalAccountDelegate().get(beneficiary_id).first();
 			
 			# assign the Beneficiary		
 			standing_instruction.beneficiary = externalAccount
@@ -152,12 +151,12 @@ class StandingInstructionDelegate :
 		except StandingInstruction.DoesNotExist:
 			raise Exceptions.ProcessingError(err_msg + " : StandingInstruction with id " + str(standing_instruction_id) + " does not exist.")
 		except ExternalAccount.DoesNotExist:
-			raise Exceptions.ProcessingError(err_msg + " : ExternalAccount with id " + str(beneficiaryId) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : ExternalAccount with id " + str(beneficiary_id) + " does not exist.")
 		except Exception:
 			return None;
 				
 	def unassignBeneficiary( self, standing_instruction_id ):
-		err_msg = "Failed to unassign element " + str(beneficiaryId) + " for Beneficiary on StandingInstruction"
+		err_msg = "Failed to unassign element " + str(beneficiary_id) + " for Beneficiary on StandingInstruction"
 
 		try:
 			# get the StandingInstruction from db

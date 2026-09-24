@@ -1,6 +1,5 @@
 
 
-from django.core import exceptions
 from django.core import serializers
 from django.db import models
 from django.db import utils
@@ -80,18 +79,18 @@ class RepaymentScheduleDelegate :
 		except Exception:
 			return None;
 		
-	def assignLoanAccount( self, repayment_schedule_id, loanAccountId ):
+	def assignLoanAccount( self, repayment_schedule_id, loanAccount_id ):
 		# lazy importing avoids circular dependencies
 		from bankingOnDjango.delegates.LoanAccountDelegate import LoanAccountDelegate
 
-		err_msg = "Failed to assign element " + str(loanAccountId) + " for LoanAccount on RepaymentSchedule"
+		err_msg = "Failed to assign element " + str(loanAccount_id) + " for LoanAccount on RepaymentSchedule"
 
 		try:
 			# get the RepaymentSchedule from db
 			repayment_schedule = self.get( repayment_schedule_id ).first()	
 			
 			# get the LoanAccount from db
-			loanAccount = LoanAccountDelegate().get(loanAccountId).first();
+			loanAccount = LoanAccountDelegate().get(loanAccount_id).first();
 			
 			# assign the LoanAccount		
 			repayment_schedule.loanAccount = loanAccount
@@ -104,12 +103,12 @@ class RepaymentScheduleDelegate :
 		except RepaymentSchedule.DoesNotExist:
 			raise Exceptions.ProcessingError(err_msg + " : RepaymentSchedule with id " + str(repayment_schedule_id) + " does not exist.")
 		except LoanAccount.DoesNotExist:
-			raise Exceptions.ProcessingError(err_msg + " : LoanAccount with id " + str(loanAccountId) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : LoanAccount with id " + str(loanAccount_id) + " does not exist.")
 		except Exception:
 			return None;
 				
 	def unassignLoanAccount( self, repayment_schedule_id ):
-		err_msg = "Failed to unassign element " + str(loanAccountId) + " for LoanAccount on RepaymentSchedule"
+		err_msg = "Failed to unassign element " + str(loanAccount_id) + " for LoanAccount on RepaymentSchedule"
 
 		try:
 			# get the RepaymentSchedule from db
@@ -128,18 +127,18 @@ class RepaymentScheduleDelegate :
 		except Exception:
 			return None;
 		
-	def assignPayment( self, repayment_schedule_id, paymentId ):
+	def assignPayment( self, repayment_schedule_id, payment_id ):
 		# lazy importing avoids circular dependencies
 		from bankingOnDjango.delegates.LoanPaymentDelegate import LoanPaymentDelegate
 
-		err_msg = "Failed to assign element " + str(paymentId) + " for Payment on RepaymentSchedule"
+		err_msg = "Failed to assign element " + str(payment_id) + " for Payment on RepaymentSchedule"
 
 		try:
 			# get the RepaymentSchedule from db
 			repayment_schedule = self.get( repayment_schedule_id ).first()	
 			
 			# get the LoanPayment from db
-			loanPayment = LoanPaymentDelegate().get(paymentId).first();
+			loanPayment = LoanPaymentDelegate().get(payment_id).first();
 			
 			# assign the Payment		
 			repayment_schedule.payment = loanPayment
@@ -152,12 +151,12 @@ class RepaymentScheduleDelegate :
 		except RepaymentSchedule.DoesNotExist:
 			raise Exceptions.ProcessingError(err_msg + " : RepaymentSchedule with id " + str(repayment_schedule_id) + " does not exist.")
 		except LoanPayment.DoesNotExist:
-			raise Exceptions.ProcessingError(err_msg + " : LoanPayment with id " + str(paymentId) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : LoanPayment with id " + str(payment_id) + " does not exist.")
 		except Exception:
 			return None;
 				
 	def unassignPayment( self, repayment_schedule_id ):
-		err_msg = "Failed to unassign element " + str(paymentId) + " for Payment on RepaymentSchedule"
+		err_msg = "Failed to unassign element " + str(payment_id) + " for Payment on RepaymentSchedule"
 
 		try:
 			# get the RepaymentSchedule from db

@@ -1,6 +1,5 @@
 
 
-from django.core import exceptions
 from django.core import serializers
 from django.db import models
 from django.db import utils
@@ -80,18 +79,18 @@ class LoanPaymentDelegate :
 		except Exception:
 			return None;
 		
-	def assignLoanAccount( self, loan_payment_id, loanAccountId ):
+	def assignLoanAccount( self, loan_payment_id, loanAccount_id ):
 		# lazy importing avoids circular dependencies
 		from bankingOnDjango.delegates.LoanAccountDelegate import LoanAccountDelegate
 
-		err_msg = "Failed to assign element " + str(loanAccountId) + " for LoanAccount on LoanPayment"
+		err_msg = "Failed to assign element " + str(loanAccount_id) + " for LoanAccount on LoanPayment"
 
 		try:
 			# get the LoanPayment from db
 			loan_payment = self.get( loan_payment_id ).first()	
 			
 			# get the LoanAccount from db
-			loanAccount = LoanAccountDelegate().get(loanAccountId).first();
+			loanAccount = LoanAccountDelegate().get(loanAccount_id).first();
 			
 			# assign the LoanAccount		
 			loan_payment.loanAccount = loanAccount
@@ -104,12 +103,12 @@ class LoanPaymentDelegate :
 		except LoanPayment.DoesNotExist:
 			raise Exceptions.ProcessingError(err_msg + " : LoanPayment with id " + str(loan_payment_id) + " does not exist.")
 		except LoanAccount.DoesNotExist:
-			raise Exceptions.ProcessingError(err_msg + " : LoanAccount with id " + str(loanAccountId) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : LoanAccount with id " + str(loanAccount_id) + " does not exist.")
 		except Exception:
 			return None;
 				
 	def unassignLoanAccount( self, loan_payment_id ):
-		err_msg = "Failed to unassign element " + str(loanAccountId) + " for LoanAccount on LoanPayment"
+		err_msg = "Failed to unassign element " + str(loanAccount_id) + " for LoanAccount on LoanPayment"
 
 		try:
 			# get the LoanPayment from db
@@ -128,18 +127,18 @@ class LoanPaymentDelegate :
 		except Exception:
 			return None;
 		
-	def assignTransaction( self, loan_payment_id, transactionId ):
+	def assignTransaction( self, loan_payment_id, transaction_id ):
 		# lazy importing avoids circular dependencies
 		from bankingOnDjango.delegates.TransactionDelegate import TransactionDelegate
 
-		err_msg = "Failed to assign element " + str(transactionId) + " for Transaction on LoanPayment"
+		err_msg = "Failed to assign element " + str(transaction_id) + " for Transaction on LoanPayment"
 
 		try:
 			# get the LoanPayment from db
 			loan_payment = self.get( loan_payment_id ).first()	
 			
 			# get the Transaction from db
-			transaction = TransactionDelegate().get(transactionId).first();
+			transaction = TransactionDelegate().get(transaction_id).first();
 			
 			# assign the Transaction		
 			loan_payment.transaction = transaction
@@ -152,12 +151,12 @@ class LoanPaymentDelegate :
 		except LoanPayment.DoesNotExist:
 			raise Exceptions.ProcessingError(err_msg + " : LoanPayment with id " + str(loan_payment_id) + " does not exist.")
 		except Transaction.DoesNotExist:
-			raise Exceptions.ProcessingError(err_msg + " : Transaction with id " + str(transactionId) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : Transaction with id " + str(transaction_id) + " does not exist.")
 		except Exception:
 			return None;
 				
 	def unassignTransaction( self, loan_payment_id ):
-		err_msg = "Failed to unassign element " + str(transactionId) + " for Transaction on LoanPayment"
+		err_msg = "Failed to unassign element " + str(transaction_id) + " for Transaction on LoanPayment"
 
 		try:
 			# get the LoanPayment from db

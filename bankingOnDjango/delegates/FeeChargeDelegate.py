@@ -1,6 +1,5 @@
 
 
-from django.core import exceptions
 from django.core import serializers
 from django.db import models
 from django.db import utils
@@ -80,18 +79,18 @@ class FeeChargeDelegate :
 		except Exception:
 			return None;
 		
-	def assignAccount( self, fee_charge_id, accountId ):
+	def assignAccount( self, fee_charge_id, account_id ):
 		# lazy importing avoids circular dependencies
 		from bankingOnDjango.delegates.AccountDelegate import AccountDelegate
 
-		err_msg = "Failed to assign element " + str(accountId) + " for Account on FeeCharge"
+		err_msg = "Failed to assign element " + str(account_id) + " for Account on FeeCharge"
 
 		try:
 			# get the FeeCharge from db
 			fee_charge = self.get( fee_charge_id ).first()	
 			
 			# get the Account from db
-			account = AccountDelegate().get(accountId).first();
+			account = AccountDelegate().get(account_id).first();
 			
 			# assign the Account		
 			fee_charge.account = account
@@ -104,12 +103,12 @@ class FeeChargeDelegate :
 		except FeeCharge.DoesNotExist:
 			raise Exceptions.ProcessingError(err_msg + " : FeeCharge with id " + str(fee_charge_id) + " does not exist.")
 		except Account.DoesNotExist:
-			raise Exceptions.ProcessingError(err_msg + " : Account with id " + str(accountId) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : Account with id " + str(account_id) + " does not exist.")
 		except Exception:
 			return None;
 				
 	def unassignAccount( self, fee_charge_id ):
-		err_msg = "Failed to unassign element " + str(accountId) + " for Account on FeeCharge"
+		err_msg = "Failed to unassign element " + str(account_id) + " for Account on FeeCharge"
 
 		try:
 			# get the FeeCharge from db
@@ -128,18 +127,18 @@ class FeeChargeDelegate :
 		except Exception:
 			return None;
 		
-	def assignLoanAccount( self, fee_charge_id, loanAccountId ):
+	def assignLoanAccount( self, fee_charge_id, loanAccount_id ):
 		# lazy importing avoids circular dependencies
 		from bankingOnDjango.delegates.LoanAccountDelegate import LoanAccountDelegate
 
-		err_msg = "Failed to assign element " + str(loanAccountId) + " for LoanAccount on FeeCharge"
+		err_msg = "Failed to assign element " + str(loanAccount_id) + " for LoanAccount on FeeCharge"
 
 		try:
 			# get the FeeCharge from db
 			fee_charge = self.get( fee_charge_id ).first()	
 			
 			# get the LoanAccount from db
-			loanAccount = LoanAccountDelegate().get(loanAccountId).first();
+			loanAccount = LoanAccountDelegate().get(loanAccount_id).first();
 			
 			# assign the LoanAccount		
 			fee_charge.loanAccount = loanAccount
@@ -152,12 +151,12 @@ class FeeChargeDelegate :
 		except FeeCharge.DoesNotExist:
 			raise Exceptions.ProcessingError(err_msg + " : FeeCharge with id " + str(fee_charge_id) + " does not exist.")
 		except LoanAccount.DoesNotExist:
-			raise Exceptions.ProcessingError(err_msg + " : LoanAccount with id " + str(loanAccountId) + " does not exist.")
+			raise Exceptions.ProcessingError(err_msg + " : LoanAccount with id " + str(loanAccount_id) + " does not exist.")
 		except Exception:
 			return None;
 				
 	def unassignLoanAccount( self, fee_charge_id ):
-		err_msg = "Failed to unassign element " + str(loanAccountId) + " for LoanAccount on FeeCharge"
+		err_msg = "Failed to unassign element " + str(loanAccount_id) + " for LoanAccount on FeeCharge"
 
 		try:
 			# get the FeeCharge from db
