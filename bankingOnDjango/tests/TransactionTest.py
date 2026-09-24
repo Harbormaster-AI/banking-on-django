@@ -5,6 +5,7 @@ from django.test import TestCase
 from bankingOnDjango.models.Transaction import Transaction
 from bankingOnDjango.delegates.TransactionDelegate import TransactionDelegate
 
+
  #======================================================================
 # 
 # Encapsulates data for model Transaction
@@ -19,8 +20,8 @@ from bankingOnDjango.delegates.TransactionDelegate import TransactionDelegate
 class TransactionTest (TestCase) :
 	def test_crud(self) :
 		transaction = Transaction()
-		transaction.bookingDate = datetime.datetime.now()
-		transaction.valueDate = datetime.datetime.now()
+		transaction.bookingDate = datetime.now()
+		transaction.valueDate = datetime.now()
 		transaction.amount = "default amount field value"
 		transaction.description = "default description field value"
 		transaction.direction = "default direction field value"

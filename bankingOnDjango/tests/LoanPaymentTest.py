@@ -5,6 +5,7 @@ from django.test import TestCase
 from bankingOnDjango.models.LoanPayment import LoanPayment
 from bankingOnDjango.delegates.LoanPaymentDelegate import LoanPaymentDelegate
 
+
  #======================================================================
 # 
 # Encapsulates data for model LoanPayment
@@ -21,7 +22,7 @@ class LoanPaymentTest (TestCase) :
 		loan_payment = LoanPayment()
 		loan_payment.paymentReference = "default paymentReference field value"
 		loan_payment.amount = "default amount field value"
-		loan_payment.paymentDate = datetime.datetime.now()
+		loan_payment.paymentDate = datetime.now()
 		loan_payment.method = "default method field value"
 		loan_payment.status = "default status field value"
 		

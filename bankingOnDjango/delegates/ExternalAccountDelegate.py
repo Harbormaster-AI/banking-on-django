@@ -136,7 +136,7 @@ class ExternalAccountDelegate :
 			# get the ExternalAccount
 			external_account = self.get( external_account_id ).first()
 				
-			# add the children ids
+			# add the children by id
 			external_account.transactions.add(transactions_ids)
 				
 			# save it		
@@ -157,6 +157,7 @@ class ExternalAccountDelegate :
 
 		# lazy importing avoids circular dependenciesId
 		try:
+			# remove the children by id
 			external_account.transactions.remove(transactions_ids)
 
 			# save it

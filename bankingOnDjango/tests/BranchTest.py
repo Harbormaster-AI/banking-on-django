@@ -5,6 +5,7 @@ from django.test import TestCase
 from bankingOnDjango.models.Branch import Branch
 from bankingOnDjango.delegates.BranchDelegate import BranchDelegate
 
+
  #======================================================================
 # 
 # Encapsulates data for model Branch

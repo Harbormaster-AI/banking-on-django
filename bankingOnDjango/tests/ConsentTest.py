@@ -5,6 +5,7 @@ from django.test import TestCase
 from bankingOnDjango.models.Consent import Consent
 from bankingOnDjango.delegates.ConsentDelegate import ConsentDelegate
 
+
  #======================================================================
 # 
 # Encapsulates data for model Consent
@@ -19,8 +20,8 @@ from bankingOnDjango.delegates.ConsentDelegate import ConsentDelegate
 class ConsentTest (TestCase) :
 	def test_crud(self) :
 		consent = Consent()
-		consent.grantedOn = datetime.datetime.now()
-		consent.expiresOn = datetime.datetime.now()
+		consent.grantedOn = datetime.now()
+		consent.expiresOn = datetime.now()
 		consent.consentType = "default consentType field value"
 		consent.status = "default status field value"
 		

@@ -5,6 +5,7 @@ from django.test import TestCase
 from bankingOnDjango.models.FundsTransfer import FundsTransfer
 from bankingOnDjango.delegates.FundsTransferDelegate import FundsTransferDelegate
 
+
  #======================================================================
 # 
 # Encapsulates data for model FundsTransfer
@@ -21,8 +22,8 @@ class FundsTransferTest (TestCase) :
 		funds_transfer = FundsTransfer()
 		funds_transfer.transferReference = "default transferReference field value"
 		funds_transfer.amount = "default amount field value"
-		funds_transfer.requestedDate = datetime.datetime.now()
-		funds_transfer.executionDate = datetime.datetime.now()
+		funds_transfer.requestedDate = datetime.now()
+		funds_transfer.executionDate = datetime.now()
 		funds_transfer.purpose = "default purpose field value"
 		funds_transfer.feeAmount = "default feeAmount field value"
 		funds_transfer.method = "default method field value"

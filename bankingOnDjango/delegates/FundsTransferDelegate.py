@@ -282,7 +282,7 @@ class FundsTransferDelegate :
 			# get the FundsTransfer
 			funds_transfer = self.get( funds_transfer_id ).first()
 				
-			# add the children ids
+			# add the children by id
 			funds_transfer.transactions.add(transactions_ids)
 				
 			# save it		
@@ -303,6 +303,7 @@ class FundsTransferDelegate :
 
 		# lazy importing avoids circular dependenciesId
 		try:
+			# remove the children by id
 			funds_transfer.transactions.remove(transactions_ids)
 
 			# save it

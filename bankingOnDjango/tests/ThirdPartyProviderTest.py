@@ -5,6 +5,7 @@ from django.test import TestCase
 from bankingOnDjango.models.ThirdPartyProvider import ThirdPartyProvider
 from bankingOnDjango.delegates.ThirdPartyProviderDelegate import ThirdPartyProviderDelegate
 
+
  #======================================================================
 # 
 # Encapsulates data for model ThirdPartyProvider

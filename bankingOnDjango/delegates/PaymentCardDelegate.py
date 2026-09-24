@@ -234,7 +234,7 @@ class PaymentCardDelegate :
 			# get the PaymentCard
 			payment_card = self.get( payment_card_id ).first()
 				
-			# add the children ids
+			# add the children by id
 			payment_card.transactions.add(transactions_ids)
 				
 			# save it		
@@ -255,6 +255,7 @@ class PaymentCardDelegate :
 
 		# lazy importing avoids circular dependenciesId
 		try:
+			# remove the children by id
 			payment_card.transactions.remove(transactions_ids)
 
 			# save it

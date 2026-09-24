@@ -238,7 +238,7 @@ class LoanAccountDelegate :
 			# get the LoanAccount
 			loan_account = self.get( loan_account_id ).first()
 				
-			# add the children ids
+			# add the children by id
 			loan_account.borrowers.add(borrowers_ids)
 				
 			# save it		
@@ -259,6 +259,7 @@ class LoanAccountDelegate :
 
 		# lazy importing avoids circular dependenciesId
 		try:
+			# remove the children by id
 			loan_account.borrowers.remove(borrowers_ids)
 
 			# save it
@@ -285,7 +286,7 @@ class LoanAccountDelegate :
 			# get the LoanAccount
 			loan_account = self.get( loan_account_id ).first()
 				
-			# add the children ids
+			# add the children by id
 			loan_account.repayment_schedule.add(repayment_schedule_ids)
 				
 			# save it		
@@ -306,6 +307,7 @@ class LoanAccountDelegate :
 
 		# lazy importing avoids circular dependenciesId
 		try:
+			# remove the children by id
 			loan_account.repayment_schedule.remove(repayment_schedule_ids)
 
 			# save it
@@ -332,7 +334,7 @@ class LoanAccountDelegate :
 			# get the LoanAccount
 			loan_account = self.get( loan_account_id ).first()
 				
-			# add the children ids
+			# add the children by id
 			loan_account.payments.add(payments_ids)
 				
 			# save it		
@@ -353,6 +355,7 @@ class LoanAccountDelegate :
 
 		# lazy importing avoids circular dependenciesId
 		try:
+			# remove the children by id
 			loan_account.payments.remove(payments_ids)
 
 			# save it
@@ -379,7 +382,7 @@ class LoanAccountDelegate :
 			# get the LoanAccount
 			loan_account = self.get( loan_account_id ).first()
 				
-			# add the children ids
+			# add the children by id
 			loan_account.collateral.add(collateral_ids)
 				
 			# save it		
@@ -400,6 +403,7 @@ class LoanAccountDelegate :
 
 		# lazy importing avoids circular dependenciesId
 		try:
+			# remove the children by id
 			loan_account.collateral.remove(collateral_ids)
 
 			# save it
@@ -426,7 +430,7 @@ class LoanAccountDelegate :
 			# get the LoanAccount
 			loan_account = self.get( loan_account_id ).first()
 				
-			# add the children ids
+			# add the children by id
 			loan_account.fee_charges.add(fee_charges_ids)
 				
 			# save it		
@@ -447,6 +451,7 @@ class LoanAccountDelegate :
 
 		# lazy importing avoids circular dependenciesId
 		try:
+			# remove the children by id
 			loan_account.fee_charges.remove(fee_charges_ids)
 
 			# save it

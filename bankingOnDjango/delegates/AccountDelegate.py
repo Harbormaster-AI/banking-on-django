@@ -238,7 +238,7 @@ class AccountDelegate :
 			# get the Account
 			account = self.get( account_id ).first()
 				
-			# add the children ids
+			# add the children by id
 			account.owners.add(owners_ids)
 				
 			# save it		
@@ -259,6 +259,7 @@ class AccountDelegate :
 
 		# lazy importing avoids circular dependenciesId
 		try:
+			# remove the children by id
 			account.owners.remove(owners_ids)
 
 			# save it
@@ -285,7 +286,7 @@ class AccountDelegate :
 			# get the Account
 			account = self.get( account_id ).first()
 				
-			# add the children ids
+			# add the children by id
 			account.transactions.add(transactions_ids)
 				
 			# save it		
@@ -306,6 +307,7 @@ class AccountDelegate :
 
 		# lazy importing avoids circular dependenciesId
 		try:
+			# remove the children by id
 			account.transactions.remove(transactions_ids)
 
 			# save it
@@ -332,7 +334,7 @@ class AccountDelegate :
 			# get the Account
 			account = self.get( account_id ).first()
 				
-			# add the children ids
+			# add the children by id
 			account.statements.add(statements_ids)
 				
 			# save it		
@@ -353,6 +355,7 @@ class AccountDelegate :
 
 		# lazy importing avoids circular dependenciesId
 		try:
+			# remove the children by id
 			account.statements.remove(statements_ids)
 
 			# save it
@@ -379,7 +382,7 @@ class AccountDelegate :
 			# get the Account
 			account = self.get( account_id ).first()
 				
-			# add the children ids
+			# add the children by id
 			account.standing_instructions.add(standing_instructions_ids)
 				
 			# save it		
@@ -400,6 +403,7 @@ class AccountDelegate :
 
 		# lazy importing avoids circular dependenciesId
 		try:
+			# remove the children by id
 			account.standing_instructions.remove(standing_instructions_ids)
 
 			# save it
@@ -426,7 +430,7 @@ class AccountDelegate :
 			# get the Account
 			account = self.get( account_id ).first()
 				
-			# add the children ids
+			# add the children by id
 			account.fee_charges.add(fee_charges_ids)
 				
 			# save it		
@@ -447,6 +451,7 @@ class AccountDelegate :
 
 		# lazy importing avoids circular dependenciesId
 		try:
+			# remove the children by id
 			account.fee_charges.remove(fee_charges_ids)
 
 			# save it

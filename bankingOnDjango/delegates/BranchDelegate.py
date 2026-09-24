@@ -138,7 +138,7 @@ class BranchDelegate :
 			# get the Branch
 			branch = self.get( branch_id ).first()
 				
-			# add the children ids
+			# add the children by id
 			branch.accounts.add(accounts_ids)
 				
 			# save it		
@@ -159,6 +159,7 @@ class BranchDelegate :
 
 		# lazy importing avoids circular dependenciesId
 		try:
+			# remove the children by id
 			branch.accounts.remove(accounts_ids)
 
 			# save it
@@ -185,7 +186,7 @@ class BranchDelegate :
 			# get the Branch
 			branch = self.get( branch_id ).first()
 				
-			# add the children ids
+			# add the children by id
 			branch.loan_accounts.add(loan_accounts_ids)
 				
 			# save it		
@@ -206,6 +207,7 @@ class BranchDelegate :
 
 		# lazy importing avoids circular dependenciesId
 		try:
+			# remove the children by id
 			branch.loan_accounts.remove(loan_accounts_ids)
 
 			# save it
@@ -232,7 +234,7 @@ class BranchDelegate :
 			# get the Branch
 			branch = self.get( branch_id ).first()
 				
-			# add the children ids
+			# add the children by id
 			branch.atms.add(atms_ids)
 				
 			# save it		
@@ -253,6 +255,7 @@ class BranchDelegate :
 
 		# lazy importing avoids circular dependenciesId
 		try:
+			# remove the children by id
 			branch.atms.remove(atms_ids)
 
 			# save it

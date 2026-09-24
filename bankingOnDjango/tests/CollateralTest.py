@@ -5,6 +5,7 @@ from django.test import TestCase
 from bankingOnDjango.models.Collateral import Collateral
 from bankingOnDjango.delegates.CollateralDelegate import CollateralDelegate
 
+
  #======================================================================
 # 
 # Encapsulates data for model Collateral

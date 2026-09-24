@@ -138,7 +138,7 @@ class BankingProductDelegate :
 			# get the BankingProduct
 			banking_product = self.get( banking_product_id ).first()
 				
-			# add the children ids
+			# add the children by id
 			banking_product.accounts.add(accounts_ids)
 				
 			# save it		
@@ -159,6 +159,7 @@ class BankingProductDelegate :
 
 		# lazy importing avoids circular dependenciesId
 		try:
+			# remove the children by id
 			banking_product.accounts.remove(accounts_ids)
 
 			# save it
@@ -185,7 +186,7 @@ class BankingProductDelegate :
 			# get the BankingProduct
 			banking_product = self.get( banking_product_id ).first()
 				
-			# add the children ids
+			# add the children by id
 			banking_product.loan_accounts.add(loan_accounts_ids)
 				
 			# save it		
@@ -206,6 +207,7 @@ class BankingProductDelegate :
 
 		# lazy importing avoids circular dependenciesId
 		try:
+			# remove the children by id
 			banking_product.loan_accounts.remove(loan_accounts_ids)
 
 			# save it
@@ -232,7 +234,7 @@ class BankingProductDelegate :
 			# get the BankingProduct
 			banking_product = self.get( banking_product_id ).first()
 				
-			# add the children ids
+			# add the children by id
 			banking_product.payment_cards.add(payment_cards_ids)
 				
 			# save it		
@@ -253,6 +255,7 @@ class BankingProductDelegate :
 
 		# lazy importing avoids circular dependenciesId
 		try:
+			# remove the children by id
 			banking_product.payment_cards.remove(payment_cards_ids)
 
 			# save it

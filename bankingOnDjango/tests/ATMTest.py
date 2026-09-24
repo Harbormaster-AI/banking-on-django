@@ -5,6 +5,7 @@ from django.test import TestCase
 from bankingOnDjango.models.ATM import ATM
 from bankingOnDjango.delegates.ATMDelegate import ATMDelegate
 
+
  #======================================================================
 # 
 # Encapsulates data for model ATM

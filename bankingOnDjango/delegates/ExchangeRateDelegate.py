@@ -136,7 +136,7 @@ class ExchangeRateDelegate :
 			# get the ExchangeRate
 			exchange_rate = self.get( exchange_rate_id ).first()
 				
-			# add the children ids
+			# add the children by id
 			exchange_rate.fx_trades.add(fx_trades_ids)
 				
 			# save it		
@@ -157,6 +157,7 @@ class ExchangeRateDelegate :
 
 		# lazy importing avoids circular dependenciesId
 		try:
+			# remove the children by id
 			exchange_rate.fx_trades.remove(fx_trades_ids)
 
 			# save it

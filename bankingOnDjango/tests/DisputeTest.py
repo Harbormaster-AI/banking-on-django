@@ -5,6 +5,7 @@ from django.test import TestCase
 from bankingOnDjango.models.Dispute import Dispute
 from bankingOnDjango.delegates.DisputeDelegate import DisputeDelegate
 
+
  #======================================================================
 # 
 # Encapsulates data for model Dispute
@@ -20,7 +21,7 @@ class DisputeTest (TestCase) :
 	def test_crud(self) :
 		dispute = Dispute()
 		dispute.disputeReference = "default disputeReference field value"
-		dispute.raisedOn = datetime.datetime.now()
+		dispute.raisedOn = datetime.now()
 		dispute.reason = "default reason field value"
 		dispute.status = "default status field value"
 		

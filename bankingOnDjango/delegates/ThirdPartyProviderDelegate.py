@@ -136,7 +136,7 @@ class ThirdPartyProviderDelegate :
 			# get the ThirdPartyProvider
 			third_party_provider = self.get( third_party_provider_id ).first()
 				
-			# add the children ids
+			# add the children by id
 			third_party_provider.consents.add(consents_ids)
 				
 			# save it		
@@ -157,6 +157,7 @@ class ThirdPartyProviderDelegate :
 
 		# lazy importing avoids circular dependenciesId
 		try:
+			# remove the children by id
 			third_party_provider.consents.remove(consents_ids)
 
 			# save it

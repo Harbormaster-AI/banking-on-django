@@ -5,6 +5,7 @@ from django.test import TestCase
 from bankingOnDjango.models.RepaymentSchedule import RepaymentSchedule
 from bankingOnDjango.delegates.RepaymentScheduleDelegate import RepaymentScheduleDelegate
 
+
  #======================================================================
 # 
 # Encapsulates data for model RepaymentSchedule
@@ -20,7 +21,7 @@ class RepaymentScheduleTest (TestCase) :
 	def test_crud(self) :
 		repayment_schedule = RepaymentSchedule()
 		repayment_schedule.installmentNumber = 22
-		repayment_schedule.dueDate = datetime.datetime.now()
+		repayment_schedule.dueDate = datetime.now()
 		repayment_schedule.principalDue = "default principalDue field value"
 		repayment_schedule.interestDue = "default interestDue field value"
 		repayment_schedule.totalDue = "default totalDue field value"

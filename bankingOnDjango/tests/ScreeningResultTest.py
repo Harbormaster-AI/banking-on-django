@@ -5,6 +5,7 @@ from django.test import TestCase
 from bankingOnDjango.models.ScreeningResult import ScreeningResult
 from bankingOnDjango.delegates.ScreeningResultDelegate import ScreeningResultDelegate
 
+
  #======================================================================
 # 
 # Encapsulates data for model ScreeningResult
@@ -19,7 +20,7 @@ from bankingOnDjango.delegates.ScreeningResultDelegate import ScreeningResultDel
 class ScreeningResultTest (TestCase) :
 	def test_crud(self) :
 		screening_result = ScreeningResult()
-		screening_result.screeningDate = datetime.datetime.now()
+		screening_result.screeningDate = datetime.now()
 		screening_result.provider = "default provider field value"
 		screening_result.outcome = "default outcome field value"
 		

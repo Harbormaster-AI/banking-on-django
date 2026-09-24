@@ -5,6 +5,7 @@ from django.test import TestCase
 from bankingOnDjango.models.ExternalAccount import ExternalAccount
 from bankingOnDjango.delegates.ExternalAccountDelegate import ExternalAccountDelegate
 
+
  #======================================================================
 # 
 # Encapsulates data for model ExternalAccount

@@ -234,7 +234,7 @@ class ConsentDelegate :
 			# get the Consent
 			consent = self.get( consent_id ).first()
 				
-			# add the children ids
+			# add the children by id
 			consent.authorized_accounts.add(authorized_accounts_ids)
 				
 			# save it		
@@ -255,6 +255,7 @@ class ConsentDelegate :
 
 		# lazy importing avoids circular dependenciesId
 		try:
+			# remove the children by id
 			consent.authorized_accounts.remove(authorized_accounts_ids)
 
 			# save it

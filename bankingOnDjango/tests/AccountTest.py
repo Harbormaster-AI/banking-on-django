@@ -5,6 +5,7 @@ from django.test import TestCase
 from bankingOnDjango.models.Account import Account
 from bankingOnDjango.delegates.AccountDelegate import AccountDelegate
 
+
  #======================================================================
 # 
 # Encapsulates data for model Account
@@ -23,8 +24,8 @@ class AccountTest (TestCase) :
 		account.iban = "default iban field value"
 		account.accountName = "default accountName field value"
 		account.currency = "default currency field value"
-		account.openedOn = datetime.datetime.now()
-		account.closedOn = datetime.datetime.now()
+		account.openedOn = datetime.now()
+		account.closedOn = datetime.now()
 		account.accountType = "default accountType field value"
 		account.ownershipType = "default ownershipType field value"
 		account.status = "default status field value"

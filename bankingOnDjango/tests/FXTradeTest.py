@@ -5,6 +5,7 @@ from django.test import TestCase
 from bankingOnDjango.models.FXTrade import FXTrade
 from bankingOnDjango.delegates.FXTradeDelegate import FXTradeDelegate
 
+
  #======================================================================
 # 
 # Encapsulates data for model FXTrade
@@ -20,8 +21,8 @@ class FXTradeTest (TestCase) :
 	def test_crud(self) :
 		f_x_trade = FXTrade()
 		f_x_trade.tradeReference = "default tradeReference field value"
-		f_x_trade.tradeDate = datetime.datetime.now()
-		f_x_trade.settlementDate = datetime.datetime.now()
+		f_x_trade.tradeDate = datetime.now()
+		f_x_trade.settlementDate = datetime.now()
 		f_x_trade.amountSold = "default amountSold field value"
 		f_x_trade.amountBought = "default amountBought field value"
 		f_x_trade.rate = "default rate field value"

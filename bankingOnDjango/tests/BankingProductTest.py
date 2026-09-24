@@ -5,6 +5,7 @@ from django.test import TestCase
 from bankingOnDjango.models.BankingProduct import BankingProduct
 from bankingOnDjango.delegates.BankingProductDelegate import BankingProductDelegate
 
+
  #======================================================================
 # 
 # Encapsulates data for model BankingProduct

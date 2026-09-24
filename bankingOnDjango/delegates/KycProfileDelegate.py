@@ -138,7 +138,7 @@ class KycProfileDelegate :
 			# get the KycProfile
 			kyc_profile = self.get( kyc_profile_id ).first()
 				
-			# add the children ids
+			# add the children by id
 			kyc_profile.identity_documents.add(identity_documents_ids)
 				
 			# save it		
@@ -159,6 +159,7 @@ class KycProfileDelegate :
 
 		# lazy importing avoids circular dependenciesId
 		try:
+			# remove the children by id
 			kyc_profile.identity_documents.remove(identity_documents_ids)
 
 			# save it
@@ -185,7 +186,7 @@ class KycProfileDelegate :
 			# get the KycProfile
 			kyc_profile = self.get( kyc_profile_id ).first()
 				
-			# add the children ids
+			# add the children by id
 			kyc_profile.risk_assessments.add(risk_assessments_ids)
 				
 			# save it		
@@ -206,6 +207,7 @@ class KycProfileDelegate :
 
 		# lazy importing avoids circular dependenciesId
 		try:
+			# remove the children by id
 			kyc_profile.risk_assessments.remove(risk_assessments_ids)
 
 			# save it
@@ -232,7 +234,7 @@ class KycProfileDelegate :
 			# get the KycProfile
 			kyc_profile = self.get( kyc_profile_id ).first()
 				
-			# add the children ids
+			# add the children by id
 			kyc_profile.screenings.add(screenings_ids)
 				
 			# save it		
@@ -253,6 +255,7 @@ class KycProfileDelegate :
 
 		# lazy importing avoids circular dependenciesId
 		try:
+			# remove the children by id
 			kyc_profile.screenings.remove(screenings_ids)
 
 			# save it
